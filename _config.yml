@@ -70,5 +70,5 @@ theme: landscape
 deploy:
     type: git
     repo: git@github.com:AnSwErYWJ/AnSwErYWJ.github.io.git
-    branch: master
+    branch: blog
     message: 'update website:{{now("YYYY-MM-DD HH:mm:ss")}}'
