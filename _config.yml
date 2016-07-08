@@ -81,3 +81,7 @@ duoshuo_shortname: answerywj
 
 #baidu analytics
 baidu_analytics: e12c3989e0050ebd884435d0e1f1bed4
+
+# JiaThis 分享服务
+jiathis: true
+
