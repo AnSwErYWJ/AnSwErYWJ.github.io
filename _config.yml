@@ -4,8 +4,8 @@
 
 # Site
 title: AnSwEr's Blog
-subtitle: Stay true to yourself,stay gold.
-description:
+subtitle:
+description: Stay true to yourself,Stay gold.
 author: AnSwEr(Weijie Yuan)
 language: zh-Hans
 timezone:
@@ -75,3 +75,9 @@ deploy:
 
 # avatar
 avatar: http://o9zpdspb3.bkt.clouddn.com/avatar.png
+    
+# duoshuo
+duoshuo_shortname: answerywj
+
+#baidu analytics
+baidu_analytics: e12c3989e0050ebd884435d0e1f1bed4
