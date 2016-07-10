@@ -122,10 +122,10 @@ font:
 # Value is the target link (E.g. GitHub: https://github.com/iissnan)
 social:
   #LinkLabel: Link
-    Blog： http://www.answerywj.com
-    GitHub： https://github.com/AnSwErYWJ
-    CSDN Blog： http://blog.csdn.net/u011192270
-    Weibo： http://weibo.com/1783591593
+  # Blog： http://www.answerywj.com
+  # GitHub： https://github.com/AnSwErYWJ
+  # CSDN Blog： http://blog.csdn.net/u011192270
+  # Weibo： http://weibo.com/1783591593
     
 # Social Links Icons
 # Icon Mapping:
@@ -136,8 +136,8 @@ social_icons:
   enable: true
   # Icon Mappings.
   # KeyMapsToSocalItemKey: NameOfTheIconFromFontAwesome
-  GitHub: github
-  Weibo: weibo
+  #GitHub: github
+  #Weibo: weibo
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.jpg
