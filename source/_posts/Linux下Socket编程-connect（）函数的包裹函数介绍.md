@@ -8,9 +8,8 @@ tags:
 date: 2016-07-14 14:22:25
 categories: Linux C
 ---
-# Linux下Socket编程----connect（）函数的包裹函数介绍
 
-**这里主要介绍的是在TCP连接中的应用**
+> 这里主要介绍的是在TCP连接中的应用
 
 ## connect（）函数简介
 
@@ -70,7 +69,7 @@ int my_connect(int sockfd,const struct sockaddr *servaddr,socklen_t addrlen)
 ## 总结
 也许你会觉得这样实现会有些麻烦，但这样确实可以使你的程序更加健壮，如果因为一些时间差或者阻塞的原因，使得你的第一次connect失败，利用这个包裹函数就不至于使整个客户端程序错误，而进行重连，消除这些客观因素的影响。
 
->**注意：**具体的代码可以参见：<https://github.com/AnSwErYWJ/DogFood/blob/master/client.c>
+>代码[下载](https://github.com/AnSwErYWJ/DogFood/blob/master/C/network/client.c)
 
 ## About me
 [![forthebadge](http://forthebadge.com/images/badges/ages-20-30.svg)](http://forthebadge.com)
