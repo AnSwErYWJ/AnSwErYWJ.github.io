@@ -3,7 +3,7 @@ title: Git实用命令补充
 Antuor: AnSwEr(Weijie Yuan)
 toc: true
 date: 2016-07-08 15:28:12
-categories: git
+categories: Git
 tags: git
 ---
 

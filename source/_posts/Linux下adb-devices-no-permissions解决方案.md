@@ -6,7 +6,7 @@ toc: true
 tags:
   - adb
 date: 2016-07-14 14:11:03
-categories: debug
+categories: Solution
 ---
 
 # Linux下adb devices : no permissions解决方案
