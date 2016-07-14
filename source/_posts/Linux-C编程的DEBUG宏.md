@@ -9,10 +9,6 @@ date: 2016-07-14 14:20:25
 categories: Linux C
 ---
 
-# Linux C编程的DEBUG宏
-
-**在完成项目的过程中，免不了要进行调试，在这里我给大家介绍一种我正在使用的DEBUG宏。废话不多说，直接上代码。**
-
 ## 实现代码
 ```
 /*************************************************************************
@@ -55,7 +51,7 @@ int main(void)
 ```
 
 
->**注意：**具体代码可以参见<https://github.com/AnSwErYWJ/DogFood/blob/master/debug.c>。
+> 代码[下载](https://github.com/AnSwErYWJ/DogFood/blob/master/C/debug.c)。
 
 ## About me
 [![forthebadge](http://forthebadge.com/images/badges/ages-20-30.svg)](http://forthebadge.com)

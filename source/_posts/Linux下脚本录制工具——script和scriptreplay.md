@@ -13,7 +13,7 @@ categories: Shell
 在Linux开发环境下，想要录制一段屏幕视屏不是特别方便。这里分享给大家一种方便而且快捷的方法。
 
 ## 使用
-linux下有script和scriptreplay这两个工具组合用于录制命令行。在新版本系统中，已经集成了这两个工具，所以直接使用即可：
+Linux下有script和scriptreplay这两个工具组合用于录制命令行。在新版本系统中，已经集成了这两个工具，所以直接使用即可：
 ```
 script -t 2>timing.log -a >output.session
 <command>

@@ -9,8 +9,7 @@ date: 2016-07-14 14:11:03
 categories: Solution
 ---
 
-# Linux下adb devices : no permissions解决方案
-**Linux下adb工具[下载](http://pan.baidu.com/s/1o8RDgAA)，下载解压到*/usr/bin*目录。**
+> Linux下adb工具[下载](http://pan.baidu.com/s/1qYhBG2w)，下载解压到*/usr/bin*目录。
 
 ## 问题
 当我们在Linux下连接安卓手机，进行adb调试时，执行
