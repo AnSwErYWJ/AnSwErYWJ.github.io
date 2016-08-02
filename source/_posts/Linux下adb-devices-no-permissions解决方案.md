@@ -1,12 +1,12 @@
 ---
-title: 'Linux下adb devices : no permissions解决方案'
+title: Linux下adb devices no permissions解决方案
 Antuor: AnSwEr(Weijie Yuan)
 comments: true
 toc: true
 tags:
   - adb
 date: 2016-07-14 14:11:03
-categories: Solution
+categories: Working
 ---
 
 > Linux下adb工具[下载](http://pan.baidu.com/s/1qYhBG2w)，下载解压到*/usr/bin*目录。

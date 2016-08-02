@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="io," />
+  <meta name="keywords" content="read,write," />
 
 
 
@@ -94,7 +94,7 @@
 <meta property="og:description" content="前言：字节流套接字（TCP套接字）上的read和write函数所表现的行为不同于通常的文件I/O。字节流套接字调用read或write输入或输出的字节数可能比请求的数量少，然而这并不是出错的状态。这是因为内核中用于套接字的缓冲区可能达到了极限。通常这种情况出现在一次读多于4096个字节或write在非阻塞情况下返回不足字节数。为了不多次调用read或防止write返回不足字节数，我们用下面的两个函">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2016-07-14T07:35:52.000Z">
+<meta property="og:updated_time" content="2016-08-02T04:46:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UNIX编程安全读写函数——readn和writen">
 <meta name="twitter:description" content="前言：字节流套接字（TCP套接字）上的read和write函数所表现的行为不同于通常的文件I/O。字节流套接字调用read或write输入或输出的字节数可能比请求的数量少，然而这并不是出错的状态。这是因为内核中用于套接字的缓冲区可能达到了极限。通常这种情况出现在一次读多于4096个字节或write在非阻塞情况下返回不足字节数。为了不多次调用read或防止write返回不足字节数，我们用下面的两个函">
@@ -330,8 +330,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Linux-C/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux C</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C</span>
                   </a>
                 </span>
 
@@ -435,7 +435,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/io/" rel="tag">#io</a>
+            <a href="/tags/read/" rel="tag">#read</a>
+          
+            <a href="/tags/write/" rel="tag">#write</a>
           
         </div>
       
@@ -569,7 +571,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

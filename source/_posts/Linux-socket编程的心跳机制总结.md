@@ -4,9 +4,10 @@ Antuor: AnSwEr(Weijie Yuan)
 comments: true
 toc: true
 tags:
-  - socket
+  - tcp
+  - keepalive
 date: 2016-07-14 14:23:47
-categories: Linux C
+categories: C
 ---
 
 ## 什么是心跳机制

@@ -6,7 +6,7 @@ toc: true
 tags:
   - debug
 date: 2016-07-14 14:15:14
-categories: Shell
+categories: Linux
 ---
 
 # Linux Shell 脚本调试总结

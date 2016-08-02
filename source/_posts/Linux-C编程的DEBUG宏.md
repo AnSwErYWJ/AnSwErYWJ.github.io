@@ -6,7 +6,7 @@ toc: true
 tags:
   - debug
 date: 2016-07-14 14:20:25
-categories: Linux C
+categories: C
 ---
 
 ## 实现代码
