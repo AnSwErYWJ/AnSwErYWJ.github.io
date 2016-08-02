@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="socket," />
+  <meta name="keywords" content="tcp,keepalive," />
 
 
 
@@ -96,7 +96,7 @@
 为什么要使用我们都知道在TCP这种长连接情况下下，有可能有一大段时间是没有数据往来的，即处于空闲状态。理论上说，这个连接是一直保持连接的，但是在实际应用中，如果中间节点出现什么">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2016-07-14T07:54:11.000Z">
+<meta property="og:updated_time" content="2016-08-02T04:04:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux socket编程的心跳机制总结">
 <meta name="twitter:description" content="什么是心跳机制心跳机制就是当客户端与服务端建立连接后，每隔几分钟发送一个固定消息给服务端，服务端收到后回复一个固定消息给客户端，如果服务端几分钟内没有收到客户端消息，则视客户端断开。发送方可以是客户端和服务端，看具体需求。
@@ -333,8 +333,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Linux-C/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux C</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C</span>
                   </a>
                 </span>
 
@@ -456,7 +456,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/socket/" rel="tag">#socket</a>
+            <a href="/tags/tcp/" rel="tag">#tcp</a>
+          
+            <a href="/tags/keepalive/" rel="tag">#keepalive</a>
           
         </div>
       
@@ -590,7 +592,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

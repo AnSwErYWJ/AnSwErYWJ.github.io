@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://answerywj.com/"/>
-  <updated>2016-08-02T03:48:44.000Z</updated>
+  <updated>2016-08-02T04:44:30.000Z</updated>
   <id>http://answerywj.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://answerywj.com/2016/08/02/Linux%E7%9A%84%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%92%8C%E8%BD%AF%E9%93%BE%E6%8E%A5/"/>
     <id>http://answerywj.com/2016/08/02/Linux的硬链接和软链接/</id>
     <published>2016-08-02T03:46:09.000Z</published>
-    <updated>2016-08-02T03:48:44.000Z</updated>
+    <updated>2016-08-02T04:44:30.000Z</updated>
     
     <content type="html">&lt;p&gt;Linux下链接的命令是ln,可以通过&lt;code&gt;man ln&lt;/code&gt;查看,ln命令会保证每一处的链接同步.&lt;/p&gt;
 &lt;h2 id=&quot;硬链接&quot;&gt;&lt;a href=&quot;#硬链接&quot; class=&quot;headerlink&quot; title=&quot;硬链接&quot;&gt;&lt;/a&gt;硬链接&lt;/h2&gt;&lt;ol&gt;
@@ -48,7 +48,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;硬链接可以防止误删&lt;br&gt;硬连接的作用是允许一个文件拥有多个有效路径名，因为多个硬链接文件指向同一个索引节点.这样用户就可以建立硬连接到重要文件,以防止“误删”的功能.只删除一个链接并不影响索引节点本身和其它的链接，只有当最后一个链接被删除后，文件的数据块及目录的链接才会被释放。也就是说，文件才会被真正删除。&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;硬链接的两个限制&lt;br&gt;虽然系统有目录不能创建硬链接的限制,但是命令&lt;code&gt;ln -d&lt;/code&gt;可以让超级用户对目录作硬连接，这说明系统限制对目录进行硬连接只是一个硬性规定，并不是逻辑上不允许或技术上的不可行。那么为什么要做出这个硬性规定呢?&lt;br&gt;如果引入了对目录的硬连接就有可能在目录中引入循环，那么在目录遍历的时候系统就会陷入无限循环当中。可是符号连接不也可以引入循环吗？因为在linux系统中，每个文件(目录也是文件)都对应着一个inode结构，其中inode数据结构中包含了文件类型(目录，普通文件，符号连接文件等等)的信息，也就是说操作系统在遍历目录时可以判断出符号连接，既然可以判断出符号连接当然就可以采取一些措施来防范进入过大的循环了，系统在连续遇到8个符号连接后就停止遍历，这就是为什么对目录符号连接不会进入死循环的原因了。但是对于硬连接，由于操作系统中采用的数据结构和算法限制，目前是不能防范这种死循环的。&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;硬链接的两个限制&lt;br&gt;虽然系统有目录不能创建硬链接的限制,但是命令&lt;code&gt;ln -d&lt;/code&gt;可以让超级用户对目录作硬连接，这说明系统限制对目录进行硬连接只是一个硬性规定，并不是逻辑上不允许或技术上的不可行。那么为什么要做出这个硬性规定呢?&lt;br&gt;第一,如果引入了对目录的硬连接就有可能在目录中引入循环，那么在目录遍历的时候系统就会陷入无限循环当中。可是符号连接不也可以引入循环吗？因为在linux系统中，每个文件(目录也是文件)都对应着一个inode结构，其中inode数据结构中包含了文件类型(目录，普通文件，符号连接文件等等)的信息，也就是说操作系统在遍历目录时可以判断出符号连接，既然可以判断出符号连接当然就可以采取一些措施来防范进入过大的循环了，系统在连续遇到8个符号连接后就停止遍历，这就是为什么对目录符号连接不会进入死循环的原因了。但是对于硬连接，由于操作系统中采用的数据结构和算法限制，目前是不能防范这种死循环的。&lt;br&gt;第二,文件的dentry结构主要包含了文件名,文件的inode号,指向父目录dentry结构的指针和其他一些指针,这里关键是那个指向父目录的指针;系统中所有的dentry结构都是按杂凑值存放在杂凑表中的，这里的杂凑算法很重要，它是取文件名和文件的父目录dentry结构的地址一起杂凑运算出杂凑值的。现在我们假设有两个目录 /a和/b，其中/b是我们通过&lt;code&gt;ln -d&lt;/code&gt;命令建立起来的对/a的硬连接。这个时候内核空间中就会存在一个/a的dentry结构和一个/b的dentry结构，由上面的知识可知，/a和/b目录下面的每一个文件或目录都各自有对应的dentry结构(因为虽然/a目录下面的文件名没有改变，但是因为dentry结构有指向父目录dentry 的指针和计算杂凑值时考虑了父目录dentry结构的地址，这个时候dentry结构就分身乏术了),而且这种继承还会影响到所有子目录下面的文件，这样下来就会浪费很多系统空间了,特别是如果被硬连接的目录中存在大量文件和子目录的时候就更加明显了.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;About-me&quot;&gt;&lt;a href=&quot;#About-me&quot; class=&quot;headerlink&quot; title=&quot;About me&quot;&gt;&lt;/a&gt;About me&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://forthebadge.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;http://forthebadge.com/images/badges/ages-20-30.svg&quot; alt=&quot;forthebadge&quot;&gt;&lt;/a&gt;&lt;/p&gt;
@@ -72,7 +72,7 @@
       <category term="Linux" scheme="http://answerywj.com/categories/Linux/"/>
     
     
-      <category term="linux" scheme="http://answerywj.com/tags/linux/"/>
+      <category term="link" scheme="http://answerywj.com/tags/link/"/>
     
   </entry>
   
@@ -81,7 +81,7 @@
     <link href="http://answerywj.com/2016/07/14/Linux-socket%E7%BC%96%E7%A8%8B%E7%9A%84%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93/"/>
     <id>http://answerywj.com/2016/07/14/Linux-socket编程的心跳机制总结/</id>
     <published>2016-07-14T06:23:47.000Z</published>
-    <updated>2016-07-14T07:54:11.000Z</updated>
+    <updated>2016-08-02T04:04:50.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;什么是心跳机制&quot;&gt;&lt;a href=&quot;#什么是心跳机制&quot; class=&quot;headerlink&quot; title=&quot;什么是心跳机制&quot;&gt;&lt;/a&gt;什么是心跳机制&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;心跳机制&lt;/strong&gt;就是当客户端与服务端建立连接后，每隔几分钟发送一个固定消息给服务端，服务端收到后回复一个固定消息给客户端，如果服务端几分钟内没有收到客户端消息，则视客户端断开。发送方可以是客户端和服务端，看具体需求。&lt;/p&gt;
 &lt;h2 id=&quot;为什么要使用&quot;&gt;&lt;a href=&quot;#为什么要使用&quot; class=&quot;headerlink&quot; title=&quot;为什么要使用&quot;&gt;&lt;/a&gt;为什么要使用&lt;/h2&gt;&lt;p&gt;我们都知道在TCP这种长连接情况下下，有可能有一大段时间是没有数据往来的，即处于空闲状态。理论上说，这个连接是一直保持连接的，但是在实际应用中，如果中间节点出现什么故障是难以预测的。更可怕的是，有的节点会自动把一定时间之内没有数据交互的连接切断。所以，需要我们利用心跳机制，来维持长连接，保活通信。&lt;/p&gt;
@@ -122,10 +122,12 @@
     
     </summary>
     
-      <category term="Linux C" scheme="http://answerywj.com/categories/Linux-C/"/>
+      <category term="C" scheme="http://answerywj.com/categories/C/"/>
     
     
-      <category term="socket" scheme="http://answerywj.com/tags/socket/"/>
+      <category term="tcp" scheme="http://answerywj.com/tags/tcp/"/>
+    
+      <category term="keepalive" scheme="http://answerywj.com/tags/keepalive/"/>
     
   </entry>
   
@@ -134,7 +136,7 @@
     <link href="http://answerywj.com/2016/07/14/Linux%E4%B8%8BSocket%E7%BC%96%E7%A8%8B-connect%EF%BC%88%EF%BC%89%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%85%E8%A3%B9%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D/"/>
     <id>http://answerywj.com/2016/07/14/Linux下Socket编程-connect（）函数的包裹函数介绍/</id>
     <published>2016-07-14T06:22:25.000Z</published>
-    <updated>2016-07-14T07:50:16.000Z</updated>
+    <updated>2016-08-02T04:03:14.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;这里主要介绍的是在TCP连接中的应用&lt;/p&gt;
@@ -168,10 +170,12 @@
     
     </summary>
     
-      <category term="Linux C" scheme="http://answerywj.com/categories/Linux-C/"/>
+      <category term="C" scheme="http://answerywj.com/categories/C/"/>
     
     
-      <category term="socket" scheme="http://answerywj.com/tags/socket/"/>
+      <category term="tcp" scheme="http://answerywj.com/tags/tcp/"/>
+    
+      <category term="connect" scheme="http://answerywj.com/tags/connect/"/>
     
   </entry>
   
@@ -180,7 +184,7 @@
     <link href="http://answerywj.com/2016/07/14/Linux-C%E7%BC%96%E7%A8%8B%E7%9A%84DEBUG%E5%AE%8F/"/>
     <id>http://answerywj.com/2016/07/14/Linux-C编程的DEBUG宏/</id>
     <published>2016-07-14T06:20:25.000Z</published>
-    <updated>2016-07-14T07:47:56.000Z</updated>
+    <updated>2016-08-02T04:05:28.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;实现代码&quot;&gt;&lt;a href=&quot;#实现代码&quot; class=&quot;headerlink&quot; title=&quot;实现代码&quot;&gt;&lt;/a&gt;实现代码&lt;/h2&gt;&lt;figure class=&quot;highlight dart&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;18&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;19&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;20&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;21&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;22&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;23&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;24&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;25&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&lt;span class=&quot;markdown&quot;&gt;/&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;emphasis&quot;&gt;***&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;code&quot;&gt;	&amp;gt; File Name: debug.c&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;code&quot;&gt;	&amp;gt; Author: AnSwEr&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;code&quot;&gt;	&amp;gt; Mail: 1045837697@qq.com&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;code&quot;&gt;	&amp;gt; Created Time: 2015年07月23日 星期四 18时19分48秒&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt; &lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;&lt;span class=&quot;strong&quot;&gt;*****&lt;/span&gt;**/&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;#include&amp;lt;stdio.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;#define DEBUG_PRINT &lt;span class=&quot;keyword&quot;&gt;do&lt;/span&gt;&amp;#123;&amp;#125;&lt;span class=&quot;keyword&quot;&gt;while&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;#&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; defined(DEBUG_PRINT)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;#define DEBUG(...)\&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;do&lt;/span&gt;&amp;#123;\&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            fprintf(stderr,&lt;span class=&quot;string&quot;&gt;&quot;-----DEBUG-----\n&quot;&lt;/span&gt;);\&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            fprintf(stderr,&lt;span class=&quot;string&quot;&gt;&quot;%s %s\n&quot;&lt;/span&gt;,__TIME__,__DATE__);\&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            fprintf(stderr,&lt;span class=&quot;string&quot;&gt;&quot;%s:%d:%s():&quot;&lt;/span&gt;,__FILE__,__LINE__,__func__);\&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            fprintf(stderr,__VA_ARGS__);\&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125;&lt;span class=&quot;keyword&quot;&gt;while&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;#endif&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;int&lt;/span&gt; main(&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    DEBUG(&lt;span class=&quot;string&quot;&gt;&quot;Debug successfully!\n&quot;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;h2 id=&quot;说明&quot;&gt;&lt;a href=&quot;#说明&quot; class=&quot;headerlink&quot; title=&quot;说明&quot;&gt;&lt;/a&gt;说明&lt;/h2&gt;&lt;ol&gt;
@@ -208,7 +212,7 @@
     
     </summary>
     
-      <category term="Linux C" scheme="http://answerywj.com/categories/Linux-C/"/>
+      <category term="C" scheme="http://answerywj.com/categories/C/"/>
     
     
       <category term="debug" scheme="http://answerywj.com/tags/debug/"/>
@@ -220,7 +224,7 @@
     <link href="http://answerywj.com/2016/07/14/UNIX%E7%BC%96%E7%A8%8B%E5%AE%89%E5%85%A8%E8%AF%BB%E5%86%99%E5%87%BD%E6%95%B0%E2%80%94%E2%80%94readn%E5%92%8Cwriten/"/>
     <id>http://answerywj.com/2016/07/14/UNIX编程安全读写函数——readn和writen/</id>
     <published>2016-07-14T06:19:20.000Z</published>
-    <updated>2016-07-14T07:35:52.000Z</updated>
+    <updated>2016-08-02T04:46:30.000Z</updated>
     
     <content type="html">&lt;p&gt;&lt;strong&gt;前言：&lt;/strong&gt;字节流套接字（TCP套接字）上的read和write函数所表现的行为不同于通常的文件I/O。字节流套接字调用read或write输入或输出的字节数可能比请求的数量少，然而这并不是出错的状态。&lt;strong&gt;这是因为内核中用于套接字的缓冲区可能达到了极限。&lt;/strong&gt;通常这种情况出现在一次读多于4096个字节或write在非阻塞情况下返回不足字节数。为了不多次调用read或防止write返回不足字节数，我们用下面的两个函数来替代read和write。&lt;/p&gt;
 &lt;h2 id=&quot;readn&quot;&gt;&lt;a href=&quot;#readn&quot; class=&quot;headerlink&quot; title=&quot;readn&quot;&gt;&lt;/a&gt;readn&lt;/h2&gt;&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;18&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;19&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;20&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;21&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;22&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;23&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;24&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;25&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;26&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;27&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;28&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;29&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;30&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;meta-string&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;meta-string&quot;&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;meta-string&quot;&gt;&amp;lt;errno.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;ssize_t&lt;/span&gt; safe_read(&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; fd,&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; *vptr,&lt;span class=&quot;keyword&quot;&gt;size_t&lt;/span&gt; n)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;size_t&lt;/span&gt; nleft;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;ssize_t&lt;/span&gt; nread;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt; *ptr;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    ptr=vptr;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    nleft=n;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;while&lt;/span&gt;(nleft &amp;gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;((nread = read(fd,ptr,nleft)) &amp;lt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(errno == EINTR) &lt;span class=&quot;comment&quot;&gt;//被信号中断，重读&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                nread = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;comment&quot;&gt;//出错&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;-1&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(nread == &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;//EOF&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	        &lt;span class=&quot;keyword&quot;&gt;break&lt;/span&gt;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        nleft -= nread;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        ptr += nread;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; (n-nleft);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -243,10 +247,12 @@
     
     </summary>
     
-      <category term="Linux C" scheme="http://answerywj.com/categories/Linux-C/"/>
+      <category term="C" scheme="http://answerywj.com/categories/C/"/>
     
     
-      <category term="io" scheme="http://answerywj.com/tags/io/"/>
+      <category term="read" scheme="http://answerywj.com/tags/read/"/>
+    
+      <category term="write" scheme="http://answerywj.com/tags/write/"/>
     
   </entry>
   
@@ -255,7 +261,7 @@
     <link href="http://answerywj.com/2016/07/14/C%E8%AF%AD%E8%A8%80%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/"/>
     <id>http://answerywj.com/2016/07/14/C语言生成随机数/</id>
     <published>2016-07-14T06:16:51.000Z</published>
-    <updated>2016-07-14T07:35:01.000Z</updated>
+    <updated>2016-08-02T04:45:43.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;rand函数&quot;&gt;&lt;a href=&quot;#rand函数&quot; class=&quot;headerlink&quot; title=&quot;rand函数&quot;&gt;&lt;/a&gt;rand函数&lt;/h2&gt;&lt;h3 id=&quot;函数介绍&quot;&gt;&lt;a href=&quot;#函数介绍&quot; class=&quot;headerlink&quot; title=&quot;函数介绍&quot;&gt;&lt;/a&gt;函数介绍&lt;/h3&gt;&lt;p&gt;&lt;em&gt;rand()&lt;/em&gt;函数是产生随机数的一个随机函数：&lt;br&gt;&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;meta-string&quot;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;rand&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;返回值：&lt;br&gt;&lt;em&gt;rand()&lt;/em&gt;返回值为一随机数值，范围在0至RAND_MAX 间（RAND_MAX定义在stdlib.h，其值为2147483647）。&lt;/p&gt;
@@ -288,7 +294,7 @@
     
     </summary>
     
-      <category term="Linux C" scheme="http://answerywj.com/categories/Linux-C/"/>
+      <category term="C" scheme="http://answerywj.com/categories/C/"/>
     
     
       <category term="随机数" scheme="http://answerywj.com/tags/%E9%9A%8F%E6%9C%BA%E6%95%B0/"/>
@@ -300,7 +306,7 @@
     <link href="http://answerywj.com/2016/07/14/Linux-Shell-%E8%84%9A%E6%9C%AC%E8%B0%83%E8%AF%95%E6%80%BB%E7%BB%93/"/>
     <id>http://answerywj.com/2016/07/14/Linux-Shell-脚本调试总结/</id>
     <published>2016-07-14T06:15:14.000Z</published>
-    <updated>2016-07-14T06:40:22.000Z</updated>
+    <updated>2016-08-02T04:05:03.000Z</updated>
     
     <content type="html">&lt;h1 id=&quot;Linux-Shell-脚本调试总结&quot;&gt;&lt;a href=&quot;#Linux-Shell-脚本调试总结&quot; class=&quot;headerlink&quot; title=&quot;Linux Shell 脚本调试总结&quot;&gt;&lt;/a&gt;Linux Shell 脚本调试总结&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;Shell脚本是用户与Linux操作系统交互的一种方式,在脚本编程过程中自然少不了进行调试工作,本文将介绍三种常用的调试方法.(默认使用bash shell)&lt;/p&gt;
@@ -331,7 +337,7 @@
     
     </summary>
     
-      <category term="Shell" scheme="http://answerywj.com/categories/Shell/"/>
+      <category term="Linux" scheme="http://answerywj.com/categories/Linux/"/>
     
     
       <category term="debug" scheme="http://answerywj.com/tags/debug/"/>
@@ -339,11 +345,11 @@
   </entry>
   
   <entry>
-    <title>Linux下adb devices : no permissions解决方案</title>
+    <title>Linux下adb devices no permissions解决方案</title>
     <link href="http://answerywj.com/2016/07/14/Linux%E4%B8%8Badb-devices-no-permissions%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
     <id>http://answerywj.com/2016/07/14/Linux下adb-devices-no-permissions解决方案/</id>
     <published>2016-07-14T06:11:03.000Z</published>
-    <updated>2016-07-14T07:28:01.000Z</updated>
+    <updated>2016-08-02T04:47:01.000Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;Linux下adb工具&lt;a href=&quot;http://pan.baidu.com/s/1qYhBG2w&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;下载&lt;/a&gt;，下载解压到&lt;em&gt;/usr/bin&lt;/em&gt;目录。&lt;/p&gt;
@@ -379,7 +385,7 @@
     
     </summary>
     
-      <category term="Solution" scheme="http://answerywj.com/categories/Solution/"/>
+      <category term="Working" scheme="http://answerywj.com/categories/Working/"/>
     
     
       <category term="adb" scheme="http://answerywj.com/tags/adb/"/>
@@ -391,7 +397,7 @@
     <link href="http://answerywj.com/2016/07/14/Linux%E4%B8%8B%E8%84%9A%E6%9C%AC%E5%BD%95%E5%88%B6%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94script%E5%92%8Cscriptreplay/"/>
     <id>http://answerywj.com/2016/07/14/Linux下脚本录制工具——script和scriptreplay/</id>
     <published>2016-07-14T06:04:51.000Z</published>
-    <updated>2016-07-14T07:29:09.000Z</updated>
+    <updated>2016-08-02T04:02:56.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在Linux开发环境下，想要录制一段屏幕视屏不是特别方便。这里分享给大家一种方便而且快捷的方法。&lt;/p&gt;
 &lt;h2 id=&quot;使用&quot;&gt;&lt;a href=&quot;#使用&quot; class=&quot;headerlink&quot; title=&quot;使用&quot;&gt;&lt;/a&gt;使用&lt;/h2&gt;&lt;p&gt;Linux下有script和scriptreplay这两个工具组合用于录制命令行。在新版本系统中，已经集成了这两个工具，所以直接使用即可：&lt;br&gt;&lt;figure class=&quot;highlight stylus&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;script -t &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;&amp;gt;timing&lt;span class=&quot;selector-class&quot;&gt;.log&lt;/span&gt; -&lt;span class=&quot;selector-tag&quot;&gt;a&lt;/span&gt; &amp;gt;output&lt;span class=&quot;selector-class&quot;&gt;.session&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;lt;command&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;lt;command&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;exit&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;scriptreplay timing&lt;span class=&quot;selector-class&quot;&gt;.log&lt;/span&gt; output.session&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
@@ -419,10 +425,12 @@
     
     </summary>
     
-      <category term="Shell" scheme="http://answerywj.com/categories/Shell/"/>
+      <category term="Linux" scheme="http://answerywj.com/categories/Linux/"/>
     
     
-      <category term="shell" scheme="http://answerywj.com/tags/shell/"/>
+      <category term="script" scheme="http://answerywj.com/tags/script/"/>
+    
+      <category term="scriptreplay" scheme="http://answerywj.com/tags/scriptreplay/"/>
     
   </entry>
   
@@ -431,7 +439,7 @@
     <link href="http://answerywj.com/2016/07/14/Linux-fork%E7%82%B8%E5%BC%B9%E8%A7%A3%E6%9E%90/"/>
     <id>http://answerywj.com/2016/07/14/Linux-fork炸弹解析/</id>
     <published>2016-07-14T05:52:31.000Z</published>
-    <updated>2016-07-14T07:21:52.000Z</updated>
+    <updated>2016-08-02T04:05:20.000Z</updated>
     
     <content type="html">&lt;h1 id=&quot;Linux-Fork-Bomb&quot;&gt;&lt;a href=&quot;#Linux-Fork-Bomb&quot; class=&quot;headerlink&quot; title=&quot;Linux Fork Bomb&quot;&gt;&lt;/a&gt;Linux Fork Bomb&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;:(){ :|: &amp;amp; };:&lt;/strong&gt;是一个bash函数，以Fork Bomb闻名，是一个拒绝服务攻击 的Linux 系统。如果你好奇地去执行了这个命令，那么赶快重启系统吧~！&lt;/p&gt;
 &lt;h2 id=&quot;命令解析&quot;&gt;&lt;a href=&quot;#命令解析&quot; class=&quot;headerlink&quot; title=&quot;命令解析&quot;&gt;&lt;/a&gt;命令解析&lt;/h2&gt;&lt;figure class=&quot;highlight less&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;selector-pseudo&quot;&gt;:()&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	: | : &lt;span class=&quot;selector-tag&quot;&gt;&amp;amp;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;;:&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -464,10 +472,10 @@
     
     </summary>
     
-      <category term="Shell" scheme="http://answerywj.com/categories/Shell/"/>
+      <category term="Linux" scheme="http://answerywj.com/categories/Linux/"/>
     
     
-      <category term="shell" scheme="http://answerywj.com/tags/shell/"/>
+      <category term="fork bomb" scheme="http://answerywj.com/tags/fork-bomb/"/>
     
   </entry>
   

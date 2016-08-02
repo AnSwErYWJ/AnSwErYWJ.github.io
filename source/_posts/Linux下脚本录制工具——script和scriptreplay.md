@@ -4,9 +4,10 @@ Antuor: AnSwEr(Weijie Yuan)
 comments: true
 toc: true
 tags:
-  - shell
+  - script
+  - scriptreplay
 date: 2016-07-14 14:04:51
-categories: Shell
+categories: Linux
 ---
 
 ## 前言

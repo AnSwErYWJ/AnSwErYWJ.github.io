@@ -4,9 +4,10 @@ Antuor: AnSwEr(Weijie Yuan)
 comments: true
 toc: true
 tags:
-  - socket
+  - tcp
+  - connect
 date: 2016-07-14 14:22:25
-categories: Linux C
+categories: C
 ---
 
 > 这里主要介绍的是在TCP连接中的应用

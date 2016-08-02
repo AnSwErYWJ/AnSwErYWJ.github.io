@@ -4,9 +4,9 @@ Antuor: AnSwEr(Weijie Yuan)
 comments: true
 toc: true
 tags:
-  - shell
+  - fork bomb
 date: 2016-07-14 13:52:31
-categories: Shell
+categories: Linux
 ---
 
 # Linux Fork Bomb
