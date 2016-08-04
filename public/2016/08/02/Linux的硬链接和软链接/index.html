@@ -104,7 +104,7 @@
 对源文件进行">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2016-08-02T04:44:30.000Z">
+<meta property="og:updated_time" content="2016-08-04T01:46:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux的硬链接和软链接">
 <meta name="twitter:description" content="Linux下链接的命令是ln,可以通过man ln查看,ln命令会保证每一处的链接同步.
@@ -406,7 +406,9 @@
 <li>可以是任意文件或者目录,可以链接不同文件系统的文件.</li>
 <li>可以链接不存在的文件,这种现象称为”断链”;也可以链接自己</li>
 <li>命令:<code>ln -s srouce dest</code>,<code>source</code>最好用绝对路径表示,这样可以在任何目录下进行链接.若使用相对路径，如果当前的工作路径与要创建的符号链接文件所在路径不同，就不能进行链接.</li>
-<li>对源文件进行修改或删除,软链接文件会同步修改.<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点:"></a>缺点:</h3></li>
+<li>对源文件进行修改或删除,软链接文件会同步修改.</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点:"></a>缺点:</h3><ol>
 <li>因为链接文件中包含的是另一个文件的位置信息，所以当源文件从一个目录移到其它目录中,再访问链接文件,系统就找不到了.</li>
 <li>需要系统分配额外的空间用于建立新的索引节点和保存源文件的路径.</li>
 </ol>
@@ -596,7 +598,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

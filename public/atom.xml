@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://answerywj.com/"/>
-  <updated>2016-08-02T04:44:30.000Z</updated>
+  <updated>2016-08-04T01:46:04.000Z</updated>
   <id>http://answerywj.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://answerywj.com/2016/08/02/Linux%E7%9A%84%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%92%8C%E8%BD%AF%E9%93%BE%E6%8E%A5/"/>
     <id>http://answerywj.com/2016/08/02/Linux的硬链接和软链接/</id>
     <published>2016-08-02T03:46:09.000Z</published>
-    <updated>2016-08-02T04:44:30.000Z</updated>
+    <updated>2016-08-04T01:46:04.000Z</updated>
     
     <content type="html">&lt;p&gt;Linux下链接的命令是ln,可以通过&lt;code&gt;man ln&lt;/code&gt;查看,ln命令会保证每一处的链接同步.&lt;/p&gt;
 &lt;h2 id=&quot;硬链接&quot;&gt;&lt;a href=&quot;#硬链接&quot; class=&quot;headerlink&quot; title=&quot;硬链接&quot;&gt;&lt;/a&gt;硬链接&lt;/h2&gt;&lt;ol&gt;
@@ -34,7 +34,9 @@
 &lt;li&gt;可以是任意文件或者目录,可以链接不同文件系统的文件.&lt;/li&gt;
 &lt;li&gt;可以链接不存在的文件,这种现象称为”断链”;也可以链接自己&lt;/li&gt;
 &lt;li&gt;命令:&lt;code&gt;ln -s srouce dest&lt;/code&gt;,&lt;code&gt;source&lt;/code&gt;最好用绝对路径表示,这样可以在任何目录下进行链接.若使用相对路径，如果当前的工作路径与要创建的符号链接文件所在路径不同，就不能进行链接.&lt;/li&gt;
-&lt;li&gt;对源文件进行修改或删除,软链接文件会同步修改.&lt;h3 id=&quot;缺点&quot;&gt;&lt;a href=&quot;#缺点&quot; class=&quot;headerlink&quot; title=&quot;缺点:&quot;&gt;&lt;/a&gt;缺点:&lt;/h3&gt;&lt;/li&gt;
+&lt;li&gt;对源文件进行修改或删除,软链接文件会同步修改.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;缺点&quot;&gt;&lt;a href=&quot;#缺点&quot; class=&quot;headerlink&quot; title=&quot;缺点:&quot;&gt;&lt;/a&gt;缺点:&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;因为链接文件中包含的是另一个文件的位置信息，所以当源文件从一个目录移到其它目录中,再访问链接文件,系统就找不到了.&lt;/li&gt;
 &lt;li&gt;需要系统分配额外的空间用于建立新的索引节点和保存源文件的路径.&lt;/li&gt;
 &lt;/ol&gt;
