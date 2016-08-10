@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://answerywj.com/"/>
-  <updated>2016-08-04T01:46:04.000Z</updated>
+  <updated>2016-08-10T09:04:34.000Z</updated>
   <id>http://answerywj.com/</id>
   
   <author>
@@ -20,20 +20,16 @@
     <link href="http://answerywj.com/2016/08/02/Linux%E7%9A%84%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%92%8C%E8%BD%AF%E9%93%BE%E6%8E%A5/"/>
     <id>http://answerywj.com/2016/08/02/Linux的硬链接和软链接/</id>
     <published>2016-08-02T03:46:09.000Z</published>
-    <updated>2016-08-04T01:46:04.000Z</updated>
+    <updated>2016-08-10T09:04:34.000Z</updated>
     
-    <content type="html">&lt;p&gt;Linux下链接的命令是ln,可以通过&lt;code&gt;man ln&lt;/code&gt;查看,ln命令会保证每一处的链接同步.&lt;/p&gt;
-&lt;h2 id=&quot;硬链接&quot;&gt;&lt;a href=&quot;#硬链接&quot; class=&quot;headerlink&quot; title=&quot;硬链接&quot;&gt;&lt;/a&gt;硬链接&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;链接的是索引节点(inode),硬链接文件inode值相同(在Linux的文件系统的文件不管是什么类型都给它分配一个indoe号),所以硬链接文件不占用磁盘空间.相当于创建一个别名.&lt;/li&gt;
-&lt;li&gt;有两个限制:目录不能创建硬链接;只能在同一个文件系统中进行硬链接.&lt;/li&gt;
-&lt;li&gt;命令:&lt;code&gt;ln srouce dest&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;对源文件进行修改或删除,硬链接文件会同步修改.但删除硬链接的源文件,硬链接文件仍然存在.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&quot;软链接&quot;&gt;&lt;a href=&quot;#软链接&quot; class=&quot;headerlink&quot; title=&quot;软链接&quot;&gt;&lt;/a&gt;软链接&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;软链接又称为符号链接,链接的是路径(path),链接文件中包含的是另一个文件的位置信息.&lt;/li&gt;
-&lt;li&gt;可以是任意文件或者目录,可以链接不同文件系统的文件.&lt;/li&gt;
-&lt;li&gt;可以链接不存在的文件,这种现象称为”断链”;也可以链接自己&lt;/li&gt;
-&lt;li&gt;命令:&lt;code&gt;ln -s srouce dest&lt;/code&gt;,&lt;code&gt;source&lt;/code&gt;最好用绝对路径表示,这样可以在任何目录下进行链接.若使用相对路径，如果当前的工作路径与要创建的符号链接文件所在路径不同，就不能进行链接.&lt;/li&gt;
+    <content type="html">&lt;p&gt;Linux下链接的命令是ln,可以通过&lt;figure class=&quot;highlight plain&quot;&gt;&lt;figcaption&gt;&lt;span&gt;ln```查看.&lt;/span&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;## 硬链接&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;1. 链接的是索引节点(inode),硬链接文件inode值相同(在Linux的文件系统的文件不管是什么类型都给它分配一个indoe号),所以硬链接文件不占用磁盘空间.相当于创建一个别名.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2. 有两个限制:目录不能创建硬链接;只能在同一个文件系统中进行硬链接.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3. 命令:&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ln srouce dest
+&lt;figure class=&quot;highlight markdown&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;bullet&quot;&gt;4. &lt;/span&gt;对源文件进行修改或删除,硬链接文件会同步修改.但删除硬链接的源文件,硬链接文件仍然存在.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;section&quot;&gt;## 软链接&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;bullet&quot;&gt;1. &lt;/span&gt;软链接又称为符号链接,链接的是路径(path),链接文件中包含的是另一个文件的位置信息.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;bullet&quot;&gt;2. &lt;/span&gt;可以是任意文件或者目录,可以链接不同文件系统的文件.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;bullet&quot;&gt;3. &lt;/span&gt;可以链接不存在的文件,这种现象称为&quot;断链&quot;;也可以链接自己&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;bullet&quot;&gt;4. &lt;/span&gt;命令:&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+ln -s srouce dest
+```
+```source```最好用绝对路径表示,这样可以在任何目录下进行链接.若使用相对路径，如果当前的工作路径与要创建的符号链接文件所在路径不同，就不能进行链接.
+&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
 &lt;li&gt;对源文件进行修改或删除,软链接文件会同步修改.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&quot;缺点&quot;&gt;&lt;a href=&quot;#缺点&quot; class=&quot;headerlink&quot; title=&quot;缺点:&quot;&gt;&lt;/a&gt;缺点:&lt;/h3&gt;&lt;ol&gt;
@@ -66,8 +62,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;Linux下链接的命令是ln,可以通过&lt;code&gt;man ln&lt;/code&gt;查看,ln命令会保证每一处的链接同步.&lt;/p&gt;
-&lt;h2 id=&quot;硬链接&quot;&gt;&lt;a href=&quot;#硬链接&quot; class=&quot;headerlink&quot; title=&quot;硬链接&quot;&gt;&lt;/a&gt;硬链接&lt;/h2&gt;&lt;ol&gt;
+      &lt;p&gt;Linux下链接的命令是ln,可以通过&lt;figure class=&quot;highlight plain&quot;&gt;&lt;figcaption&gt;&lt;span&gt;ln```查看.&lt;/span&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div 
     
     </summary>
     
