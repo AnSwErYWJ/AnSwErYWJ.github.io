@@ -86,33 +86,24 @@
 
 
 
-<meta name="description" content="Linux下链接的命令是ln,可以通过man ln查看,ln命令会保证每一处的链接同步.
-硬链接
-链接的是索引节点(inode),硬链接文件inode值相同(在Linux的文件系统的文件不管是什么类型都给它分配一个indoe号),所以硬链接文件不占用磁盘空间.相当于创建一个别名.
-有两个限制:目录不能创建硬链接;只能在同一个文件系统中进行硬链接.
-命令:ln srouce dest.
-对源文件进行">
+<meta name="description" content="Linux下链接的命令是ln,可以通过ln```查看.12345## 硬链接1. 链接的是索引节点(inode),硬链接文件inode值相同(在Linux的文件系统的文件不管是什么类型都给它分配一个indoe号),所以硬链接文件不占用磁盘空间.相当于创建一个别名.2. 有两个限制:目录不能创建硬链接;只能在同一个文件系统中进行硬链接.3. 命令:
+ln srouce dest
+12345674.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux的硬链接和软链接">
 <meta property="og:url" content="http://answerywj.com/2016/08/02/Linux的硬链接和软链接/index.html">
 <meta property="og:site_name" content="AnSwEr's Blog">
-<meta property="og:description" content="Linux下链接的命令是ln,可以通过man ln查看,ln命令会保证每一处的链接同步.
-硬链接
-链接的是索引节点(inode),硬链接文件inode值相同(在Linux的文件系统的文件不管是什么类型都给它分配一个indoe号),所以硬链接文件不占用磁盘空间.相当于创建一个别名.
-有两个限制:目录不能创建硬链接;只能在同一个文件系统中进行硬链接.
-命令:ln srouce dest.
-对源文件进行">
+<meta property="og:description" content="Linux下链接的命令是ln,可以通过ln```查看.12345## 硬链接1. 链接的是索引节点(inode),硬链接文件inode值相同(在Linux的文件系统的文件不管是什么类型都给它分配一个indoe号),所以硬链接文件不占用磁盘空间.相当于创建一个别名.2. 有两个限制:目录不能创建硬链接;只能在同一个文件系统中进行硬链接.3. 命令:
+ln srouce dest
+12345674.">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2016-08-04T01:46:04.000Z">
+<meta property="og:updated_time" content="2016-08-10T09:04:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux的硬链接和软链接">
-<meta name="twitter:description" content="Linux下链接的命令是ln,可以通过man ln查看,ln命令会保证每一处的链接同步.
-硬链接
-链接的是索引节点(inode),硬链接文件inode值相同(在Linux的文件系统的文件不管是什么类型都给它分配一个indoe号),所以硬链接文件不占用磁盘空间.相当于创建一个别名.
-有两个限制:目录不能创建硬链接;只能在同一个文件系统中进行硬链接.
-命令:ln srouce dest.
-对源文件进行">
+<meta name="twitter:description" content="Linux下链接的命令是ln,可以通过ln```查看.12345## 硬链接1. 链接的是索引节点(inode),硬链接文件inode值相同(在Linux的文件系统的文件不管是什么类型都给它分配一个indoe号),所以硬链接文件不占用磁盘空间.相当于创建一个别名.2. 有两个限制:目录不能创建硬链接;只能在同一个文件系统中进行硬链接.3. 命令:
+ln srouce dest
+12345674.">
 <meta name="twitter:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 
 
@@ -394,18 +385,14 @@
       
 
       
-        <p>Linux下链接的命令是ln,可以通过<code>man ln</code>查看,ln命令会保证每一处的链接同步.</p>
-<h2 id="硬链接"><a href="#硬链接" class="headerlink" title="硬链接"></a>硬链接</h2><ol>
-<li>链接的是索引节点(inode),硬链接文件inode值相同(在Linux的文件系统的文件不管是什么类型都给它分配一个indoe号),所以硬链接文件不占用磁盘空间.相当于创建一个别名.</li>
-<li>有两个限制:目录不能创建硬链接;只能在同一个文件系统中进行硬链接.</li>
-<li>命令:<code>ln srouce dest</code>.</li>
-<li>对源文件进行修改或删除,硬链接文件会同步修改.但删除硬链接的源文件,硬链接文件仍然存在.</li>
-</ol>
-<h2 id="软链接"><a href="#软链接" class="headerlink" title="软链接"></a>软链接</h2><ol>
-<li>软链接又称为符号链接,链接的是路径(path),链接文件中包含的是另一个文件的位置信息.</li>
-<li>可以是任意文件或者目录,可以链接不同文件系统的文件.</li>
-<li>可以链接不存在的文件,这种现象称为”断链”;也可以链接自己</li>
-<li>命令:<code>ln -s srouce dest</code>,<code>source</code>最好用绝对路径表示,这样可以在任何目录下进行链接.若使用相对路径，如果当前的工作路径与要创建的符号链接文件所在路径不同，就不能进行链接.</li>
+        <p>Linux下链接的命令是ln,可以通过<figure class="highlight plain"><figcaption><span>ln```查看.</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 硬链接</div><div class="line">1. 链接的是索引节点(inode),硬链接文件inode值相同(在Linux的文件系统的文件不管是什么类型都给它分配一个indoe号),所以硬链接文件不占用磁盘空间.相当于创建一个别名.</div><div class="line">2. 有两个限制:目录不能创建硬链接;只能在同一个文件系统中进行硬链接.</div><div class="line">3. 命令:</div></pre></td></tr></table></figure></p>
+<pre><code>ln srouce dest
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="bullet">4. </span>对源文件进行修改或删除,硬链接文件会同步修改.但删除硬链接的源文件,硬链接文件仍然存在.</div><div class="line"></div><div class="line"><span class="section">## 软链接</span></div><div class="line"><span class="bullet">1. </span>软链接又称为符号链接,链接的是路径(path),链接文件中包含的是另一个文件的位置信息.</div><div class="line"><span class="bullet">2. </span>可以是任意文件或者目录,可以链接不同文件系统的文件.</div><div class="line"><span class="bullet">3. </span>可以链接不存在的文件,这种现象称为"断链";也可以链接自己</div><div class="line"><span class="bullet">4. </span>命令:</div></pre></td></tr></table></figure>
+
+ln -s srouce dest
+```
+```source```最好用绝对路径表示,这样可以在任何目录下进行链接.若使用相对路径，如果当前的工作路径与要创建的符号链接文件所在路径不同，就不能进行链接.
+</code></pre><ol>
 <li>对源文件进行修改或删除,软链接文件会同步修改.</li>
 </ol>
 <h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点:"></a>缺点:</h3><ol>
@@ -681,7 +668,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬链接"><span class="nav-number">1.</span> <span class="nav-text">硬链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软链接"><span class="nav-number">2.</span> <span class="nav-text">软链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">2.1.</span> <span class="nav-text">缺点:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解"><span class="nav-number">3.</span> <span class="nav-text">理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#About-me"><span class="nav-number">4.</span> <span class="nav-text">About me</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">1.</span> <span class="nav-text">缺点:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解"><span class="nav-number"></span> <span class="nav-text">理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#About-me"><span class="nav-number"></span> <span class="nav-text">About me</span></a></div>
             
           </div>
         </section>
