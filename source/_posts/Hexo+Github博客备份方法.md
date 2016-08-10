@@ -24,6 +24,7 @@ git push
 ```
 hexo g
 hexo d
+hexo clean
 ```
 - 最后将master分支的修改获取到本地:
 ```
