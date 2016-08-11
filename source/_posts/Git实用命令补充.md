@@ -37,6 +37,11 @@ git remote prune origin
 git checkout -b branch-name remotebranchname
 ```
 
+## 本地分支关联远程分支
+```
+git branch --set-upstream newbranch origin/newbranch
+```
+
 ## .gitignore无效解决
 当你在项目开发过程中,突然想把一些文件加入到.gitignore规则中,可是却发现不起作用.那是因为.gitignore只忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。解决方法就是先把本地缓存删除,改变成未track状态:
 ```
