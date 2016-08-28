@@ -1,5 +1,5 @@
 ---
-title: Git速查手册.md
+title: Git速查手册
 Antuor: AnSwEr(Weijie Yuan)
 toc: true
 date: 2016-08-28 21:42:40
@@ -16,7 +16,7 @@ tags: git
 ```
 $ git --version
 ```
-配置命令```git config```分为三个级别：
+配置命令``git config``分为三个级别：
 ```
 --system : 系统级,位于 /etc/gitconfig .
 --global : 用户级,位于 ~/.gitconfig .
@@ -58,7 +58,7 @@ $ git config --global color.ui.true
 ```
 $ git config --global alias checkout co 
 ```
-> 上面的命令将```checkout```设置为别名```co```。
+> 上面的命令将``checkout``设置为别名``co``。
 
 最后,查看一下所有的设置：
 ```
@@ -78,7 +78,7 @@ $ cd repo
 $ git init
 $ git remote add origin git@github.com:USERNAME/repo.git
 ```
-> ```origin```为远程仓库。
+> ``origin``为远程仓库。
 
 添加修改:
 ```
@@ -92,14 +92,14 @@ $ git add *  # 递归地添加执行命令时所在的目录中的所有文件
 $ git commit -m "commit message"
 $ git commit -am "commit message"
 ```
-> ```commit message```的填写可以参考[写好 Git Commit 信息的 7 个建议](http://blog.jobbole.com/92713/)。  
-> ```am```将添加和提交合并为一步,但只对本来就存在的文件有效。
+> ``commit message``的填写可以参考[写好 Git Commit 信息的 7 个建议](http://blog.jobbole.com/92713/)。  
+> ``am``将添加和提交合并为一步,但只对本来就存在的文件有效。
 
 推送修改：
 ```
 $ git push -u origin <feature-branch-name>
 ```
-> ```-u```选项可以将本地分支与远程分支关联,下次```git pull```操作时可以不带参数.具体参见[这里](http://stackoverflow.com/questions/5697750/what-exactly-does-the-u-do-git-push-u-origin-master-vs-git-push-origin-ma)。
+> ``-u``选项可以将本地分支与远程分支关联,下次``git pull``操作时可以不带参数.具体参见[这里](http://stackoverflow.com/questions/5697750/what-exactly-does-the-u-do-git-push-u-origin-master-vs-git-push-origin-ma)。
 
 查看远程仓库：
 ```
@@ -126,7 +126,7 @@ $ git mergetool
 ```
 
 引用公共代码：
-代码引用在git上有两种方式：```submodule```和```subtree```，推荐使用[subtree](http://aoxuis.me/post/2013-08-06-git-subtree)方式。
+代码引用在git上有两种方式：``submodule``和``subtree``，推荐使用[subtree](http://aoxuis.me/post/2013-08-06-git-subtree)方式。
 ``` 
 # 第一次初始化
 $ git remote add -f <remote-subtree-repository-name> <remote-subtree-repository-url>
@@ -142,10 +142,10 @@ $ git subtree push --prefix=<local-subtree-directory> <remote-subtree-repository
 ## 工作流
 ![工作流](http://o9zpdspb3.bkt.clouddn.com/git%E5%B7%A5%E4%BD%9C%E6%B5%81.jpg)
 
-工作区就是你的本地仓库文件夹,不过其中的```.git```目录不属于工作区,而是版本库。里面存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。  
+工作区就是你的本地仓库文件夹,不过其中的``.git``目录不属于工作区,而是版本库。里面存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。  
 现在来解释一下前面的添加和提交操作：  
-1. ```git add```把文件添加进去，实际上就是把文件修改添加到暂存区；
-2. ```git commit```提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+1. ``git add``把文件添加进去，实际上就是把文件修改添加到暂存区；
+2. ``git commit``提交更改，实际上就是把暂存区的所有内容提交到当前分支。
 因为我们创建Git版本库时，Git自动为我们创建了唯一一个master分支，所以，现在，git commit就是往master分支上提交更改。
 
 ## 撤销与回退
@@ -173,7 +173,7 @@ $ git checkout -- <filename>
 ```
 $ git reset --hard <commit-id>
 ```
-> 上一个版本的```commit-id```可以用```HEAD^```表示，上上个版本为```HEAD^^```，以此类推。
+> 上一个版本的``commit-id``可以用``HEAD^``表示，上上个版本为``HEAD^^``，以此类推。
 
 从版本库删除文件：
 ```
@@ -181,7 +181,7 @@ $ git rm <filename>
 ```
 
 ## 分支
-查看所有分支，有```*```标记的是当前分支：
+查看所有分支，有``*``标记的是当前分支：
 ```
 $ git branch -a
 ```
@@ -199,7 +199,7 @@ $ git checkout -b <newbranch>
 ```
 $ git branch -d <branch>
 ```
-> 若当前分支因为有修改未提交或其它情况不能删除，请使用```-D```选项强制删除。
+> 若当前分支因为有修改未提交或其它情况不能删除，请使用``-D``选项强制删除。
 
 删除远程分支：
 ```
@@ -222,7 +222,7 @@ $ git branch --set-upstream <local-branch> origin/branch
 $ git checkout -b <local-branch> <remote-branch>
 ```
 
-同步当前分支的更新，使用```git pull```并不保险：
+同步当前分支的更新，使用``git pull``并不保险：
 ```
 # 下载最新的代码到远程跟踪分支, 即origin/<branch-name>
 $ git fetch origin <branch-name> 
@@ -234,7 +234,7 @@ $ git merge origin/<branch-name>
 $ git mergetool                               
 ```
 
-同步其它分支的更新，本例拉取```master```分支更新：
+同步其它分支的更新，本例拉取``master``分支更新：
 ```
 $ git fetch origin master
 $ git difftool <branch-name> origin/master
@@ -249,15 +249,15 @@ $ git --help
 ```
 
 ### 忽略特殊文件
-当你的仓库中有一些文件，类似密码或者数据库文件不需要提交但又必须放在仓库目录下，每次```git status```都会提示```Untracked```，看着让人很不爽。解决这个问题只需要在仓库目录创建一个```.gitignore```文件即可，编写规则如下：
+当你的仓库中有一些文件，类似密码或者数据库文件不需要提交但又必须放在仓库目录下，每次``git status``都会提示``Untracked``，看着让人很不爽。解决这个问题只需要在仓库目录创建一个``.gitignore``文件即可，编写规则如下：
 ``
 tmp/  # 忽略tmp文件夹下所有内容
 *.ini # 忽略所有ini文件
 !data/ #忽略除了data文件夹的所有内容
 ``
-当然你不必从头编写```.gitignore```文件，已经有[模版](https://github.com/github/gitignore)提供使用了。  
+当然你不必从头编写``.gitignore``文件，已经有[模版](https://github.com/github/gitignore)提供使用了。  
 
-本规则只忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改```.gitignore```是无效的。解决方法就是先把本地缓存删除,改变成未track状态：
+本规则只忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改``.gitignore``是无效的。解决方法就是先把本地缓存删除,改变成未track状态：
 ```
 $ git rm -r --cached .
 ```
