@@ -2,3 +2,4 @@
 *.log
 .deploy*/
 node_modules/
+debug.log
