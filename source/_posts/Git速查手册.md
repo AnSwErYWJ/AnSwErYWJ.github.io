@@ -150,7 +150,7 @@ $ git subtree pull --prefix=<local-subtree-directory> <remote-subtree-repository
 $ git subtree push --prefix=<local-subtree-directory> <remote-subtree-repository> <remote-subtree-branch-name>
 ```
 
-## 使用标签：
+## 使用标签
 查看标签 ：
 ```
 $ git tag
