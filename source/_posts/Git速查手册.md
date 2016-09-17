@@ -67,6 +67,16 @@ $ git config --global --list
 $ git config --system --list
 ```
 
+
+## 工作流
+![工作流](http://o9zpdspb3.bkt.clouddn.com/git%E5%B7%A5%E4%BD%9C%E6%B5%81.jpg)
+
+工作区就是你的本地仓库文件夹,不过其中的``.git``目录不属于工作区,而是版本库。里面存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。  
+现在来解释一下前面的添加和提交操作：  
+1. ``git add``把文件添加进去，实际上就是把文件修改添加到暂存区；
+2. ``git commit``提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+因为我们创建Git版本库时，Git自动为我们创建了唯一一个master分支，所以，现在，git commit就是往master分支上提交更改。
+
 ## 基本操作
 获取远程仓库：
 ```
@@ -94,6 +104,7 @@ $ git commit -am "commit message"
 ```
 > ``commit message``的填写可以参考[写好 Git Commit 信息的 7 个建议](http://blog.jobbole.com/92713/)。  
 > ``am``将添加和提交合并为一步,但只对本来就存在的文件有效。
+
 
 推送修改：
 ```
@@ -139,14 +150,27 @@ $ git subtree pull --prefix=<local-subtree-directory> <remote-subtree-repository
 $ git subtree push --prefix=<local-subtree-directory> <remote-subtree-repository> <remote-subtree-branch-name>
 ```
 
-## 工作流
-![工作流](http://o9zpdspb3.bkt.clouddn.com/git%E5%B7%A5%E4%BD%9C%E6%B5%81.jpg)
+## 使用标签：
+查看标签 ：
+```
+$ git tag
+```
 
-工作区就是你的本地仓库文件夹,不过其中的``.git``目录不属于工作区,而是版本库。里面存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。  
-现在来解释一下前面的添加和提交操作：  
-1. ``git add``把文件添加进去，实际上就是把文件修改添加到暂存区；
-2. ``git commit``提交更改，实际上就是把暂存区的所有内容提交到当前分支。
-因为我们创建Git版本库时，Git自动为我们创建了唯一一个master分支，所以，现在，git commit就是往master分支上提交更改。
+创建标签 ：
+``` 
+$ git tag -a <tagname> -m "tag message" # 创建标签在当前最新提交的commit上
+$ git tag -a <tagname> -m "tag message" <commit id> # 创建标签在指定的commit上
+```
+推送标签到远程：
+```
+$ git push origin <tagname> # 推送一个本地标签
+$ git push origin --tags # 推送全部未推送过的本地标签
+```
+删除标签：
+```
+$ git tag -d <tagname> # 删除一个本地标签；
+$ git push origin :refs/tags/<tagname> # 删除一个远程标签。
+```
 
 ## 撤销与回退
 查看当前仓库状态:
