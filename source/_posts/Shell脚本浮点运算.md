@@ -11,6 +11,9 @@ categories: Linux
 
 本文将介绍几种Linux下通过Shell脚本进行浮点数计算的方法。
 
+----------
+<!--more-->
+
 ## Why
 Bash Shell本身不具备处理浮点计算的能力, 如`expr`命令只支持整数运算 :
 ```

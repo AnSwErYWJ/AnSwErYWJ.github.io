@@ -11,6 +11,8 @@ tags: git
 
 ----------
 
+<!--more-->
+
 ## 配置git
 笔者使用的是v2.1.0，推荐大家使用v1.8以上的[版本](https://git-scm.com/downloads)。 查看git版本：
 ```
