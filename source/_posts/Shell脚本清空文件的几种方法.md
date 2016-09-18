@@ -11,6 +11,9 @@ categories: Linux
 
 本文将介绍几种在Linux下清空文件的方法。
 
+----------
+<!--more-->
+
 ## Plan A
 代码 :
 ```
