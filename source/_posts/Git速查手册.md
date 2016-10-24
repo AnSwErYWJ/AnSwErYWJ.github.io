@@ -275,6 +275,31 @@ $ git merge origin/master
 $ git mergetool
 ```
 
+## 暂存
+当你需要切换分支时,若当前工作区还有些修改没有完成,又不适合提交的,操作切换分支是会提示出错的.这时就需要将这些修改暂存起来:
+```
+$ git stash save "message"
+```    
+
+查看:
+```
+$ git stash list
+```
+
+恢复:
+```
+$ git stash pop [--index] [stash@{num}]　
+  or
+$ git stash apply [--index] [stash@{num}]　# 不删除已恢复的进度.
+```
+> ``--index``表示不仅恢复工作区,还会恢复暂存区;``num`` 是你要恢复的操作的序列号,默认恢复最新进度.
+
+删除进度:
+```
+$ git stash drop [stash@{num}] # 删除指定进度
+$ git stash clear # 删除所有
+```
+
 ## 其它
 查看帮助：
 ```
@@ -305,6 +330,7 @@ $ git rm -r --cached .
 3. [Git-Book](https://git-scm.com/book/en/v2)
 4. [Git-Reference](https://git-scm.com/docs)
 5. [Git push与pull的默认行为](https://segmentfault.com/a/1190000002783245)
+6. [git stash 详解](http://www.tuicool.com/articles/rUBNBvI)
 
 ## About me
 [![forthebadge](http://forthebadge.com/images/badges/ages-20-30.svg)](http://forthebadge.com)
