@@ -223,7 +223,9 @@ $ git checkout -b <newbranch>
 
 推送新建本地分支到远程：
 ```
-$ git push -u origin <feature-branch-name>
+$ git push -u origin <remote-branch-name>
+  or
+$ git push --set-upstream origin <remote-branch-name>
 ```
 
 删除本地分支：
