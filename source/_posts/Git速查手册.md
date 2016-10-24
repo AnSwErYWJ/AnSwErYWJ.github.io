@@ -221,6 +221,11 @@ $ git checkout <newbranch>
 $ git checkout -b <newbranch>
 ```
 
+推送新建本地分支到远程：
+```
+$ git push -u origin <feature-branch-name>
+```
+
 删除本地分支：
 ```
 $ git branch -d <branch>
