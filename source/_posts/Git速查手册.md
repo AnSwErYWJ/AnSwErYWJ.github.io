@@ -304,7 +304,7 @@ $ git rm -r --cached .
 2. [常用Git命令清单](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html)
 3. [Git-Book](https://git-scm.com/book/en/v2)
 4. [Git-Reference](https://git-scm.com/docs)
-
+5. [Git push与pull的默认行为](https://segmentfault.com/a/1190000002783245)
 
 ## About me
 [![forthebadge](http://forthebadge.com/images/badges/ages-20-30.svg)](http://forthebadge.com)
