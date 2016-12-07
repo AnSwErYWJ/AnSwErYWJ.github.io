@@ -9,7 +9,7 @@ date: 2016-12-06 14:16:51
 categories: C
 ---
 
-本文将介绍在文本流中,读写整数的两个接口-- ``int getw(FILE *fp)``和``int putw(int w, FILE *fp)``,并且与你分享改进后的更实用的接口-- ``int get_int(FILE *fp)``和``int put_int(int w, FILE *fp)``
+本文将介绍在文本流中,读写整数的两个接口-- ``int getw(FILE *fp)``和``int putw(int w, FILE *fp)``,并且与你分享改进后的更实用的接口-- ``unsigned int get_uint(FILE *fp)``和``unsigned int put_uint(unsigned int i,FILE *fp)``.
 
 ----------
 <!--more-->
@@ -90,30 +90,28 @@ $ 2147483647 -2147483648
 ```
 > 注意: 函数参数的压栈顺序是从左到右的,所以最后一个参数``getw(fp)``在栈顶,第一个出栈执行.
 
-### 实现与改进
+### 实现与改进([完整代码](https://github.com/AnSwErYWJ/DogFood/blob/master/C/file/io2stream.c))
 由于上述两个接口支持的是int型,所以取值范围为``-2147483648～2147483647``.(此文认为int型都为4个字节).笔者需要使用这两个接口去读写文件的大小,负数无用处的,所以决定改装一下这两个函数,顺便探究一下这个函数的实现:
-代码:
 ```
-#include <stdio.h>
-#include <stdlib.h>
-
-unsigned int get_int(FILE *fp)
+unsigned int get_uint(FILE *fp)
 {
     unsigned char *s;
     unsigned int i;
     s = (unsigned char *)&i;
     s[0]=getc(fp);
-    //printf("%x\n",s[0]);
+    printf("%x\n",s[0]);
     s[1]=getc(fp);
-    //printf("%x\n",s[1]);
+    printf("%x\n",s[1]);
     s[2]=getc(fp);
-    //printf("%x\n",s[2]);
+    printf("%x\n",s[2]);
     s[3]=getc(fp);
-    //printf("%x\n",s[3]);
+    printf("%x\n",s[3]);
     return i;
 }
+```
 
-unsigned int put_int(unsigned int i,FILE*fp)
+```
+unsigned int put_uint(unsigned int i,FILE *fp)
 {
     unsigned char *s;
     s=(unsigned char *)&i;
@@ -125,51 +123,13 @@ unsigned int put_int(unsigned int i,FILE*fp)
     //printf("%x\n",s[2]);
     putc(s[3],fp);
     //printf("%x\n",s[3]);
-    return(i);
+    return i;
 }
-
-int main(int argc,char *argv[])
-{
-	FILE *fp = NULL;
-    int num[2] = {4294967295,0};
-
-    fp = fopen("./log", "wb");
-    if (fp == NULL)
-    {
-        fprintf(stderr,"open file failed");
-        exit(EXIT_FAILURE);
-    }
-
-    put_int(num[0],fp);
-    put_int(num[1],fp);
-
-    fclose(fp);
-    fp = NULL;
-    
-    fp = fopen("./log", "rb");
-    if (fp == NULL)
-    {
-        fprintf(stderr,"open file failed");
-        exit(EXIT_FAILURE);
-    }
-
-    printf("%u %u\n",get_int(fp),get_int(fp));
-
-    fclose(fp);
-	fp = NULL;
-	
-    return 0;
-}
-
 ```
 
-结果:
-```
-$ 0 4294967295
-```
 >改进后取值范围为``0~4294967295``.
 
-同理,你也可以将这两个接口改为支持 ``long int``和``unsigned long int``等不同长度的整数类型.
+同理,你也可以将这两个接口改为支持 ``long long``和``unsigned long int``等不同长度的整数类型.
 
 ## About me
 [![forthebadge](http://forthebadge.com/images/badges/ages-20-30.svg)](http://forthebadge.com)
