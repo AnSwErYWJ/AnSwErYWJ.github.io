@@ -36,6 +36,14 @@ $ git config --local user.email "email"
 ```
 
 git支持https和ssh等协议.https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，而ssh支持的原生git协议速度最快。
+检查本机SSH公钥:
+```
+$ ls ~/.ssh
+```
+若存在,则将`id_rsa.pub`添加到github的SSH keys中。若不存在,则生成:
+```
+$ ssh-keygen -t rsa -C "your_email@youremail.com" 
+```
 当ssh配置完成后，再次检查ssh连接情况：
 ```
 $ ssh -T git@github.com
