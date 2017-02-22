@@ -308,6 +308,22 @@ $ git stash drop [stash@{num}] # 删除指定进度
 $ git stash clear # 删除所有
 ```
 
+## 清理本地仓库
+- 检查是否有无用的大文件。
+
+- 清理无用的分支和标签：
+	```
+	$ git branch -d <branch-name>
+	$ git tag -d <tag-name>
+	```
+
+
+- 清理`.git`目录，一般本地仓库过大都是由于存在过多的`loose object`:
+	```
+	$ git gc --prune=now
+	```
+	>tips: 在执行`push`操作时，`git`会自动执行一次`gc`操作，不过只有`loose object`达到一定数量后才会真正调用，建议手动执行。
+
 ## 其它
 查看帮助：
 ```
