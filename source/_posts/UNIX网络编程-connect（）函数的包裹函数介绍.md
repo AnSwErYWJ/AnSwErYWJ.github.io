@@ -1,5 +1,5 @@
 ---
-title: Linux下Socket编程---connect（）函数的包裹函数介绍
+title: UNIX网络编程---connect（）函数的包裹函数介绍
 Antuor: AnSwEr(Weijie Yuan)
 comments: true
 toc: true
