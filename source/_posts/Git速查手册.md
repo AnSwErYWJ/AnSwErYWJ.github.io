@@ -203,6 +203,16 @@ $ git log
 $ git checkout -- <filename> 
 ```
 
+撤销所有已经提交到暂存区的修改：
+```
+$ git reset HEAD .
+```
+
+撤销提交到暂存区的某个文件或文件夹：
+```
+$ git reset HEAD -filename
+```
+
 回退版本，即回退暂存区的修改：
 ```
 $ git reset --hard <commit-id>
