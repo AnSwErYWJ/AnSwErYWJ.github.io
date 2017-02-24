@@ -17,7 +17,7 @@ Linux下adb工具[下载](http://pan.baidu.com/s/1qYhBG2w)，下载解压到*/us
 ## 问题
 当我们在Linux下连接安卓手机，进行adb调试时，执行
 ```
-adb devices
+$ adb devices
 ```
 会出现如下错误提示：
 ```
@@ -28,13 +28,13 @@ List of devices attached
 ## 解决方案
 首先创建一个规则配置文件：
 ```
-sudo vi /etc/udev/rules.d/70-android.rules
+$ sudo vi /etc/udev/rules.d/70-android.rules
 ```
 保存并退出。
 
 查看USB设备信息，拔掉设备再查看一次，就可以比较出安卓设备是哪一个了，我的设备信息如下：
 ```
-answer@localhost:~/Desktop$ lsusb
+$ lsusb
 Bus 003 Device 011: ID 1f3a:1002 Onda (unverified)
 ```
 
@@ -46,18 +46,18 @@ SUBSYSTEM=="usb",ATTRS{idVendor}=="1f3a",ATTRS{idProduct}=="1002", MODE="0666"
 
 然后赋予文件权限
 ```
-sudo chmod a+x /etc/udev/rules.d/70-android.rules
+$ sudo chmod a+x /etc/udev/rules.d/70-android.rules
 ```
 
 重启udev：
 ```
-sudo /etc/init.d/udev restart
+$ sudo /etc/init.d/udev restart
 ```
 
  注意，这里一定要拔掉设备再重连！然后执行如下命令：
 ```
- sudo adb kill-server
- adb devices
+ $ sudo adb kill-server
+ $ adb devices
 ```
 显示信息如下：
 ```

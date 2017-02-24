@@ -18,11 +18,11 @@ categories: Linux
 ## 使用
 Linux下有script和scriptreplay这两个工具组合用于录制命令行。在新版本系统中，已经集成了这两个工具，所以直接使用即可：
 ```
-script -t 2>timing.log -a >output.session
-<command>
-<command>
-exit
-scriptreplay timing.log output.session
+$ script -t 2>timing.log -a >output.session
+$ <command>
+$ <command>
+$ exit
+$ scriptreplay timing.log output.session
 ```
 
 说明：

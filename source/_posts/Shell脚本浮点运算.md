@@ -26,7 +26,6 @@ expr $a / $b
 ```
 $ ./cal.sh
 0
-$
 ```
 
 ## Plan A
@@ -43,7 +42,6 @@ echo "scale=4; $a / $b" | bc
 ```
 $ ./bc.sh
 .9833
-$
 ```
 > ``scale``表示结果的小数精度。
 
@@ -61,7 +59,6 @@ awk 'BEGIN{printf "%.2f\n",('$a'/'$b')}'
 ```
 $ ./awk.sh
 0.98
-$
 ```
 
 
