@@ -33,7 +33,7 @@ $ ./plana.sh test.txt
 test.txt cleaned up.
 $ cat test.txt
 
-$
+
 ```
 
 >使用这个方法文件其实并没有真正被清空，而是有一个空行。
@@ -57,7 +57,7 @@ $ cat test.txt
 $ ./planb.sh test.txt
 test.txt is cleaned up.
 $ cat test.txt
-$
+
 
 ```
 
@@ -81,7 +81,7 @@ $ cat test.txt
 $ ./planc.sh test.txt
 test.txt is cleaned up.
 $ cat test.txt
-$
+
 ```
 
 > ``/dev/null``可以看作一个"黑洞"。所有写入它的内容都会丢失。从它那儿读取也什么都读不到。这里被清空的文件同样不再有空行，实现真正意义的清空。

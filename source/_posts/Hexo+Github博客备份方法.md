@@ -19,25 +19,25 @@ categories: Git
 - 将远程仓库获取到本地(两个仓库都需要获取)。
 - 每次写完博客之前,需要先获取更新:
 ```
-git pull
+$ git pull
 ```
 - 写完后,对backup分支进行备份:
 ```
-git add .
-git commit -m "message"
-git push
+$ git add .
+$ git commit -m "message"
+$ git push
 ```
 - 然后更新博客到master分支:
 ```
-hexo n "postName" # hexo new 新建文章
-hexo g # hexo generate 生成静态页面至public目录
-hexo s # hexo server 开启预览访问端口（默认端口4000，'ctrl + c'关闭server）
-hexo d # hexo deploy #将.deploy目录部署到GitHub
-hexo clean
+$ hexo n "postName" # hexo new 新建文章
+$ hexo g # hexo generate 生成静态页面至public目录
+$ hexo s # hexo server 开启预览访问端口（默认端口4000，'ctrl + c'关闭server）
+$ hexo d # hexo deploy #将.deploy目录部署到GitHub
+$ hexo clean
 ```
 - 最后将master分支的修改获取到本地:
 ```
-git pull
+$ git pull
 ```
 
 ## About me

@@ -20,7 +20,7 @@ categories: C
 ### getw 
 函数原型：
 ```
-int getw(FILE *fp)
+int getw(FILE *fp);
 ```
 函数功能：
 ```
@@ -34,7 +34,7 @@ int getw(FILE *fp)
 ### putw
 函数原型：
 ```
-int putw(int w, FILE *fp)
+int putw(int w, FILE *fp);
 ```
 函数功能：
 ```
