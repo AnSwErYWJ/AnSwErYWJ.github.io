@@ -77,7 +77,7 @@ deploy:
 avatar: http://o9zpdspb3.bkt.clouddn.com/avatar.png
     
 # duoshuo
-duoshuo_shortname: answerywj
+#duoshuo_shortname: answerywj
 
 #baidu analytics
 baidu_analytics: e12c3989e0050ebd884435d0e1f1bed4
@@ -90,7 +90,7 @@ search:
     field: post
 
 # 多说热评文章 true 或者 false
-duoshuo_hotartical: true
+#duoshuo_hotartical: true
 
 feed:
     type: atom
