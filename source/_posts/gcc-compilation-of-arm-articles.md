@@ -3,8 +3,8 @@ title: GCC编译ARM篇
 Antuor: AnSwEr(Weijie Yuan)
 toc: true
 date: 2017-08-04 16:30:40
-categories: Linux
-tags: IO
+categories: Compile
+tags: gcc
 ---
 
 `ARM` 平台下`GCC`编译相关介绍，待补充
