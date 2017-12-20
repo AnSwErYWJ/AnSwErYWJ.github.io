@@ -13,7 +13,7 @@ tags:
 
 [TOC]
 
-## 介绍 
+## 介绍
 *Speex*编解码器是一款开源且免费的语音编解码器，遵循*BSD*协议，为分封网络（*packet network*）和网络电话（*VoIP*）而设计，支持文件的压缩
 > 为网络电话而不是移动电话而设计，意味着*Speex*对数据丢失具有鲁棒性，但是对数据包损坏不鲁棒，在*VoIP*中的数据包要么完整到达，要么不能到达
 
@@ -93,7 +93,57 @@ tags:
 
 #### 重采样器
 重采样指转换音频的采样率，在任意采样率间进行转换（采样率必须是有理数），能控制质量和复杂度的折中，可用于能混合不同采样率流，支持声卡不支持的采样率，能转码等
-        
+
+## 编译与优化
+### 编译
+以*UNIX/Linux*平台举例，编译*Speex*只需三个命令
+```
+$ ./configure [options]
+$ make
+$ sudo make install
+```
+其中options有：
++ *-prefix= path*：指定安装*Speex*的基本路径（如*/usr*)
++ *-enable-shared/-disable-shared*：是否编译共享库
++ *-enable-static/-disable-static*：是否编译静态库
++ *-disable-wideband*：禁用*Speex*的宽带部分（典型地为了节省空间）
++ *-enable-valgrind*：为调试启用*valgrind*（一款用于内存调试内存泄漏检测以及性能分析的软件开发工具）额外的匹配记录（默认不启用）
++ *-enable-sse*：启用*SSE*(*Streaming Simd Extensions*，指令集)指令（仅支持*x86*浮点数）
++ *-enable-fixed-point*：为没有浮点单元（*FPU*）的处理器编译*Speex*
++ *-enable-arm4-asm*：启用*ARMv4*结构配置特性（仅支持*gcc*）
++ *-enable-arm5e-asm*：启用*ARMv5E*结构配置特性（仅支持*gcc*）
++ *-enable-fixed-poin-debug*：仅调试定点代码（非常慢）
++ *-enable-epic-48k*：启用特殊（不兼容）的*4.8kbps*窄带模型（在*1.1.x*和*1.2beta*版本中已损坏）
++ *-enable-ti-c55x*：启用对*TI C5x*系列的支持
++ *-enable-balckfin-asm*：启用Blackfin DSP结构配置特性（仅支持gcc）
++ *-enable-vorbis-psycho*：使编码器使用Vorbis心理音响学模型，这处于试验阶段，将来可能取消
+
+### 支持平台
+*Speex*可在包括浮点单元和定点单元的许多平台下编译和工作
+1. 支持的平台有
++ *x86 & x86-64*
++ *Power*
++ *SPARC*
++ *ARM*
++ *Blackfin*
++ *Coldfire（68k系列）*
++ *TI C54xx & C55xx*
++ *TI C6xxx*
++ *TriMedia*（试验）
+
+2. 支持的系统有
++ *Linux*
++ *uClinux*
++ *MacOS X*
++ *BSD*
++ *其他UNIX/POSIX变体*
++ *Symbian*
+
+> 源代码目录中*README.xxx*文件包含在某个平台或操作系统下编译的额外信息
+
+### 优化
+
+
 ## Reference
 - [关于pthread_cond_wait使用while循环判断的理解](https://www.cnblogs.com/leijiangtao/p/4028338.html)
 - [Linux线程同步之条件变量pthread_cond_t](https://www.cnblogs.com/zhx831/p/3543633.html)
