@@ -96,7 +96,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2018-03-07T10:21:30.000Z">
+<meta property="og:updated_time" content="2018-03-07T10:32:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下core文件使用">
 <meta name="twitter:description" content="有时候程序会异常退出而不带任何日志，此时就可以使用code文件进行分析，它会记录程序运行的内存，寄存器，堆栈指针等信息">
@@ -377,7 +377,6 @@
         <p>有时候程序会异常退出而不带任何日志，此时就可以使用<code>code</code>文件进行分析，它会记录程序运行的内存，寄存器，堆栈指针等信息</p>
 <hr>
 <a id="more"></a>
-<p>[TOC]</p>
 <h2 id="什么是core文件"><a href="#什么是core文件" class="headerlink" title="什么是core文件"></a>什么是core文件</h2><p>通常在<code>Linux</code>下遇到程序异常退出或者中止，我们都会使用<code>core</code>文件进行分析，其中包含了程序运行时的内存，寄存器，堆栈指针等信息，格式为<code>ELF</code>，可以理解是程序工作当前状态转储成一个文件，通过工具分析这个文件，我们可以定位到程序异常退出或者终止时相应的堆栈调用等信息，为解决问题提供帮助。</p>
 <h2 id="使用core文件调试"><a href="#使用core文件调试" class="headerlink" title="使用core文件调试"></a>使用core文件调试</h2><h3 id="生成方法"><a href="#生成方法" class="headerlink" title="生成方法"></a>生成方法</h3><ol>
 <li><p>查看当前<code>core</code>文件的状态</p>
