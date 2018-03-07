@@ -4,6 +4,69 @@
   
     
     <entry>
+      <title><![CDATA[Linux下core文件使用]]></title>
+      <url>http://answerywj.com/2018/03/07/usage-of-core-in-linux/</url>
+      <content type="html"><![CDATA[<p>有时候程序会异常退出而不带任何日志，此时就可以使用<code>code</code>文件进行分析，它会记录程序运行的内存，寄存器，堆栈指针等信息</p>
+<hr>
+<a id="more"></a>
+<p>[TOC]</p>
+<h2 id="什么是core文件"><a href="#什么是core文件" class="headerlink" title="什么是core文件"></a>什么是core文件</h2><p>通常在<code>Linux</code>下遇到程序异常退出或者中止，我们都会使用<code>core</code>文件进行分析，其中包含了程序运行时的内存，寄存器，堆栈指针等信息，格式为<code>ELF</code>，可以理解是程序工作当前状态转储成一个文件，通过工具分析这个文件，我们可以定位到程序异常退出或者终止时相应的堆栈调用等信息，为解决问题提供帮助。</p>
+<h2 id="使用core文件调试"><a href="#使用core文件调试" class="headerlink" title="使用core文件调试"></a>使用core文件调试</h2><h3 id="生成方法"><a href="#生成方法" class="headerlink" title="生成方法"></a>生成方法</h3><ol>
+<li><p>查看当前<code>core</code>文件的状态</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ulimit -a</span><br><span class="line">...</span><br><span class="line">-c: core file size (blocks)         <span class="number">0</span>  # 关闭状态</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开生成开关</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ulimit -c unlimited</span><br><span class="line">ulimit -a</span><br><span class="line">...</span><br><span class="line">-c: core file size <span class="params">(blocks)</span>         unlimited</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对<code>core</code>文件的大小进行限制，单位为<code>blocks</code>，一般<code>1 block=512 bytes</code>，设置太小可能导致不会生成文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">ulimit</span> -c 1024</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">ulimit</span> -a</span></span><br><span class="line">...</span><br><span class="line">-c: core file size (blocks)         1024</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭生成开关</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ulimit -c <span class="number">0</span></span><br><span class="line">ulimit -a</span><br><span class="line">...</span><br><span class="line">-c: core file size <span class="params">(blocks)</span>         0</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>上面对<code>core</code>文件的操作仅对当前生效，若需要永久生效，则要将相应操作写入<code>/etc/profile</code></p>
+</blockquote>
+<h3 id="生成路径"><a href="#生成路径" class="headerlink" title="生成路径"></a>生成路径</h3><p><code>core</code>文件默认生成在程序的工作目录，可以对生成路径进行设置，需要保证对对应目录有足够空间并具有写权限<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="regexp">/MyCoreDumpDir/</span>core.%e.%p &gt; <span class="regexp">/proc/</span>sys<span class="regexp">/kernel/</span>core_pattern</span><br></pre></td></tr></table></figure></p>
+<p>其中命名使用的参数列表<br><figure class="highlight mojolicious"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="perl">%p - insert pid into filename  <span class="comment"># 添加 pid </span></span><span class="xml"></span></span><br><span class="line"><span class="xml"></span><span class="perl">%u - insert current uid into filename  <span class="comment"># 添加当前 uid </span></span><span class="xml"></span></span><br><span class="line"><span class="xml"></span><span class="perl">%g - insert current gid into filename  <span class="comment"># 添加当前 gid </span></span><span class="xml"></span></span><br><span class="line"><span class="xml"></span><span class="perl">%s - insert signal that caused the coredump into the filename  <span class="comment"># 添加导致产生 core 的信号 </span></span><span class="xml"></span></span><br><span class="line"><span class="xml"></span><span class="perl">%t - insert UNIX <span class="keyword">time</span> that the coredump occurred into filename  <span class="comment"># 添加 core 文件生成时的 unix 时间 </span></span><span class="xml"></span></span><br><span class="line"><span class="xml"></span><span class="perl">%h - insert hostname where the coredump happened into filename  <span class="comment"># 添加主机名 </span></span><span class="xml"></span></span><br><span class="line"><span class="xml"></span><span class="perl">%e - insert coredumping executable name into filename  <span class="comment"># 添加命令名</span></span><span class="xml"></span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><code>/proc/sys/kernel/core_uses_pid</code>这个文件的值若为１，则无论时候配置<code>%p</code>,最后生成的<code>core</code>文件都会添加<code>pid</code></p>
+</blockquote>
+<h3 id="调试方法"><a href="#调试方法" class="headerlink" title="调试方法"></a>调试方法</h3><p>可以使用<code>gdb</code>对<code>core</code>文件进行调试，编译是需要带上<code>-g</code>选项<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ gdb <span class="selector-tag">a</span>.out</span><br><span class="line">...</span><br><span class="line">(gdb) core-file core</span><br><span class="line">...</span><br><span class="line">(gdb) bt </span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>如需要在<code>PC</code>上调试嵌入式设备产生的<code>core</code>文件，则需要选取相应平台的<code>gdb</code>工具，并在进入<code>gdb</code>后设置符号文件的位置<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ xxx-xxx-gdb <span class="selector-tag">a</span>.out</span><br><span class="line">...</span><br><span class="line">(gdb) solib-search-path xxx<span class="selector-class">.so</span>:xxx.so</span><br><span class="line">...</span><br><span class="line">(gdb) core-file core</span><br><span class="line">...</span><br><span class="line">(gdb) bt</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://www.cnblogs.com/leijiangtao/p/4028338.html" target="_blank" rel="noopener">关于pthread_cond_wait使用while循环判断的理解</a></li>
+<li><a href="https://www.cnblogs.com/zhx831/p/3543633.html" target="_blank" rel="noopener">Linux线程同步之条件变量pthread_cond_t</a></li>
+<li><a href="">APUE</a></li>
+</ul>
+<h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
+<ul>
+<li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li>
+<li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li>
+<li>Email：<a href="https://mail.google.com" target="_blank" rel="noopener">yuanweijie1993@gmail.com</a></li>
+<li>Weibo：<a href="http://weibo.com/1783591593" target="_blank" rel="noopener">@AnSwEr不是答案</a></li>
+<li>CSDN：<a href="http://blog.csdn.net/u011192270" target="_blank" rel="noopener">AnSwEr不是答案的专栏</a></li>
+</ul>
+<p><a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> This work is licensed under a <a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> core dump </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Speex介绍]]></title>
       <url>http://answerywj.com/2017/12/29/Introduction-of-speex/</url>
       <content type="html"><![CDATA[<p>本文将对<em>Speex</em>相关的概念进行介绍</p>
