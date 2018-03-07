@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # install
 npm install -g hexo-cli
