@@ -96,7 +96,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2018-03-07T10:32:50.000Z">
+<meta property="og:updated_time" content="2018-03-08T01:16:33.705Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下core文件使用">
 <meta name="twitter:description" content="有时候程序会异常退出而不带任何日志，此时就可以使用code文件进行分析，它会记录程序运行的内存，寄存器，堆栈指针等信息">
@@ -402,12 +402,7 @@
 </blockquote>
 <h3 id="调试方法"><a href="#调试方法" class="headerlink" title="调试方法"></a>调试方法</h3><p>可以使用<code>gdb</code>对<code>core</code>文件进行调试，编译是需要带上<code>-g</code>选项<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ gdb <span class="selector-tag">a</span>.out</span><br><span class="line">...</span><br><span class="line">(gdb) core-file core</span><br><span class="line">...</span><br><span class="line">(gdb) bt </span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
 <p>如需要在<code>PC</code>上调试嵌入式设备产生的<code>core</code>文件，则需要选取相应平台的<code>gdb</code>工具，并在进入<code>gdb</code>后设置符号文件的位置<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ xxx-xxx-gdb <span class="selector-tag">a</span>.out</span><br><span class="line">...</span><br><span class="line">(gdb) solib-search-path xxx<span class="selector-class">.so</span>:xxx.so</span><br><span class="line">...</span><br><span class="line">(gdb) core-file core</span><br><span class="line">...</span><br><span class="line">(gdb) bt</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><a href="https://www.cnblogs.com/leijiangtao/p/4028338.html" target="_blank" rel="noopener">关于pthread_cond_wait使用while循环判断的理解</a></li>
-<li><a href="https://www.cnblogs.com/zhx831/p/3543633.html" target="_blank" rel="noopener">Linux线程同步之条件变量pthread_cond_t</a></li>
-<li><a href="">APUE</a></li>
-</ul>
-<h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
 <ul>
 <li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li>
 <li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li>
