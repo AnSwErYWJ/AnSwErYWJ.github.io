@@ -354,18 +354,28 @@ $ git --help
 ```
 
 ### 忽略特殊文件
-当你的仓库中有一些文件，类似密码或者数据库文件不需要提交但又必须放在仓库目录下，每次``git status``都会提示``Untracked``，看着让人很不爽。解决这个问题只需要在仓库目录创建一个``.gitignore``文件即可，编写规则如下：
+当你的仓库中有一些文件，类似密码或者数据库文件不需要提交但又必须放在仓库目录下，每次``git status``都会提示``Untracked``，看着让人很不爽，提供两种方法解决这个问题
+
+#### 本地
+在代码仓库目录创建一个``.gitignore``文件，编写规则如下：
 ```
 tmp/  # 忽略tmp文件夹下所有内容
 *.ini # 忽略所有ini文件
 !data/ #忽略除了data文件夹的所有内容
 ```
-当然你不必从头编写``.gitignore``文件，已经有[模版](https://github.com/github/gitignore)提供使用了。  
 
-本规则只忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改``.gitignore``是无效的。解决方法就是先把本地缓存删除,改变成未track状态：
+#### 全局
+在用户目录创建一个``.gitignore_global``文件，编写规则同``.gitignore``，并修改``~/.gitconfig``
+```
+[core]
+	excludesfile = ~/.gitignore_global
+```
+
+如果添加的忽略对象已经`Tracked`，纳入了版本管理中，则需要在代码仓库中先把本地缓存删除,改变成`Untracked`状态
 ```
 $ git rm -r --cached .
 ```
+> [``.gitignore``模版](https://github.com/github/gitignore)
 
 ### 处理大型二进制文件
 
