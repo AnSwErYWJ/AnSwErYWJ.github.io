@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/git%E5%B7%A5%E4%BD%9C%E6%B5%81.jpg">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2018-03-14T02:17:30.327Z">
+<meta property="og:updated_time" content="2018-03-14T02:20:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git速查手册（第二版）">
 <meta name="twitter:description" content="本文是对之前Git速查手册的更新，增加了一些这段时间使用到的命令。">
@@ -474,10 +474,10 @@
 </li>
 </ul>
 <h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>查看帮助：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git --<span class="built_in">help</span></span></span><br></pre></td></tr></table></figure></p>
-<h3 id="忽略特殊文件"><a href="#忽略特殊文件" class="headerlink" title="忽略特殊文件"></a>忽略特殊文件</h3><p>当你的仓库中有一些文件，类似密码或者数据库文件不需要提交但又必须放在仓库目录下，每次<code>git status</code>都会提示<code>Untracked</code>，看着让人很不爽，有两种方法可以解决这个问题</p>
+<h3 id="忽略特殊文件"><a href="#忽略特殊文件" class="headerlink" title="忽略特殊文件"></a>忽略特殊文件</h3><p>当你的仓库中有一些文件，类似密码或者数据库文件不需要提交但又必须放在仓库目录下，每次<code>git status</code>都会提示<code>Untracked</code>，看着让人很不爽，提供两种方法解决这个问题</p>
 <h4 id="本地"><a href="#本地" class="headerlink" title="本地"></a>本地</h4><p>在代码仓库目录创建一个<code>.gitignore</code>文件，编写规则如下：<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tmp/  <span class="comment"># 忽略tmp文件夹下所有内容</span></span><br><span class="line">*<span class="string">.ini</span> <span class="comment"># 忽略所有ini文件</span></span><br><span class="line">!data/ <span class="comment">#忽略除了data文件夹的所有内容</span></span><br></pre></td></tr></table></figure></p>
 <h4 id="全局"><a href="#全局" class="headerlink" title="全局"></a>全局</h4><p>在用户目录创建一个<code>.gitignore_global</code>文件，编写规则同<code>.gitignore</code>，并修改<code>~/.gitconfig</code><br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[core]</span></span><br><span class="line">	excludesfile = ~/.gitignore_global</span><br></pre></td></tr></table></figure></p>
-<p>如果添加的忽略对象已经被<code>track</code>，纳入了版本管理中，则需要在代码仓库中先把本地缓存删除,改变成未<code>track</code>状态<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rm -r --cached .</span></span><br></pre></td></tr></table></figure></p>
+<p>如果添加的忽略对象已经<code>Tracked</code>，纳入了版本管理中，则需要在代码仓库中先把本地缓存删除,改变成<code>Untracked</code>状态<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rm -r --cached .</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p><a href="https://github.com/github/gitignore" target="_blank" rel="noopener"><code>.gitignore</code>模版</a></p>
 </blockquote>
