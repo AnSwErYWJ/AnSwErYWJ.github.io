@@ -199,9 +199,22 @@ $ git log
 $ git log --pretty=oneline #只保留commit id 和 commit message
 ```
 
-撤销工作区的修改：
+撤销工作区``Tracked files``的修改：
 ```
-$ git checkout -- <filename> 
+$ git checkout -- <filename>
+```
+
+撤销工作区``Untracked files``的修改：
+```
+#####
+# n:查看将会删除的文件，防止误删
+# f:Untracked的文件
+# d:Untracked的目录
+# x:包含gitignore的Untracked文件和目录一并删掉，慎用！
+#####
+
+git clean -nfd
+git clean -fd
 ```
 
 撤销所有已经提交到暂存区的修改：
@@ -347,16 +360,10 @@ $ git stash clear # 删除所有
 	```
 	>tips: 在执行`push`操作时，`git`会自动执行一次`gc`操作，不过只有`loose object`达到一定数量后才会真正调用，建议手动执行。
 
-## 其它
-查看帮助：
-```
-$ git --help
-```
-
-### 忽略特殊文件
+## 忽略特殊文件
 当你的仓库中有一些文件，类似密码或者数据库文件不需要提交但又必须放在仓库目录下，每次``git status``都会提示``Untracked``，看着让人很不爽，提供两种方法解决这个问题
 
-#### 本地
+### 本地
 在代码仓库目录创建一个``.gitignore``文件，编写规则如下：
 ```
 tmp/  # 忽略tmp文件夹下所有内容
@@ -364,7 +371,7 @@ tmp/  # 忽略tmp文件夹下所有内容
 !data/ #忽略除了data文件夹的所有内容
 ```
 
-#### 全局
+### 全局
 在用户目录创建一个``.gitignore_global``文件，编写规则同``.gitignore``，并修改``~/.gitconfig``
 ```
 [core]
@@ -377,9 +384,14 @@ $ git rm -r --cached .
 ```
 > [``.gitignore``模版](https://github.com/github/gitignore)
 
-### 处理大型二进制文件
-
+## 处理大型二进制文件
 由于git在存储二进制文件时效率不高,所以需要借助[第三方组件](http://www.oschina.net/news/71365/git-annex-lfs-bigfiles-fat-media-bigstore-sym)。
+
+## 帮助
+查看帮助：
+```
+$ git --help
+```
 
 ## Reference
 1. [廖雪峰老师的git教程](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
