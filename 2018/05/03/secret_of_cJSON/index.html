@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="cJSON," />
 
 
 
@@ -86,16 +86,22 @@
 
 
 
-<meta name="description" content="Stay true to yourself,Stay gold.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="AnSwEr&#39;s Blog">
-<meta property="og:url" content="http://answerywj.com/categories/C/page/2/index.html">
+<meta name="description" content="学习使用cJSON过程的一些发现和总结，不涉及具体的函数">
+<meta name="keywords" content="cJSON">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cJSON的秘密">
+<meta property="og:url" content="http://answerywj.com/2018/05/03/secret_of_cJSON/index.html">
 <meta property="og:site_name" content="AnSwEr&#39;s Blog">
-<meta property="og:description" content="Stay true to yourself,Stay gold.">
+<meta property="og:description" content="学习使用cJSON过程的一些发现和总结，不涉及具体的函数">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/cJSON%E6%A0%91%E7%8A%B6%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
+<meta property="og:updated_time" content="2018-05-03T12:20:00.574Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AnSwEr&#39;s Blog">
-<meta name="twitter:description" content="Stay true to yourself,Stay gold.">
+<meta name="twitter:title" content="cJSON的秘密">
+<meta name="twitter:description" content="学习使用cJSON过程的一些发现和总结，不涉及具体的函数">
+<meta name="twitter:image" content="http://o9zpdspb3.bkt.clouddn.com/cJSON%E6%A0%91%E7%8A%B6%E7%BB%93%E6%9E%84.png">
 
 
 
@@ -116,9 +122,9 @@
 
 
 
-  <link rel="canonical" href="http://answerywj.com/categories/C/page/2/"/>
+  <link rel="canonical" href="http://answerywj.com/2018/05/03/secret_of_cJSON/"/>
 
-  <title> 分类: C | AnSwEr's Blog </title>
+  <title> cJSON的秘密 | AnSwEr's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -149,7 +155,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -280,79 +286,244 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        C
-        <small>分类</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/14/UNIX编程安全读写函数——readn和writen/" itemprop="url">
-              
-                <span itemprop="name">UNIX编程安全读写函数——readn和writen</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-14T14:19:20+08:00"
-              content="2016-07-14" >
-          07-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/14/C语言生成随机数/" itemprop="url">
-              
-                <span itemprop="name">C语言生成随机数</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-14T14:16:51+08:00"
-              content="2016-07-14" >
-          07-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/categories/C/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/categories/C/">1</a><span class="page-number current">2</span>
-  </nav>
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                cJSON的秘密
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-03T16:58:02+08:00" content="2018-05-03">
+              2018-05-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2018/05/03/secret_of_cJSON/" class="leancloud_visitors" data-flag-title="cJSON的秘密">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
 
 
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>学习使用cJSON过程的一些发现和总结，不涉及具体的函数<br><a id="more"></a></p>
+<h2 id="cJSON简介"><a href="#cJSON简介" class="headerlink" title="cJSON简介"></a>cJSON简介</h2><p><code>cJSON</code>是一个快速，高性能的<code>json</code>解析器，由<code>C</code>语言编写，仅包含<code>cJSON.c</code>和<code>cJSON.h</code>两个文件，不支持跨平台；跨平台推荐纯<code>lua</code>写的<a href="http://dkolf.de/src/dkjson-lua.fsl/home" target="_blank" rel="noopener"><code>dkjson</code></a></p>
+<h2 id="cJSON结构体"><a href="#cJSON结构体" class="headerlink" title="cJSON结构体"></a>cJSON结构体</h2><p><code>cJSON</code>结构体的组成：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">cJSON</span> &#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">cJSON</span> *<span class="title">next</span>, *<span class="title">prev</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">cJSON</span> *<span class="title">child</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> type;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> *valuestring;</span><br><span class="line">	<span class="keyword">int</span> valueint;</span><br><span class="line">	<span class="keyword">double</span> valuedouble;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> *<span class="built_in">string</span>;</span><br><span class="line">&#125; cJSON;</span><br></pre></td></tr></table></figure>
+<p>其中</p>
+<ul>
+<li><code>next</code>指向链表中下一个兄弟节点，<code>prev</code>指向本节点前一个节点</li>
+<li><code>child</code>节点只有对象和数组有，并且<code>child</code>节点是双向链表的头节点，<code>child</code>的<code>prev</code>一般为<code>NULL</code>，不指向任何节点，双向链表的最后一个兄弟节点的<code>next</code>是无指向的</li>
+<li><code>type</code>取值有<code>Null/True/False/Number/String/Array/Object</code>，这些值类型都在<code>cJSON.h</code>中通过宏定义了</li>
+<li><code>String</code>类型节点有<code>valuestring</code>，<code>Number</code>类型节点有<code>valueint</code>和<code>valuedouble</code></li>
+<li><code>string</code>表示节点的名称，所有的节点都是一个链表，都具有<code>string</code>值</li>
+</ul>
+<blockquote>
+<p><code>cJSON</code>默认所有值都为<code>0</code>，除非额外为其赋有意义的值</p>
+</blockquote>
+<h3 id="cJSON树结构"><a href="#cJSON树结构" class="headerlink" title="cJSON树结构"></a>cJSON树结构</h3><p><code>cJSON</code>使用树结构存储<code>JSON</code>的各个节点，而这个树结构是使用双向链表实现的(实线表示节点间有真实的引用关系，而虚线表示逻辑上的引用关系)：<br><img src="http://o9zpdspb3.bkt.clouddn.com/cJSON%E6%A0%91%E7%8A%B6%E7%BB%93%E6%9E%84.png" alt="cJSON树结构"></p>
+<ul>
+<li>树结构的每一层都是一个双向链表，表示一堆兄弟节点</li>
+<li>当前层的所有节点都是当前链表头节点的父节点的子节点</li>
+</ul>
+<p>下面举例说明：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"Jack (\"Bee\") Nimble"</span>, </span><br><span class="line">    <span class="attr">"format"</span>: &#123;</span><br><span class="line">        <span class="attr">"type"</span>:       <span class="string">"rect"</span>, </span><br><span class="line">        <span class="attr">"width"</span>:      <span class="number">1920</span>, </span><br><span class="line">        <span class="attr">"height"</span>:     <span class="number">1080</span>, </span><br><span class="line">        <span class="attr">"interlace"</span>:  <span class="literal">false</span>, </span><br><span class="line">        <span class="attr">"frame rate"</span>: <span class="number">24</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>name</code>和<code>format</code>节点组成一个链表，<code>type</code>、<code>width</code>、<code>height</code>、<code>interlace</code>和<code>frame rate</code>节点组成一个链表</li>
+<li>根节点包含节点类型<code>Object</code>和子节点<code>name</code></li>
+<li>子节点包含节点名称<code>name</code>、节点值<code>Jack (&quot;Bee&quot;) Nimble</code>和兄弟节点<code>format</code></li>
+<li><code>format</code>节点包含节点类型<code>Object</code>、节点名称<code>format</code>和子节点<code>type</code></li>
+<li><code>type</code>节点包含节点类型<code>String</code>、节点名称<code>type</code>、节点值<code>rect</code>和兄弟节点<code>width</code></li>
+<li><code>width</code>节点包含节点类型<code>Number</code>、节点名称<code>width</code>、节点值<code>1920</code>和兄弟节点<code>height</code></li>
+<li><code>height</code>节点包含节点类型<code>Number</code>、节点名称<code>height</code>、节点值<code>1080</code>和兄弟节点<code>interlace</code> </li>
+<li><code>interlace</code>节点包含节点类型<code>False</code>、节点名称<code>interlace</code>和兄弟节点<code>frame rate</code></li>
+<li><code>frame rate</code>节点包含节点类型<code>Number</code>、节点名称<code>frame tate</code>和节点值<code>25</code></li>
+</ul>
+<h2 id="cJSON内存管理"><a href="#cJSON内存管理" class="headerlink" title="cJSON内存管理"></a>cJSON内存管理</h2><p><code>cJson</code>分为自动和手动两种使用方式：</p>
+<ul>
+<li>在自动模式下，<code>cJSON</code>使用默认的<code>malloc</code>和<code>free</code>函数管理内存，在<code>cJSON</code>中，每个节点都是<code>malloc</code>而来，每个节点的<code>string</code>和<code>valuestring</code>也是<code>malloc</code>而来，使用<code>cJSON_Delete</code>函数可以递归释放<code>JSON</code>树中<code>malloc</code>的节点内存和字符内存，使用<code>cJSON_Print</code>函数后，则需要手动释放<code>cJSON_Print</code>函数分配的内存，避免内存泄露</li>
+<li>在手动模式下，<code>cJSON</code>提供了钩子函数来帮助用户自定义内存管理函数，如果不设置，这默认为<code>malloc</code>和<code>free</code></li>
+</ul>
+<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cJSON_Hooks</span> js_hook = </span>&#123;xxx_malloc, xxx_free&#125;;</span><br><span class="line">cJSON_InitHooks(&amp;js_hook);</span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://github.com/faycheng/cJSON" target="_blank" rel="noopener">cJson源码和源码分析</a></li>
+</ul>
+<h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
+<ul>
+<li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li>
+<li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li>
+<li>Email：<a href="https://mail.google.com" target="_blank" rel="noopener">yuanweijie1993@gmail.com</a></li>
+<li>Weibo：<a href="http://weibo.com/1783591593" target="_blank" rel="noopener">@AnSwEr不是答案</a></li>
+<li>CSDN：<a href="http://blog.csdn.net/u011192270" target="_blank" rel="noopener">AnSwEr不是答案的专栏</a></li>
+</ul>
+<p><a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> This work is licensed under a <a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div></div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://o9zpdspb3.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E8%B5%9E%E8%B5%8F.jpg" alt="AnSwEr(Weijie Yuan) WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://o9zpdspb3.bkt.clouddn.com/zhifubaozanshang.jpg" alt="AnSwEr(Weijie Yuan) Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cJSON/" rel="tag">#cJSON</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/07/usage-of-core-in-linux/" rel="next" title="Linux下core文件使用">
+                <i class="fa fa-chevron-left"></i> Linux下core文件使用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -360,6 +531,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+            <div id="uyan_frame"></div>
+    
+  </div>
+
 
         </div>
         
@@ -379,8 +556,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://o9zpdspb3.bkt.clouddn.com/avatar.png"
@@ -490,6 +676,17 @@
       </section>
 
       
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cJSON简介"><span class="nav-number">1.</span> <span class="nav-text">cJSON简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cJSON结构体"><span class="nav-number">2.</span> <span class="nav-text">cJSON结构体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cJSON树结构"><span class="nav-number">2.1.</span> <span class="nav-text">cJSON树结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cJSON内存管理"><span class="nav-number">3.</span> <span class="nav-text">cJSON内存管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#About-me"><span class="nav-number">5.</span> <span class="nav-text">About me</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
 
     </div>
   </aside>
@@ -585,6 +782,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
@@ -608,6 +809,10 @@
     
 
    
+        <!-- UY BEGIN -->
+        <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2128235"></script>
+        <!-- UY END -->
+    
   
 
 
