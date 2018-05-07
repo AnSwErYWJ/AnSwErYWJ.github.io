@@ -84,6 +84,14 @@ typedef struct cJSON {
 	cJSON_InitHooks(&js_hook);
 ```
 
+## cJSON序列化
+
+`cJSON`序列化就是把`cJSON`输出，有两种形式：
+- 格式化输出`char  *cJSON_Print(cJSON *item);`
+- 压缩输出`char  *cJSON_PrintUnformatted(cJSON *item);`
+
+需要注意的是`cJSON`采用了预先将要输的内容全部以字符串形式存储在内存中，最后输出整个字符串的方法，而不是边分析`json`数据边输出，所以对于比较大的`json`数据来说，内存就是个问题了
+
 
 ## Reference
 - [cJson源码和源码分析](https://github.com/faycheng/cJSON)
