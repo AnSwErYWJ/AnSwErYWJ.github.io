@@ -45,6 +45,12 @@
 <li>在手动模式下，<code>cJSON</code>提供了钩子函数来帮助用户自定义内存管理函数，如果不设置，这默认为<code>malloc</code>和<code>free</code></li>
 </ul>
 <figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cJSON_Hooks</span> js_hook = </span>&#123;xxx_malloc, xxx_free&#125;;</span><br><span class="line">cJSON_InitHooks(&amp;js_hook);</span><br></pre></td></tr></table></figure>
+<h2 id="cJSON序列化"><a href="#cJSON序列化" class="headerlink" title="cJSON序列化"></a>cJSON序列化</h2><p><code>cJSON</code>序列化就是把<code>cJSON</code>输出，有两种形式：</p>
+<ul>
+<li>格式化输出<code>char  *cJSON_Print(cJSON *item);</code></li>
+<li>压缩输出<code>char  *cJSON_PrintUnformatted(cJSON *item);</code></li>
+</ul>
+<p>需要注意的是<code>cJSON</code>采用了预先将要输的内容全部以字符串形式存储在内存中，最后输出整个字符串的方法，而不是边分析<code>json</code>数据边输出，所以对于比较大的<code>json</code>数据来说，内存就是个问题了</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="https://github.com/faycheng/cJSON" target="_blank" rel="noopener">cJson源码和源码分析</a></li>
 </ul>
