@@ -96,7 +96,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2018-02-13T06:08:22.784Z">
+<meta property="og:updated_time" content="2018-05-10T03:41:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GCC编译ARM篇">
 <meta name="twitter:description" content="ARM 平台下GCC编译相关介绍，待补充">
@@ -375,12 +375,18 @@
 
       
         <p><code>ARM</code> 平台下<code>GCC</code>编译相关介绍，待补充<br><a id="more"></a></p>
-<h2 id="ARM处理器架构"><a href="#ARM处理器架构" class="headerlink" title="ARM处理器架构"></a>ARM处理器架构</h2><p><code>ARM</code>处理器架构，通过选项<code>-march</code>指定，如<code>-march=armv7-a</code>，目前常见的有<code>armv5te</code>，<code>armv6</code>和<code>armv7-a</code>等</p>
+<h2 id="ARM处理器架构"><a href="#ARM处理器架构" class="headerlink" title="ARM处理器架构"></a>ARM处理器架构</h2><p><code>ARM</code>处理器架构，通过选项<code>-march</code>指定，如<code>-march=armv7-a</code>，常见的有</p>
+<ol>
+<li><code>armv5te</code><br><code>arm9</code>系列使用该架构</li>
+<li><code>armv6</code><br><code>arm11</code>系列使用该架构</li>
+<li><code>armv7-a</code><br><code>cortex-a</code>系列使用该架构，如<code>cortex-a5、a7、a8、a9、a12、a15</code></li>
+<li><code>armv8</code><br><code>cortex-a</code>系列使用该架构，如<code>cortex-a53、a57、a72</code></li>
+</ol>
 <h2 id="指令集"><a href="#指令集" class="headerlink" title="指令集"></a>指令集</h2><p>指令集，通过选项<code>-m</code>指定，如<code>-mthumb</code>，常见的有</p>
 <ol>
-<li><code>thumb</code><br>16位指令集，它将32位arm指令的压缩成16位的指令编码方式,，实现低功耗</li>
+<li><code>thumb</code><br>16位指令集，它将32位arm指令的压缩成16位的指令编码方式，节省代码存储空间，实现低功耗</li>
 <li><code>thumb-2</code><br>16位/32位指令集，对<code>thumb</code>指令集进行了扩充，增加了一些32位指令，改善<code>thumb</code>指令集的性能</li>
-<li><code>arm</code><br>32位指令集, 兼容所有<code>arm</code>架构</li>
+<li><code>arm</code><br>32位指令集, 兼容所有<code>arm</code>架构，性能高</li>
 </ol>
 <h2 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h2><p>浮点运算的类型，通过选项<code>-mfloat-abi</code>指定，如<code>-mfloat-abi=hard</code>，有三种类型</p>
 <ol>
@@ -390,8 +396,8 @@
 </ol>
 <p>硬浮点指令的类型，通过选项<code>-mfpu</code>指定，如<code>-mfpu=neon</code>，常用的有两种</p>
 <ol>
-<li><code>vfp</code></li>
-<li><code>neon</code><br>应用于<code>cortex-a</code>系列处理器</li>
+<li><code>vfp</code><br>其中<code>vfpv2</code>应用于<code>armv5te, armv6</code>架构中的浮点计算指令集，<code>vfpv3</code>和<code>vfpv4</code>应用于部分<code>armv7a</code>架构中的浮点计算指令集</li>
+<li><code>neon</code><br>应用于<code>cortex-a</code>系列处理器，性能好</li>
 </ol>
 <h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
 <ul>
