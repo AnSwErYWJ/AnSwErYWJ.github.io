@@ -11,16 +11,24 @@ tags: gcc
 <!--more-->
 
 ## ARM处理器架构
-`ARM`处理器架构，通过选项`-march`指定，如`-march=armv7-a`，目前常见的有`armv5te`，` armv6`和`armv7-a`等
+`ARM`处理器架构，通过选项`-march`指定，如`-march=armv7-a`，常见的有
+1. `armv5te`
+`arm9`系列使用该架构
+2. ` armv6`
+`arm11`系列使用该架构
+3. `armv7-a`
+`cortex-a`系列使用该架构，如`cortex-a5、a7、a8、a9、a12、a15`
+4. `armv8`
+`cortex-a`系列使用该架构，如`cortex-a53、a57、a72`
 
 ## 指令集
 指令集，通过选项`-m`指定，如`-mthumb`，常见的有
 1. `thumb`
-16位指令集，它将32位arm指令的压缩成16位的指令编码方式,，实现低功耗
+16位指令集，它将32位arm指令的压缩成16位的指令编码方式，节省代码存储空间，实现低功耗
 2. `thumb-2`
 16位/32位指令集，对`thumb`指令集进行了扩充，增加了一些32位指令，改善`thumb`指令集的性能
 3. `arm`
-32位指令集, 兼容所有`arm`架构
+32位指令集, 兼容所有`arm`架构，性能高
 
 ## 浮点类型
 浮点运算的类型，通过选项`-mfloat-abi`指定，如`-mfloat-abi=hard`，有三种类型
@@ -33,10 +41,9 @@ tags: gcc
 
 硬浮点指令的类型，通过选项`-mfpu`指定，如`-mfpu=neon`，常用的有两种
 1. `vfp`
+其中`vfpv2`应用于`armv5te, armv6`架构中的浮点计算指令集，`vfpv3`和`vfpv4`应用于部分`armv7a`架构中的浮点计算指令集
 2. `neon`
-应用于`cortex-a`系列处理器
-
-
+应用于`cortex-a`系列处理器，性能好
 
 
 ## About me
