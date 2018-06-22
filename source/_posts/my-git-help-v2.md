@@ -98,7 +98,7 @@ $ cd repo
 $ git init
 $ git remote add origin git@github.com:USERNAME/repo.git
 ```
-> ``origin``为远程仓库。
+> ``origin``就是一个名字，是``git``为你默认创建的指向这个远程代码库的标签。
 
 添加修改:
 ```
@@ -278,9 +278,11 @@ $ git branch -d <branch>
 ```
 > 若当前分支因为有修改未提交或其它情况不能删除，请使用``-D``选项强制删除。
 
-删除远程分支：
+删除远程分支(三种方法)：
 ```
 $ git push origin --delete <remote-branch-name>
+$ git push origin -d <remote-branch-name>
+$ git push origin :<remote-branch-name>
 ```
 
 清除无用的分支：
