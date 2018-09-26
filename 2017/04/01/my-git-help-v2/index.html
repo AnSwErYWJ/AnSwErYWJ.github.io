@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/git%E5%B7%A5%E4%BD%9C%E6%B5%81.jpg">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2018-04-16T07:56:16.687Z">
+<meta property="og:updated_time" content="2018-09-25T01:47:59.749Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git速查手册（第二版）">
 <meta name="twitter:description" content="本文是对之前Git速查手册的更新，增加了一些这段时间使用到的命令。">
@@ -402,7 +402,7 @@
 <h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p>获取远程仓库：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="keyword">clone</span> <span class="title">git</span>@github.com:USERNAME/repo.git</span><br></pre></td></tr></table></figure></p>
 <p>将本地的仓库添加到远程：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> repo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git init</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:USERNAME/repo.git</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p><code>origin</code>为远程仓库。</p>
+<p><code>origin</code>就是一个名字，是<code>git</code>为你默认创建的指向这个远程代码库的标签。</p>
 </blockquote>
 <p>添加修改:<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="keyword">add</span><span class="bash"> &lt;filename&gt; </span></span><br><span class="line"><span class="bash">$ git add .  <span class="comment"># 添加当前目录所有修改过的文件  </span></span></span><br><span class="line"><span class="bash">$ git add *  <span class="comment"># 递归地添加执行命令时所在的目录中的所有文件</span></span></span><br></pre></td></tr></table></figure></p>
 <p>提交修改:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">"commit message"</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -am <span class="string">"commit message"</span></span></span><br></pre></td></tr></table></figure></p>
@@ -445,7 +445,7 @@
 <blockquote>
 <p>若当前分支因为有修改未提交或其它情况不能删除，请使用<code>-D</code>选项强制删除。</p>
 </blockquote>
-<p>删除远程分支：<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">push</span> <span class="built_in">origin</span> --<span class="built_in">delete</span> &lt;remote-branch-name&gt;</span><br></pre></td></tr></table></figure></p>
+<p>删除远程分支(三种方法)：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git push origin --delete &lt;remote-branch-name&gt;</span><br><span class="line"><span class="variable">$ </span>git push origin -d &lt;remote-branch-name&gt;</span><br><span class="line"><span class="variable">$ </span>git push origin <span class="symbol">:&lt;remote-branch-name&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>清除无用的分支：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote prune origin</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>说明：remote上的一个分支被其他人删除后，需要更新本地的分支列表。</p>
@@ -655,7 +655,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -672,7 +672,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

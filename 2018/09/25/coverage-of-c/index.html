@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="cJSON," />
+  <meta name="keywords" content="代码覆盖率," />
 
 
 
@@ -86,22 +86,24 @@
 
 
 
-<meta name="description" content="学习使用cJSON过程的一些发现和总结，不涉及具体的函数">
-<meta name="keywords" content="cJSON">
+<meta name="description" content="代码覆盖率测试反映了测试的广度与深度，量化了测试和开发质量，是十分有必要的，业界目前有针对各种语言的覆盖率测试工具，本文主要介绍C/C++相关的覆盖率测试工具Gcov">
+<meta name="keywords" content="代码覆盖率">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cJSON的秘密">
-<meta property="og:url" content="http://answerywj.com/2018/05/03/secret_of_cJSON/index.html">
+<meta property="og:title" content="C代码覆盖率测试工具Gcov">
+<meta property="og:url" content="http://answerywj.com/2018/09/25/coverage-of-c/index.html">
 <meta property="og:site_name" content="AnSwEr&#39;s Blog">
-<meta property="og:description" content="学习使用cJSON过程的一些发现和总结，不涉及具体的函数">
+<meta property="og:description" content="代码覆盖率测试反映了测试的广度与深度，量化了测试和开发质量，是十分有必要的，业界目前有针对各种语言的覆盖率测试工具，本文主要介绍C/C++相关的覆盖率测试工具Gcov">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/cJSON%E6%A0%91%E7%8A%B6%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/gcovr_xxx.png">
+<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/gcovr_xxx_detail.png">
+<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/gcovr_xxx_main.png">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2018-05-07T07:13:35.487Z">
+<meta property="og:updated_time" content="2018-09-26T04:01:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cJSON的秘密">
-<meta name="twitter:description" content="学习使用cJSON过程的一些发现和总结，不涉及具体的函数">
-<meta name="twitter:image" content="http://o9zpdspb3.bkt.clouddn.com/cJSON%E6%A0%91%E7%8A%B6%E7%BB%93%E6%9E%84.png">
+<meta name="twitter:title" content="C代码覆盖率测试工具Gcov">
+<meta name="twitter:description" content="代码覆盖率测试反映了测试的广度与深度，量化了测试和开发质量，是十分有必要的，业界目前有针对各种语言的覆盖率测试工具，本文主要介绍C/C++相关的覆盖率测试工具Gcov">
+<meta name="twitter:image" content="http://o9zpdspb3.bkt.clouddn.com/gcovr_xxx.png">
 
 
 
@@ -122,9 +124,9 @@
 
 
 
-  <link rel="canonical" href="http://answerywj.com/2018/05/03/secret_of_cJSON/"/>
+  <link rel="canonical" href="http://answerywj.com/2018/09/25/coverage-of-c/"/>
 
-  <title> cJSON的秘密 | AnSwEr's Blog </title>
+  <title> C代码覆盖率测试工具Gcov | AnSwEr's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -307,7 +309,7 @@
             
             
               
-                cJSON的秘密
+                C代码覆盖率测试工具Gcov
               
             
           </h1>
@@ -319,8 +321,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-05-03T16:58:02+08:00" content="2018-05-03">
-              2018-05-03
+            <time itemprop="dateCreated" datetime="2018-09-25T18:48:49+08:00" content="2018-09-25">
+              2018-09-25
             </time>
           </span>
 
@@ -353,7 +355,7 @@
 
           
           
-             <span id="/2018/05/03/secret_of_cJSON/" class="leancloud_visitors" data-flag-title="cJSON的秘密">
+             <span id="/2018/09/25/coverage-of-c/" class="leancloud_visitors" data-flag-title="C代码覆盖率测试工具Gcov">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -375,53 +377,30 @@
       
 
       
-        <p>学习使用cJSON过程的一些发现和总结，不涉及具体的函数<br><a id="more"></a></p>
-<h2 id="cJSON简介"><a href="#cJSON简介" class="headerlink" title="cJSON简介"></a>cJSON简介</h2><p><code>cJSON</code>是一个快速，高性能的<code>json</code>解析器，由<code>C</code>语言编写，仅包含<code>cJSON.c</code>和<code>cJSON.h</code>两个文件，不支持跨平台；跨平台推荐纯<code>lua</code>写的<a href="http://dkolf.de/src/dkjson-lua.fsl/home" target="_blank" rel="noopener"><code>dkjson</code></a></p>
-<h2 id="cJSON结构体"><a href="#cJSON结构体" class="headerlink" title="cJSON结构体"></a>cJSON结构体</h2><p><code>cJSON</code>结构体的组成：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">cJSON</span> &#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">cJSON</span> *<span class="title">next</span>, *<span class="title">prev</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">cJSON</span> *<span class="title">child</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> type;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> *valuestring;</span><br><span class="line">	<span class="keyword">int</span> valueint;</span><br><span class="line">	<span class="keyword">double</span> valuedouble;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> *<span class="built_in">string</span>;</span><br><span class="line">&#125; cJSON;</span><br></pre></td></tr></table></figure>
-<p>其中</p>
-<ul>
-<li><code>next</code>指向链表中下一个兄弟节点，<code>prev</code>指向本节点前一个节点</li>
-<li><code>child</code>节点只有对象和数组有，并且<code>child</code>节点是双向链表的头节点，<code>child</code>的<code>prev</code>一般为<code>NULL</code>，不指向任何节点，双向链表的最后一个兄弟节点的<code>next</code>是无指向的</li>
-<li><code>type</code>取值有<code>Null/True/False/Number/String/Array/Object</code>，这些值类型都在<code>cJSON.h</code>中通过宏定义了</li>
-<li><code>String</code>类型节点有<code>valuestring</code>，<code>Number</code>类型节点有<code>valueint</code>和<code>valuedouble</code></li>
-<li><code>string</code>表示节点的名称，所有的节点都是一个链表，都具有<code>string</code>值</li>
-</ul>
-<blockquote>
-<p><code>cJSON</code>默认所有值都为<code>0</code>，除非额外为其赋有意义的值</p>
-</blockquote>
-<h3 id="cJSON树结构"><a href="#cJSON树结构" class="headerlink" title="cJSON树结构"></a>cJSON树结构</h3><p><code>cJSON</code>使用树结构存储<code>JSON</code>的各个节点，而这个树结构是使用双向链表实现的(实线表示节点间有真实的引用关系，而虚线表示逻辑上的引用关系)：<br><img src="http://o9zpdspb3.bkt.clouddn.com/cJSON%E6%A0%91%E7%8A%B6%E7%BB%93%E6%9E%84.png" alt="cJSON树结构"></p>
-<ul>
-<li>树结构的每一层都是一个双向链表，表示一堆兄弟节点</li>
-<li>当前层的所有节点都是当前链表头节点的父节点的子节点</li>
-</ul>
-<p>下面举例说明：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"Jack (\"Bee\") Nimble"</span>, </span><br><span class="line">    <span class="attr">"format"</span>: &#123;</span><br><span class="line">        <span class="attr">"type"</span>:       <span class="string">"rect"</span>, </span><br><span class="line">        <span class="attr">"width"</span>:      <span class="number">1920</span>, </span><br><span class="line">        <span class="attr">"height"</span>:     <span class="number">1080</span>, </span><br><span class="line">        <span class="attr">"interlace"</span>:  <span class="literal">false</span>, </span><br><span class="line">        <span class="attr">"frame rate"</span>: <span class="number">24</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>name</code>和<code>format</code>节点组成一个链表，<code>type</code>、<code>width</code>、<code>height</code>、<code>interlace</code>和<code>frame rate</code>节点组成一个链表</li>
-<li>根节点包含节点类型<code>Object</code>和子节点<code>name</code></li>
-<li>子节点包含节点名称<code>name</code>、节点值<code>Jack (&quot;Bee&quot;) Nimble</code>和兄弟节点<code>format</code></li>
-<li><code>format</code>节点包含节点类型<code>Object</code>、节点名称<code>format</code>和子节点<code>type</code></li>
-<li><code>type</code>节点包含节点类型<code>String</code>、节点名称<code>type</code>、节点值<code>rect</code>和兄弟节点<code>width</code></li>
-<li><code>width</code>节点包含节点类型<code>Number</code>、节点名称<code>width</code>、节点值<code>1920</code>和兄弟节点<code>height</code></li>
-<li><code>height</code>节点包含节点类型<code>Number</code>、节点名称<code>height</code>、节点值<code>1080</code>和兄弟节点<code>interlace</code> </li>
-<li><code>interlace</code>节点包含节点类型<code>False</code>、节点名称<code>interlace</code>和兄弟节点<code>frame rate</code></li>
-<li><code>frame rate</code>节点包含节点类型<code>Number</code>、节点名称<code>frame tate</code>和节点值<code>25</code></li>
-</ul>
-<h2 id="cJSON内存管理"><a href="#cJSON内存管理" class="headerlink" title="cJSON内存管理"></a>cJSON内存管理</h2><p><code>cJson</code>分为自动和手动两种使用方式：</p>
-<ul>
-<li>在自动模式下，<code>cJSON</code>使用默认的<code>malloc</code>和<code>free</code>函数管理内存，在<code>cJSON</code>中，每个节点都是<code>malloc</code>而来，每个节点的<code>string</code>和<code>valuestring</code>也是<code>malloc</code>而来，使用<code>cJSON_Delete</code>函数可以递归释放<code>JSON</code>树中<code>malloc</code>的节点内存和字符内存，使用<code>cJSON_Print</code>函数后，则需要手动释放<code>cJSON_Print</code>函数分配的内存，避免内存泄露</li>
-<li>在手动模式下，<code>cJSON</code>提供了钩子函数来帮助用户自定义内存管理函数，如果不设置，这默认为<code>malloc</code>和<code>free</code></li>
-</ul>
-<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cJSON_Hooks</span> js_hook = </span>&#123;xxx_malloc, xxx_free&#125;;</span><br><span class="line">cJSON_InitHooks(&amp;js_hook);</span><br></pre></td></tr></table></figure>
-<h2 id="cJSON序列化"><a href="#cJSON序列化" class="headerlink" title="cJSON序列化"></a>cJSON序列化</h2><p><code>cJSON</code>序列化就是把<code>cJSON</code>输出，有两种形式：</p>
-<ul>
-<li>格式化输出<code>char  *cJSON_Print(cJSON *item);</code></li>
-<li>压缩输出<code>char  *cJSON_PrintUnformatted(cJSON *item);</code></li>
-</ul>
-<p>需要注意的是<code>cJSON</code>采用了预先将要输的内容全部以字符串形式存储在内存中，最后输出整个字符串的方法，而不是边分析<code>json</code>数据边输出，所以对于比较大的<code>json</code>数据来说，内存就是个问题了</p>
+        <p>代码覆盖率测试反映了测试的广度与深度，量化了测试和开发质量，是十分有必要的，业界目前有针对各种语言的覆盖率测试工具，本文主要介绍<code>C/C++</code>相关的覆盖率测试工具<code>Gcov</code><br><a id="more"></a></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><code>Gcov</code>是一个测试覆盖程序，是集成在<code>GCC</code>中的，随<code>GCC</code>一起发布</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>测试代码如下：<br><code>say.c</code>:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">say</span><span class="params">(<span class="keyword">char</span> *what)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"------ %s\n"</span>, what);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>main.c</code><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">say</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (argv[<span class="number">1</span>]) &#123;</span><br><span class="line">        say(<span class="string">"hello"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        say(<span class="string">"bye"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>添加<code>-fprofile-arcs -ftest-coverage</code>编译参数编译程序，生成可执行程序和<code>*.gcno</code>文件：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -fprofile-arcs -ftest-coverage -O0 say<span class="selector-class">.c</span> main.c</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.out</span>  main<span class="selector-class">.c</span>  main<span class="selector-class">.gcno</span>  say<span class="selector-class">.c</span>  say.gcno</span><br></pre></td></tr></table></figure></p>
+<h3 id="数据收集"><a href="#数据收集" class="headerlink" title="数据收集"></a>数据收集</h3><p>运行可执行文件，生成<code>*.gcda</code>:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ./<span class="selector-tag">a</span>.out</span><br><span class="line">------ bye</span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.out</span>  main<span class="selector-class">.c</span>  main<span class="selector-class">.gcda</span>  main<span class="selector-class">.gcno</span>  say<span class="selector-class">.c</span>  say<span class="selector-class">.gcda</span>  say.gcno</span><br></pre></td></tr></table></figure></p>
+<h3 id="报告生成"><a href="#报告生成" class="headerlink" title="报告生成"></a>报告生成</h3><h3 id="可视化数据"><a href="#可视化数据" class="headerlink" title="可视化数据"></a>可视化数据</h3><p>xxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+<h4 id="列表形式"><a href="#列表形式" class="headerlink" title="列表形式"></a>列表形式</h4><ol>
+<li>代码覆盖率<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ gcovr -r .</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line"><span class="code">                           GCC Code Coverage Report</span></span><br><span class="line">Directory: .</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">File                                       Lines    Exec  Cover   Missing</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">main.c                                         5       4    80%   15</span><br><span class="line">say.c                                          3       3   100%   </span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">TOTAL                                          8       7    87%</span><br><span class="line">------------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>报告展示程序运行后覆盖了<code>80%</code>的代码</p>
+<ol>
+<li>分支覆盖率<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ gcovr -b -r .</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line"><span class="code">                           GCC Code Coverage Report</span></span><br><span class="line">Directory: .</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">File                                    Branches   Taken  Cover   Missing</span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">main.c                                         2       1    50%   14</span><br><span class="line">say.c                                          0       0    --%   </span><br><span class="line">------------------------------------------------------------------------------</span><br><span class="line">TOTAL                                          2       1    50%</span><br><span class="line">------------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>报告展示了在<code>main.c</code>中有一个分支没有执行到</p>
+<h4 id="XML文件形式"><a href="#XML文件形式" class="headerlink" title="XML文件形式"></a>XML文件形式</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">$ gcovr --xml-pretty -r .</span><br><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> <span class="meta">?&gt;</span></span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE coverage</span></span><br><span class="line"><span class="meta">  SYSTEM 'http://cobertura.sourceforge.net/xml/coverage-04.dtd'&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">coverage</span> <span class="attr">branch-rate</span>=<span class="string">"0.5"</span> <span class="attr">branches-covered</span>=<span class="string">"1"</span> <span class="attr">branches-valid</span>=<span class="string">"2"</span></span></span><br><span class="line"><span class="tag"> <span class="attr">complexity</span>=<span class="string">"0.0"</span> <span class="attr">line-rate</span>=<span class="string">"0.875"</span> <span class="attr">lines-covered</span>=<span class="string">"7"</span> <span class="attr">lines-valid</span>=<span class="string">"8"</span></span></span><br><span class="line"><span class="tag"> <span class="attr">timestamp</span>=<span class="string">"1537930892"</span> <span class="attr">version</span>=<span class="string">"gcovr 3.4"</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">sources</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span>&gt;</span>.<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">sources</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">packages</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">package</span> <span class="attr">branch-rate</span>=<span class="string">"0.5"</span> <span class="attr">complexity</span>=<span class="string">"0.0"</span> <span class="attr">line-rate</span>=<span class="string">"0.875"</span> <span class="attr">name</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">classes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">class</span> <span class="attr">branch-rate</span>=<span class="string">"0.5"</span> <span class="attr">complexity</span>=<span class="string">"0.0"</span> <span class="attr">filename</span>=<span class="string">"main.c"</span></span></span><br><span class="line"><span class="tag">     <span class="attr">line-rate</span>=<span class="string">"0.8"</span> <span class="attr">name</span>=<span class="string">"main_c"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">methods</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">lines</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">line</span> <span class="attr">branch</span>=<span class="string">"false"</span> <span class="attr">hits</span>=<span class="string">"1"</span> <span class="attr">number</span>=<span class="string">"12"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">line</span> <span class="attr">branch</span>=<span class="string">"true"</span> <span class="attr">condition-coverage</span>=<span class="string">"50% (1/2)"</span> <span class="attr">hits</span>=<span class="string">"1"</span> <span class="attr">number</span>=<span class="string">"14"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">conditions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">condition</span> <span class="attr">coverage</span>=<span class="string">"50%"</span> <span class="attr">number</span>=<span class="string">"0"</span> <span class="attr">type</span>=<span class="string">"jump"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">conditions</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">line</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">line</span> <span class="attr">branch</span>=<span class="string">"false"</span> <span class="attr">hits</span>=<span class="string">"0"</span> <span class="attr">number</span>=<span class="string">"15"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">line</span> <span class="attr">branch</span>=<span class="string">"false"</span> <span class="attr">hits</span>=<span class="string">"1"</span> <span class="attr">number</span>=<span class="string">"17"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">line</span> <span class="attr">branch</span>=<span class="string">"false"</span> <span class="attr">hits</span>=<span class="string">"1"</span> <span class="attr">number</span>=<span class="string">"19"</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">lines</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">class</span> <span class="attr">branch-rate</span>=<span class="string">"0.0"</span> <span class="attr">complexity</span>=<span class="string">"0.0"</span> <span class="attr">filename</span>=<span class="string">"say.c"</span> <span class="attr">line-rate</span>=<span class="string">"1.0"</span></span></span><br><span class="line"><span class="tag">     <span class="attr">name</span>=<span class="string">"say_c"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">methods</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">lines</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">line</span> <span class="attr">branch</span>=<span class="string">"false"</span> <span class="attr">hits</span>=<span class="string">"1"</span> <span class="attr">number</span>=<span class="string">"10"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">line</span> <span class="attr">branch</span>=<span class="string">"false"</span> <span class="attr">hits</span>=<span class="string">"1"</span> <span class="attr">number</span>=<span class="string">"11"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">line</span> <span class="attr">branch</span>=<span class="string">"false"</span> <span class="attr">hits</span>=<span class="string">"1"</span> <span class="attr">number</span>=<span class="string">"12"</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">lines</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">classes</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">packages</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">coverage</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="HTML文件形式"><a href="#HTML文件形式" class="headerlink" title="HTML文件形式"></a>HTML文件形式</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ gcovr -r . --<span class="selector-tag">html</span> -o xxx.html</span><br><span class="line">$ ls</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.out</span>  main<span class="selector-class">.c</span>  main<span class="selector-class">.gcda</span>  main<span class="selector-class">.gcno</span>  say<span class="selector-class">.c</span>  say<span class="selector-class">.gcda</span>  say<span class="selector-class">.gcno</span>  xxx.html</span><br></pre></td></tr></table></figure>
+<p>可以发现添加<code>--html</code>参数后，可以生成<code>html</code>文件，用浏览器打开，如下图：<br><img src="http://o9zpdspb3.bkt.clouddn.com/gcovr_xxx.png" alt="gcovr_xxx.png"></p>
+<p>还可以添加<code>--html-details</code>选项，为每个代码文件单独生成<code>html</code><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ gcovr -r . --<span class="selector-tag">html</span> --html-<span class="selector-tag">details</span> -o xxx.html</span><br><span class="line">$ ls</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.out</span>  main<span class="selector-class">.c</span>  main<span class="selector-class">.gcda</span>  main<span class="selector-class">.gcno</span>  say<span class="selector-class">.c</span>  say<span class="selector-class">.gcda</span>  say<span class="selector-class">.gcno</span>  xxx<span class="selector-class">.html</span>  xxx<span class="selector-class">.main</span><span class="selector-class">.c</span><span class="selector-class">.html</span>  xxx<span class="selector-class">.say</span><span class="selector-class">.c</span><span class="selector-class">.html</span></span><br></pre></td></tr></table></figure></p>
+<p>可以发现多了<code>xxx.main.c.html</code>和<code>xxx.say.c.html</code>，用浏览器打开<code>xxx.html</code>，如下图：<br><img src="http://o9zpdspb3.bkt.clouddn.com/gcovr_xxx_detail.png" alt="gcovr_xxx_detail.png"><br>文件名较之前带上了下划线，单击文件名，可以看到具体的代码覆盖情况，如下图：<br><img src="http://o9zpdspb3.bkt.clouddn.com/gcovr_xxx_main.png" alt="gcovr_xxx_main.png"></p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><a href="https://github.com/faycheng/cJSON" target="_blank" rel="noopener">cJson源码和源码分析</a></li>
+<li><a href="https://gcc.gnu.org/onlinedocs/gcc/Gcov.html#Gcov" target="_blank" rel="noopener">gcov—a Test Coverage Program</a></li>
 </ul>
 <h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
 <ul>
@@ -432,6 +411,11 @@
 <li>CSDN：<a href="http://blog.csdn.net/u011192270" target="_blank" rel="noopener">AnSwEr不是答案的专栏</a></li>
 </ul>
 <p><a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> This work is licensed under a <a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</p>
+<p>官网　<a href="https://gcovr.com/" target="_blank" rel="noopener">https://gcovr.com/</a><br>gcovr是一个用Python编写的开源软件，大小只有几十KB<br>*.gcno 文件, 它包含了程序块和行号等信息<br>gcovr的下载地址是：<a href="https://blog.csdn.net/zhouzhaoxiong1227/article/details/50352944?utm_source=copy" target="_blank" rel="noopener">https://blog.csdn.net/zhouzhaoxiong1227/article/details/50352944?utm_source=copy</a> </p>
+<p>代码覆盖率<br>-fprofile-arcs -ftest-coverage</p>
+<p>分支覆盖率<br>gcovr -r . –branches</p>
+<p>展示覆盖率的XML文件<br>gcovr -r . –xml-pretty</p>
+<p>展示覆盖率的HTML文件<br>gcovr -r . –html -o FindStackDirection.html<br>添加“–html-details”选项为代码工程中的每个文件生成一个独立的web页</p>
 
       
     </div>
@@ -475,7 +459,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/cJSON/" rel="tag">#cJSON</a>
+            <a href="/tags/代码覆盖率/" rel="tag">#代码覆盖率</a>
           
         </div>
       
@@ -484,8 +468,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/07/usage-of-core-in-linux/" rel="next" title="Linux下core文件使用">
-                <i class="fa fa-chevron-left"></i> Linux下core文件使用
+              <a href="/2018/05/03/secret-of-cJSON/" rel="next" title="cJSON的秘密">
+                <i class="fa fa-chevron-left"></i> cJSON的秘密
               </a>
             
           </div>
@@ -583,7 +567,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -600,7 +584,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -688,7 +672,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cJSON简介"><span class="nav-number">1.</span> <span class="nav-text">cJSON简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cJSON结构体"><span class="nav-number">2.</span> <span class="nav-text">cJSON结构体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cJSON树结构"><span class="nav-number">2.1.</span> <span class="nav-text">cJSON树结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cJSON内存管理"><span class="nav-number">3.</span> <span class="nav-text">cJSON内存管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cJSON序列化"><span class="nav-number">4.</span> <span class="nav-text">cJSON序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#About-me"><span class="nav-number">6.</span> <span class="nav-text">About me</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译"><span class="nav-number">2.1.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据收集"><span class="nav-number">2.2.</span> <span class="nav-text">数据收集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#报告生成"><span class="nav-number">2.3.</span> <span class="nav-text">报告生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化数据"><span class="nav-number">2.4.</span> <span class="nav-text">可视化数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#列表形式"><span class="nav-number">2.4.1.</span> <span class="nav-text">列表形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#XML文件形式"><span class="nav-number">2.4.2.</span> <span class="nav-text">XML文件形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML文件形式"><span class="nav-number">2.4.3.</span> <span class="nav-text">HTML文件形式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#About-me"><span class="nav-number">4.</span> <span class="nav-text">About me</span></a></li></ol></div>
             
           </div>
         </section>
