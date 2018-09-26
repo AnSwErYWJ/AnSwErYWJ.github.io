@@ -1,5 +1,5 @@
 ---
-title: UNIX编程安全读写函数——readn和writen
+title: UNIX编程安全读写函数
 Antuor: AnSwEr(Weijie Yuan)
 comments: true
 toc: true
