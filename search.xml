@@ -76,7 +76,7 @@
     
     <entry>
       <title><![CDATA[cJSON的秘密]]></title>
-      <url>http://answerywj.com/2018/05/03/secret-of-cJSON/</url>
+      <url>http://answerywj.com/2018/05/03/introduction-of-cjson/</url>
       <content type="html"><![CDATA[<p>学习使用cJSON过程的一些发现和总结，不涉及具体的函数<br><a id="more"></a></p>
 <h2 id="cJSON简介"><a href="#cJSON简介" class="headerlink" title="cJSON简介"></a>cJSON简介</h2><p><code>cJSON</code>是一个快速，高性能的<code>json</code>解析器，由<code>C</code>语言编写，仅包含<code>cJSON.c</code>和<code>cJSON.h</code>两个文件，不支持跨平台；跨平台推荐纯<code>lua</code>写的<a href="http://dkolf.de/src/dkjson-lua.fsl/home" target="_blank" rel="noopener"><code>dkjson</code></a></p>
 <h2 id="cJSON结构体"><a href="#cJSON结构体" class="headerlink" title="cJSON结构体"></a>cJSON结构体</h2><p><code>cJSON</code>结构体的组成：</p>
@@ -824,7 +824,7 @@
     
     <entry>
       <title><![CDATA[UNIX网络编程-listen函数及其包裹函数介绍]]></title>
-      <url>http://answerywj.com/2017/02/23/UNIX%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-listen%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E5%8C%85%E8%A3%B9%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D/</url>
+      <url>http://answerywj.com/2017/02/23/listen-in-unix/</url>
       <content type="html"><![CDATA[<p>本文将介绍UNIX网络编程中<code>listen</code>函数及其包裹函数。</p>
 <hr>
 <a id="more"></a>
@@ -872,7 +872,7 @@
     
     <entry>
       <title><![CDATA[WAVE音频文件格式分析--实现C语言读写文件头]]></title>
-      <url>http://answerywj.com/2017/01/09/WAVE%E9%9F%B3%E9%A2%91%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E5%88%86%E6%9E%90-%E5%AE%9E%E7%8E%B0C%E8%AF%AD%E8%A8%80%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E5%A4%B4/</url>
+      <url>http://answerywj.com/2017/01/09/wave/</url>
       <content type="html"><![CDATA[<p>本文将详细分析WAVE音频文件的格式,并通过C语言对wave文件头进行读写操作。</p>
 <hr>
 <a id="more"></a>
@@ -916,7 +916,7 @@
     
     <entry>
       <title><![CDATA[C程序判断你主机的数据存储方式(大端和小端)]]></title>
-      <url>http://answerywj.com/2016/12/07/C%E7%A8%8B%E5%BA%8F%E5%88%A4%E6%96%AD%E4%BD%A0%E4%B8%BB%E6%9C%BA%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F(%E5%A4%A7%E7%AB%AF%E5%92%8C%E5%B0%8F%E7%AB%AF)/</url>
+      <url>http://answerywj.com/2016/12/07/big-endian-and-little-endian/</url>
       <content type="html"><![CDATA[<p>本文将使用C语言编写一个可以判断你主机数据存储方式(大端和小端)的程序.</p>
 <hr>
 <a id="more"></a>
@@ -963,7 +963,7 @@
     
     <entry>
       <title><![CDATA[从文件流中读写整数--C语言]]></title>
-      <url>http://answerywj.com/2016/12/06/%E4%BB%8E%E6%96%87%E4%BB%B6%E6%B5%81%E4%B8%AD%E8%AF%BB%E5%86%99%E6%95%B4%E6%95%B0--C%E8%AF%AD%E8%A8%80/</url>
+      <url>http://answerywj.com/2016/12/06/getw-and-putw/</url>
       <content type="html"><![CDATA[<p>本文将介绍在文本流中,读写整数的两个接口– <code>int getw(FILE *fp)</code>和<code>int putw(int w, FILE *fp)</code>,并且与你分享改进后的更实用的接口– <code>unsigned int get_uint(FILE *fp)</code>和<code>unsigned int put_uint(unsigned int i,FILE *fp)</code>.</p>
 <hr>
 <a id="more"></a>
@@ -1013,8 +1013,8 @@
     
     <entry>
       <title><![CDATA[Linux下处理json数据]]></title>
-      <url>http://answerywj.com/2016/10/10/Linux%E4%B8%8B%E5%A4%84%E7%90%86json%E6%95%B0%E6%8D%AE/</url>
-      <content type="html"><![CDATA[<p>当我们在LInux下需要处理json数据时,第一反应是用脚本编写一个工具,这样即耗时又不通用. 本文将介绍专门的命令行json处理工具<strong>jq</strong>.<br><a id="more"></a></p>
+      <url>http://answerywj.com/2016/10/10/jq/</url>
+      <content type="html"><![CDATA[<p>当我们在Linux下需要处理json数据时,第一反应是用脚本编写一个工具,这样即耗时又不通用. 本文将介绍专门的命令行json处理工具<strong>jq</strong>.<br><a id="more"></a></p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Ubuntu用户可以直接使用下列命令安装:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="builtin-name">get</span> install jq</span><br></pre></td></tr></table></figure></p>
 <p>也可以选择<a href="https://github.com/stedolan/jq" target="_blank" rel="noopener">源码</a>安装,当然最简单的方法是直接下载<a href="https://stedolan.github.io/jq/" target="_blank" rel="noopener">可执行文件</a>,不过需要找到适配你系统的版本.</p>
 <p>详细的安装方法可以参考<a href="https://stedolan.github.io/jq/download/" target="_blank" rel="noopener">这里</a>.</p>
@@ -1053,7 +1053,7 @@
     
     <entry>
       <title><![CDATA[Linux下C调用静态库和动态库]]></title>
-      <url>http://answerywj.com/2016/10/10/Linux%E4%B8%8BC%E8%B0%83%E7%94%A8%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93/</url>
+      <url>http://answerywj.com/2016/10/10/use-dynamic-and-static-library/</url>
       <content type="html"><![CDATA[<p>本文主要介绍Linux下C调用静态库和动态库,使用的样例文件请点击<a href="https://github.com/AnSwErYWJ/DogFood/tree/master/C/aso" target="_blank" rel="noopener">这里</a>.<br><a id="more"></a></p>
 <h2 id="样例文件"><a href="#样例文件" class="headerlink" title="样例文件"></a>样例文件</h2><p>welcome.c:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">"welcome.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">welcome</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"welcome to my code world!\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
@@ -1127,7 +1127,7 @@
     
     <entry>
       <title><![CDATA[科普|3.5mm耳机国标和美标]]></title>
-      <url>http://answerywj.com/2016/09/20/%5B%E7%A7%91%E6%99%AE%5D3.5mm%E8%80%B3%E6%9C%BA%E5%9B%BD%E6%A0%87%E5%92%8C%E7%BE%8E%E6%A0%87/</url>
+      <url>http://answerywj.com/2016/09/20/standard-of-headphone/</url>
       <content type="html"><![CDATA[<p>现在3.5mm规格的耳机已经普遍使用，但是用户会发现一些国外厂家的耳机并不适用国产手机，下面就为大家科普一下，解开这个迷题。</p>
 <a id="more"></a>
 <h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><ul>
@@ -1176,7 +1176,7 @@
     
     <entry>
       <title><![CDATA[Shell脚本浮点运算]]></title>
-      <url>http://answerywj.com/2016/09/05/Shell%E8%84%9A%E6%9C%AC%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97/</url>
+      <url>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</url>
       <content type="html"><![CDATA[<p>本文将介绍几种Linux下通过Shell脚本进行浮点数计算的方法。</p>
 <hr>
 <a id="more"></a>
@@ -1222,7 +1222,7 @@
     
     <entry>
       <title><![CDATA[Shell脚本清空文件的几种方法]]></title>
-      <url>http://answerywj.com/2016/09/05/Shell%E8%84%9A%E6%9C%AC%E6%B8%85%E7%A9%BA%E6%96%87%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</url>
+      <url>http://answerywj.com/2016/09/05/empty-file-in-shell/</url>
       <content type="html"><![CDATA[<p>本文将介绍几种在Linux下清空文件的方法。</p>
 <hr>
 <a id="more"></a>
@@ -1269,7 +1269,7 @@
     
     <entry>
       <title><![CDATA[Git速查手册]]></title>
-      <url>http://answerywj.com/2016/08/28/Git%E9%80%9F%E6%9F%A5%E6%89%8B%E5%86%8C/</url>
+      <url>http://answerywj.com/2016/08/28/my-git-help-v1/</url>
       <content type="html"><![CDATA[<p>本手册旨在记录实际工程项目中使用的git命令，方便查找。</p>
 <hr>
 <a id="more"></a>
@@ -1404,7 +1404,7 @@
     
     <entry>
       <title><![CDATA[Hexo+Github博客备份方法]]></title>
-      <url>http://answerywj.com/2016/08/10/Hexo+Github%E5%8D%9A%E5%AE%A2%E5%A4%87%E4%BB%BD%E6%96%B9%E6%B3%95/</url>
+      <url>http://answerywj.com/2016/08/10/backup-of-blog-with-hexo-and-github/</url>
       <content type="html"><![CDATA[<p>使用hexo+github搭建的博客,博客作为一个单独的github仓库存在,可是仓库中不包含你每篇博客的源文件。如果你换了一台机器想要更新博客或者想重新发布以前的博客,这就不好办了。我这里推荐一种云端备份的方法。</p>
 <hr>
 <a id="more"></a>
@@ -1452,7 +1452,7 @@
     
     <entry>
       <title><![CDATA[Linux的硬链接和软链接]]></title>
-      <url>http://answerywj.com/2016/08/02/Linux%E7%9A%84%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%92%8C%E8%BD%AF%E9%93%BE%E6%8E%A5/</url>
+      <url>http://answerywj.com/2016/08/02/link-in-linux/</url>
       <content type="html"><![CDATA[<p>Linux下链接的命令是<em>ln</em>,可以通过<code>man ln</code>查看.</p>
 <hr>
 <a id="more"></a>
@@ -1514,7 +1514,7 @@
     
     <entry>
       <title><![CDATA[Linux socket编程的心跳机制总结]]></title>
-      <url>http://answerywj.com/2016/07/14/Linux-socket%E7%BC%96%E7%A8%8B%E7%9A%84%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93/</url>
+      <url>http://answerywj.com/2016/07/14/keepalive-of-socket/</url>
       <content type="html"><![CDATA[<p><strong>心跳机制</strong>用于保持客户端和服务端的连接.</p>
 <hr>
 <a id="more"></a>
@@ -1570,7 +1570,7 @@
     
     <entry>
       <title><![CDATA[UNIX网络编程-connect函数及其包裹函数介绍]]></title>
-      <url>http://answerywj.com/2016/07/14/UNIX%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-connect%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E5%8C%85%E8%A3%B9%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D/</url>
+      <url>http://answerywj.com/2016/07/14/connect-in-unix/</url>
       <content type="html"><![CDATA[<p>本文将介绍UNIX网络编程中<code>connect</code>函数及其包裹函数。</p>
 <hr>
 <a id="more"></a>
@@ -1609,7 +1609,7 @@
     
     <entry>
       <title><![CDATA[Linux C编程的DEBUG宏]]></title>
-      <url>http://answerywj.com/2016/07/14/Linux-C%E7%BC%96%E7%A8%8B%E7%9A%84DEBUG%E5%AE%8F/</url>
+      <url>http://answerywj.com/2016/07/14/debug-macro/</url>
       <content type="html"><![CDATA[<p>DEBUG宏用于Linux下C编程时调试使用.</p>
 <hr>
 <a id="more"></a>
@@ -1649,8 +1649,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[UNIX编程安全读写函数——readn和writen]]></title>
-      <url>http://answerywj.com/2016/07/14/UNIX%E7%BC%96%E7%A8%8B%E5%AE%89%E5%85%A8%E8%AF%BB%E5%86%99%E5%87%BD%E6%95%B0%E2%80%94%E2%80%94readn%E5%92%8Cwriten/</url>
+      <title><![CDATA[UNIX编程安全读写函数]]></title>
+      <url>http://answerywj.com/2016/07/14/safe-read-and-write/</url>
       <content type="html"><![CDATA[<p>字节流套接字（TCP套接字）上的read和write函数所表现的行为不同于通常的文件I/O。字节流套接字调用read或write输入或输出的字节数可能比请求的数量少，然而这并不是出错的状态。<strong>这是因为内核中用于套接字的缓冲区可能达到了极限。</strong>通常这种情况出现在一次读多于4096个字节或write在非阻塞情况下返回不足字节数。为了不多次调用read或防止write返回不足字节数，我们用下面的两个函数来替代read和write。</p>
 <hr>
 <a id="more"></a>
@@ -1687,7 +1687,7 @@
     
     <entry>
       <title><![CDATA[C语言生成随机数]]></title>
-      <url>http://answerywj.com/2016/07/14/C%E8%AF%AD%E8%A8%80%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/</url>
+      <url>http://answerywj.com/2016/07/14/generate-random-numbers/</url>
       <content type="html"><![CDATA[<p>本文将介绍C语言生成随机数的方法,主要使用 <em>rand()</em> 函数和 <em>srand()</em> 函数.</p>
 <hr>
 <a id="more"></a>
@@ -1733,7 +1733,7 @@
     
     <entry>
       <title><![CDATA[Linux Shell 脚本调试总结]]></title>
-      <url>http://answerywj.com/2016/07/14/Linux-Shell-%E8%84%9A%E6%9C%AC%E8%B0%83%E8%AF%95%E6%80%BB%E7%BB%93/</url>
+      <url>http://answerywj.com/2016/07/14/debug-for-shell-script/</url>
       <content type="html"><![CDATA[<p>Shell脚本是用户与Linux操作系统交互的一种方式,在脚本编程过程中自然少不了进行调试工作,本文将介绍三种常用的调试方法.(默认使用bash shell)</p>
 <hr>
 <a id="more"></a>
@@ -1774,7 +1774,7 @@
     
     <entry>
       <title><![CDATA[Linux下adb devices no permissions解决方案]]></title>
-      <url>http://answerywj.com/2016/07/14/Linux%E4%B8%8Badb-devices-no-permissions%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+      <url>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</url>
       <content type="html"><![CDATA[<p>Linux下adb工具<a href="http://pan.baidu.com/s/1qYhBG2w" target="_blank" rel="noopener">下载</a>，下载解压到<em>/usr/bin</em>目录。</p>
 <hr>
 <a id="more"></a>
@@ -1818,7 +1818,7 @@
     
     <entry>
       <title><![CDATA[Linux下脚本录制工具——script和scriptreplay]]></title>
-      <url>http://answerywj.com/2016/07/14/Linux%E4%B8%8B%E8%84%9A%E6%9C%AC%E5%BD%95%E5%88%B6%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94script%E5%92%8Cscriptreplay/</url>
+      <url>http://answerywj.com/2016/07/14/script-and-scriptreplay/</url>
       <content type="html"><![CDATA[<p>在Linux开发环境下，想要录制一段屏幕视屏不是特别方便。这里分享给大家一种方便而且快捷的方法。</p>
 <hr>
 <a id="more"></a>
@@ -1859,7 +1859,7 @@
     
     <entry>
       <title><![CDATA[Linux fork炸弹解析]]></title>
-      <url>http://answerywj.com/2016/07/14/Linux-fork%E7%82%B8%E5%BC%B9%E8%A7%A3%E6%9E%90/</url>
+      <url>http://answerywj.com/2016/07/14/fork-bomb/</url>
       <content type="html"><![CDATA[<p><strong>:(){ :|: &amp; };:</strong>是一个bash函数，以Fork Bomb闻名，是一个拒绝服务攻击 的Linux 系统。如果你好奇地去执行了这个命令，那么赶快重启系统吧~！</p>
 <hr>
 <a id="more"></a>
@@ -1904,7 +1904,7 @@
     
     <entry>
       <title><![CDATA[Github徽章整理]]></title>
-      <url>http://answerywj.com/2016/07/08/Github%E5%BE%BD%E7%AB%A0%E6%95%B4%E7%90%86/</url>
+      <url>http://answerywj.com/2016/07/08/badges-of-github/</url>
       <content type="html"><![CDATA[<p> 相信很多在Github上玩耍过的同学们都会发现，在很多项目的README里会有各式各样的徽章，是不是顿时感觉到很高上大？没关系，读完这篇文章你就也可以拥有这些徽章了，甚至可以定制自己的徽章。</p>
 <hr>
 <a id="more"></a>
