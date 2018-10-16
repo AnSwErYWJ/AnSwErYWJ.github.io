@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
+    
+    <lastmod>2018-10-16T03:44:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2016/12/06/getw-and-putw/</loc>
     
     <lastmod>2018-09-26T10:42:00.856Z</lastmod>
@@ -191,7 +198,21 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
+    <loc>http://answerywj.com/categories/index.html</loc>
+    
+    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
+    
+    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/tags/index.html</loc>
     
     <lastmod>2018-02-13T06:08:22.784Z</lastmod>
     
@@ -212,13 +233,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/tags/index.html</loc>
-    
-    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/about/index.html</loc>
     
     <lastmod>2018-02-13T06:08:22.784Z</lastmod>
@@ -226,14 +240,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
-    
-    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/categories/index.html</loc>
+    <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
     
     <lastmod>2018-02-13T06:08:22.784Z</lastmod>
     
