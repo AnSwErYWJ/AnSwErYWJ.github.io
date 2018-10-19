@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://answerywj.com/2017/12/29/Introduction-of-speex/</loc>
+    
+    <lastmod>2018-10-19T01:45:41.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
     
     <lastmod>2018-10-16T03:44:28.000Z</lastmod>
@@ -198,28 +205,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/categories/index.html</loc>
-    
-    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
-    
-    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/tags/index.html</loc>
-    
-    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/06/16/table-encode-as-array-or-object/</loc>
     
     <lastmod>2018-02-13T06:08:22.784Z</lastmod>
     
@@ -233,7 +219,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/about/index.html</loc>
+    <loc>http://answerywj.com/2017/06/16/table-encode-as-array-or-object/</loc>
+    
+    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
     
     <lastmod>2018-02-13T06:08:22.784Z</lastmod>
     
@@ -247,14 +240,21 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/404.html</loc>
+    <loc>http://answerywj.com/about/index.html</loc>
     
-    <lastmod>2018-02-13T06:08:22.780Z</lastmod>
+    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/12/29/Introduction-of-speex/</loc>
+    <loc>http://answerywj.com/categories/index.html</loc>
+    
+    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/404.html</loc>
     
     <lastmod>2018-02-13T06:08:22.780Z</lastmod>
     

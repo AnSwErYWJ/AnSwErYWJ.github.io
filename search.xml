@@ -284,11 +284,11 @@
 <blockquote>
 <p>注意千比特每秒（<em>kbps</em>）和千字节每秒（<em>kBps</em>）的区别。</p>
 </blockquote>
-<h3 id="质量（可变）"><a href="#质量（可变）" class="headerlink" title="质量（可变）"></a>质量（可变）</h3><p><em>Speex</em>是有损的编解码器，意味着压缩率以输入语音信号的保真度为代价<br><em>Speex</em>可以控制质量和比特率之间的折中，大多数时间由一个范围在<em>0</em>到<em>10</em>之间的质量参数控制</p>
+<h3 id="质量（可变）"><a href="#质量（可变）" class="headerlink" title="质量（可变）"></a>质量（可变）</h3><p><em>Speex</em>是有损的编解码器，意味着压缩率以输入语音信号的保真度为代价，质量越高，压缩后的比特率越大，音质也越好<br><em>Speex</em>可以控制质量和比特率之间的折中，大多数时间由一个范围在<em>0</em>到<em>10</em>之间的质量参数控制</p>
 <blockquote>
 <p>在不变比特率（<em>CBR</em>）中，质量参数是一个整数； 在可变比特率（<em>VBR</em>）中，质量参数是一个浮点数。</p>
 </blockquote>
-<h3 id="复杂度（可变）"><a href="#复杂度（可变）" class="headerlink" title="复杂度（可变）"></a>复杂度（可变）</h3><p><em>Speex</em>允许编码器拥有可变的复杂度，通过一个范围在<em>1</em>到<em>10</em>之间的整数控制搜索的执行来实现，类似于<em>gzip</em>和<em>bzip2</em>压缩工具的-1到<em>-9</em>选项<br>正常使用情况下，复杂度为<em>1</em>的噪声等级比复杂度为<em>10</em>的噪声等级高<em>1</em>到<em>2</em>个<em>dB</em>，但复杂度为<em>10</em>的<em>CPU</em>要求比复杂度为1的高<em>5</em>倍。</p>
+<h3 id="复杂度（可变）"><a href="#复杂度（可变）" class="headerlink" title="复杂度（可变）"></a>复杂度（可变）</h3><p><em>Speex</em>允许编码器拥有可变的复杂度，通过一个范围在<em>1</em>到<em>10</em>之间的整数控制搜索的执行来实现，复杂度越高，压缩率越高，CPU使用率越高，音质越好，类似于<em>gzip</em>和<em>bzip2</em>压缩工具的-1到<em>-9</em>选项<br>正常使用情况下，复杂度为<em>1</em>的噪声等级比复杂度为<em>10</em>的噪声等级高<em>1</em>到<em>2</em>个<em>dB</em>，但复杂度为<em>10</em>的<em>CPU</em>要求比复杂度为1的高<em>5</em>倍。</p>
 <blockquote>
 <p>实际应用中，最好的折中是复杂度<em>2</em>到<em>4</em>，但在编码非语音声音如<em>DTMF</em>声调时更高的复杂度经常被用到</p>
 </blockquote>
