@@ -2,7 +2,7 @@
 title: Git速查手册（第二版）
 Antuor: AnSwEr(Weijie Yuan)
 toc: true
-date: 2017-04-01 10:32:40
+date: 2019-02-12 12:02:40
 categories: Git
 tags: git
 ---
@@ -59,6 +59,11 @@ $ git config --global credential.helper 'cache --timeout=3600'
 ```
 $ git config --global diff.tool meld
 $ git config --global merge.tool meld
+```
+保存用户名,密码, 避免每次`pull/push`操作都需要手动输入：
+```
+$ git config --global credential.helper store
+# 执行上免的命令后, 下次操作输入的密码会被保存
 ```
 设置颜色,利于使用：
 ```
