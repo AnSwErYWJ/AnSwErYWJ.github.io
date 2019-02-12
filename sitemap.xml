@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://answerywj.com/2019/02/12/my-git-help-v2/</loc>
+    
+    <lastmod>2019-02-12T04:07:58.036Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2017/12/29/Introduction-of-speex/</loc>
     
     <lastmod>2018-10-19T01:45:41.000Z</lastmod>
@@ -184,13 +191,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/04/01/my-git-help-v2/</loc>
-    
-    <lastmod>2018-09-25T01:47:59.749Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2017/08/04/gcc-compilation-of-arm-articles/</loc>
     
     <lastmod>2018-05-10T03:41:43.000Z</lastmod>
@@ -205,14 +205,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/tags/index.html</loc>
+    <loc>http://answerywj.com/categories/index.html</loc>
     
     <lastmod>2018-02-13T06:08:22.784Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/06/27/unix-io-model-analysis/</loc>
+    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
     
     <lastmod>2018-02-13T06:08:22.784Z</lastmod>
     
@@ -226,7 +226,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
+    <loc>http://answerywj.com/2017/06/27/unix-io-model-analysis/</loc>
     
     <lastmod>2018-02-13T06:08:22.784Z</lastmod>
     
@@ -247,7 +247,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/categories/index.html</loc>
+    <loc>http://answerywj.com/tags/index.html</loc>
     
     <lastmod>2018-02-13T06:08:22.784Z</lastmod>
     

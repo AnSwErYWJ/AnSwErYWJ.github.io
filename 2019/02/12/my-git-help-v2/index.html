@@ -90,14 +90,14 @@
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git速查手册（第二版）">
-<meta property="og:url" content="http://answerywj.com/2017/04/01/my-git-help-v2/index.html">
+<meta property="og:url" content="http://answerywj.com/2019/02/12/my-git-help-v2/index.html">
 <meta property="og:site_name" content="AnSwEr&#39;s Blog">
 <meta property="og:description" content="本文是对之前Git速查手册的更新，增加了一些这段时间使用到的命令。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/git%E5%B7%A5%E4%BD%9C%E6%B5%81.jpg">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2018-09-25T01:47:59.749Z">
+<meta property="og:updated_time" content="2019-02-12T04:07:58.036Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git速查手册（第二版）">
 <meta name="twitter:description" content="本文是对之前Git速查手册的更新，增加了一些这段时间使用到的命令。">
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="http://answerywj.com/2017/04/01/my-git-help-v2/"/>
+  <link rel="canonical" href="http://answerywj.com/2019/02/12/my-git-help-v2/"/>
 
   <title> Git速查手册（第二版） | AnSwEr's Blog </title>
 </head>
@@ -319,8 +319,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-04-01T10:32:40+08:00" content="2017-04-01">
-              2017-04-01
+            <time itemprop="dateCreated" datetime="2019-02-12T12:02:40+08:00" content="2019-02-12">
+              2019-02-12
             </time>
           </span>
 
@@ -353,7 +353,7 @@
 
           
           
-             <span id="/2017/04/01/my-git-help-v2/" class="leancloud_visitors" data-flag-title="Git速查手册（第二版）">
+             <span id="/2019/02/12/my-git-help-v2/" class="leancloud_visitors" data-flag-title="Git速查手册（第二版）">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -387,6 +387,7 @@
 <p>当ssh配置完成后，再次检查ssh连接情况：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">Hi! You’ve successfully authenticated, <span class="keyword">but</span> GitHub <span class="keyword">does</span> <span class="keyword">not</span> provide shell access.</span><br></pre></td></tr></table></figure></p>
 <p>若出现上述信息，则表示设置成功。<br>若使用https访问, 则进行如下配置,并且设置超时时间避免重复输入密码：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git config --global http.sslverify <span class="literal">false</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global credential.helper <span class="string">'cache --timeout=3600'</span></span></span><br></pre></td></tr></table></figure></p>
 <p>设置可视化diff和merge工具, linux系统上推荐使用meld或者diffuse：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git<span class="built_in"> config </span>--global diff.tool meld</span><br><span class="line">$ git<span class="built_in"> config </span>--global merge.tool meld</span><br></pre></td></tr></table></figure></p>
+<p>保存用户名,密码, 避免每次<code>pull/push</code>操作都需要手动输入：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git<span class="built_in"> config </span>--global credential.helper store</span><br><span class="line"><span class="comment"># 执行上免的命令后, 下次操作输入的密码会被保存</span></span><br></pre></td></tr></table></figure></p>
 <p>设置颜色,利于使用：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git<span class="built_in"> config </span>--global color.ui.<span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
 <p>设置别名：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git<span class="built_in"> config </span>--global alias checkout co</span><br></pre></td></tr></table></figure></p>
 <blockquote>
@@ -552,17 +553,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/23/Introduction-to-four-service-of-cloud-computing/" rel="next" title="科普|云计算的四种服务模式介绍">
-                <i class="fa fa-chevron-left"></i> 科普|云计算的四种服务模式介绍
+              <a href="/2018/10/16/daily-record/" rel="next" title="Daily Record">
+                <i class="fa fa-chevron-left"></i> Daily Record
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/16/table-encode-as-array-or-object/" rel="prev" title="记一次踩坑|空table应该编码为数组还是对象">
-                记一次踩坑|空table应该编码为数组还是对象 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -779,7 +776,7 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
