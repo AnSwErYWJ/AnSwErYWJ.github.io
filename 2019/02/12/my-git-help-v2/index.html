@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/git%E5%B7%A5%E4%BD%9C%E6%B5%81.jpg">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2019-02-12T04:07:58.036Z">
+<meta property="og:updated_time" content="2019-02-13T04:12:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git速查手册（第二版）">
 <meta name="twitter:description" content="本文是对之前Git速查手册的更新，增加了一些这段时间使用到的命令。">
@@ -441,6 +441,7 @@
 <h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>查看所有分支，有<code>*</code>标记的是当前分支：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch -a</span></span><br></pre></td></tr></table></figure></p>
 <p>创建本地分支：<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout &lt;<span class="keyword">new</span><span class="type">branch</span>&gt;</span><br></pre></td></tr></table></figure></p>
 <p>创建并切换本地分支：<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b &lt;<span class="keyword">new</span><span class="type">branch</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>从标签创建分支：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch &lt;branch&gt; &lt;tagname&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git checkout &lt;branch&gt; <span class="comment"># 切换到新建分支</span></span></span><br></pre></td></tr></table></figure></p>
 <p>推送新建本地分支到远程：<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span> git push -u origin &lt;remote-branch-name&gt;</span><br><span class="line">  <span class="keyword">or</span></span><br><span class="line"><span class="symbol">$</span> git push --<span class="keyword">set</span>-upstream <span class="comment">origin &lt;remote-branch-name&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>删除本地分支：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch -d &lt;branch&gt;</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
