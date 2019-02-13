@@ -270,6 +270,12 @@ $ git checkout <newbranch>
 $ git checkout -b <newbranch>
 ```
 
+从标签创建分支：
+```
+$ git branch <branch> <tagname>
+$ git checkout <branch> # 切换到新建分支
+```
+
 推送新建本地分支到远程：
 ```
 $ git push -u origin <remote-branch-name>
