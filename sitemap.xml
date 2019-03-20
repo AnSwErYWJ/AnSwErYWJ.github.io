@@ -2,268 +2,268 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://answerywj.com/2019/02/12/my-git-help-v2/</loc>
+    <loc>http://answerywj.com/tags/index.html</loc>
     
-    <lastmod>2019-02-13T04:12:51.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/12/29/Introduction-of-speex/</loc>
-    
-    <lastmod>2018-10-19T01:45:41.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
-    
-    <lastmod>2018-10-16T03:44:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/12/06/getw-and-putw/</loc>
-    
-    <lastmod>2018-09-26T10:42:00.856Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/01/09/wave/</loc>
-    
-    <lastmod>2018-09-26T10:41:33.876Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
-    
-    <lastmod>2018-09-26T10:41:25.814Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
-    
-    <lastmod>2018-09-26T10:41:18.927Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
-    
-    <lastmod>2018-09-26T10:40:57.611Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
-    
-    <lastmod>2018-09-26T10:40:11.889Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2018/05/03/introduction-of-cjson/</loc>
-    
-    <lastmod>2018-09-26T10:39:51.388Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</loc>
-    
-    <lastmod>2018-09-26T10:39:25.987Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
-    
-    <lastmod>2018-09-26T10:38:55.555Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
-    
-    <lastmod>2018-09-26T10:38:42.734Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/10/10/jq/</loc>
-    
-    <lastmod>2018-09-26T10:38:32.407Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/10/10/use-dynamic-and-static-library/</loc>
-    
-    <lastmod>2018-09-26T10:38:01.088Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</loc>
-    
-    <lastmod>2018-09-26T10:37:25.933Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
-    
-    <lastmod>2018-09-26T10:37:05.324Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
-    
-    <lastmod>2018-09-26T10:36:32.517Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/fork-bomb/</loc>
-    
-    <lastmod>2018-09-26T10:36:19.260Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/debug-macro/</loc>
-    
-    <lastmod>2018-09-26T10:35:57.266Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/08/10/backup-of-blog-with-hexo-and-github/</loc>
-    
-    <lastmod>2018-09-26T10:35:23.532Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/08/28/my-git-help-v1/</loc>
-    
-    <lastmod>2018-09-26T10:34:34.805Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/08/badges-of-github/</loc>
-    
-    <lastmod>2018-09-26T10:34:20.622Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/generate-random-numbers/</loc>
-    
-    <lastmod>2018-09-26T10:34:05.537Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/12/07/big-endian-and-little-endian/</loc>
-    
-    <lastmod>2018-09-26T10:33:28.106Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/09/20/standard-of-headphone/</loc>
-    
-    <lastmod>2018-09-26T10:32:42.659Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2018/09/25/coverage-of-c/</loc>
-    
-    <lastmod>2018-09-26T10:19:45.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/08/04/gcc-compilation-of-arm-articles/</loc>
-    
-    <lastmod>2018-05-10T03:41:43.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2018/03/07/usage-of-core-in-linux/</loc>
-    
-    <lastmod>2018-03-08T01:16:33.705Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
-    
-    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/categories/index.html</loc>
-    
-    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
-    
-    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/06/16/table-encode-as-array-or-object/</loc>
-    
-    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/06/27/unix-io-model-analysis/</loc>
-    
-    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
+    <lastmod>2019-03-16T07:13:16.668Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://answerywj.com/about/index.html</loc>
     
-    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
+    <lastmod>2019-03-16T07:13:16.668Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/tags/index.html</loc>
+    <loc>http://answerywj.com/categories/index.html</loc>
     
-    <lastmod>2018-02-13T06:08:22.784Z</lastmod>
+    <lastmod>2019-03-16T07:13:16.668Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/404.html</loc>
+    <loc>http://answerywj.com/2017/01/09/wave/</loc>
     
-    <lastmod>2018-02-13T06:08:22.780Z</lastmod>
+    <lastmod>2019-03-16T07:13:16.648Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/10/10/use-dynamic-and-static-library/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.648Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2018/03/07/usage-of-core-in-linux/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.648Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.624Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/06/16/table-encode-as-array-or-object/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.624Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/09/20/standard-of-headphone/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.624Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.624Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.624Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/06/27/unix-io-model-analysis/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.624Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.620Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2019/02/12/my-git-help-v2/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.620Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/08/28/my-git-help-v1/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.620Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/10/10/jq/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.620Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.620Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.620Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.620Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2018/05/03/introduction-of-cjson/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.600Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/12/06/getw-and-putw/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.584Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/08/04/gcc-compilation-of-arm-articles/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.584Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/generate-random-numbers/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.584Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.576Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.576Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/fork-bomb/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.576Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/debug-macro/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.576Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.576Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.576Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2018/09/25/coverage-of-c/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.572Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://answerywj.com/2017/03/23/Introduction-to-four-service-of-cloud-computing/</loc>
     
-    <lastmod>2018-02-13T06:08:22.780Z</lastmod>
+    <lastmod>2019-03-16T07:13:16.536Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.536Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.536Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/12/29/Introduction-of-speex/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.536Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/08/badges-of-github/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.536Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/12/07/big-endian-and-little-endian/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.536Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/08/10/backup-of-blog-with-hexo-and-github/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.536Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/404.html</loc>
+    
+    <lastmod>2019-03-16T07:13:16.512Z</lastmod>
     
   </url>
   
