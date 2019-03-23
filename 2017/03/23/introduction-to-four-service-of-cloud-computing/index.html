@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="tcp,listen,">
+  <meta name="keywords" content="Cloud Computing,">
 
 
 
@@ -86,21 +86,22 @@
 
 
 
-<meta name="description" content="本文将介绍UNIX网络编程中listen函数及其包裹函数。">
-<meta name="keywords" content="tcp,listen">
+<meta name="description" content="本文将介绍SaaS，BaaS，PaaS和IaaS这四种云计算服务模式，并分析之间的联系和区别。">
+<meta name="keywords" content="Cloud Computing">
 <meta property="og:type" content="article">
-<meta property="og:title" content="UNIX网络编程-listen函数及其包裹函数介绍">
-<meta property="og:url" content="http://answerywj.com/2017/02/23/listen-in-unix/index.html">
+<meta property="og:title" content="科普|云计算的四种服务模式介绍">
+<meta property="og:url" content="http://answerywj.com/2017/03/23/introduction-to-four-service-of-cloud-computing/index.html">
 <meta property="og:site_name" content="AnSwEr&#39;s Blog">
-<meta property="og:description" content="本文将介绍UNIX网络编程中listen函数及其包裹函数。">
+<meta property="og:description" content="本文将介绍SaaS，BaaS，PaaS和IaaS这四种云计算服务模式，并分析之间的联系和区别。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://answerywj.com/2017/03/23/introduction-to-four-service-of-cloud-computing/Introduction-to-four-service-of-cloud-computing.jpg">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2019-03-16T07:13:16.621Z">
+<meta property="og:updated_time" content="2019-03-23T08:19:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="UNIX网络编程-listen函数及其包裹函数介绍">
-<meta name="twitter:description" content="本文将介绍UNIX网络编程中listen函数及其包裹函数。">
-<meta name="twitter:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
+<meta name="twitter:title" content="科普|云计算的四种服务模式介绍">
+<meta name="twitter:description" content="本文将介绍SaaS，BaaS，PaaS和IaaS这四种云计算服务模式，并分析之间的联系和区别。">
+<meta name="twitter:image" content="http://answerywj.com/2017/03/23/introduction-to-four-service-of-cloud-computing/Introduction-to-four-service-of-cloud-computing.jpg">
 
 
 
@@ -121,9 +122,9 @@
 
 
 
-  <link rel="canonical" href="http://answerywj.com/2017/02/23/listen-in-unix/">
+  <link rel="canonical" href="http://answerywj.com/2017/03/23/introduction-to-four-service-of-cloud-computing/">
 
-  <title> UNIX网络编程-listen函数及其包裹函数介绍 | AnSwEr's Blog </title>
+  <title> 科普|云计算的四种服务模式介绍 | AnSwEr's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -306,7 +307,7 @@
             
             
               
-                UNIX网络编程-listen函数及其包裹函数介绍
+                科普|云计算的四种服务模式介绍
               
             
           </h1>
@@ -318,8 +319,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-02-23T17:14:17+08:00" content="2017-02-23">
-              2017-02-23
+            <time itemprop="dateCreated" datetime="2017-03-23T14:18:40+08:00" content="2017-03-23">
+              2017-03-23
             </time>
           </span>
 
@@ -332,8 +333,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C</span>
+                  <a href="/categories/Knowledge/" itemprop="url" rel="index">
+                    <span itemprop="name">Knowledge</span>
                   </a>
                 </span>
 
@@ -352,7 +353,7 @@
 
           
           
-             <span id="/2017/02/23/listen-in-unix/" class="leancloud_visitors" data-flag-title="UNIX网络编程-listen函数及其包裹函数介绍">
+             <span id="/2017/03/23/introduction-to-four-service-of-cloud-computing/" class="leancloud_visitors" data-flag-title="科普|云计算的四种服务模式介绍">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -374,24 +375,25 @@
       
 
       
-        <p>本文将介绍UNIX网络编程中<code>listen</code>函数及其包裹函数。</p>
-<hr>
+        <p>本文将介绍<em>SaaS</em>，<em>BaaS</em>，<em>PaaS</em>和<em>IaaS</em>这四种云计算服务模式，并分析之间的联系和区别。</p>
 <a id="more"></a>
-<h3 id="函数简介"><a href="#函数简介" class="headerlink" title="函数简介"></a>函数简介</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">(<span class="keyword">int</span> sockfd,<span class="keyword">int</span> backlog)</span></span>;</span><br><span class="line">                                返回：若成功则为<span class="number">0</span>，若出错则为<span class="number">-1</span></span><br></pre></td></tr></table></figure>
-<p>目前<code>listen</code>函数仅为<code>TCP</code>服务器调用，主要完成两个任务：</p>
-<ol>
-<li>将<code>socket</code>函数创建的还未建立连接的主动套接字转换为被动(监听)套接字，使内核接受指向该套接字的连接。</li>
-<li>使用第二个参数规定了内核为相应套接字排队的最大连接个数。</li>
-</ol>
-<blockquote>
-<p>tips：<code>socket</code>函数创建的套接字被默认为一个主动套接字，即该套接字为将调用<code>connect</code>函数发起连接的客户套接字。而<code>listen</code>函数导致该套接字从<code>CLOSED</code>状态转换为<code>LISTEN</code>状态。</p>
-</blockquote>
-<h3 id="包裹函数-下载"><a href="#包裹函数-下载" class="headerlink" title="包裹函数(下载)"></a>包裹函数(<a href="https://github.com/AnSwErYWJ/UNP/blob/master/TCP/Listen.c" target="_blank" rel="noopener">下载</a>)</h3><p>历史上总是将<code>backlog</code>设为5，但已无法满足现在服务器的需求了，所以需要指定一个较大的<code>backlog</code>才能满足繁忙的需求。一种方法是使用一个常值，可是每次增长都需要重新编译，比较麻烦；另一种方法是设定默认值，然后允许通过命令行或环境变量覆盖默认值：<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">void Listen(<span class="built_in">int</span> fd,<span class="built_in">int</span> backlog)</span><br><span class="line">&#123;</span><br><span class="line">    char *<span class="built_in">ptr</span><span class="comment">;</span></span><br><span class="line">    <span class="keyword">if</span>((<span class="built_in">ptr</span> = getenv(<span class="string">"LISTENQ"</span>)) != <span class="literal">NULL</span>)</span><br><span class="line">        backlog = atoi(<span class="built_in">ptr</span>)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(listen(fd,backlog) == <span class="number">-1</span>)</span><br><span class="line">        perror(<span class="string">"Listen error"</span>)<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样就可以通过设置环境变量<code>LISTENQ</code>来动态配置<code>backlog</code>的大小。</p>
-<blockquote>
-<p>tips：<code>backlog</code>为0不代表就不会有客户连接到你的机器。如果不想让客户连接，请直接关闭该套接字。</p>
-</blockquote>
-<h3 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h3><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
+<h2 id="四种服务模式介绍"><a href="#四种服务模式介绍" class="headerlink" title="四种服务模式介绍"></a>四种服务模式介绍</h2><ul>
+<li>SaaS（Software as a Service）：软件即服务，<em>SaaS</em>公司提供完整并可直接使用的应用程序，用户通过网页浏览器即可接入使用。比较知名的<em>SaaS</em>有<em>GoToMeeting</em>，<em>WebEx</em>和<em>Salesforce</em>。</li>
+<li>BaaS（Backend as a Service）：后端即服务，为移动应用开发者提供后端云服务，包括云端数据存储、账户管理和消息推送等，简化了应用开发流程。这里推荐一篇对<em>BaaS</em>介绍的<a href="http://www.jianshu.com/p/4381f0a0692e" target="_blank" rel="noopener">文章</a>。</li>
+<li>PaaS（Platform as a Service）：平台即服务，也被叫做中间件。用户通过<em>Internet</em>可以使用<em>PaaS</em>公司在网上提供的各种开发和分发应用的解决方案，比如虚拟服务器和操作系统等，软件的开发和运行都可以在提供的平台上进行。不仅节约了硬件成本，更大大提高了协作开发的效率。比较知名的<em>PaaS</em>有<em>Google App Engine</em>，<em>Microsoft Azure</em>和<em>AppFog</em>。</li>
+<li>IaaS（Infrastructure as a Service）：基础设施即服务，用户通过租用<em>IaaS</em>公司的服务器，存储和网络硬件，利用<em>Internet</em>就可以完善地获取计算机基础设施服务，大大节约了硬件成本。比较知名的<em>IaaS</em>有<em>Amazon</em>，<em>Microsoft</em>和<em>Aliyun</em>等。</li>
+</ul>
+<h2 id="四种服务模式的关系"><a href="#四种服务模式的关系" class="headerlink" title="四种服务模式的关系"></a>四种服务模式的关系</h2><ul>
+<li><em>PaaS</em>构建在<em>IaaS</em>之上，在基础架构之外还提供了业务软件的运行环境。</li>
+<li><em>SaaS</em>同<em>PaaS</em>的区别在于，使用<em>SaaS</em>的不是软件的开发人员，而是软件的最终用户。</li>
+<li><em>BaaS</em>属于<em>PaaS</em>的范畴，但两者也有区别。<em>BaaS</em>简化了应用开发流程，而<em>PaaS</em>简化了应用部署流程。</li>
+</ul>
+<p><img src="/2017/03/23/introduction-to-four-service-of-cloud-computing/Introduction-to-four-service-of-cloud-computing.jpg" alt="云计算的四种服务模式介绍"></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="http://www.jianshu.com/p/6148c47792c3" target="_blank" rel="noopener">云计算的三种服务模式</a></li>
+<li><a href="http://www.jianshu.com/p/4381f0a0692e" target="_blank" rel="noopener">三分钟了解什么是 BaaS</a></li>
+</ul>
+<h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
 <ul>
 <li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li>
 <li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li>
@@ -443,9 +445,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/tcp/" rel="tag">#tcp</a>
-          
-            <a href="/tags/listen/" rel="tag">#listen</a>
+            <a href="/tags/Cloud-Computing/" rel="tag">#Cloud Computing</a>
           
         </div>
       
@@ -454,16 +454,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/09/wave/" rel="next" title="WAVE音频文件格式分析--实现C语言读写文件头">
-                <i class="fa fa-chevron-left"></i> WAVE音频文件格式分析--实现C语言读写文件头
+              <a href="/2017/02/23/listen-in-unix/" rel="next" title="UNIX网络编程-listen函数及其包裹函数介绍">
+                <i class="fa fa-chevron-left"></i> UNIX网络编程-listen函数及其包裹函数介绍
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/23/introduction-to-four-service-of-cloud-computing/" rel="prev" title="科普|云计算的四种服务模式介绍">
-                科普|云计算的四种服务模式介绍 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/16/table-encode-as-array-or-object/" rel="prev" title="记一次踩坑|空table应该编码为数组还是对象">
+                记一次踩坑|空table应该编码为数组还是对象 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -660,7 +660,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数简介"><span class="nav-number">1.</span> <span class="nav-text">函数简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包裹函数-下载"><span class="nav-number">2.</span> <span class="nav-text">包裹函数(下载)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#About-me"><span class="nav-number">3.</span> <span class="nav-text">About me</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#四种服务模式介绍"><span class="nav-number">1.</span> <span class="nav-text">四种服务模式介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四种服务模式的关系"><span class="nav-number">2.</span> <span class="nav-text">四种服务模式的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#About-me"><span class="nav-number">4.</span> <span class="nav-text">About me</span></a></li></ol></div>
             
           </div>
         </section>
