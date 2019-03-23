@@ -1,0 +1,1060 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="wave文件头,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="AnSwEr's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://o9zpdspb3.bkt.clouddn.com/website_icon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="本文将详细分析WAVE音频文件的格式,并通过C语言对wave文件头进行读写操作。">
+<meta name="keywords" content="wave文件头">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WAVE音频文件格式分析--实现C语言读写文件头">
+<meta property="og:url" content="http://answerywj.com/2017/01/09/wave/index.html">
+<meta property="og:site_name" content="AnSwEr&#39;s Blog">
+<meta property="og:description" content="本文将详细分析WAVE音频文件的格式,并通过C语言对wave文件头进行读写操作。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/wave.png">
+<meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
+<meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
+<meta property="og:updated_time" content="2019-03-16T07:13:16.649Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WAVE音频文件格式分析--实现C语言读写文件头">
+<meta name="twitter:description" content="本文将详细分析WAVE音频文件的格式,并通过C语言对wave文件头进行读写操作。">
+<meta name="twitter:image" content="http://o9zpdspb3.bkt.clouddn.com/wave.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://answerywj.com/2017/01/09/wave/">
+
+  <title> WAVE音频文件格式分析--实现C语言读写文件头 | AnSwEr's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e12c3989e0050ebd884435d0e1f1bed4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">AnSwEr's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                WAVE音频文件格式分析--实现C语言读写文件头
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-09T14:54:17+08:00" content="2017-01-09">
+              2017-01-09
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/01/09/wave/" class="leancloud_visitors" data-flag-title="WAVE音频文件格式分析--实现C语言读写文件头">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文将详细分析WAVE音频文件的格式,并通过C语言对wave文件头进行读写操作。</p>
+<hr>
+<a id="more"></a>
+<h2 id="WAVE音频文件格式分析–实现C语言读写文件头"><a href="#WAVE音频文件格式分析–实现C语言读写文件头" class="headerlink" title="WAVE音频文件格式分析–实现C语言读写文件头"></a>WAVE音频文件格式分析–实现C语言读写文件头</h2><h3 id="WAVE音频文件"><a href="#WAVE音频文件" class="headerlink" title="WAVE音频文件"></a>WAVE音频文件</h3><p>WAVE文件格式是一种由微软和IBM联合开发的用于音频数字存储的标准, 它采用<em>RIFF(Resource Interchange File Format,资源交换文件标准)</em>文件格式结构文件的扩展名为<em>“WAV”</em>, 所有的<em>WAV</em>都有一个文件头, 数据本身的格式为<em>PCM</em>或压缩型.  </p>
+<h3 id="WAVE文件头"><a href="#WAVE文件头" class="headerlink" title="WAVE文件头"></a>WAVE文件头</h3><p><em>WAVE</em>文件分成两部分:文件头和数据块. <em>WAV</em>格式文件主要有两种文件头: 标准的44字节文件头和经过了一些软件处理的58字节文件头.<br><em>WAVE</em>文件头包含RIFF数据块,一个<em>“fmt”</em>数据块和一个<em>“data”</em>数据块</p>
+<blockquote>
+<p>本文所介绍的<em>WAV</em>文件头是标准的44字节文件头.</p>
+</blockquote>
+<h3 id="WAVE文件格式"><a href="#WAVE文件格式" class="headerlink" title="WAVE文件格式"></a>WAVE文件格式</h3><p><img src="http://o9zpdspb3.bkt.clouddn.com/wave.png" alt="wave format"></p>
+<blockquote>
+<p><strong>纠正</strong>: ByteRate应该为每秒存储的字节数</p>
+</blockquote>
+<p>通过<em>WAVE</em>文件头信息,我们可以计算出播放时长:<br><figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">文件播放时长 </span>=<span class="string"> Subchunk2Size/ByteRate</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="C语言实现对WAVE文件头的读写"><a href="#C语言实现对WAVE文件头的读写" class="headerlink" title="C语言实现对WAVE文件头的读写"></a>C语言实现对<strong>WAVE</strong>文件头的读写</h3><p>这里我提供了几个接口供大家使用,<a href="https://github.com/AnSwErYWJ/AudioResamplerate/blob/master/src/waveHeader/handle_wave.c" target="_blank" rel="noopener">handle_wave.c</a> 和 <a href="https://github.com/AnSwErYWJ/AudioResamplerate/blob/master/include/waveHeader/handle_wave.h" target="_blank" rel="noopener">handle_wave.h</a>.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _HANDLE_WAVE_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _HANDLE_WAVE_H</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span>  riff_id[<span class="number">4</span>];                       <span class="comment">//"RIFF"</span></span><br><span class="line">    <span class="keyword">int</span>   riff_datasize;                    <span class="comment">// RIFF chunk data size,exclude riff_id[4] and riff_datasize,total - 8</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>  riff_type[<span class="number">4</span>];                     <span class="comment">// "WAVE"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>  fmt_id[<span class="number">4</span>];                        <span class="comment">// "fmt "</span></span><br><span class="line">    <span class="keyword">int</span>   fmt_datasize;                     <span class="comment">// fmt chunk data size,16 for pcm</span></span><br><span class="line">    <span class="keyword">short</span> fmt_compression_code;             <span class="comment">// 1 for PCM</span></span><br><span class="line">    <span class="keyword">short</span> fmt_channels;                     <span class="comment">// 1(mono) or 2(stereo)</span></span><br><span class="line">    <span class="keyword">int</span>   fmt_sample_rate;                  <span class="comment">// samples per second</span></span><br><span class="line">    <span class="keyword">int</span>   fmt_avg_bytes_per_sec;            <span class="comment">// sample_rate * channels * bit_per_sample / 8</span></span><br><span class="line">    <span class="keyword">short</span> fmt_block_align;                  <span class="comment">// number bytes per sample, bit_per_sample * channels / 8</span></span><br><span class="line">    <span class="keyword">short</span> fmt_bit_per_sample;               <span class="comment">// bits of each sample(8,16,32).</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>  data_id[<span class="number">4</span>];                       <span class="comment">// "data"</span></span><br><span class="line">    <span class="keyword">int</span>   data_datasize;                    <span class="comment">// data chunk size,pcm_size - 44</span></span><br><span class="line">&#125;WaveHeader_t;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_wavheader</span><span class="params">(WaveHeader_t *wavheader)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">read_wavheader</span><span class="params">(FILE *fp,WaveHeader_t *wavheader)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">write_wavheader</span><span class="params">(FILE *fp,WaveHeader_t wavheader)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_wavheader</span><span class="params">(WaveHeader_t wavheader)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"handle_wave.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* read and write integer from file stream */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">get_int</span><span class="params">(FILE *fp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *s;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    s = (<span class="keyword">char</span> *)&amp;i;</span><br><span class="line">    <span class="keyword">size_t</span> len = <span class="keyword">sizeof</span>(<span class="keyword">int</span>);</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(;n &lt; len;n++)</span><br><span class="line">    &#123;</span><br><span class="line">    	s[n]=getc(fp);</span><br><span class="line">    	<span class="comment">//printf("%x\n",s[n]);</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">put_int</span><span class="params">(<span class="keyword">int</span> i,FILE *fp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *s;</span><br><span class="line">    s=(<span class="keyword">char</span> *)&amp;i;</span><br><span class="line">    <span class="keyword">size_t</span> len = <span class="keyword">sizeof</span>(<span class="keyword">int</span>);</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(;n &lt; len;n++)</span><br><span class="line">    &#123;</span><br><span class="line">    	putc(s[n],fp);</span><br><span class="line">        <span class="comment">//printf("%x\n",s[n]);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">short</span> <span class="keyword">int</span> <span class="title">get_sint</span><span class="params">(FILE *fp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *s;</span><br><span class="line">    <span class="keyword">short</span> <span class="keyword">int</span> i;</span><br><span class="line">    s = (<span class="keyword">char</span> *)&amp;i;</span><br><span class="line">    <span class="keyword">size_t</span> len = <span class="keyword">sizeof</span>(<span class="keyword">short</span>);</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(;n &lt; len;n++)</span><br><span class="line">    &#123;</span><br><span class="line">    	s[n]=getc(fp);</span><br><span class="line">    	<span class="comment">//printf("%x\n",s[n]);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">short</span> <span class="keyword">int</span> <span class="title">put_sint</span><span class="params">(<span class="keyword">short</span> <span class="keyword">int</span> i,FILE *fp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *s;</span><br><span class="line">    s=(<span class="keyword">char</span> *)&amp;i;</span><br><span class="line">    <span class="keyword">size_t</span> len = <span class="keyword">sizeof</span>(<span class="keyword">short</span>);</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(;n &lt; len;n++)</span><br><span class="line">    &#123;</span><br><span class="line">    	putc(s[n],fp);</span><br><span class="line">        <span class="comment">//printf("%x\n",s[n]);</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_wavheader</span><span class="params">(WaveHeader_t *wavheader)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">sprintf</span>(wavheader-&gt;riff_id,<span class="string">"RIFF"</span>);</span><br><span class="line">    wavheader-&gt;riff_datasize = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sprintf</span>(wavheader-&gt;riff_type,<span class="string">"WAVE"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sprintf</span>(wavheader-&gt;fmt_id,<span class="string">"fmt "</span>);</span><br><span class="line">    wavheader-&gt;fmt_datasize = <span class="number">16</span>;</span><br><span class="line">    wavheader-&gt;fmt_compression_code = <span class="number">1</span>;</span><br><span class="line">    wavheader-&gt;fmt_channels = <span class="number">-1</span>;</span><br><span class="line">    wavheader-&gt;fmt_sample_rate = <span class="number">-1</span>;</span><br><span class="line">    wavheader-&gt;fmt_avg_bytes_per_sec = <span class="number">-1</span>;</span><br><span class="line">    wavheader-&gt;fmt_block_align = <span class="number">-1</span>;</span><br><span class="line">    wavheader-&gt;fmt_bit_per_sample = <span class="number">16</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sprintf</span>(wavheader-&gt;data_id,<span class="string">"data"</span>);</span><br><span class="line">    wavheader-&gt;data_datasize = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">read_wavheader</span><span class="params">(FILE *fp,WaveHeader_t *wavheader)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (fp ==<span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    fread(wavheader-&gt;riff_id,<span class="number">4</span>,<span class="number">1</span>,fp);</span><br><span class="line">    wavheader-&gt;riff_datasize = get_int(fp);</span><br><span class="line">    fread(wavheader-&gt;riff_type,<span class="number">4</span>,<span class="number">1</span>,fp);</span><br><span class="line">    fread(wavheader-&gt;fmt_id,<span class="number">4</span>,<span class="number">1</span>,fp);</span><br><span class="line">    wavheader-&gt;fmt_datasize = get_int(fp);</span><br><span class="line">    wavheader-&gt;fmt_compression_code = get_sint(fp);</span><br><span class="line">    wavheader-&gt;fmt_channels = get_sint(fp);</span><br><span class="line">    wavheader-&gt;fmt_sample_rate = get_int(fp);</span><br><span class="line">    wavheader-&gt;fmt_avg_bytes_per_sec = get_int(fp);</span><br><span class="line">    wavheader-&gt;fmt_block_align = get_sint(fp);</span><br><span class="line">    wavheader-&gt;fmt_bit_per_sample = get_sint(fp);</span><br><span class="line">    fread(wavheader-&gt;data_id,<span class="number">4</span>,<span class="number">1</span>,fp);</span><br><span class="line">    wavheader-&gt;data_datasize = get_int(fp);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">write_wavheader</span><span class="params">(FILE *fp,WaveHeader_t wavheader)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (fp ==<span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    fwrite(wavheader.riff_id,<span class="number">4</span>,<span class="number">1</span>,fp);</span><br><span class="line">    put_int(wavheader.riff_datasize,fp);</span><br><span class="line">    fwrite(wavheader.riff_type,<span class="number">4</span>,<span class="number">1</span>,fp);</span><br><span class="line">    fwrite(wavheader.fmt_id,<span class="number">4</span>,<span class="number">1</span>,fp);</span><br><span class="line">    put_int(wavheader.fmt_datasize,fp);</span><br><span class="line">    put_sint(wavheader.fmt_compression_code,fp);</span><br><span class="line">    put_sint(wavheader.fmt_channels,fp);</span><br><span class="line">    put_int(wavheader.fmt_sample_rate,fp);</span><br><span class="line">    put_int(wavheader.fmt_avg_bytes_per_sec,fp);</span><br><span class="line">    put_sint(wavheader.fmt_block_align,fp);</span><br><span class="line">    put_sint(wavheader.fmt_bit_per_sample,fp);</span><br><span class="line">    fwrite(wavheader.data_id,<span class="number">4</span>,<span class="number">1</span>,fp);</span><br><span class="line">    put_int(wavheader.data_datasize,fp);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_wavheader</span><span class="params">(WaveHeader_t wavheader)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"wavheader.riff_id: %c%c%c%c\n"</span>,wavheader.riff_id[<span class="number">0</span>],wavheader.riff_id[<span class="number">1</span>],wavheader.riff_id[<span class="number">2</span>],wavheader.riff_id[<span class="number">3</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"wavheader.riff_datasize: %d\n"</span>,wavheader.riff_datasize);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"wavheader.riff_type: %c%c%c%c\n"</span>,wavheader.riff_type[<span class="number">0</span>],wavheader.riff_type[<span class="number">1</span>],wavheader.riff_type[<span class="number">2</span>],wavheader.riff_type[<span class="number">3</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"wavheader.fmt_id: %c%c%c%c\n"</span>,wavheader.fmt_id[<span class="number">0</span>],wavheader.fmt_id[<span class="number">1</span>],wavheader.fmt_id[<span class="number">2</span>],wavheader.fmt_id[<span class="number">3</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"wavheader.fmt_datasize: %d\n"</span>,wavheader.fmt_datasize);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"wavheader.fmt_compression_code: %hd\n"</span>,wavheader.fmt_compression_code);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"wavheader.fmt_channels: %hd\n"</span>,wavheader.fmt_channels);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"wavheader.fmt_sample_rate: %d\n"</span>,wavheader.fmt_sample_rate);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"wavheader.fmt_avg_bytes_per_sec: %d\n"</span>,wavheader.fmt_avg_bytes_per_sec);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"wavheader.fmt_block_align: %hd\n"</span>,wavheader.fmt_block_align);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"wavheader.fmt_bit_per_sample: %hd\n"</span>,wavheader.fmt_bit_per_sample);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"wavheader.data_id: %c%c%c%c\n"</span>,wavheader.data_id[<span class="number">0</span>],wavheader.data_id[<span class="number">1</span>],wavheader.data_id[<span class="number">2</span>],wavheader.data_id[<span class="number">3</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"wavheader.data_datasize: %d\n"</span>,wavheader.data_datasize);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
+<ul>
+<li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li>
+<li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li>
+<li>Email：<a href="https://mail.google.com" target="_blank" rel="noopener">yuanweijie1993@gmail.com</a></li>
+<li>Weibo：<a href="http://weibo.com/1783591593" target="_blank" rel="noopener">@AnSwEr不是答案</a></li>
+<li>CSDN：<a href="http://blog.csdn.net/u011192270" target="_blank" rel="noopener">AnSwEr不是答案的专栏</a></li>
+</ul>
+<p><a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> This work is licensed under a <a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div></div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://o9zpdspb3.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E8%B5%9E%E8%B5%8F.jpg" alt="AnSwEr(Weijie Yuan) WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://o9zpdspb3.bkt.clouddn.com/zhifubaozanshang.jpg" alt="AnSwEr(Weijie Yuan) Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/wave文件头/" rel="tag">#wave文件头</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/07/big-endian-and-little-endian/" rel="next" title="C程序判断你主机的数据存储方式(大端和小端)">
+                <i class="fa fa-chevron-left"></i> C程序判断你主机的数据存储方式(大端和小端)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/23/listen-in-unix/" rel="prev" title="UNIX网络编程-listen函数及其包裹函数介绍">
+                UNIX网络编程-listen函数及其包裹函数介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+            <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/source/images/avatar.png" alt="AnSwEr(Weijie Yuan)">
+          <p class="site-author-name" itemprop="name">AnSwEr(Weijie Yuan)</p>
+          <p class="site-description motion-element" itemprop="description">Stay true to yourself,Stay gold.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/AnSwErYWJ" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/u011192270" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1783591593" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://gmail.com" target="_blank" title="yuanweijie1993@gmail.com">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  yuanweijie1993@gmail.com
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://xieyufei.com/" title="谢小飞的博客" target="_blank">谢小飞的博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#WAVE音频文件格式分析–实现C语言读写文件头"><span class="nav-number">1.</span> <span class="nav-text">WAVE音频文件格式分析–实现C语言读写文件头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WAVE音频文件"><span class="nav-number">1.1.</span> <span class="nav-text">WAVE音频文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WAVE文件头"><span class="nav-number">1.2.</span> <span class="nav-text">WAVE文件头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WAVE文件格式"><span class="nav-number">1.3.</span> <span class="nav-text">WAVE文件格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言实现对WAVE文件头的读写"><span class="nav-number">1.4.</span> <span class="nav-text">C语言实现对WAVE文件头的读写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#About-me"><span class="nav-number">2.</span> <span class="nav-text">About me</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AnSwEr(Weijie Yuan)</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+    
+      
+    
+
+   
+        <!-- UY BEGIN -->
+        <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2128235"></script>
+        <!-- UY END -->
+    
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("vim4NhVqc5JNcPuljU4r9St0-gzGzoHsz", "k7iiuAIEVRSri40zLM4mhdKt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
