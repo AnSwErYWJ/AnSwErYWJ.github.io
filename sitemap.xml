@@ -44,7 +44,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
+    <loc>http://answerywj.com/2017/06/27/unix-io-model-analysis/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.625Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</loc>
     
     <lastmod>2019-03-16T07:13:16.625Z</lastmod>
     
@@ -65,6 +72,13 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.625Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
     
     <lastmod>2019-03-16T07:13:16.625Z</lastmod>
@@ -72,16 +86,9 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</loc>
+    <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
     
-    <lastmod>2019-03-16T07:13:16.625Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/06/27/unix-io-model-analysis/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.625Z</lastmod>
+    <lastmod>2019-03-16T07:13:16.621Z</lastmod>
     
   </url>
   
@@ -94,13 +101,6 @@
   
   <url>
     <loc>http://answerywj.com/2016/08/28/my-git-help-v1/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.621Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
     
     <lastmod>2019-03-16T07:13:16.621Z</lastmod>
     
@@ -128,7 +128,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
+    <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
     
     <lastmod>2019-03-16T07:13:16.621Z</lastmod>
     
@@ -163,7 +163,21 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.577Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2016/07/14/fork-bomb/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.577Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
     
     <lastmod>2019-03-16T07:13:16.577Z</lastmod>
     
@@ -177,21 +191,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.577Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2016/07/14/debug-macro/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.577Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
     
     <lastmod>2019-03-16T07:13:16.577Z</lastmod>
     
@@ -212,21 +212,14 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2016/08/10/backup-of-blog-with-hexo-and-github/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.537Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2016/07/08/badges-of-github/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.537Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/03/23/Introduction-to-four-service-of-cloud-computing/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.537Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
     
     <lastmod>2019-03-16T07:13:16.537Z</lastmod>
     
@@ -240,7 +233,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/12/29/Introduction-of-speex/</loc>
+    <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
     
     <lastmod>2019-03-16T07:13:16.537Z</lastmod>
     
@@ -254,7 +247,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/08/10/backup-of-blog-with-hexo-and-github/</loc>
+    <loc>http://answerywj.com/2017/12/29/Introduction-of-speex/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.537Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/03/23/Introduction-to-four-service-of-cloud-computing/</loc>
     
     <lastmod>2019-03-16T07:13:16.537Z</lastmod>
     
