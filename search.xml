@@ -282,7 +282,7 @@
     
     <entry>
       <title><![CDATA[cJSON的秘密]]></title>
-      <url>http://answerywj.com/2018/05/03/introduction-of-cjson/</url>
+      <url>http://answerywj.com/2018/05/03/cjson/</url>
       <content type="html"><![CDATA[<p>学习使用cJSON过程的一些发现和总结，不涉及具体的函数<br><a id="more"></a></p>
 <h2 id="cJSON简介"><a href="#cJSON简介" class="headerlink" title="cJSON简介"></a>cJSON简介</h2><p><code>cJSON</code>是一个快速，高性能的<code>json</code>解析器，由<code>C</code>语言编写，仅包含<code>cJSON.c</code>和<code>cJSON.h</code>两个文件，不支持跨平台；跨平台推荐纯<code>lua</code>写的<a href="http://dkolf.de/src/dkjson-lua.fsl/home" target="_blank" rel="noopener"><code>dkjson</code></a></p>
 <h2 id="cJSON结构体"><a href="#cJSON结构体" class="headerlink" title="cJSON结构体"></a>cJSON结构体</h2><p><code>cJSON</code>结构体的组成：</p>
@@ -298,7 +298,7 @@
 <blockquote>
 <p><code>cJSON</code>默认所有值都为<code>0</code>，除非额外为其赋有意义的值</p>
 </blockquote>
-<h3 id="cJSON树结构"><a href="#cJSON树结构" class="headerlink" title="cJSON树结构"></a>cJSON树结构</h3><p><code>cJSON</code>使用树结构存储<code>JSON</code>的各个节点，而这个树结构是使用双向链表实现的(实线表示节点间有真实的引用关系，而虚线表示逻辑上的引用关系)：<br><img src="http://o9zpdspb3.bkt.clouddn.com/cJSON%E6%A0%91%E7%8A%B6%E7%BB%93%E6%9E%84.png" alt="cJSON树结构"></p>
+<h3 id="cJSON树结构"><a href="#cJSON树结构" class="headerlink" title="cJSON树结构"></a>cJSON树结构</h3><p><code>cJSON</code>使用树结构存储<code>JSON</code>的各个节点，而这个树结构是使用双向链表实现的(实线表示节点间有真实的引用关系，而虚线表示逻辑上的引用关系)：<br><img src="/2018/05/03/cjson/cjson-tree.png" alt="cJSON树结构"></p>
 <ul>
 <li>树结构的每一层都是一个双向链表，表示一堆兄弟节点</li>
 <li>当前层的所有节点都是当前链表头节点的父节点的子节点</li>
