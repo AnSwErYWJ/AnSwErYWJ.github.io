@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://answerywj.com/"/>
-  <updated>2019-03-16T07:13:16.621Z</updated>
+  <updated>2019-03-23T06:47:36.361Z</updated>
   <id>http://answerywj.com/</id>
   
   <author>
@@ -15,6 +15,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>io-model</title>
+    <link href="http://answerywj.com/2019/03/23/io-model/"/>
+    <id>http://answerywj.com/2019/03/23/io-model/</id>
+    <published>2019-03-23T06:47:36.000Z</published>
+    <updated>2019-03-23T06:47:36.361Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Git速查手册（第二版）</title>
@@ -73,7 +87,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;代码覆盖率测试反映了测试的广度与深度，量化了测试和开发质量，是十分有必要的，业界目前有针对各种语言的覆盖率测试工具，本文主要介绍&lt;code&gt;C/C++&lt;/code&gt;相关的覆盖率测试工具&lt;code&gt;Gcov&lt;/code&gt;&lt;br&gt;
+      &lt;p&gt;代码覆盖率测试反映了测试的广度与深度，量化了测试和开发质量，是十分有必要的，业界目前有针对各种语言的覆盖率测试工具，本文主要介绍&lt;code&gt;C/C++&lt;/code&gt;相关的覆盖率测试工具&lt;code&gt;Gcov&lt;/code&gt;&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -95,7 +109,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;学习使用cJSON过程的一些发现和总结，不涉及具体的函数&lt;br&gt;
+      &lt;p&gt;学习使用cJSON过程的一些发现和总结，不涉及具体的函数&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -186,7 +200,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;code&gt;ARM&lt;/code&gt; 平台下&lt;code&gt;GCC&lt;/code&gt;编译相关介绍，待补充&lt;br&gt;
+      &lt;p&gt;&lt;code&gt;ARM&lt;/code&gt; 平台下&lt;code&gt;GCC&lt;/code&gt;编译相关介绍，待补充&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -202,13 +216,13 @@
     <link href="http://answerywj.com/2017/06/27/unix-io-model-analysis/"/>
     <id>http://answerywj.com/2017/06/27/unix-io-model-analysis/</id>
     <published>2017-06-27T08:30:40.000Z</published>
-    <updated>2019-03-16T07:13:16.625Z</updated>
+    <updated>2019-03-23T06:51:36.000Z</updated>
     
-    <content type="html"><![CDATA[<p>对<em>UNIX</em>下的五种常见<em>IO</em>模型分析，帮助理解<br><a id="more"></a></p><h2 id="IO操作的两个阶段"><a href="#IO操作的两个阶段" class="headerlink" title="IO操作的两个阶段"></a>IO操作的两个阶段</h2><p>以读数据操作为例：</p><ol><li>等待内核数据准备（数据拷贝到内核缓冲区）</li><li>将数据从内核拷贝到用户空间</li></ol><h2 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h2><p><em>UNIX</em>下共有五种常见的<em>IO</em>模型：<br><img src="http://o9zpdspb3.bkt.clouddn.com/5IO.png" alt="UNIX下共有五种常见的IO模型"></p><p>下面以<code>recvfrom</code>接口举例</p><h3 id="阻塞IO"><a href="#阻塞IO" class="headerlink" title="阻塞IO"></a>阻塞IO</h3><p>默认情况下，所有的套接字都是阻塞的<br><img src="http://o9zpdspb3.bkt.clouddn.com/blockingIO.png" alt="阻塞IO"><br>调用<code>recvfrom</code>接口，进程在<em>IO</em>操作的两个阶段都会阻塞，直到最终数据拷贝到用户空间或者过程中出现错误才会返回，进程在阻塞状态下是不占用<em>CPU</em>资源的</p><blockquote><p>最常见的错误是发生系统中断，此时需要重读，可参考<a href="https://github.com/AnSwErYWJ/DogFood/blob/master/C/RD.c" target="_blank" rel="noopener">这里</a></p></blockquote><h3 id="非阻塞IO"><a href="#非阻塞IO" class="headerlink" title="非阻塞IO"></a>非阻塞IO</h3><p>可以通过<code>fcntl(sockfd,F_SETFL,O_NONBLOCK)</code>将套接字设置成非阻塞<br><img src="http://o9zpdspb3.bkt.clouddn.com/noblockingIO.png" alt="非阻塞IO"><br>调用<code>recvfrom</code>接口，无论内核缓冲区是否有可用数据，进程都会立即返回，所以在<em>IO</em>操作的第一阶段是非阻塞的; 若无数据可用，内核将<code>errno</code>设置为为<code>EWOULDBLOCK</code>或者<code>EAGAIN</code>，进程可以使用轮询的方法，保证内核在数据准备好时，能立即拷贝到用户空间; 若有则立即将数据拷贝到用户空间，进程在数据拷贝到用户空间即<em>IO</em>操作的第二阶段是阻塞的;</p><blockquote><p>非阻塞<em>IO</em>过于消耗<em>CPU</em>时间，将大部分时间用于轮询</p></blockquote><h3 id="多路复用IO"><a href="#多路复用IO" class="headerlink" title="多路复用IO"></a>多路复用IO</h3><p>多路复用系统调用：<code>select</code>,<code>poll</code>和<code>epoll</code>，其中<em>windows</em>平台不支持<code>poll</code>和<code>epoll</code>，使用方法可以参考<a href="https://segmentfault.com/a/1190000003063859?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io#articleHeader14" target="_blank" rel="noopener">I/O 多路复用之select、poll、epoll详解</a>和<a href="http://www.cnblogs.com/NerdWill/p/4996476.html" target="_blank" rel="noopener">Linux select/poll和epoll实现机制对比</a><br><img src="http://o9zpdspb3.bkt.clouddn.com/multiIO.png" alt=" 多路复用IO"><br>调用<code>select</code>，等待内核数据准备，所以<em>IO</em>操作的第一个阶段，进程是阻塞的，不过是阻塞在多路复用系统调用上，而不是<em>IO</em>系统调用上; 当<code>select</code>返回套接字可读条件时，再调用<code>recvfrom</code>将数据从内核拷贝到用户空间，<em>IO</em>操作的第二阶段，进程是阻塞的</p><p>多路复用<em>IO</em>和阻塞<em>IO</em>，在<em>IO</em>操作的两个阶段都是阻塞的，不过多路复用<em>IO</em>使用了两个系统调用，而阻塞<em>IO</em>只使用了一个，所以在连接数不是很多的情况下，阻塞<em>IO</em>可能性能更佳; 多路复用<em>IO</em>的优势在于可以同时监控多个用于<em>IO</em>的文件描述符。</p><blockquote><p>多线程中的阻塞<em>IO</em>，与多路复用<em>IO</em>极为相似</p></blockquote><h3 id="信号驱动IO"><a href="#信号驱动IO" class="headerlink" title="信号驱动IO"></a>信号驱动IO</h3><p><img src="http://o9zpdspb3.bkt.clouddn.com/signalIO.png" alt="信号驱动IO"><br>调用<code>sigaction</code>等系统调用安装信号处理函数，并立即返回，所以<em>IO</em>操作的第一阶段，进程是非阻塞的; 当内核数据准备好时，内核会产生一个信号，通知进程将数据从内核拷贝到用户空间，<em>IO</em>操作的第二阶段，进程是阻塞的</p><blockquote><p>使用方法：<a href="http://www.cnblogs.com/ittinybird/p/4574397.html" target="_blank" rel="noopener">IO的多路复用和信号驱动</a></p></blockquote><h3 id="异步IO"><a href="#异步IO" class="headerlink" title="异步IO"></a>异步IO</h3><p>异步<em>IO</em>有一组以<code>aio</code>开头的系统调用，使用方法可参考<a href="http://blog.csdn.net/tq02h2a/article/details/3825114" target="_blank" rel="noopener">Linux AIO机制</a><br><img src="http://o9zpdspb3.bkt.clouddn.com/asynIO.png" alt="异步IO"><br>调用异步<em>IO</em>系统调用，给内核传递描述字、缓冲区指针、缓冲区大小（与<code>read</code>相同的三个参数）、文件偏移（与<code>lseek</code>类似），告诉内核当整个操作完成时如何通知我们，并立即返回，在<em>IO</em>操作的两个阶段，进程都不阻塞</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="http://o9zpdspb3.bkt.clouddn.com/5IO-compare.png" alt="5种IO模式比较"></p><ul><li>同步<em>IO</em>和异步<em>IO</em>的主要区别是将数据从内核拷贝到用户空间是否阻塞，前者会在将数据从内核拷贝到用户空间时即<em>IO</em>操作的第二个阶段发生阻塞，而后者则在系统调用后直接返回，直到内核发送信号通知<em>IO</em>操作完成，在<em>IO</em>操作的两个阶段都没有阻塞</li><li>阻塞<em>IO</em>和非阻塞<em>IO</em>的主要区别是系统调用是否立即返回（默认将数据从内核拷贝到用户空间即<em>IO</em>操作的第二个阶段是立即返回的），前者会在<em>IO</em>操作的两个阶段完成前一直阻塞，后者在内核没有准备好数据的情况下立即返回，即只会在<em>IO</em>操作的第二个阶段阻塞</li><li>信号驱动<em>IO</em>和异步<em>IO</em>的主要区别在于前者由内核通知我们何时启动一个<em>IO</em>操作，在将数据从内核拷贝到用户空间过程中即<em>IO</em>操作的第一个阶段依旧是阻塞的，而后者是由内核通知我们<em>IO</em>操作何时完成，在<em>IO</em>操作的两个阶段都没有阻塞</li></ul><blockquote><p><a href="https://www.zhihu.com/question/19732473/answer/20851256" target="_blank" rel="noopener">知乎</a>上有一个比较生动的例子可以说明这几种模型之间的关系。</p></blockquote><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul><li><a href="http://about:blank" target="_blank" rel="noopener">UNIX网络编程 卷1：套接字联网API</a></li><li><a href="https://segmentfault.com/a/1190000003063859?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="noopener">Linux IO模式及 select、poll、epoll详解</a></li><li><a href="http://www.cnblogs.com/ittinybird/p/4666044.html" target="_blank" rel="noopener">Linux下5种IO模型的小结</a></li><li><a href="http://www.cnblogs.com/nufangrensheng/p/3588690.html" target="_blank" rel="noopener">UNIX网络编程读书笔记：I/O模型（阻塞、非阻塞、I/O复用、信号驱动、异步）</a></li><li><a href="http://blog.csdn.net/historyasamirror/article/details/5778378" target="_blank" rel="noopener"> IO - 同步，异步，阻塞，非阻塞 （亡羊补牢篇）</a></li><li><a href="http://blog.csdn.net/jay900323/article/details/18141217" target="_blank" rel="noopener">Linux五种IO模型性能分析</a></li></ul><h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p><ul><li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li><li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li><li>Email：<a href="https://mail.google.com" target="_blank" rel="noopener">yuanweijie1993@gmail.com</a></li><li>Weibo：<a href="http://weibo.com/1783591593" target="_blank" rel="noopener">@AnSwEr不是答案</a></li><li>CSDN：<a href="http://blog.csdn.net/u011192270" target="_blank" rel="noopener">AnSwEr不是答案的专栏</a></li></ul><p><a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> This work is licensed under a <a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</p>]]></content>
+    <content type="html"><![CDATA[<p>对<em>UNIX</em>下的五种常见<em>IO</em>模型分析，帮助理解<br><a id="more"></a></p><h2 id="IO操作的两个阶段"><a href="#IO操作的两个阶段" class="headerlink" title="IO操作的两个阶段"></a>IO操作的两个阶段</h2><p>以读数据操作为例：</p><ol><li>等待内核数据准备（数据拷贝到内核缓冲区）</li><li>将数据从内核拷贝到用户空间</li></ol><h2 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h2><p><em>UNIX</em>下共有五种常见的<em>IO</em>模型：<br><img src="/2017/06/27/unix-io-model-analysis/io-model.png" alt="UNIX下共有五种常见的IO模型"></p><p>下面以<code>recvfrom</code>接口举例</p><h3 id="阻塞IO"><a href="#阻塞IO" class="headerlink" title="阻塞IO"></a>阻塞IO</h3><p>默认情况下，所有的套接字都是阻塞的<br><img src="http://o9zpdspb3.bkt.clouddn.com/blockingIO.png" alt="阻塞IO"><br>调用<code>recvfrom</code>接口，进程在<em>IO</em>操作的两个阶段都会阻塞，直到最终数据拷贝到用户空间或者过程中出现错误才会返回，进程在阻塞状态下是不占用<em>CPU</em>资源的</p><blockquote><p>最常见的错误是发生系统中断，此时需要重读，可参考<a href="https://github.com/AnSwErYWJ/DogFood/blob/master/C/RD.c" target="_blank" rel="noopener">这里</a></p></blockquote><h3 id="非阻塞IO"><a href="#非阻塞IO" class="headerlink" title="非阻塞IO"></a>非阻塞IO</h3><p>可以通过<code>fcntl(sockfd,F_SETFL,O_NONBLOCK)</code>将套接字设置成非阻塞<br><img src="http://o9zpdspb3.bkt.clouddn.com/noblockingIO.png" alt="非阻塞IO"><br>调用<code>recvfrom</code>接口，无论内核缓冲区是否有可用数据，进程都会立即返回，所以在<em>IO</em>操作的第一阶段是非阻塞的; 若无数据可用，内核将<code>errno</code>设置为为<code>EWOULDBLOCK</code>或者<code>EAGAIN</code>，进程可以使用轮询的方法，保证内核在数据准备好时，能立即拷贝到用户空间; 若有则立即将数据拷贝到用户空间，进程在数据拷贝到用户空间即<em>IO</em>操作的第二阶段是阻塞的;</p><blockquote><p>非阻塞<em>IO</em>过于消耗<em>CPU</em>时间，将大部分时间用于轮询</p></blockquote><h3 id="多路复用IO"><a href="#多路复用IO" class="headerlink" title="多路复用IO"></a>多路复用IO</h3><p>多路复用系统调用：<code>select</code>,<code>poll</code>和<code>epoll</code>，其中<em>windows</em>平台不支持<code>poll</code>和<code>epoll</code>，使用方法可以参考<a href="https://segmentfault.com/a/1190000003063859?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io#articleHeader14" target="_blank" rel="noopener">I/O 多路复用之select、poll、epoll详解</a>和<a href="http://www.cnblogs.com/NerdWill/p/4996476.html" target="_blank" rel="noopener">Linux select/poll和epoll实现机制对比</a><br><img src="http://o9zpdspb3.bkt.clouddn.com/multiIO.png" alt=" 多路复用IO"><br>调用<code>select</code>，等待内核数据准备，所以<em>IO</em>操作的第一个阶段，进程是阻塞的，不过是阻塞在多路复用系统调用上，而不是<em>IO</em>系统调用上; 当<code>select</code>返回套接字可读条件时，再调用<code>recvfrom</code>将数据从内核拷贝到用户空间，<em>IO</em>操作的第二阶段，进程是阻塞的</p><p>多路复用<em>IO</em>和阻塞<em>IO</em>，在<em>IO</em>操作的两个阶段都是阻塞的，不过多路复用<em>IO</em>使用了两个系统调用，而阻塞<em>IO</em>只使用了一个，所以在连接数不是很多的情况下，阻塞<em>IO</em>可能性能更佳; 多路复用<em>IO</em>的优势在于可以同时监控多个用于<em>IO</em>的文件描述符。</p><blockquote><p>多线程中的阻塞<em>IO</em>，与多路复用<em>IO</em>极为相似</p></blockquote><h3 id="信号驱动IO"><a href="#信号驱动IO" class="headerlink" title="信号驱动IO"></a>信号驱动IO</h3><p><img src="http://o9zpdspb3.bkt.clouddn.com/signalIO.png" alt="信号驱动IO"><br>调用<code>sigaction</code>等系统调用安装信号处理函数，并立即返回，所以<em>IO</em>操作的第一阶段，进程是非阻塞的; 当内核数据准备好时，内核会产生一个信号，通知进程将数据从内核拷贝到用户空间，<em>IO</em>操作的第二阶段，进程是阻塞的</p><blockquote><p>使用方法：<a href="http://www.cnblogs.com/ittinybird/p/4574397.html" target="_blank" rel="noopener">IO的多路复用和信号驱动</a></p></blockquote><h3 id="异步IO"><a href="#异步IO" class="headerlink" title="异步IO"></a>异步IO</h3><p>异步<em>IO</em>有一组以<code>aio</code>开头的系统调用，使用方法可参考<a href="http://blog.csdn.net/tq02h2a/article/details/3825114" target="_blank" rel="noopener">Linux AIO机制</a><br><img src="http://o9zpdspb3.bkt.clouddn.com/asynIO.png" alt="异步IO"><br>调用异步<em>IO</em>系统调用，给内核传递描述字、缓冲区指针、缓冲区大小（与<code>read</code>相同的三个参数）、文件偏移（与<code>lseek</code>类似），告诉内核当整个操作完成时如何通知我们，并立即返回，在<em>IO</em>操作的两个阶段，进程都不阻塞</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="http://o9zpdspb3.bkt.clouddn.com/5IO-compare.png" alt="5种IO模式比较"></p><ul><li>同步<em>IO</em>和异步<em>IO</em>的主要区别是将数据从内核拷贝到用户空间是否阻塞，前者会在将数据从内核拷贝到用户空间时即<em>IO</em>操作的第二个阶段发生阻塞，而后者则在系统调用后直接返回，直到内核发送信号通知<em>IO</em>操作完成，在<em>IO</em>操作的两个阶段都没有阻塞</li><li>阻塞<em>IO</em>和非阻塞<em>IO</em>的主要区别是系统调用是否立即返回（默认将数据从内核拷贝到用户空间即<em>IO</em>操作的第二个阶段是立即返回的），前者会在<em>IO</em>操作的两个阶段完成前一直阻塞，后者在内核没有准备好数据的情况下立即返回，即只会在<em>IO</em>操作的第二个阶段阻塞</li><li>信号驱动<em>IO</em>和异步<em>IO</em>的主要区别在于前者由内核通知我们何时启动一个<em>IO</em>操作，在将数据从内核拷贝到用户空间过程中即<em>IO</em>操作的第一个阶段依旧是阻塞的，而后者是由内核通知我们<em>IO</em>操作何时完成，在<em>IO</em>操作的两个阶段都没有阻塞</li></ul><blockquote><p><a href="https://www.zhihu.com/question/19732473/answer/20851256" target="_blank" rel="noopener">知乎</a>上有一个比较生动的例子可以说明这几种模型之间的关系。</p></blockquote><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul><li><a href="http://about:blank" target="_blank" rel="noopener">UNIX网络编程 卷1：套接字联网API</a></li><li><a href="https://segmentfault.com/a/1190000003063859?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="noopener">Linux IO模式及 select、poll、epoll详解</a></li><li><a href="http://www.cnblogs.com/ittinybird/p/4666044.html" target="_blank" rel="noopener">Linux下5种IO模型的小结</a></li><li><a href="http://www.cnblogs.com/nufangrensheng/p/3588690.html" target="_blank" rel="noopener">UNIX网络编程读书笔记：I/O模型（阻塞、非阻塞、I/O复用、信号驱动、异步）</a></li><li><a href="http://blog.csdn.net/historyasamirror/article/details/5778378" target="_blank" rel="noopener"> IO - 同步，异步，阻塞，非阻塞 （亡羊补牢篇）</a></li><li><a href="http://blog.csdn.net/jay900323/article/details/18141217" target="_blank" rel="noopener">Linux五种IO模型性能分析</a></li></ul><h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p><ul><li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li><li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li><li>Email：<a href="https://mail.google.com" target="_blank" rel="noopener">yuanweijie1993@gmail.com</a></li><li>Weibo：<a href="http://weibo.com/1783591593" target="_blank" rel="noopener">@AnSwEr不是答案</a></li><li>CSDN：<a href="http://blog.csdn.net/u011192270" target="_blank" rel="noopener">AnSwEr不是答案的专栏</a></li></ul><p><a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> This work is licensed under a <a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;对&lt;em&gt;UNIX&lt;/em&gt;下的五种常见&lt;em&gt;IO&lt;/em&gt;模型分析，帮助理解&lt;br&gt;
+      &lt;p&gt;对&lt;em&gt;UNIX&lt;/em&gt;下的五种常见&lt;em&gt;IO&lt;/em&gt;模型分析，帮助理解&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -230,7 +244,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;观看&lt;a href=&quot;http://www.stuq.org/course/1015/study&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;OpenResty 系列课程&lt;/a&gt;的学习笔记&lt;br&gt;
+      &lt;p&gt;观看&lt;a href=&quot;http://www.stuq.org/course/1015/study&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;OpenResty 系列课程&lt;/a&gt;的学习笔记&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -390,7 +404,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;当我们在Linux下需要处理json数据时,第一反应是用脚本编写一个工具,这样即耗时又不通用. 本文将介绍专门的命令行json处理工具&lt;strong&gt;jq&lt;/strong&gt;.&lt;br&gt;
+      &lt;p&gt;当我们在Linux下需要处理json数据时,第一反应是用脚本编写一个工具,这样即耗时又不通用. 本文将介绍专门的命令行json处理工具&lt;strong&gt;jq&lt;/strong&gt;.&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -412,7 +426,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;本文主要介绍Linux下C调用静态库和动态库,使用的样例文件请点击&lt;a href=&quot;https://github.com/AnSwErYWJ/DogFood/tree/master/C/aso&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;这里&lt;/a&gt;.&lt;br&gt;
+      &lt;p&gt;本文主要介绍Linux下C调用静态库和动态库,使用的样例文件请点击&lt;a href=&quot;https://github.com/AnSwErYWJ/DogFood/tree/master/C/aso&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;这里&lt;/a&gt;.&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -442,29 +456,6 @@
     
     
       <category term="headset" scheme="http://answerywj.com/tags/headset/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Shell脚本浮点运算</title>
-    <link href="http://answerywj.com/2016/09/05/floating-point-operation-in-script/"/>
-    <id>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</id>
-    <published>2016-09-05T06:58:50.000Z</published>
-    <updated>2019-03-16T07:13:16.577Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文将介绍几种Linux下通过Shell脚本进行浮点数计算的方法。</p><hr><a id="more"></a><h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><p>Bash Shell本身不具备处理浮点计算的能力, 如<code>expr</code>命令只支持整数运算 :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">a=59</span><br><span class="line">b=60</span><br><span class="line">expr <span class="variable">$a</span> / <span class="variable">$b</span></span><br></pre></td></tr></table></figure></p><p>运行结果 :<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./cal.sh</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure></p><h2 id="Plan-A"><a href="#Plan-A" class="headerlink" title="Plan A"></a>Plan A</h2><p>使用<code>bc</code>进行处理。<br>代码 :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">a=59</span><br><span class="line">b=60</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"scale=4; <span class="variable">$a</span> / <span class="variable">$b</span>"</span> | bc</span><br></pre></td></tr></table></figure></p><p>运行结果 :<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="string">./bc.sh</span></span><br><span class="line"><span class="string">.9833</span></span><br></pre></td></tr></table></figure></p><blockquote><p><code>scale</code>表示结果的小数精度。</p></blockquote><h2 id="Plan-B"><a href="#Plan-B" class="headerlink" title="Plan B"></a>Plan B</h2><p>使用<code>awk</code>进行处理。<br>代码 :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">a=59</span><br><span class="line">b=60</span><br><span class="line">awk <span class="string">'BEGIN&#123;printf "%.2f\n",('</span><span class="variable">$a</span><span class="string">'/'</span><span class="variable">$b</span><span class="string">')&#125;'</span></span><br></pre></td></tr></table></figure></p><p>运行结果 :<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./awk.sh</span><br><span class="line"><span class="number">0.98</span></span><br></pre></td></tr></table></figure></p><h2 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>Compare</h2><p>使用bc :<br><img src="http://o9zpdspb3.bkt.clouddn.com/bc.png" alt="bc"></p><p>使用awk :<br><img src="http://o9zpdspb3.bkt.clouddn.com/awk.png" alt="awk"></p><blockquote><p>可以看出使用<code>awk</code>的效率更高,特别是运算次数比较大时。</p></blockquote><h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p><ul><li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li><li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li><li>Email：<a href="https://mail.google.com" target="_blank" rel="noopener">yuanweijie1993@gmail.com</a></li><li>Weibo：<a href="http://weibo.com/1783591593" target="_blank" rel="noopener">@AnSwEr不是答案</a></li><li>CSDN：<a href="http://blog.csdn.net/u011192270" target="_blank" rel="noopener">AnSwEr不是答案的专栏</a></li></ul><p><a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> This work is licensed under a <a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文将介绍几种Linux下通过Shell脚本进行浮点数计算的方法。&lt;/p&gt;
-&lt;hr&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://answerywj.com/categories/Linux/"/>
-    
-    
-      <category term="script" scheme="http://answerywj.com/tags/script/"/>
     
   </entry>
   

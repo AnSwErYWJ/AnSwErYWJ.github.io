@@ -4,6 +4,14 @@
   
     
     <entry>
+      <title><![CDATA[io-model]]></title>
+      <url>http://answerywj.com/2019/03/23/io-model/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Git速查手册（第二版）]]></title>
       <url>http://answerywj.com/2019/02/12/my-git-help-v2/</url>
       <content type="html"><![CDATA[<p>本文是对之前<a href="http://answerywj.com/2016/08/28/Git%E9%80%9F%E6%9F%A5%E6%89%8B%E5%86%8C/">Git速查手册</a>的更新，增加了一些这段时间使用到的命令。</p>
@@ -660,7 +668,7 @@
 <li>等待内核数据准备（数据拷贝到内核缓冲区）</li>
 <li>将数据从内核拷贝到用户空间</li>
 </ol>
-<h2 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h2><p><em>UNIX</em>下共有五种常见的<em>IO</em>模型：<br><img src="http://o9zpdspb3.bkt.clouddn.com/5IO.png" alt="UNIX下共有五种常见的IO模型"></p>
+<h2 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h2><p><em>UNIX</em>下共有五种常见的<em>IO</em>模型：<br><img src="/2017/06/27/unix-io-model-analysis/io-model.png" alt="UNIX下共有五种常见的IO模型"></p>
 <p>下面以<code>recvfrom</code>接口举例</p>
 <h3 id="阻塞IO"><a href="#阻塞IO" class="headerlink" title="阻塞IO"></a>阻塞IO</h3><p>默认情况下，所有的套接字都是阻塞的<br><img src="http://o9zpdspb3.bkt.clouddn.com/blockingIO.png" alt="阻塞IO"><br>调用<code>recvfrom</code>接口，进程在<em>IO</em>操作的两个阶段都会阻塞，直到最终数据拷贝到用户空间或者过程中出现错误才会返回，进程在阻塞状态下是不占用<em>CPU</em>资源的</p>
 <blockquote>
