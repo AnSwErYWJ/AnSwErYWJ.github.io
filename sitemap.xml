@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://answerywj.com/2017/06/27/unix-io-model-analysis/</loc>
+    <loc>http://answerywj.com/2017/06/27/io-model/</loc>
     
-    <lastmod>2019-03-23T06:51:36.000Z</lastmod>
+    <lastmod>2019-03-23T06:57:31.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/03/23/io-model/</loc>
+    <loc>http://answerywj.com/2017/06/27/unix-io-model-analysis/</loc>
     
-    <lastmod>2019-03-23T06:47:36.361Z</lastmod>
+    <lastmod>2019-03-23T06:51:36.000Z</lastmod>
     
   </url>
   
@@ -170,7 +170,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
+    <loc>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</loc>
     
     <lastmod>2019-03-16T07:13:16.577Z</lastmod>
     
@@ -184,21 +184,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.577Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.577Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/fork-bomb/</loc>
     
     <lastmod>2019-03-16T07:13:16.577Z</lastmod>
     
@@ -212,6 +198,20 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2016/07/14/fork-bomb/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.577Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.577Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2018/09/25/coverage-of-c/</loc>
     
     <lastmod>2019-03-16T07:13:16.573Z</lastmod>
@@ -219,7 +219,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/12/29/Introduction-of-speex/</loc>
+    <loc>http://answerywj.com/2017/03/23/Introduction-to-four-service-of-cloud-computing/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.537Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
     
     <lastmod>2019-03-16T07:13:16.537Z</lastmod>
     
@@ -240,13 +247,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.537Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2016/08/10/backup-of-blog-with-hexo-and-github/</loc>
     
     <lastmod>2019-03-16T07:13:16.537Z</lastmod>
@@ -261,7 +261,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/03/23/Introduction-to-four-service-of-cloud-computing/</loc>
+    <loc>http://answerywj.com/2017/12/29/Introduction-of-speex/</loc>
     
     <lastmod>2019-03-16T07:13:16.537Z</lastmod>
     
