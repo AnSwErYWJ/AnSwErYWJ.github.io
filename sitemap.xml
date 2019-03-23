@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://answerywj.com/2019/02/12/git-help-v2/</loc>
+    
+    <lastmod>2019-03-23T08:42:04.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2017/01/09/wave/</loc>
     
-    <lastmod>2019-03-23T08:34:11.000Z</lastmod>
+    <lastmod>2019-03-23T08:37:56.000Z</lastmod>
     
   </url>
   
@@ -100,14 +107,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
+    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
     
     <lastmod>2019-03-16T07:13:16.625Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
+    <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
     
     <lastmod>2019-03-16T07:13:16.625Z</lastmod>
     
@@ -121,21 +128,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/10/10/jq/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.621Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.621Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
     
     <lastmod>2019-03-16T07:13:16.621Z</lastmod>
     
@@ -156,14 +149,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/08/28/my-git-help-v1/</loc>
+    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
     
     <lastmod>2019-03-16T07:13:16.621Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/02/12/my-git-help-v2/</loc>
+    <loc>http://answerywj.com/2016/10/10/jq/</loc>
     
     <lastmod>2019-03-16T07:13:16.621Z</lastmod>
     
