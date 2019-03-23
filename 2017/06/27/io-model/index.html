@@ -95,15 +95,15 @@
 <meta property="og:description" content="对UNIX下的五种常见IO模型分析，帮助理解">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://answerywj.com/2017/06/27/io-model/io-model.png">
-<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/blockingIO.png">
-<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/noblockingIO.png">
-<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/multiIO.png">
-<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/signalIO.png">
-<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/asynIO.png">
-<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/5IO-compare.png">
+<meta property="og:image" content="http://answerywj.com/2017/06/27/io-model/blocking-io.png">
+<meta property="og:image" content="http://answerywj.com/2017/06/27/io-model/no-blocking-io.png">
+<meta property="og:image" content="http://answerywj.com/2017/06/27/io-model/multi-io.png">
+<meta property="og:image" content="http://answerywj.com/2017/06/27/io-model/signal-io.png">
+<meta property="og:image" content="http://answerywj.com/2017/06/27/io-model/asyn-io.png">
+<meta property="og:image" content="http://answerywj.com/2017/06/27/io-model/compare-io.png">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2019-03-23T07:02:56.000Z">
+<meta property="og:updated_time" content="2019-03-23T07:15:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UNIX下IO模型分析">
 <meta name="twitter:description" content="对UNIX下的五种常见IO模型分析，帮助理解">
@@ -389,25 +389,25 @@
 </ol>
 <h2 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h2><p><em>UNIX</em>下共有五种常见的<em>IO</em>模型：<br><img src="/2017/06/27/io-model/io-model.png" alt="UNIX下共有五种常见的IO模型"></p>
 <p>下面以<code>recvfrom</code>接口举例</p>
-<h3 id="阻塞IO"><a href="#阻塞IO" class="headerlink" title="阻塞IO"></a>阻塞IO</h3><p>默认情况下，所有的套接字都是阻塞的<br><img src="http://o9zpdspb3.bkt.clouddn.com/blockingIO.png" alt="阻塞IO"><br>调用<code>recvfrom</code>接口，进程在<em>IO</em>操作的两个阶段都会阻塞，直到最终数据拷贝到用户空间或者过程中出现错误才会返回，进程在阻塞状态下是不占用<em>CPU</em>资源的</p>
+<h3 id="阻塞IO"><a href="#阻塞IO" class="headerlink" title="阻塞IO"></a>阻塞IO</h3><p>默认情况下，所有的套接字都是阻塞的<br><img src="/2017/06/27/io-model/blocking-io.png" alt="阻塞IO"><br>调用<code>recvfrom</code>接口，进程在<em>IO</em>操作的两个阶段都会阻塞，直到最终数据拷贝到用户空间或者过程中出现错误才会返回，进程在阻塞状态下是不占用<em>CPU</em>资源的</p>
 <blockquote>
 <p>最常见的错误是发生系统中断，此时需要重读，可参考<a href="https://github.com/AnSwErYWJ/DogFood/blob/master/C/RD.c" target="_blank" rel="noopener">这里</a></p>
 </blockquote>
-<h3 id="非阻塞IO"><a href="#非阻塞IO" class="headerlink" title="非阻塞IO"></a>非阻塞IO</h3><p>可以通过<code>fcntl(sockfd,F_SETFL,O_NONBLOCK)</code>将套接字设置成非阻塞<br><img src="http://o9zpdspb3.bkt.clouddn.com/noblockingIO.png" alt="非阻塞IO"><br>调用<code>recvfrom</code>接口，无论内核缓冲区是否有可用数据，进程都会立即返回，所以在<em>IO</em>操作的第一阶段是非阻塞的; 若无数据可用，内核将<code>errno</code>设置为为<code>EWOULDBLOCK</code>或者<code>EAGAIN</code>，进程可以使用轮询的方法，保证内核在数据准备好时，能立即拷贝到用户空间; 若有则立即将数据拷贝到用户空间，进程在数据拷贝到用户空间即<em>IO</em>操作的第二阶段是阻塞的;</p>
+<h3 id="非阻塞IO"><a href="#非阻塞IO" class="headerlink" title="非阻塞IO"></a>非阻塞IO</h3><p>可以通过<code>fcntl(sockfd,F_SETFL,O_NONBLOCK)</code>将套接字设置成非阻塞<br><img src="/2017/06/27/io-model/no-blocking-io.png" alt="非阻塞IO"><br>调用<code>recvfrom</code>接口，无论内核缓冲区是否有可用数据，进程都会立即返回，所以在<em>IO</em>操作的第一阶段是非阻塞的; 若无数据可用，内核将<code>errno</code>设置为为<code>EWOULDBLOCK</code>或者<code>EAGAIN</code>，进程可以使用轮询的方法，保证内核在数据准备好时，能立即拷贝到用户空间; 若有则立即将数据拷贝到用户空间，进程在数据拷贝到用户空间即<em>IO</em>操作的第二阶段是阻塞的;</p>
 <blockquote>
 <p>非阻塞<em>IO</em>过于消耗<em>CPU</em>时间，将大部分时间用于轮询</p>
 </blockquote>
-<h3 id="多路复用IO"><a href="#多路复用IO" class="headerlink" title="多路复用IO"></a>多路复用IO</h3><p>多路复用系统调用：<code>select</code>,<code>poll</code>和<code>epoll</code>，其中<em>windows</em>平台不支持<code>poll</code>和<code>epoll</code>，使用方法可以参考<a href="https://segmentfault.com/a/1190000003063859?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io#articleHeader14" target="_blank" rel="noopener">I/O 多路复用之select、poll、epoll详解</a>和<a href="http://www.cnblogs.com/NerdWill/p/4996476.html" target="_blank" rel="noopener">Linux select/poll和epoll实现机制对比</a><br><img src="http://o9zpdspb3.bkt.clouddn.com/multiIO.png" alt=" 多路复用IO"><br>调用<code>select</code>，等待内核数据准备，所以<em>IO</em>操作的第一个阶段，进程是阻塞的，不过是阻塞在多路复用系统调用上，而不是<em>IO</em>系统调用上; 当<code>select</code>返回套接字可读条件时，再调用<code>recvfrom</code>将数据从内核拷贝到用户空间，<em>IO</em>操作的第二阶段，进程是阻塞的</p>
+<h3 id="多路复用IO"><a href="#多路复用IO" class="headerlink" title="多路复用IO"></a>多路复用IO</h3><p>多路复用系统调用：<code>select</code>,<code>poll</code>和<code>epoll</code>，其中<em>windows</em>平台不支持<code>poll</code>和<code>epoll</code>，使用方法可以参考<a href="https://segmentfault.com/a/1190000003063859?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io#articleHeader14" target="_blank" rel="noopener">I/O 多路复用之select、poll、epoll详解</a>和<a href="http://www.cnblogs.com/NerdWill/p/4996476.html" target="_blank" rel="noopener">Linux select/poll和epoll实现机制对比</a><br><img src="/2017/06/27/io-model/multi-io.png" alt=" 多路复用IO"><br>调用<code>select</code>，等待内核数据准备，所以<em>IO</em>操作的第一个阶段，进程是阻塞的，不过是阻塞在多路复用系统调用上，而不是<em>IO</em>系统调用上; 当<code>select</code>返回套接字可读条件时，再调用<code>recvfrom</code>将数据从内核拷贝到用户空间，<em>IO</em>操作的第二阶段，进程是阻塞的</p>
 <p>多路复用<em>IO</em>和阻塞<em>IO</em>，在<em>IO</em>操作的两个阶段都是阻塞的，不过多路复用<em>IO</em>使用了两个系统调用，而阻塞<em>IO</em>只使用了一个，所以在连接数不是很多的情况下，阻塞<em>IO</em>可能性能更佳; 多路复用<em>IO</em>的优势在于可以同时监控多个用于<em>IO</em>的文件描述符。</p>
 <blockquote>
 <p>多线程中的阻塞<em>IO</em>，与多路复用<em>IO</em>极为相似</p>
 </blockquote>
-<h3 id="信号驱动IO"><a href="#信号驱动IO" class="headerlink" title="信号驱动IO"></a>信号驱动IO</h3><p><img src="http://o9zpdspb3.bkt.clouddn.com/signalIO.png" alt="信号驱动IO"><br>调用<code>sigaction</code>等系统调用安装信号处理函数，并立即返回，所以<em>IO</em>操作的第一阶段，进程是非阻塞的; 当内核数据准备好时，内核会产生一个信号，通知进程将数据从内核拷贝到用户空间，<em>IO</em>操作的第二阶段，进程是阻塞的</p>
+<h3 id="信号驱动IO"><a href="#信号驱动IO" class="headerlink" title="信号驱动IO"></a>信号驱动IO</h3><p><img src="/2017/06/27/io-model/signal-io.png" alt="信号驱动IO"><br>调用<code>sigaction</code>等系统调用安装信号处理函数，并立即返回，所以<em>IO</em>操作的第一阶段，进程是非阻塞的; 当内核数据准备好时，内核会产生一个信号，通知进程将数据从内核拷贝到用户空间，<em>IO</em>操作的第二阶段，进程是阻塞的</p>
 <blockquote>
 <p>使用方法：<a href="http://www.cnblogs.com/ittinybird/p/4574397.html" target="_blank" rel="noopener">IO的多路复用和信号驱动</a></p>
 </blockquote>
-<h3 id="异步IO"><a href="#异步IO" class="headerlink" title="异步IO"></a>异步IO</h3><p>异步<em>IO</em>有一组以<code>aio</code>开头的系统调用，使用方法可参考<a href="http://blog.csdn.net/tq02h2a/article/details/3825114" target="_blank" rel="noopener">Linux AIO机制</a><br><img src="http://o9zpdspb3.bkt.clouddn.com/asynIO.png" alt="异步IO"><br>调用异步<em>IO</em>系统调用，给内核传递描述字、缓冲区指针、缓冲区大小（与<code>read</code>相同的三个参数）、文件偏移（与<code>lseek</code>类似），告诉内核当整个操作完成时如何通知我们，并立即返回，在<em>IO</em>操作的两个阶段，进程都不阻塞</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="http://o9zpdspb3.bkt.clouddn.com/5IO-compare.png" alt="5种IO模式比较"></p>
+<h3 id="异步IO"><a href="#异步IO" class="headerlink" title="异步IO"></a>异步IO</h3><p>异步<em>IO</em>有一组以<code>aio</code>开头的系统调用，使用方法可参考<a href="http://blog.csdn.net/tq02h2a/article/details/3825114" target="_blank" rel="noopener">Linux AIO机制</a><br><img src="/2017/06/27/io-model/asyn-io.png" alt="异步IO"><br>调用异步<em>IO</em>系统调用，给内核传递描述字、缓冲区指针、缓冲区大小（与<code>read</code>相同的三个参数）、文件偏移（与<code>lseek</code>类似），告诉内核当整个操作完成时如何通知我们，并立即返回，在<em>IO</em>操作的两个阶段，进程都不阻塞</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="/2017/06/27/io-model/compare-io.png" alt="5种IO模式比较"></p>
 <ul>
 <li>同步<em>IO</em>和异步<em>IO</em>的主要区别是将数据从内核拷贝到用户空间是否阻塞，前者会在将数据从内核拷贝到用户空间时即<em>IO</em>操作的第二个阶段发生阻塞，而后者则在系统调用后直接返回，直到内核发送信号通知<em>IO</em>操作完成，在<em>IO</em>操作的两个阶段都没有阻塞</li>
 <li>阻塞<em>IO</em>和非阻塞<em>IO</em>的主要区别是系统调用是否立即返回（默认将数据从内核拷贝到用户空间即<em>IO</em>操作的第二个阶段是立即返回的），前者会在<em>IO</em>操作的两个阶段完成前一直阻塞，后者在内核没有准备好数据的情况下立即返回，即只会在<em>IO</em>操作的第二个阶段阻塞</li>
