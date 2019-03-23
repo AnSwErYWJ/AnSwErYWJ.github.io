@@ -94,15 +94,15 @@
 <meta property="og:site_name" content="AnSwEr&#39;s Blog">
 <meta property="og:description" content="本文将介绍几种Linux下通过Shell脚本进行浮点数计算的方法。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/bc.png">
-<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/awk.png">
+<meta property="og:image" content="http://answerywj.com/2016/09/05/floating-point-operation-in-script/bc.png">
+<meta property="og:image" content="http://answerywj.com/2016/09/05/floating-point-operation-in-script/awk.png">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2019-03-16T07:13:16.577Z">
+<meta property="og:updated_time" content="2019-03-23T08:05:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell脚本浮点运算">
 <meta name="twitter:description" content="本文将介绍几种Linux下通过Shell脚本进行浮点数计算的方法。">
-<meta name="twitter:image" content="http://o9zpdspb3.bkt.clouddn.com/bc.png">
+<meta name="twitter:image" content="http://answerywj.com/2016/09/05/floating-point-operation-in-script/bc.png">
 
 
 
@@ -388,8 +388,8 @@
 </blockquote>
 <h2 id="Plan-B"><a href="#Plan-B" class="headerlink" title="Plan B"></a>Plan B</h2><p>使用<code>awk</code>进行处理。<br>代码 :<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">a=59</span><br><span class="line">b=60</span><br><span class="line">awk <span class="string">'BEGIN&#123;printf "%.2f\n",('</span><span class="variable">$a</span><span class="string">'/'</span><span class="variable">$b</span><span class="string">')&#125;'</span></span><br></pre></td></tr></table></figure></p>
 <p>运行结果 :<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./awk.sh</span><br><span class="line"><span class="number">0.98</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>Compare</h2><p>使用bc :<br><img src="http://o9zpdspb3.bkt.clouddn.com/bc.png" alt="bc"></p>
-<p>使用awk :<br><img src="http://o9zpdspb3.bkt.clouddn.com/awk.png" alt="awk"></p>
+<h2 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>Compare</h2><p>使用bc :<br><img src="/2016/09/05/floating-point-operation-in-script/bc.png" alt="bc"></p>
+<p>使用awk :<br><img src="/2016/09/05/floating-point-operation-in-script/awk.png" alt="awk"></p>
 <blockquote>
 <p>可以看出使用<code>awk</code>的效率更高,特别是运算次数比较大时。</p>
 </blockquote>

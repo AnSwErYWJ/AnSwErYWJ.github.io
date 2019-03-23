@@ -65,10 +65,10 @@ $ ./awk.sh
 ## Compare
 
 使用bc :
-![bc](http://o9zpdspb3.bkt.clouddn.com/bc.png)
+![bc](bc.png)
 
 使用awk :
-![awk](http://o9zpdspb3.bkt.clouddn.com/awk.png)
+![awk](awk.png)
 
 > 可以看出使用``awk``的效率更高,特别是运算次数比较大时。
 

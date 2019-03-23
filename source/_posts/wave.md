@@ -8,6 +8,7 @@ tags:
 date: 2017-01-09 14:54:17
 categories: C
 ---
+
 本文将详细分析WAVE音频文件的格式,并通过C语言对wave文件头进行读写操作。
 
 ----------
@@ -23,7 +24,7 @@ WAVE文件格式是一种由微软和IBM联合开发的用于音频数字存储�
 > 本文所介绍的*WAV*文件头是标准的44字节文件头.
 
 ### WAVE文件格式
-![wave format](http://o9zpdspb3.bkt.clouddn.com/wave.png)
+![wave format](wave.png)
 > **纠正**: ByteRate应该为每秒存储的字节数
 
 通过*WAVE*文件头信息,我们可以计算出播放时长:
