@@ -34,7 +34,7 @@ titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:
@@ -74,7 +74,7 @@ deploy:
     message: 'update website:{{now("YYYY-MM-DD HH:mm:ss")}}'
 
 # avatar
-avatar: source/images/avatar.png
+avatar: /images/avatar.png
     
 # duoshuo
 #duoshuo_shortname: answerywj

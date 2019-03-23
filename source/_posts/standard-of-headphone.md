@@ -1,10 +1,11 @@
 ---
 title: 科普|3.5mm耳机国标和美标
 Antuor: AnSwEr(Weijie Yuan)
+comments: true
 toc: true
+tags: headset
 date: 2016-09-20 11:37:40
 categories: Knowledge
-tags: headset
 ---
 
 现在3.5mm规格的耳机已经普遍使用，但是用户会发现一些国外厂家的耳机并不适用国产手机，下面就为大家科普一下，解开这个迷题。
@@ -17,12 +18,11 @@ tags: headset
 
 - 国标(OMTP)，从头开始分别是左声道/右声道/MIC/地线。
 
-![headset](http://o9zpdspb3.bkt.clouddn.com/headset.png)
+![headset](headset.png)
 
 从上图可以发现美标和国标的差别就在于MIC和地线的位置不同，导致会出现在听音乐时只有伴奏没有人声，只有按住接听键才正常的现象。
 
 另外一个区别是，美标的中间三节隔离绝缘圈，一般是都是白色的。而国标为了有所分别，一般是都是黑色的，大部分耳机可以通过此方法来区别。
-
 
 
 ## 适用范围

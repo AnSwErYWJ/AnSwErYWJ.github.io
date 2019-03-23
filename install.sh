@@ -16,6 +16,7 @@ npm install hexo-renderer-marked --save
 npm install hexo-renderer-stylus --save
 npm install hexo-generator-feed --save
 npm install hexo-generator-sitemap --save
+npm install hexo-asset-image --save
 
 # search
 npm install hexo-generator-search --save
