@@ -65,13 +65,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/categories/index.html</loc>
-    
-    <lastmod>2019-03-16T07:13:16.669Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/tags/index.html</loc>
     
     <lastmod>2019-03-16T07:13:16.669Z</lastmod>
@@ -86,9 +79,9 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/03/07/usage-of-core-in-linux/</loc>
+    <loc>http://answerywj.com/categories/index.html</loc>
     
-    <lastmod>2019-03-16T07:13:16.649Z</lastmod>
+    <lastmod>2019-03-16T07:13:16.669Z</lastmod>
     
   </url>
   
@@ -100,16 +93,9 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</loc>
+    <loc>http://answerywj.com/2018/03/07/usage-of-core-in-linux/</loc>
     
-    <lastmod>2019-03-16T07:13:16.625Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.625Z</lastmod>
+    <lastmod>2019-03-16T07:13:16.649Z</lastmod>
     
   </url>
   
@@ -128,21 +114,21 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.625Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.625Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.621Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.621Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
     
     <lastmod>2019-03-16T07:13:16.621Z</lastmod>
     
@@ -156,7 +142,21 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.621Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2016/10/10/jq/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.621Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
     
     <lastmod>2019-03-16T07:13:16.621Z</lastmod>
     
@@ -184,7 +184,21 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2016/07/14/debug-macro/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.577Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.577Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
     
     <lastmod>2019-03-16T07:13:16.577Z</lastmod>
     
@@ -205,28 +219,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/debug-macro/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.577Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.577Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/08/badges-of-github/</loc>
-    
-    <lastmod>2019-03-16T07:13:16.537Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
+    <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
     
     <lastmod>2019-03-16T07:13:16.537Z</lastmod>
     
@@ -240,7 +233,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
+    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
+    
+    <lastmod>2019-03-16T07:13:16.537Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/08/badges-of-github/</loc>
     
     <lastmod>2019-03-16T07:13:16.537Z</lastmod>
     
