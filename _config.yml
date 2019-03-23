@@ -74,7 +74,7 @@ deploy:
     message: 'update website:{{now("YYYY-MM-DD HH:mm:ss")}}'
 
 # avatar
-avatar: http://o9zpdspb3.bkt.clouddn.com/avatar.png
+avatar: source/images/avatar.png
     
 # duoshuo
 #duoshuo_shortname: answerywj
