@@ -94,14 +94,14 @@
 <meta property="og:site_name" content="AnSwEr&#39;s Blog">
 <meta property="og:description" content="本文将对Speex相关的概念进行介绍">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/aec.png">
+<meta property="og:image" content="http://answerywj.com/2017/12/29/Introduction-of-speex/aec.png">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2019-03-16T07:13:16.537Z">
+<meta property="og:updated_time" content="2019-03-23T07:49:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Speex介绍">
 <meta name="twitter:description" content="本文将对Speex相关的概念进行介绍">
-<meta name="twitter:image" content="http://o9zpdspb3.bkt.clouddn.com/aec.png">
+<meta name="twitter:image" content="http://answerywj.com/2017/12/29/Introduction-of-speex/aec.png">
 
 
 
@@ -436,7 +436,7 @@
 <li>声音活动检测（<em>VAD</em>）<br>预处理器提供的声音活动检测（<em>VAD</em>）比编解码器中直接提供的<em>VAD</em>更先进</li>
 </ol>
 <h3 id="自适应抖动缓冲器"><a href="#自适应抖动缓冲器" class="headerlink" title="自适应抖动缓冲器"></a>自适应抖动缓冲器</h3><p>当通过<em>UDP</em>（<em>User Datagram Protocal</em>，用户数据报协议）或<em>RTP</em>（<em>Real Time Protocal</em>，实时传输协议）传输声音（或其他任何内容）时，数据包可能丢失，不同延时到达，甚至乱序，抖动缓冲器的作用是对数据包进行重排序并保存在足够长的buffer（但有一定限度）里，然后将数据包发送去解码</p>
-<h3 id="声学回声消除器"><a href="#声学回声消除器" class="headerlink" title="声学回声消除器"></a>声学回声消除器</h3><p>在任何免提式通信系统中（下图），远端的语音在本地扬声器播放时，经过在房间里传播后又会被麦克风录音，如果将麦克风录音直接又发送到远端，则远端的用户将会听到他自己的回声<br><img src="http://o9zpdspb3.bkt.clouddn.com/aec.png" alt="aec"><br>声学回声消除器就是为了在将录音发送到远端前消除声学回声，提高了远端接收的语音质量</p>
+<h3 id="声学回声消除器"><a href="#声学回声消除器" class="headerlink" title="声学回声消除器"></a>声学回声消除器</h3><p>在任何免提式通信系统中（下图），远端的语音在本地扬声器播放时，经过在房间里传播后又会被麦克风录音，如果将麦克风录音直接又发送到远端，则远端的用户将会听到他自己的回声<br><img src="/2017/12/29/Introduction-of-speex/aec.png" alt="aec"><br>声学回声消除器就是为了在将录音发送到远端前消除声学回声，提高了远端接收的语音质量</p>
 <h3 id="重采样器"><a href="#重采样器" class="headerlink" title="重采样器"></a>重采样器</h3><p>重采样指转换音频的采样率，在任意采样率间进行转换（采样率必须是有理数），能控制质量和复杂度的折中，可用于能混合不同采样率流，支持声卡不支持的采样率，能转码等</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="http://blog.csdn.net/YJJat1989/article/category/1879965" target="_blank" rel="noopener">http://blog.csdn.net/YJJat1989/article/category/1879965</a></li>
@@ -502,8 +502,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/15/condition-variables-of-thread-synchronization/" rel="next" title="线程同步机制条件变量的使用与思考">
-                <i class="fa fa-chevron-left"></i> 线程同步机制条件变量的使用与思考
+              <a href="/2017/12/29/speex/" rel="next" title="Speex介绍">
+                <i class="fa fa-chevron-left"></i> Speex介绍
               </a>
             
           </div>
@@ -603,7 +603,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-count">35</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
