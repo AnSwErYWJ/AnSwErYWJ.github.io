@@ -79,7 +79,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="http://o9zpdspb3.bkt.clouddn.com/website_icon.ico?v=5.0.1">
+  <link rel="shortcut icon" type="image/x-icon" href="/images/website_icon.ico?v=5.0.1">
 
 
 
@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="AnSwEr&#39;s Blog">
 <meta property="og:description" content="对UNIX下的五种常见IO模型分析，帮助理解">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/5IO.png">
+<meta property="og:image" content="http://answerywj.com/2017/06/27/unix-io-model-analysis/io-model.png">
 <meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/blockingIO.png">
 <meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/noblockingIO.png">
 <meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/multiIO.png">
@@ -103,11 +103,11 @@
 <meta property="og:image" content="http://o9zpdspb3.bkt.clouddn.com/5IO-compare.png">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2019-03-16T07:13:16.625Z">
+<meta property="og:updated_time" content="2019-03-23T06:51:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UNIX下IO模型分析">
 <meta name="twitter:description" content="对UNIX下的五种常见IO模型分析，帮助理解">
-<meta name="twitter:image" content="http://o9zpdspb3.bkt.clouddn.com/5IO.png">
+<meta name="twitter:image" content="http://answerywj.com/2017/06/27/unix-io-model-analysis/io-model.png">
 
 
 
@@ -387,7 +387,7 @@
 <li>等待内核数据准备（数据拷贝到内核缓冲区）</li>
 <li>将数据从内核拷贝到用户空间</li>
 </ol>
-<h2 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h2><p><em>UNIX</em>下共有五种常见的<em>IO</em>模型：<br><img src="http://o9zpdspb3.bkt.clouddn.com/5IO.png" alt="UNIX下共有五种常见的IO模型"></p>
+<h2 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h2><p><em>UNIX</em>下共有五种常见的<em>IO</em>模型：<br><img src="/2017/06/27/unix-io-model-analysis/io-model.png" alt="UNIX下共有五种常见的IO模型"></p>
 <p>下面以<code>recvfrom</code>接口举例</p>
 <h3 id="阻塞IO"><a href="#阻塞IO" class="headerlink" title="阻塞IO"></a>阻塞IO</h3><p>默认情况下，所有的套接字都是阻塞的<br><img src="http://o9zpdspb3.bkt.clouddn.com/blockingIO.png" alt="阻塞IO"><br>调用<code>recvfrom</code>接口，进程在<em>IO</em>操作的两个阶段都会阻塞，直到最终数据拷贝到用户空间或者过程中出现错误才会返回，进程在阻塞状态下是不占用<em>CPU</em>资源的</p>
 <blockquote>
@@ -455,13 +455,13 @@
     <div id="QR" style="display: none;">
       
         <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="http://o9zpdspb3.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E8%B5%9E%E8%B5%8F.jpg" alt="AnSwEr(Weijie Yuan) WeChat Pay">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="AnSwEr(Weijie Yuan) WeChat Pay">
           <p>微信打赏</p>
         </div>
       
       
         <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="http://o9zpdspb3.bkt.clouddn.com/zhifubaozanshang.jpg" alt="AnSwEr(Weijie Yuan) Alipay">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="AnSwEr(Weijie Yuan) Alipay">
           <p>支付宝打赏</p>
         </div>
       
@@ -493,8 +493,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/04/gcc-compilation-of-arm-articles/" rel="prev" title="GCC编译ARM篇">
-                GCC编译ARM篇 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/27/io-model/" rel="prev" title="UNIX下IO模型分析">
+                UNIX下IO模型分析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -579,14 +579,14 @@
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="/source/images/avatar.png" alt="AnSwEr(Weijie Yuan)">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="AnSwEr(Weijie Yuan)">
           <p class="site-author-name" itemprop="name">AnSwEr(Weijie Yuan)</p>
           <p class="site-description motion-element" itemprop="description">Stay true to yourself,Stay gold.</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-count">35</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

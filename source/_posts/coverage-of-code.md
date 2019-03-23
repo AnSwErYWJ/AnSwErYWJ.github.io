@@ -1,10 +1,11 @@
 ---
 title: C代码覆盖率测试工具Gcov
 Antuor: AnSwEr(Weijie Yuan)
+comments: true
 toc: true
+tags: 代码覆盖率
 date: 2018-09-25 18:48:49
 categories: C
-tags: 代码覆盖率
 ---
 
 代码覆盖率测试反映了测试的广度与深度，量化了测试和开发质量，是十分有必要的，业界目前有针对各种语言的覆盖率测试工具，本文主要介绍`C/C++`相关的覆盖率测试工具`Gcov`
@@ -189,7 +190,7 @@ $ ls
 a.out  main.c  main.gcda  main.gcno  say.c  say.gcda  say.gcno  xxx.html
 ```
 可以发现添加`--html`参数后，可以生成`html`文件，用浏览器打开，如下图：
-![gcovr_xxx.png](http://o9zpdspb3.bkt.clouddn.com/gcovr_xxx.png)
+![gcovr_xxx.png](gcovr_xxx.png)
 
 还可以添加`--html-details`选项，为每个代码文件单独生成`html`
 ```
@@ -198,9 +199,9 @@ $ ls
 a.out  main.c  main.gcda  main.gcno  say.c  say.gcda  say.gcno  xxx.html  xxx.main.c.html  xxx.say.c.html
 ```
 可以发现多了`xxx.main.c.html`和`xxx.say.c.html`，用浏览器打开`xxx.html`，如下图：
-![gcovr_xxx_detail.png](http://o9zpdspb3.bkt.clouddn.com/gcovr_xxx_detail.png)
+![gcovr_xxx_detail.png](gcovr_xxx_detail.png)
 文件名较之前带上了下划线，单击文件名，可以看到具体的代码覆盖情况，如下图：
-![gcovr_xxx_main.png](http://o9zpdspb3.bkt.clouddn.com/gcovr_xxx_main.png)
+![gcovr_xxx_main.png](gcovr_xxx_main.png)
 
 #### 其它
 其它功能，如`Filters`等，可以参考[官方文档](https://gcovr.com/guide.html)
