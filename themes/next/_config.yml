@@ -248,13 +248,13 @@ mathjax:
 #disqus_shortname:
 
 # youyan
-youyan_uid: 2128235
+#youyan_uid: 2128235
 
 # Baidu Share
 # Available value:
 #    button | slide
-#baidushare:
-##  type: button
+baidushare:
+  type: slide
 
 # Share
 #jiathis:
@@ -333,6 +333,16 @@ busuanzi_count:
 # Enable baidu push so that the blog will push the url to baidu automatically which is very helpful for SEO
 baidu_push: false
 
+valine:
+  enable: true
+  appid: vim4NhVqc5JNcPuljU4r9St0-gzGzoHsz
+  appkey: k7iiuAIEVRSri40zLM4mhdKt
+  notify: true # mail notifier , https://github.com/xCss/Valine/wiki
+  verify: true # Verification code
+  placeholder: 说点什么吧
+  avatar: hide 
+  guest_info: nick
+  pageSize: 10
 
 
 #! ---------------------------------------------------------------

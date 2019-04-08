@@ -20,3 +20,6 @@ npm install hexo-asset-image --save
 
 # search
 npm install hexo-generator-search --save
+
+# git comment
+npm install gitment --save

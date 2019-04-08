@@ -6,15 +6,15 @@
 
 
 <html class="theme-next mist use-motion">
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
@@ -29,7 +29,7 @@
 
   
   
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -63,23 +63,23 @@
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
-
-
-  <meta name="keywords" content="pthread,">
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-
-
-
-  <link rel="alternate" href="/atom.xml" title="AnSwEr's Blog" type="application/atom+xml">
+  <meta name="keywords" content="pthread," />
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/images/website_icon.ico?v=5.0.1">
+
+  <link rel="alternate" href="/atom.xml" title="AnSwEr's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/website_icon.ico?v=5.0.1" />
 
 
 
@@ -96,7 +96,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2019-03-16T07:13:16.537Z">
+<meta property="og:updated_time" content="2018-04-14T13:51:15.951Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程同步机制条件变量的使用与思考">
 <meta name="twitter:description" content="条件变量是Linux线程同步的一种机制，与互斥量一起使用时，允许线程以无竞争的方式等待特定条件的发生">
@@ -121,7 +121,7 @@
 
 
 
-  <link rel="canonical" href="http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/">
+  <link rel="canonical" href="http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/"/>
 
   <title> 线程同步机制条件变量的使用与思考 | AnSwEr's Blog </title>
 </head>
@@ -162,7 +162,7 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/" class="brand" rel="start">
+    <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <span class="site-title">AnSwEr's Blog</span>
       <span class="logo-line-after"><i></i></span>
@@ -189,7 +189,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
           </a>
@@ -199,7 +199,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
             分类
           </a>
@@ -209,7 +209,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
             关于
           </a>
@@ -219,7 +219,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
           </a>
@@ -229,7 +229,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             标签
           </a>
@@ -239,7 +239,7 @@
         <li class="menu-item menu-item-commonweal">
           <a href="/404.html" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
             
             公益404
           </a>
@@ -252,7 +252,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
             
             搜索
           </a>
@@ -324,7 +324,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -431,7 +431,7 @@
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="https://www.cnblogs.com/leijiangtao/p/4028338.html" target="_blank" rel="noopener">关于pthread_cond_wait使用while循环判断的理解</a></li>
 <li><a href="https://www.cnblogs.com/zhx831/p/3543633.html" target="_blank" rel="noopener">Linux线程同步之条件变量pthread_cond_t</a></li>
-<li><a href>APUE</a></li>
+<li><a href="">APUE</a></li>
 </ul>
 <h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
 <ul>
@@ -464,13 +464,13 @@
     <div id="QR" style="display: none;">
       
         <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="AnSwEr(Weijie Yuan) WeChat Pay">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="AnSwEr(Weijie Yuan) WeChat Pay"/>
           <p>微信打赏</p>
         </div>
       
       
         <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.jpg" alt="AnSwEr(Weijie Yuan) Alipay">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="AnSwEr(Weijie Yuan) Alipay"/>
           <p>支付宝打赏</p>
         </div>
       
@@ -519,27 +519,31 @@
 
     <div class="post-spread">
       
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-  <a class="jiathis_button_tsina"></a>
-  <a class="jiathis_button_tqq"></a>
-  <a class="jiathis_button_weixin"></a>
-  <a class="jiathis_button_cqq"></a>
-  <a class="jiathis_button_douban"></a>
-  <a class="jiathis_button_renren"></a>
-  <a class="jiathis_button_qzone"></a>
-  <a class="jiathis_button_kaixin001"></a>
-  <a class="jiathis_button_copy"></a>
-  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
-  <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-  var jiathis_config={
-    hideMore:false
-  }
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
 </script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<!-- JiaThis Button END -->
 
       
     </div>
@@ -553,7 +557,40 @@
           
   <div class="comments" id="comments">
     
-            <div id="uyan_frame"></div>
+      <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+      <script src="//unjkp.com/valine/dist/Valine.min.js"></script>  //删除Valine核心代码库外链调用
+      <script src="/js/src/Valine.min.js"></script>  //调用刚下载的本地文件以加速加载速度
+
+        //这里改为从本地加载
+      
+      <script src="/js/src/Valine.min.js"></script>
+
+      <script type="text/javascript">
+        var GUEST = ['nick','mail','link'];
+        var guest = 'nick';
+        guest = guest.split(',').filter(function (item) {
+          return GUEST.indexOf(item)>-1;
+        });
+        new Valine({
+            el: '#comments' ,
+            verify: true,
+            notify: true,
+            appId: 'vim4NhVqc5JNcPuljU4r9St0-gzGzoHsz',
+            appKey: 'k7iiuAIEVRSri40zLM4mhdKt',
+            placeholder: '说点什么吧',
+            avatar:'hide',
+            guest_info:['nick'] ,  //评论者只需要提供评论的昵称即可
+            pageSize:'10' || 10,
+        });
+        //增加以下六行代码去除 power by valine
+        var infoEle = document.querySelector('#comments .info');
+        if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0){
+          infoEle.childNodes.forEach(function(item) {
+            item.parentNode.removeChild(item);
+          });
+        }
+      </script>
+
     
   </div>
 
@@ -577,7 +614,7 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -588,7 +625,9 @@
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="AnSwEr(Weijie Yuan)">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="AnSwEr(Weijie Yuan)" />
           <p class="site-author-name" itemprop="name">AnSwEr(Weijie Yuan)</p>
           <p class="site-description motion-element" itemprop="description">Stay true to yourself,Stay gold.</p>
         </div>
@@ -716,7 +755,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">
+        <div class="copyright" >
   
   &copy;  2016 - 
   <span itemprop="copyrightYear">2019</span>
@@ -823,12 +862,10 @@
   
 
     
-      
-    
 
    
         <!-- UY BEGIN -->
-        <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2128235"></script>
+        <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
         <!-- UY END -->
     
   
