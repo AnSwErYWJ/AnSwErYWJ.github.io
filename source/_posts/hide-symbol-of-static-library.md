@@ -18,7 +18,7 @@ categories: Compile
 ```
 #include <stdio.h>
 
-void hello() {
+__attribute__ ((visibility ("default"))) void hello() {
 	printf("Hello World!\n");
 }
 ```
@@ -39,10 +39,98 @@ void hello();
 
 #endif
 ```
-`test.h`:
+
+`bye.c`:
 ```
+#include <stdio.h>
+
+void bye() {
+	printf("Bye Bye!\n");
+}
+```
+`bye.h`:
+```
+#ifndef __BYE__H
+#define __BYE__H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void bye();
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
 ```
 
+## 编译
+编译时使用`-fvisibility=hidden`,可以默认将符号隐藏;需要对外的符号使用`__attribute__ ((visibility ("default")))`修饰即可:
+```
+$ gcc -fvisibility=hidden -I. -c hello.c -o hello.o
+$ gcc -fvisibility=hidden -I. -c bye.c -o bye.o
+```
+其中`hello()`未被隐藏,`bye()`是被隐藏的.
+
+## 链接
+将生成的两个`.o`文件重定位到`libt.o`中:
+```
+$ ld -r hello.o bye.o -o libt.o
+```
+
+## 去除无用的符号
+```
+$ strip --strip-unneeded libt.o
+```
+
+## 隐藏的符号本地化(我也不知道中文怎么翻译了)
+```
+$ objcopy --localize-hidden libt.o libt_hidden.o
+```
+
+## 打包成静态库
+```
+$ ar crv libt.a libt_hidden.o
+```
+
+## 验证
+### 调用未被隐藏的`hello()`
+`test1.c`:
+```
+#include "hello.h"
+
+int main(void) {
+    hello();
+    return 0;
+}
+```
+编译并运行
+```
+$ gcc -I. test1.c -L. -lt -o test
+$ ./test
+Hello World!
+```
+
+### 调用隐藏的'bye()'
+test2.c
+```
+#include "bye.h"
+
+int main(void) {
+    bye();
+    return 0;
+}
+```
+编译并运行
+```
+$ gcc -I. test2.c -L. -lt -o test
+$ ./test
+/tmp/ccdaJT7s.o: In function `main':
+test2.c:(.text+0xa): undefined reference to `bye'
+collect2: error: ld returned 1 exit status
+```
 
 ## Reference
 
