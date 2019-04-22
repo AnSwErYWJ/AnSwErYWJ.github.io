@@ -4114,7 +4114,7 @@ var Gitment = function () {
       }, options);
 
       this.state.user.isLoggingIn = true;
-      var logging = !proxy_gateway ? _utils.http.post('https://gh-oauth.imsun.net', { code: code, client_id: client_id, client_secret: client_secret }, '') : _utils.http.post('/login/oauth/access_token', 'code=' + code + '&client_id=' + client_id, proxy_gateway);
+      var logging = !proxy_gateway ? _utils.http.post('https://gh-oauth.herokuapp.com/', { code: code, client_id: client_id, client_secret: client_secret }, '') : _utils.http.post('/login/oauth/access_token', 'code=' + code + '&client_id=' + client_id, proxy_gateway);
       logging.then(function (data) {
         _this.accessToken = data.access_token;
         _this.update();
