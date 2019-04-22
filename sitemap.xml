@@ -72,13 +72,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
-    
-    <lastmod>2019-04-22T05:58:42.702Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</loc>
     
     <lastmod>2019-04-22T05:58:42.702Z</lastmod>
@@ -93,7 +86,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
+    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
     
     <lastmod>2019-04-22T05:58:42.702Z</lastmod>
     
@@ -101,6 +94,13 @@
   
   <url>
     <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
+    
+    <lastmod>2019-04-22T05:58:42.702Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
     
     <lastmod>2019-04-22T05:58:42.702Z</lastmod>
     
@@ -121,7 +121,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
+    <loc>http://answerywj.com/2016/07/14/fork-bomb/</loc>
     
     <lastmod>2019-04-22T05:58:42.698Z</lastmod>
     
@@ -135,7 +135,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
+    <loc>http://answerywj.com/2019/02/12/git-help-v2/</loc>
     
     <lastmod>2019-04-22T05:58:42.698Z</lastmod>
     
@@ -143,13 +143,6 @@
   
   <url>
     <loc>http://answerywj.com/2016/12/06/getw-and-putw/</loc>
-    
-    <lastmod>2019-04-22T05:58:42.698Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2019/02/12/git-help-v2/</loc>
     
     <lastmod>2019-04-22T05:58:42.698Z</lastmod>
     
@@ -177,21 +170,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
-    
-    <lastmod>2019-04-22T05:58:42.698Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/fork-bomb/</loc>
-    
-    <lastmod>2019-04-22T05:58:42.698Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</loc>
+    
+    <lastmod>2019-04-22T05:58:42.698Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
     
     <lastmod>2019-04-22T05:58:42.698Z</lastmod>
     
@@ -212,7 +198,28 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/09/25/coverage-of-code/</loc>
+    <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
+    
+    <lastmod>2019-04-22T05:58:42.698Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
+    
+    <lastmod>2019-04-22T05:58:42.698Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/08/10/backup-of-blog-with-hexo-and-github/</loc>
+    
+    <lastmod>2019-04-22T05:58:42.694Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2018/05/03/cjson/</loc>
     
     <lastmod>2019-04-22T05:58:42.694Z</lastmod>
     
@@ -226,13 +233,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
-    
-    <lastmod>2019-04-22T05:58:42.694Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
     
     <lastmod>2019-04-22T05:58:42.694Z</lastmod>
@@ -240,7 +240,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/05/03/cjson/</loc>
+    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
     
     <lastmod>2019-04-22T05:58:42.694Z</lastmod>
     
@@ -268,7 +268,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/08/10/backup-of-blog-with-hexo-and-github/</loc>
+    <loc>http://answerywj.com/2018/09/25/coverage-of-code/</loc>
     
     <lastmod>2019-04-22T05:58:42.694Z</lastmod>
     
