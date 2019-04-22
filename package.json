@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "gitment": "0.0.3",
+    "heroku": "^7.22.10",
     "hexo": "^3.8.0",
     "hexo-asset-image": "0.0.3",
     "hexo-deployer-git": "^0.3.1",
