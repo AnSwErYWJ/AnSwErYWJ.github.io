@@ -3,8 +3,8 @@
 <!-- LOCAL: You can save these files to your site and update links -->
     {% if theme.gitment.mint %}
         {% set CommentsClass = "Gitmint" %}
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+        <link rel="stylesheet" href="https://AnSwErYWJ.github.io/css/main.css">
+        <script src="https://AnSwErYWJ.github.io/js/src/gitmint.js"></script>
     {% else %}
         {% set CommentsClass = "Gitment" %}
         <link rel="stylesheet" href="https://AnSwErYWJ.github.io/css/main.css">
