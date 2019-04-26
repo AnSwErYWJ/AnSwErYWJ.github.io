@@ -4,6 +4,54 @@
   
     
     <entry>
+      <title><![CDATA[sysroot为何物?]]></title>
+      <url>http://answerywj.com/2019/04/26/what-is-sysroot/</url>
+      <content type="html"><![CDATA[<p>本文介绍链接过程中sysroot的作用。</p>
+<hr>
+<a id="more"></a>
+<h2 id="sysroot为何物"><a href="#sysroot为何物" class="headerlink" title="sysroot为何物"></a>sysroot为何物</h2><p>做过交叉编译的同学们，一定对下面这个错误十分熟悉吧：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/cross-compiling/ld: cannot <span class="builtin-name">find</span> crt1.o: <span class="literal">No</span> such file <span class="keyword">or</span> directory</span><br><span class="line">/cross-compiling/ld: cannot <span class="builtin-name">find</span> crti.o: <span class="literal">No</span> such file <span class="keyword">or</span> directory</span><br></pre></td></tr></table></figure></p>
+<p>在我们的<code>pc</code>上，这两个文件一般在<code>/usr/lib</code>或者<code>/usr/lib32</code>中，通过<code>gcc -print-search-dirs</code>可以看到这两个路径默认就在库的搜索路径中，所以在<code>pc</code>上编译程序时不存在链接器找不到<code>crt1.o</code>和<code>crti.o</code>的问题。</p>
+<blockquote>
+<p><code>crt1.o</code>负责应用程序的启动，其中包含了程序的入口函数<code>_start</code>以及两个未定义的符号<code>__libc_start_main</code>和<code>main</code>，由<code>_start</code>负责调用<code>__libc_start_main</code>初始化<code>libc</code>，然后调用我们源代码中定义的<code>main</code>函数，<code>crti.o</code>负责辅助启动这些代码。</p>
+</blockquote>
+<p>下面我们使用交叉编译工具链来查看库的搜索路径<code>/cross-compiling/gcc -print-search-dirs</code>，发现<code>crt1.o</code>和<code>crti.o</code>的所在目录并不在库的搜索路径中，所以会出现上述的问题。</p>
+<p>下面就需要<code>sysroot</code>出场了。<br><code>sysroot</code>被称为逻辑根目录，只在链接过程中起作用，作为交叉编译工具链搜索库文件的根路径，如配置<code>--sysroot=dir</code>，则<code>dir</code>作为逻辑根目录，链接器将在<code>dir/usr/lib</code>中搜索库文件。</p>
+<blockquote>
+<p>只有链接器开启了–with-sysroot选项，–sysroot=director才生效</p>
+</blockquote>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://stackoverflow.com/questions/91576/crti-o-file-missing" target="_blank" rel="noopener">crti.o file missing</a></li>
+<li><a href="https://blog.csdn.net/farmwang/article/details/73195951" target="_blank" rel="noopener">crt1.o, crti.o, crtbegin.o, crtend.o, crtn.o</a></li>
+</ul>
+<h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
+<ul>
+<li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li>
+<li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li>
+<li>Email：<a href="https://mail.google.com" target="_blank" rel="noopener">yuanweijie1993@gmail.com</a></li>
+<li>Weibo：<a href="http://weibo.com/1783591593" target="_blank" rel="noopener">@AnSwEr不是答案</a></li>
+<li>CSDN：<a href="http://blog.csdn.net/u011192270" target="_blank" rel="noopener">AnSwEr不是答案的专栏</a></li>
+</ul>
+<p><a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> This work is licensed under a <a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Compile </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> ld </tag>
+            
+            <tag> sysroot </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[屏蔽静态库接口]]></title>
       <url>http://answerywj.com/2019/04/13/hide-symbol-of-static-library/</url>
       <content type="html"><![CDATA[<p>分享屏蔽静态库接口的一种方法.<br><a id="more"></a></p>
