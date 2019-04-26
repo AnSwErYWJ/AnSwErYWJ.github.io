@@ -10,7 +10,7 @@ date: 2019-04-26 17:59:57
 categories: Compile
 ---
 
-本文介绍链接过程中sysroot的作用。
+本文介绍链接过程中`sysroot`的作用。
 
 -----
 
