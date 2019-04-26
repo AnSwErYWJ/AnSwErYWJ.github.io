@@ -17,40 +17,25 @@ categories: Compile
 <!--more-->
 
 ## sysroot为何物
-`sysroot`作为逻辑根目录
-将`sysroot`配置如下：
+做过交叉编译的同学们，一定对下面这个错误十分熟悉吧：
 ```
---sysroot=dir
+/cross-compiling/ld: cannot find crt1.o: No such file or directory
+/cross-compiling/ld: cannot find crti.o: No such file or directory
 ```
+在我们的`pc`上，这两个文件一般在`/usr/lib`或者`/usr/lib32`中，通过`gcc -print-search-dirs`可以看到这两个路径默认就在库的搜索路径中，所以在`pc`上编译程序时不存在链接器找不到`crt1.o`和`crti.o`的问题。
+> `crt1.o`负责应用程序的启动，其中包含了程序的入口函数`_start`以及两个未定义的符号`__libc_start_main`和`main`，由`_start`负责调用`__libc_start_main`初始化`libc`，然后调用我们源代码中定义的`main`函数，`crti.o`负责辅助启动这些代码。
 
-将dir作为逻辑根目录(搜索头文件和库文件)。编译器通常会在 /usr/include 和 /usr/lib 中搜索头文件和库，
-使用这个选项后将在 dir/usr/include 和 dir/usr/lib 目录中搜索。
+下面我们使用交叉编译工具链来查看库的搜索路径`/cross-compiling/gcc -print-search-dirs`，发现`crt1.o`和`crti.o`的所在目录并不在库的搜索路径中，所以会出现上述的问题。
 
+下面就需要`sysroot`出场了。
+`sysroot`被称为逻辑根目录，只在链接过程中起作用，作为交叉编译工具链搜索库文件的根路径，如配置`--sysroot=dir`，则`dir`作为逻辑根目录，链接器将在`dir/usr/lib`中搜索库文件。
 
---sysroot 的作用
-
-如果在编译时指定了-sysroot就是为编译时指定了逻辑目录。编译过程中需要引用的库，头文件，如果要到/usr/include目录下去找的情况下，则会在前面加上逻辑目录。
-
-如此处我们指定 -sysroot=/home/shell.albert/tools/toolschain_arm/4.4.3/arm-none-linux-gnueabi/sys-root
-
-则如果在编译过程中需要找stdio.h，则会用/usr/include/目录下去找，因为我们指定了系统目录，则会到下面的路径去找。
+> 只有链接器开启了--with-sysroot选项，--sysroot=director才生效
 
 
-
-如果使用这个选项的同时又使用了 -isysroot 选项，则此选项仅作用于库文件的搜索路径，而 -isysroot 选项将作用于头文件的搜索路径。这个选项与优化无关，但是在 CLFS 中有着神奇的作用。
-
-
-意思到了，我说的更准确一点 --sysroot只在链接的时候起作用，在预编译（就是头文件展开，宏展开）
-的时候不起作用。-I是找头文件的，所以--sysroot不影响 -I
-
-
-我们在编译的时候会用到一些系统根目录中的文件，例如我们为PC上的Linux编译一些C/C++代码的时候要用到/usr/include中的头文件，还要用到/usr/lib中的一些库，还可能要执行/bin下的一些程序。但是此时我们是要为Android平台进行交叉编译，此时用到的头文件、库等得是Android平台的，因此我们要使用交叉编译工具提供的系统根目录$ANDROID_BUILD/sysroot
-
-只有链接器开启了--with-sysroot选项，--sysroot=director才生效
-
-
-
-
+## Reference
+- [crti.o file missing](https://stackoverflow.com/questions/91576/crti-o-file-missing)
+- [crt1.o, crti.o, crtbegin.o, crtend.o, crtn.o](https://blog.csdn.net/farmwang/article/details/73195951)
 
 ## About me
 [![forthebadge](http://forthebadge.com/images/badges/ages-20-30.svg)](http://forthebadge.com)
