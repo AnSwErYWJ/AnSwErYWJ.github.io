@@ -46,70 +46,11 @@ categories: Compile
 
 我们在编译的时候会用到一些系统根目录中的文件，例如我们为PC上的Linux编译一些C/C++代码的时候要用到/usr/include中的头文件，还要用到/usr/lib中的一些库，还可能要执行/bin下的一些程序。但是此时我们是要为Android平台进行交叉编译，此时用到的头文件、库等得是Android平台的，因此我们要使用交叉编译工具提供的系统根目录$ANDROID_BUILD/sysroot
 
-
-       --sysroot=directory
-           Use directory as the location of the sysroot, overriding the configure-time
-           default.  This option is only supported by linkers that were configured
-           using --with-sysroot.
+只有链接器开启了--with-sysroot选项，--sysroot=director才生效
 
 
-                  -L searchdir
-       --library-path=searchdir
-           Add path searchdir to the list of paths that ld will search for archive
-           libraries and ld control scripts.  You may use this option any number of
-           times.  The directories are searched in the order in which they are
-           specified on the command line.  Directories specified on the command line
-           are searched before the default directories.  All -L options apply to all -l
-           options, regardless of the order in which the options appear.  -L options do
-           not affect how ld searches for a linker script unless -T option is
-           specified.
-
-           If searchdir begins with "=", then the "=" will be replaced by the sysroot
-           prefix, controlled by the --sysroot option, or specified when the linker is
-           configured.
-
-           The default set of paths searched (without being specified with -L) depends
-           on which emulation mode ld is using, and in some cases also on how it was
-           configured.
-
-           The paths can also be specified in a link script with the "SEARCH_DIR"
-           command.  Directories specified this way are searched at the point in which
-           the linker script appears in the command line.
 
 
-            The linker uses the following search paths to locate required shared
-           libraries:
-
-           1.  Any directories specified by -rpath-link options.
-
-           2.  Any directories specified by -rpath options.  The difference between
-               -rpath and -rpath-link is that directories specified by -rpath options
-               are included in the executable and used at runtime, whereas the
-               -rpath-link option is only effective at link time. Searching -rpath in
-               this way is only supported by native linkers and cross linkers which
-               have been configured with the --with-sysroot option.
-
-           3.  On an ELF system, for native linkers, if the -rpath and -rpath-link
-               options were not used, search the contents of the environment variable
-               "LD_RUN_PATH".
-
-           4.  On SunOS, if the -rpath option was not used, search any directories
-               specified using -L options.
-
-           5.  For a native linker, search the contents of the environment variable
-               "LD_LIBRARY_PATH".
-
-           6.  For a native ELF linker, the directories in "DT_RUNPATH" or "DT_RPATH"
-               of a shared library are searched for shared libraries needed by it. The
-               "DT_RPATH" entries are ignored if "DT_RUNPATH" entries exist.
-
-           7.  The default directories, normally /lib and /usr/lib.
-
-           8.  For a native linker on an ELF system, if the file /etc/ld.so.conf
-               exists, the list of directories found in that file.
-
-           If the required shared library is not found, the linker will issue a warning
-           and continue with the link.
 
 ## About me
 [![forthebadge](http://forthebadge.com/images/badges/ages-20-30.svg)](http://forthebadge.com)
