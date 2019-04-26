@@ -99,7 +99,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2019-04-26T12:18:50.769Z">
+<meta property="og:updated_time" content="2019-04-26T12:30:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sysroot为何物?">
 <meta name="twitter:description" content="本文介绍链接过程中sysroot的作用。">
@@ -406,7 +406,7 @@
       
 
       
-        <p>本文介绍链接过程中sysroot的作用。</p>
+        <p>本文介绍链接过程中<code>sysroot</code>的作用。</p>
 <hr>
 <a id="more"></a>
 <h2 id="sysroot为何物"><a href="#sysroot为何物" class="headerlink" title="sysroot为何物"></a>sysroot为何物</h2><p>做过交叉编译的同学们，一定对下面这个错误十分熟悉吧：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/cross-compiling/ld: cannot <span class="builtin-name">find</span> crt1.o: <span class="literal">No</span> such file <span class="keyword">or</span> directory</span><br><span class="line">/cross-compiling/ld: cannot <span class="builtin-name">find</span> crti.o: <span class="literal">No</span> such file <span class="keyword">or</span> directory</span><br></pre></td></tr></table></figure></p>
