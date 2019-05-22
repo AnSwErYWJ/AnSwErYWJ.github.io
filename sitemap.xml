@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://answerywj.com/2019/05/21/man-strtok/</loc>
+    
+    <lastmod>2019-05-22T04:03:29.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2019/04/26/what-is-sysroot/</loc>
     
     <lastmod>2019-04-26T12:30:17.000Z</lastmod>
@@ -9,14 +16,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/categories/index.html</loc>
+    <loc>http://answerywj.com/tags/index.html</loc>
     
     <lastmod>2019-04-22T08:44:09.995Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/tags/index.html</loc>
+    <loc>http://answerywj.com/categories/index.html</loc>
     
     <lastmod>2019-04-22T08:44:09.995Z</lastmod>
     
@@ -51,14 +58,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/06/16/table-encode-as-array-or-object/</loc>
+    <loc>http://answerywj.com/2016/09/20/standard-of-headphone/</loc>
     
     <lastmod>2019-04-22T08:44:09.951Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/09/20/standard-of-headphone/</loc>
+    <loc>http://answerywj.com/2017/06/16/table-encode-as-array-or-object/</loc>
     
     <lastmod>2019-04-22T08:44:09.951Z</lastmod>
     
@@ -68,13 +75,6 @@
     <loc>http://answerywj.com/2017/12/29/speex/</loc>
     
     <lastmod>2019-04-22T08:44:09.943Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.931Z</lastmod>
     
   </url>
   
@@ -93,9 +93,9 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/10/10/jq/</loc>
+    <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
     
-    <lastmod>2019-04-22T08:44:09.911Z</lastmod>
+    <lastmod>2019-04-22T08:44:09.931Z</lastmod>
     
   </url>
   
@@ -108,6 +108,13 @@
   
   <url>
     <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.911Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/10/10/jq/</loc>
     
     <lastmod>2019-04-22T08:44:09.911Z</lastmod>
     
@@ -135,13 +142,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/02/12/git-help-v2/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.879Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2017/03/23/introduction-to-four-service-of-cloud-computing/</loc>
     
     <lastmod>2019-04-22T08:44:09.879Z</lastmod>
@@ -150,6 +150,13 @@
   
   <url>
     <loc>http://answerywj.com/2019/04/13/hide-symbol-of-static-library/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.879Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2019/02/12/git-help-v2/</loc>
     
     <lastmod>2019-04-22T08:44:09.879Z</lastmod>
     
@@ -198,14 +205,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/debug-macro/</loc>
+    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
     
     <lastmod>2019-04-22T08:44:09.835Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
+    <loc>http://answerywj.com/2016/07/14/debug-macro/</loc>
     
     <lastmod>2019-04-22T08:44:09.835Z</lastmod>
     
