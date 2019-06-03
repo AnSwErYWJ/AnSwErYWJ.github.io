@@ -1,22 +1,26 @@
 ---
-title: WAVE音频文件格式分析--实现C语言读写文件头
+title: wav文件解析
 Antuor: AnSwEr(Weijie Yuan)
 comments: true
 toc: true
 tags:
-  - wave文件头
-date: 2017-01-09 14:54:17
+  - wav
+date: 2019-06-03 15:06:22
 categories: C
 ---
 
-本文将详细分析WAVE音频文件的格式,并通过C语言对wave文件头进行读写操作。
+本文将解析`wav`音频文件格式，并实现一套用于读写`wav`文件的`API`。
 
 ----------
 <!--more-->
 
-## WAVE音频文件格式分析--实现C语言读写文件头
-### WAVE音频文件
+## wav文件解析
+### wav文件简介
 WAVE文件格式是一种由微软和IBM联合开发的用于音频数字存储的标准, 它采用*RIFF(Resource Interchange File Format,资源交换文件标准)*文件格式结构文件的扩展名为*“WAV”*, 所有的*WAV*都有一个文件头, 数据本身的格式为*PCM*或压缩型.  
+
+WAV为微软公司（Microsoft)开发的一种声音文件格式，它符合RIFF(Resource Interchange File Format)文件规范
+
+ 波形音频文件格式 (WAV / WAVE)是Microsoft开发的一种数字化声音文件格式，用于在PC上存储音频比特流，文件扩展名为“*.wav”。
 
 ### WAVE文件头
 *WAVE*文件分成两部分:文件头和数据块. *WAV*格式文件主要有两种文件头: 标准的44字节文件头和经过了一些软件处理的58字节文件头. 
@@ -24,7 +28,7 @@ WAVE文件格式是一种由微软和IBM联合开发的用于音频数字存储�
 > 本文所介绍的*WAV*文件头是标准的44字节文件头.
 
 ### WAVE文件格式
-![wave format](wave.png)
+![wave format](wav.png)
 > **纠正**: ByteRate应该为每秒存储的字节数
 
 通过*WAVE*文件头信息,我们可以计算出播放时长:
@@ -215,6 +219,7 @@ void print_wavheader(WaveHeader_t wavheader)
 }
 ```
 
+
 ## About me
 [![forthebadge](http://forthebadge.com/images/badges/ages-20-30.svg)](http://forthebadge.com)
 - GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
@@ -225,5 +230,3 @@ void print_wavheader(WaveHeader_t wavheader)
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。
-
-
