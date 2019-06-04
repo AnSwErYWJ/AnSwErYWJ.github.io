@@ -99,7 +99,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2019-06-04T10:38:14.175Z">
+<meta property="og:updated_time" content="2019-06-04T10:41:25.467Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wav文件解析">
 <meta name="twitter:description" content="本文将解析wav音频文件格式，并实现一套用于读写wav文件的API。">
@@ -418,7 +418,7 @@
 <blockquote>
 <p>本文所介绍的<code>wav</code>文件头是标准的44字节文件头。</p>
 </blockquote>
-<h3 id="wav文件格式"><a href="#wav文件格式" class="headerlink" title="wav文件格式"></a>wav文件格式</h3><p><code>wav</code>文件格式如下：</p>
+<h3 id="wav文件格式"><a href="#wav文件格式" class="headerlink" title="wav文件格式"></a>wav文件格式</h3><p><code>wav</code>文件格式如下:</p>
 <table><br><tr><br>  <th>offset</th><br>  <th>field</th><br>  <th>size</th><br>  <th>description</th><br></tr><br><tr><br>  <td>0</td><br>  <td>ChunkID</td><br>  <td>4</td><br>  <td>RIFF</td><br></tr><br><tr><br>  <td>4</td><br>  <td>ChunkSize</td><br>  <td>4</td><br>  <td>除了RIFF及自己之外，整个文件的长度，即文件总字节数减去8字节</td><br></tr><br><tr><br>  <td>8</td><br>  <td>Format</td><br>  <td>4</td><br>  <td>WAVE</td><br></tr><br><tr><br>  <td>12</td><br>  <td>Subchunk1lD</td><br>  <td>4</td><br>  <td>fmt</td><br></tr><br><tr><br>  <td>16</td><br>  <td>Subchunk1Size</td><br>  <td>4</td><br>  <td>表示fmt数据块即subchunk1除去Subchunk1lD和Subchunk1Size之后剩下的长度，一般为16</td><br></tr><br><tr><br>  <td>20</td><br>  <td>AudioFormat</td><br>  <td>2</td><br>  <td>编码格式，即压缩格式，0x01表示pcm格式，无压缩</td><br></tr><br><tr><br>  <td>22</td><br>  <td>NumChannels</td><br>  <td>2</td><br>  <td>通道数</td><br></tr><br><tr><br>  <td>24</td><br>  <td>SampleRate</td><br>  <td>4</td><br>  <td>采样率</td><br></tr><br><tr><br>  <td>28</td><br>  <td>ByteRate</td><br>  <td>4</td><br>  <td>字节率，ByteRate=SampleRate<em>BlockAlign</em></td><br></tr><br><tr><br>  <td>32</td><br>  <td>BlockAlign</td><br>  <td>2</td><br>  <td>表示块对齐的内容（数据块的调整数），播放软件一次处理多少个该值大小的字节数据，以便将其用于缓冲区的调整，也表示一帧的字节数，NumChannels(BitsPerSample/8)</td><br></tr><br><tr><br>  <td>34</td><br>  <td>BitsPerSample</td><br>  <td>2</td><br>  <td>采样位宽，即每个采样点的bit数</td><br></tr><br><tr><br>  <td>36</td><br>  <td>Subchunk2ID</td><br>  <td>4</td><br>  <td>data</td><br></tr><br><tr><br>  <td>40</td><br>  <td>Subchunk2Size</td><br>  <td>4</td><br>  <td>音频数据的总长度，单位字节，即文件总字节数减去44字节</td><br></tr><br><tr><br>  <td>44</td><br>  <td>Data</td><br>  <td></td><br>  <td>音频数据</td><br></tr><br></table>
 
 <p>通过<code>wav</code>文件头信息，我们可以计算出音频时长:<br><figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">音频时长 </span>=<span class="string"> Subchunk2Size/ByteRate</span></span><br></pre></td></tr></table></figure></p>
