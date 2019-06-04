@@ -4,7 +4,7 @@
   <url>
     <loc>http://answerywj.com/2019/06/03/wav/</loc>
     
-    <lastmod>2019-06-04T10:04:12.939Z</lastmod>
+    <lastmod>2019-06-04T10:17:51.984Z</lastmod>
     
   </url>
   
@@ -23,14 +23,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/tags/index.html</loc>
+    <loc>http://answerywj.com/categories/index.html</loc>
     
     <lastmod>2019-04-22T08:44:09.995Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/categories/index.html</loc>
+    <loc>http://answerywj.com/tags/index.html</loc>
     
     <lastmod>2019-04-22T08:44:09.995Z</lastmod>
     
@@ -44,13 +44,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/10/10/use-dynamic-and-static-library/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.955Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2018/03/07/usage-of-core-in-linux/</loc>
     
     <lastmod>2019-04-22T08:44:09.955Z</lastmod>
@@ -58,14 +51,21 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/09/20/standard-of-headphone/</loc>
+    <loc>http://answerywj.com/2016/10/10/use-dynamic-and-static-library/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.955Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/06/16/table-encode-as-array-or-object/</loc>
     
     <lastmod>2019-04-22T08:44:09.951Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/06/16/table-encode-as-array-or-object/</loc>
+    <loc>http://answerywj.com/2016/09/20/standard-of-headphone/</loc>
     
     <lastmod>2019-04-22T08:44:09.951Z</lastmod>
     
@@ -100,14 +100,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.911Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
+    <loc>http://answerywj.com/2016/10/10/jq/</loc>
     
     <lastmod>2019-04-22T08:44:09.911Z</lastmod>
     
@@ -121,7 +114,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/10/10/jq/</loc>
+    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
     
     <lastmod>2019-04-22T08:44:09.911Z</lastmod>
     
@@ -129,6 +122,13 @@
   
   <url>
     <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.911Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
     
     <lastmod>2019-04-22T08:44:09.911Z</lastmod>
     
@@ -163,14 +163,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/12/06/getw-and-putw/</loc>
+    <loc>http://answerywj.com/2017/08/04/gcc-compilation-of-arm-articles/</loc>
     
     <lastmod>2019-04-22T08:44:09.859Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/08/04/gcc-compilation-of-arm-articles/</loc>
+    <loc>http://answerywj.com/2016/12/06/getw-and-putw/</loc>
     
     <lastmod>2019-04-22T08:44:09.859Z</lastmod>
     
@@ -198,7 +198,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
+    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
     
     <lastmod>2019-04-22T08:44:09.835Z</lastmod>
     
@@ -212,14 +212,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
+    <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
     
     <lastmod>2019-04-22T08:44:09.835Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
+    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
     
     <lastmod>2019-04-22T08:44:09.835Z</lastmod>
     
@@ -261,7 +261,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/12/07/big-little-endian/</loc>
+    <loc>http://answerywj.com/2016/08/10/backup-of-blog-with-hexo-and-github/</loc>
     
     <lastmod>2019-04-22T08:44:09.803Z</lastmod>
     
@@ -275,7 +275,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/08/10/backup-of-blog-with-hexo-and-github/</loc>
+    <loc>http://answerywj.com/2016/12/07/big-little-endian/</loc>
     
     <lastmod>2019-04-22T08:44:09.803Z</lastmod>
     
