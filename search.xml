@@ -88,7 +88,7 @@
 <td>28</td>
 <td>ByteRate</td>
 <td>4</td>
-<td>字节率，ByteRate=SampleRate<em>NumChannels</em>(BitsPerSample/8)</td>
+<td>字节率，ByteRate=SampleRate*BlockAlign</td>
 <td></td>
 </tr>
 <tr>

@@ -4,7 +4,7 @@
   <url>
     <loc>http://answerywj.com/2019/06/03/wav/</loc>
     
-    <lastmod>2019-06-04T09:54:42.116Z</lastmod>
+    <lastmod>2019-06-04T10:01:23.823Z</lastmod>
     
   </url>
   
@@ -44,13 +44,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/03/07/usage-of-core-in-linux/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.955Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2016/10/10/use-dynamic-and-static-library/</loc>
     
     <lastmod>2019-04-22T08:44:09.955Z</lastmod>
@@ -58,14 +51,21 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/09/20/standard-of-headphone/</loc>
+    <loc>http://answerywj.com/2018/03/07/usage-of-core-in-linux/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.955Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/06/16/table-encode-as-array-or-object/</loc>
     
     <lastmod>2019-04-22T08:44:09.951Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/06/16/table-encode-as-array-or-object/</loc>
+    <loc>http://answerywj.com/2016/09/20/standard-of-headphone/</loc>
     
     <lastmod>2019-04-22T08:44:09.951Z</lastmod>
     
@@ -79,14 +79,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</loc>
+    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
     
     <lastmod>2019-04-22T08:44:09.931Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
+    <loc>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</loc>
     
     <lastmod>2019-04-22T08:44:09.931Z</lastmod>
     
@@ -96,13 +96,6 @@
     <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
     
     <lastmod>2019-04-22T08:44:09.931Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/10/10/jq/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.911Z</lastmod>
     
   </url>
   
@@ -128,6 +121,13 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2016/10/10/jq/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.911Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
     
     <lastmod>2019-04-22T08:44:09.911Z</lastmod>
@@ -142,14 +142,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/03/23/introduction-to-four-service-of-cloud-computing/</loc>
+    <loc>http://answerywj.com/2019/04/13/hide-symbol-of-static-library/</loc>
     
     <lastmod>2019-04-22T08:44:09.879Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/04/13/hide-symbol-of-static-library/</loc>
+    <loc>http://answerywj.com/2017/03/23/introduction-to-four-service-of-cloud-computing/</loc>
     
     <lastmod>2019-04-22T08:44:09.879Z</lastmod>
     
@@ -198,14 +198,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
+    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
     
     <lastmod>2019-04-22T08:44:09.835Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
+    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
     
     <lastmod>2019-04-22T08:44:09.835Z</lastmod>
     
@@ -233,13 +233,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/05/03/cjson/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.811Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
     
     <lastmod>2019-04-22T08:44:09.811Z</lastmod>
@@ -254,7 +247,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/08/badges-of-github/</loc>
+    <loc>http://answerywj.com/2018/05/03/cjson/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.811Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/404.html</loc>
     
     <lastmod>2019-04-22T08:44:09.803Z</lastmod>
     
@@ -268,7 +268,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/404.html</loc>
+    <loc>http://answerywj.com/2016/07/08/badges-of-github/</loc>
     
     <lastmod>2019-04-22T08:44:09.803Z</lastmod>
     
