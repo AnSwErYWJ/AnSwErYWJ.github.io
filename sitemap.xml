@@ -4,7 +4,7 @@
   <url>
     <loc>http://answerywj.com/2019/06/03/wav/</loc>
     
-    <lastmod>2019-06-04T10:41:25.467Z</lastmod>
+    <lastmod>2019-06-04T10:49:55.235Z</lastmod>
     
   </url>
   
@@ -23,14 +23,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/tags/index.html</loc>
+    <loc>http://answerywj.com/categories/index.html</loc>
     
     <lastmod>2019-04-22T08:44:09.995Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/categories/index.html</loc>
+    <loc>http://answerywj.com/tags/index.html</loc>
     
     <lastmod>2019-04-22T08:44:09.995Z</lastmod>
     
@@ -44,14 +44,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/10/10/use-dynamic-and-static-library/</loc>
+    <loc>http://answerywj.com/2018/03/07/usage-of-core-in-linux/</loc>
     
     <lastmod>2019-04-22T08:44:09.955Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/03/07/usage-of-core-in-linux/</loc>
+    <loc>http://answerywj.com/2016/10/10/use-dynamic-and-static-library/</loc>
     
     <lastmod>2019-04-22T08:44:09.955Z</lastmod>
     
@@ -79,14 +79,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
+    <loc>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</loc>
     
     <lastmod>2019-04-22T08:44:09.931Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</loc>
+    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
     
     <lastmod>2019-04-22T08:44:09.931Z</lastmod>
     
@@ -96,6 +96,13 @@
     <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
     
     <lastmod>2019-04-22T08:44:09.931Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.911Z</lastmod>
     
   </url>
   
@@ -128,13 +135,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.911Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2017/06/27/io-model/</loc>
     
     <lastmod>2019-04-22T08:44:09.891Z</lastmod>
@@ -142,7 +142,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/04/13/hide-symbol-of-static-library/</loc>
+    <loc>http://answerywj.com/2019/02/12/git-help-v2/</loc>
     
     <lastmod>2019-04-22T08:44:09.879Z</lastmod>
     
@@ -156,7 +156,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/02/12/git-help-v2/</loc>
+    <loc>http://answerywj.com/2019/04/13/hide-symbol-of-static-library/</loc>
     
     <lastmod>2019-04-22T08:44:09.879Z</lastmod>
     
@@ -233,13 +233,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.811Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
     
     <lastmod>2019-04-22T08:44:09.811Z</lastmod>
@@ -248,6 +241,13 @@
   
   <url>
     <loc>http://answerywj.com/2018/05/03/cjson/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.811Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
     
     <lastmod>2019-04-22T08:44:09.811Z</lastmod>
     
