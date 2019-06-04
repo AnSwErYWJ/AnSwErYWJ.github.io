@@ -99,7 +99,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2019-06-04T10:22:11.260Z">
+<meta property="og:updated_time" content="2019-06-04T10:22:31.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wav文件解析">
 <meta name="twitter:description" content="本文将解析wav音频文件格式，并实现一套用于读写wav文件的API。">
@@ -484,9 +484,50 @@
 <td>采样率</td>
 <td></td>
 </tr>
+<tr>
+<td>28</td>
+<td>ByteRate</td>
+<td>4</td>
+<td>字节率，ByteRate=SampleRate*BlockAlign</td>
+<td></td>
+</tr>
+<tr>
+<td>32</td>
+<td>BlockAlign</td>
+<td>4</td>
+<td>表示块对齐的内容（数据块的调整数），播放软件一次处理多少个该值大小的字节数据，以便将其用于缓冲区的调整，也表示一帧的字节数，NumChannels*(BitsPerSample/8)</td>
+<td></td>
+</tr>
+<tr>
+<td>34</td>
+<td>BitsPerSample</td>
+<td>2</td>
+<td>采样位宽，即每个采样点的bit数</td>
+<td></td>
+</tr>
+<tr>
+<td>36</td>
+<td>Subchunk2ID</td>
+<td>2</td>
+<td>data</td>
+<td></td>
+</tr>
+<tr>
+<td>40</td>
+<td>Subchunk2Size</td>
+<td>4</td>
+<td>音频数据的总长度，单位字节，即文件总字节数减去44字节</td>
+<td></td>
+</tr>
+<tr>
+<td>44</td>
+<td>Data</td>
+<td></td>
+<td>音频数据</td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<p>34 | BitsPerSample | 2 | 采样位宽，即每个采样点的bit数 |<br>36 | Subchunk2ID | 2 | data |<br>40 | Subchunk2Size | 4 | 音频数据的总长度，单位字节，即文件总字节数减去44字节 |<br>44 | Data | | 音频数据 |</p>
 <p>通过<code>wav</code>文件头信息，我们可以计算出音频时长:<br><figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">音频时长 </span>=<span class="string"> Subchunk2Size/ByteRate</span></span><br></pre></td></tr></table></figure></p>
 <h4 id="编码类型"><a href="#编码类型" class="headerlink" title="编码类型"></a>编码类型</h4><p><code>wav</code>文件几乎支持所有<code>ACM</code>规范的编码格式，其信息存储在文件头<code>21</code>、<code>22</code>两个字节中，有如下编码格式：<br>编码格式 | 描述<br>-|-<br>0 (0x0000) | Unknown |<br>1 (0x0001) | PCM/uncompressed |<br>2 (0x0002)  | Microsoft ADPCM |<br>6 (0x0006)  | ITU G.711 a-law |<br>7 (0x0007) | ITU G.711 Âµ-law |<br>17 (0x0011)  | IMA ADPCM |<br>20 (0x0016)  | ITU G.723 ADPCM (Yamaha) |<br>49 (0x0031)  | GSM 6.10 |<br>64 (0x0040) | ITU G.721 ADPCM |<br>80 (0x0050) | MPEG |<br>65,536 (0xFFFF) | Experimental |</p>
 <h3 id="wav文件读写API"><a href="#wav文件读写API" class="headerlink" title="wav文件读写API"></a>wav文件读写API</h3><p>这里提供了一套用于<a href="https://github.com/AudioTools/wavfile" target="_blank" rel="noopener"><code>wav</code>文件读写的<code>API</code></a>，欢迎大家来添砖加瓦。</p>
