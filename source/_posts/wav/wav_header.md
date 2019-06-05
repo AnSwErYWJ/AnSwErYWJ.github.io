@@ -1,0 +1,92 @@
+<table>
+<tr>
+  <th>offset</th>
+  <th>field</th>
+  <th>size</th>
+  <th>description</th>
+</tr>
+<tr>
+  <td>0</td>
+  <td>ChunkID</td>
+  <td>4</td>
+  <td>RIFF</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>ChunkSize</td>
+  <td>4</td>
+  <td>除了RIFF及自己之外，整个文件的长度，即文件总字节数减去8字节</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td>Format</td>
+  <td>4</td>
+  <td>WAVE</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td>Subchunk1lD</td>
+  <td>4</td>
+  <td>fmt</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td>Subchunk1Size</td>
+  <td>4</td>
+  <td>表示fmt数据块即subchunk1除去Subchunk1lD和Subchunk1Size之后剩下的长度，一般为16</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td>AudioFormat</td>
+  <td>2</td>
+  <td>编码格式，即压缩格式，0x01表示pcm格式，无压缩</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td>NumChannels</td>
+  <td>2</td>
+  <td>通道数</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td>SampleRate</td>
+  <td>4</td>
+  <td>采样率</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td>ByteRate</td>
+  <td>4</td>
+  <td>字节率，ByteRate=SampleRate*BlockAlign</td>
+</tr>
+<tr>
+  <td>32</td>
+  <td>BlockAlign</td>
+  <td>2</td>
+  <td>表示块对齐的内容（数据块的调整数），播放软件一次处理多少个该值大小的字节数据，以便将其用于缓冲区的调整，也表示一帧的字节数，NumChannels*(BitsPerSample/8)</td>
+</tr>
+<tr>
+  <td>34</td>
+  <td>BitsPerSample</td>
+  <td>2</td>
+  <td>采样位宽，即每个采样点的bit数</td>
+</tr>
+<tr>
+  <td>36</td>
+  <td>Subchunk2ID</td>
+  <td>4</td>
+  <td>data</td>
+</tr>
+<tr>
+  <td>40</td>
+  <td>Subchunk2Size</td>
+  <td>4</td>
+  <td>音频数据的总长度，单位字节，即文件总字节数减去44字节</td>
+</tr>
+<tr>
+  <td>44</td>
+  <td>Data</td>
+  <td></td>
+  <td>音频数据</td>
+</tr>
+</table>
