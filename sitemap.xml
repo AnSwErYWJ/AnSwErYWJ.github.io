@@ -4,7 +4,7 @@
   <url>
     <loc>http://answerywj.com/2019/02/12/git-help-v2/</loc>
     
-    <lastmod>2019-07-02T02:56:34.986Z</lastmod>
+    <lastmod>2019-07-02T03:03:01.456Z</lastmod>
     
   </url>
   
@@ -30,14 +30,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/categories/index.html</loc>
+    <loc>http://answerywj.com/tags/index.html</loc>
     
     <lastmod>2019-04-22T08:44:09.995Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/tags/index.html</loc>
+    <loc>http://answerywj.com/categories/index.html</loc>
     
     <lastmod>2019-04-22T08:44:09.995Z</lastmod>
     
@@ -93,13 +93,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.931Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
     
     <lastmod>2019-04-22T08:44:09.931Z</lastmod>
@@ -107,14 +100,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/10/10/jq/</loc>
+    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
     
-    <lastmod>2019-04-22T08:44:09.911Z</lastmod>
+    <lastmod>2019-04-22T08:44:09.931Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
+    <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
     
     <lastmod>2019-04-22T08:44:09.911Z</lastmod>
     
@@ -128,14 +121,21 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
+    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
     
     <lastmod>2019-04-22T08:44:09.911Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
+    <loc>http://answerywj.com/2016/10/10/jq/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.911Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
     
     <lastmod>2019-04-22T08:44:09.911Z</lastmod>
     
@@ -198,6 +198,20 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.835Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.835Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
     
     <lastmod>2019-04-22T08:44:09.835Z</lastmod>
@@ -212,23 +226,16 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/10/16/daily-record/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.835Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.835Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2018/09/25/coverage-of-code/</loc>
     
     <lastmod>2019-04-22T08:44:09.827Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2018/05/03/cjson/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.811Z</lastmod>
     
   </url>
   
@@ -241,13 +248,6 @@
   
   <url>
     <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.811Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2018/05/03/cjson/</loc>
     
     <lastmod>2019-04-22T08:44:09.811Z</lastmod>
     

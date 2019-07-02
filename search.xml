@@ -302,8 +302,8 @@
 <p><code>--index</code>表示不仅恢复工作区,还会恢复暂存区;<code>num</code>是你要恢复的操作的序列号,默认恢复最新进度.</p>
 </blockquote>
 <p>删除进度:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git stash <span class="keyword">drop</span> [stash@&#123;<span class="keyword">num</span>&#125;] <span class="comment"># 删除指定进度</span></span><br><span class="line">$ git stash <span class="keyword">clear</span> <span class="comment"># 删除所有</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="清理仓库"><a href="#清理仓库" class="headerlink" title="清理仓库"></a>清理仓库</h2><h3 id="清理无用的分支和标签"><a href="#清理无用的分支和标签" class="headerlink" title="清理无用的分支和标签"></a>清理无用的分支和标签</h3><pre><code><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git branch -d &lt;branch-name&gt;</span><br><span class="line"><span class="variable">$ </span>git tag -d &lt;tag-name&gt;</span><br><span class="line"><span class="variable">$ </span>git remote prune origin</span><br><span class="line"><span class="variable">$ </span>git pull</span><br></pre></td></tr></table></figure>
-</code></pre><h3 id="清理大文件"><a href="#清理大文件" class="headerlink" title="清理大文件"></a>清理大文件</h3><ul>
+<h2 id="清理仓库"><a href="#清理仓库" class="headerlink" title="清理仓库"></a>清理仓库</h2><h3 id="清理无用的分支和标签"><a href="#清理无用的分支和标签" class="headerlink" title="清理无用的分支和标签"></a>清理无用的分支和标签</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git branch -d &lt;branch-name&gt;</span><br><span class="line"><span class="variable">$ </span>git tag -d &lt;tag-name&gt;</span><br><span class="line"><span class="variable">$ </span>git remote prune origin</span><br><span class="line"><span class="variable">$ </span>git pull</span><br></pre></td></tr></table></figure>
+<h3 id="清理大文件"><a href="#清理大文件" class="headerlink" title="清理大文件"></a>清理大文件</h3><ul>
 <li><p>查看<code>git</code>相关文件占用空间：</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git count-objects -v</span><br><span class="line"><span class="variable">$ </span>du -sh .git</span><br></pre></td></tr></table></figure>
 </li>
@@ -322,7 +322,7 @@
 <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span> git filter-branch --tree-filter <span class="string">'rm -rf xxx'</span> HEAD --<span class="keyword">all</span></span><br><span class="line"><span class="symbol">$</span> git pull</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>清理<code>.git</code>目录:</p>
-  <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git gc <span class="attribute">--prune</span>=now</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git gc <span class="attribute">--prune</span>=now</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <blockquote>
