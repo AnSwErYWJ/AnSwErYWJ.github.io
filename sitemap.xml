@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://answerywj.com/2019/02/12/git-help-v2/</loc>
+    
+    <lastmod>2019-07-02T02:56:34.986Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2019/06/03/wav/</loc>
     
     <lastmod>2019-06-10T02:38:47.788Z</lastmod>
@@ -58,14 +65,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/06/16/table-encode-as-array-or-object/</loc>
+    <loc>http://answerywj.com/2016/09/20/standard-of-headphone/</loc>
     
     <lastmod>2019-04-22T08:44:09.951Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/09/20/standard-of-headphone/</loc>
+    <loc>http://answerywj.com/2017/06/16/table-encode-as-array-or-object/</loc>
     
     <lastmod>2019-04-22T08:44:09.951Z</lastmod>
     
@@ -107,13 +114,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.911Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
     
     <lastmod>2019-04-22T08:44:09.911Z</lastmod>
@@ -135,6 +135,13 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.911Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2017/06/27/io-model/</loc>
     
     <lastmod>2019-04-22T08:44:09.891Z</lastmod>
@@ -142,21 +149,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/03/23/introduction-to-four-service-of-cloud-computing/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.879Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2019/02/12/git-help-v2/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.879Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2019/04/13/hide-symbol-of-static-library/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.879Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/03/23/introduction-to-four-service-of-cloud-computing/</loc>
     
     <lastmod>2019-04-22T08:44:09.879Z</lastmod>
     
@@ -170,14 +170,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/08/04/gcc-compilation-of-arm-articles/</loc>
+    <loc>http://answerywj.com/2016/07/14/generate-random-numbers/</loc>
     
     <lastmod>2019-04-22T08:44:09.859Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/generate-random-numbers/</loc>
+    <loc>http://answerywj.com/2017/08/04/gcc-compilation-of-arm-articles/</loc>
     
     <lastmod>2019-04-22T08:44:09.859Z</lastmod>
     
@@ -198,13 +198,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/debug-macro/</loc>
-    
-    <lastmod>2019-04-22T08:44:09.835Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
     
     <lastmod>2019-04-22T08:44:09.835Z</lastmod>
@@ -212,7 +205,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
+    <loc>http://answerywj.com/2016/07/14/debug-macro/</loc>
     
     <lastmod>2019-04-22T08:44:09.835Z</lastmod>
     
@@ -226,16 +219,16 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/09/25/coverage-of-code/</loc>
+    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
     
-    <lastmod>2019-04-22T08:44:09.827Z</lastmod>
+    <lastmod>2019-04-22T08:44:09.835Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/05/03/cjson/</loc>
+    <loc>http://answerywj.com/2018/09/25/coverage-of-code/</loc>
     
-    <lastmod>2019-04-22T08:44:09.811Z</lastmod>
+    <lastmod>2019-04-22T08:44:09.827Z</lastmod>
     
   </url>
   
@@ -254,6 +247,13 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2018/05/03/cjson/</loc>
+    
+    <lastmod>2019-04-22T08:44:09.811Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/404.html</loc>
     
     <lastmod>2019-04-22T08:44:09.803Z</lastmod>
@@ -261,14 +261,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/08/badges-of-github/</loc>
+    <loc>http://answerywj.com/2016/12/07/big-little-endian/</loc>
     
     <lastmod>2019-04-22T08:44:09.803Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/12/07/big-little-endian/</loc>
+    <loc>http://answerywj.com/2016/07/08/badges-of-github/</loc>
     
     <lastmod>2019-04-22T08:44:09.803Z</lastmod>
     
