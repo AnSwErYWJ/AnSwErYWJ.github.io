@@ -359,21 +359,47 @@ $ git stash drop [stash@{num}] # 删除指定进度
 $ git stash clear # 删除所有
 ```
 
-## 清理本地仓库
-- 检查是否有无用的大文件。
+## 清理仓库
+### 清理无用的分支和标签
+```
+$ git branch -d <branch-name>
+$ git tag -d <tag-name>
+$ git remote prune origin
+$ git pull
+```
 
-- 清理无用的分支和标签：
-	```
-	$ git branch -d <branch-name>
-	$ git tag -d <tag-name>
-	```
+### 清理大文件
+- 查看`git`相关文件占用空间：
+```
+$ git count-objects -v
+$ du -sh .git
+```
 
+- 寻找大文件`ID`
+```
+$ git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -10
+```
+> 输出的第一列是文件`I`D，第二列表示文件`（blob）`或目录`（tree）`，第三列是文件大小，此处筛选了最大的10条
 
-- 清理`.git`目录，一般本地仓库过大都是由于存在过多的`loose object`:
-	```
-	$ git gc --prune=now
-	```
-	>tips: 在执行`push`操作时，`git`会自动执行一次`gc`操作，不过只有`loose object`达到一定数量后才会真正调用，建议手动执行。
+- 获取文件名与`ID`映射
+```
+$ git rev-list --objects --all | grep "$(git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -10 | awk '{print$1}')"
+```
+
+- 从所有提交中删除文件
+```
+$ git filter-branch --tree-filter 'rm -rf xxx' HEAD --all
+$ git pull
+```
+
+- 清理`.git`目录:
+```
+$ git gc --prune=now
+```
+>tips: 在执行`push`操作时，`git`会自动执行一次`gc`操作，不过只有`loose object`达到一定数量后才会真正调用，建议手动执行。
+
+### 处理大型二进制文件
+由于git在存储二进制文件时效率不高,所以需要借助[第三方组件](http://www.oschina.net/news/71365/git-annex-lfs-bigfiles-fat-media-bigstore-sym)。
 
 ## 忽略特殊文件
 当你的仓库中有一些文件，类似密码或者数据库文件不需要提交但又必须放在仓库目录下，每次``git status``都会提示``Untracked``，看着让人很不爽，提供两种方法解决这个问题
@@ -399,8 +425,26 @@ $ git rm -r --cached .
 ```
 > [``.gitignore``模版](https://github.com/github/gitignore)
 
-## 处理大型二进制文件
-由于git在存储二进制文件时效率不高,所以需要借助[第三方组件](http://www.oschina.net/news/71365/git-annex-lfs-bigfiles-fat-media-bigstore-sym)。
+## 奇技淫巧
+### 重写历史（慎用！）
+```
+$ git rebase -i [git-hash| head~n]
+```
+> 其中`git-hash`是你要开始进行`rebase`的`commit`的`hash`，而`head~n`则是从`HEAD`向前推`n`个`commit`
+
+
+### 全局更换电子邮件
+```
+git filter-branch --commit-filter '
+        if [ "$GIT_AUTHOR_EMAIL" = "xxx@localhost" ];
+        then
+                GIT_AUTHOR_NAME="xxx";
+                GIT_AUTHOR_EMAIL="xxx@example.com";
+                git commit-tree "$@";
+        else
+                git commit-tree "$@";
+        fi' HEAD --all
+```
 
 ## 帮助
 查看帮助：
