@@ -6,7 +6,7 @@ toc: true
 tags:
   - debug
 date: 2016-07-14 14:15:14
-categories: Linux
+categories: Shell Script
 ---
 
 Shell脚本是用户与Linux操作系统交互的一种方式,在脚本编程过程中自然少不了进行调试工作,本文将介绍三种常用的调试方法.(默认使用bash shell)

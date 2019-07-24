@@ -3,7 +3,7 @@ title: GCC编译ARM篇
 Antuor: AnSwEr(Weijie Yuan)
 toc: true
 date: 2017-08-04 16:30:40
-categories: Compile
+categories: 编译原理
 tags: gcc
 ---
 

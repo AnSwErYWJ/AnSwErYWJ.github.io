@@ -6,7 +6,7 @@ toc: true
 tags:
   - debug
 date: 2016-07-14 14:20:25
-categories: C
+categories: C/C++
 ---
 
 DEBUG宏用于Linux下C编程时调试使用.

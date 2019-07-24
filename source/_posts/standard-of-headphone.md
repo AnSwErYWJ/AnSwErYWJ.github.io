@@ -5,7 +5,7 @@ comments: true
 toc: true
 tags: headset
 date: 2016-09-20 11:37:40
-categories: Knowledge
+categories: 科普
 ---
 
 现在3.5mm规格的耳机已经普遍使用，但是用户会发现一些国外厂家的耳机并不适用国产手机，下面就为大家科普一下，解开这个迷题。

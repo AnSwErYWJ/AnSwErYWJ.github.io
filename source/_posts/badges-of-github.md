@@ -3,8 +3,8 @@ title: Github徽章整理
 Antuor: AnSwEr(Weijie Yuan)
 toc: true
 date: 2016-07-08 14:52:40
-categories: Git
-tags: git
+categories: 博客建站
+tags: github徽章
 ---
 
  相信很多在Github上玩耍过的同学们都会发现，在很多项目的README里会有各式各样的徽章，是不是顿时感觉到很高上大？没关系，读完这篇文章你就也可以拥有这些徽章了，甚至可以定制自己的徽章。

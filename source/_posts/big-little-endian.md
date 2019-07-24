@@ -6,7 +6,7 @@ toc: true
 tags:
   - 大小端字节序
 date: 2016-12-07 11:16:51
-categories: C
+categories: C/C++
 ---
 
 本文将使用C语言编写一个可以判断你主机数据存储方式(大端和小端)的程序.
