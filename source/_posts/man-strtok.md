@@ -7,7 +7,7 @@ tags:
   - strtok
   - strtok_r
 date: 2019-05-21 15:59:44
-categories: C
+categories: C/C++
 ---
 
 本文通过分析源码，深究`GLIBC`中`strtok`和`strtok_r`函数的实现原理和使用过程中的注意事项。

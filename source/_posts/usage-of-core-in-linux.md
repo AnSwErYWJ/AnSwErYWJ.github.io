@@ -3,7 +3,7 @@ title: Linux下core文件使用
 Antuor: AnSwEr(Weijie Yuan)
 toc: true
 date: 2018-03-07 16:16:15
-categories: Linux
+categories: C/C++
 tags: core dump
 ---
 有时候程序会异常退出而不带任何日志，此时就可以使用`code`文件进行分析，它会记录程序运行的内存，寄存器，堆栈指针等信息

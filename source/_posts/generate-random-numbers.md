@@ -6,7 +6,7 @@ toc: true
 tags:
   - 随机数
 date: 2016-07-14 14:16:51
-categories: C
+categories: C/C++
 ---
 
 本文将介绍C语言生成随机数的方法,主要使用 *rand()* 函数和 *srand()* 函数.

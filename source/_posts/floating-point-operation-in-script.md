@@ -6,7 +6,7 @@ toc: true
 tags:
   - script
 date: 2016-09-05 14:58:50
-categories: Linux
+categories: Shell Script
 ---
 
 本文将介绍几种Linux下通过Shell脚本进行浮点数计算的方法。

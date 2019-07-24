@@ -7,7 +7,7 @@ tags:
   - tcp
   - connect
 date: 2016-07-14 14:22:25
-categories: C
+categories: UNIX网络编程
 ---
 
 本文将介绍UNIX网络编程中`connect`函数及其包裹函数。

@@ -7,7 +7,7 @@ tags:
   - hidden
   - objcopy
 date: 2019-04-13 14:43:13
-categories: Compile
+categories: 编译原理
 ---
 
 分享屏蔽静态库接口的一种方法.

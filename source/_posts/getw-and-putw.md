@@ -6,7 +6,7 @@ toc: true
 tags:
   - getw
 date: 2016-12-06 14:16:51
-categories: C
+categories: C/C++
 ---
 
 本文将介绍在文本流中,读写整数的两个接口-- ``int getw(FILE *fp)``和``int putw(int w, FILE *fp)``,并且与你分享改进后的更实用的接口-- ``unsigned int get_uint(FILE *fp)``和``unsigned int put_uint(unsigned int i,FILE *fp)``.

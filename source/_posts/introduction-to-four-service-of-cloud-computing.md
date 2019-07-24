@@ -6,7 +6,7 @@ toc: true
 tags:
   - Cloud Computing
 date: 2017-03-23 14:18:40
-categories: Knowledge
+categories: 科普
 ---
 
 本文将介绍*SaaS*，*BaaS*，*PaaS*和*IaaS*这四种云计算服务模式，并分析之间的联系和区别。
