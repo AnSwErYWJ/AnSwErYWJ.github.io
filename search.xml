@@ -35,7 +35,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> 语音知识 </category>
             
         </categories>
         
@@ -102,7 +102,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> C/C++ </category>
             
         </categories>
         
@@ -150,7 +150,7 @@
       
         <categories>
             
-            <category> Compile </category>
+            <category> 编译原理 </category>
             
         </categories>
         
@@ -196,7 +196,7 @@
       
         <categories>
             
-            <category> Compile </category>
+            <category> 编译原理 </category>
             
         </categories>
         
@@ -434,7 +434,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> C/C++ </category>
             
         </categories>
         
@@ -511,7 +511,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> 源码阅读笔记 </category>
             
         </categories>
         
@@ -568,7 +568,7 @@
       
         <categories>
             
-            <category> Linux </category>
+            <category> C/C++ </category>
             
         </categories>
         
@@ -663,7 +663,7 @@
       
         <categories>
             
-            <category> Knowledge </category>
+            <category> 语音知识 </category>
             
         </categories>
         
@@ -751,7 +751,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> UNIX系统编程 </category>
             
         </categories>
         
@@ -805,7 +805,7 @@
       
         <categories>
             
-            <category> Compile </category>
+            <category> 编译原理 </category>
             
         </categories>
         
@@ -1037,7 +1037,7 @@
       
         <categories>
             
-            <category> Knowledge </category>
+            <category> 科普 </category>
             
         </categories>
         
@@ -1083,7 +1083,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> UNIX网络编程 </category>
             
         </categories>
         
@@ -1132,7 +1132,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> C/C++ </category>
             
         </categories>
         
@@ -1182,7 +1182,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> C/C++ </category>
             
         </categories>
         
@@ -1296,7 +1296,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> 编译原理 </category>
             
         </categories>
         
@@ -1345,7 +1345,7 @@
       
         <categories>
             
-            <category> Knowledge </category>
+            <category> 科普 </category>
             
         </categories>
         
@@ -1391,7 +1391,7 @@
       
         <categories>
             
-            <category> Linux </category>
+            <category> Shell Script </category>
             
         </categories>
         
@@ -1438,7 +1438,7 @@
       
         <categories>
             
-            <category> Linux </category>
+            <category> Shell Script </category>
             
         </categories>
         
@@ -1486,7 +1486,7 @@
       
         <categories>
             
-            <category> Git </category>
+            <category> 博客建站 </category>
             
         </categories>
         
@@ -1494,6 +1494,10 @@
         <tags>
             
             <tag> git </tag>
+            
+            <tag> hexo </tag>
+            
+            <tag> blog </tag>
             
         </tags>
         
@@ -1602,7 +1606,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> UNIX网络编程 </category>
             
         </categories>
         
@@ -1641,7 +1645,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> UNIX网络编程 </category>
             
         </categories>
         
@@ -1684,7 +1688,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> C/C++ </category>
             
         </categories>
         
@@ -1719,7 +1723,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> UNIX系统编程 </category>
             
         </categories>
         
@@ -1767,7 +1771,7 @@
       
         <categories>
             
-            <category> C </category>
+            <category> C/C++ </category>
             
         </categories>
         
@@ -1808,7 +1812,7 @@
       
         <categories>
             
-            <category> Linux </category>
+            <category> Shell Script </category>
             
         </categories>
         
@@ -1852,7 +1856,7 @@
       
         <categories>
             
-            <category> Working </category>
+            <category> Linux </category>
             
         </categories>
         
@@ -1938,7 +1942,7 @@
       
         <categories>
             
-            <category> Linux </category>
+            <category> Shell Script </category>
             
         </categories>
         
@@ -2010,14 +2014,14 @@
       
         <categories>
             
-            <category> Git </category>
+            <category> 博客建站 </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> git </tag>
+            <tag> github徽章 </tag>
             
         </tags>
         
