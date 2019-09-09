@@ -107,7 +107,9 @@ $ git clone --depth=1 http://xxx.git
 ```
 浅层`clone`成功后，再完整拉取：
 ```
-git fetch --unshallow
+$ git fetch --unshallow # 拉取完整当前分支
+$ git remote set-branches origin '*' # 追踪所有远程分支
+$ git fetch -v # 拉取所有远程分支
 ```
 
 至此，终于成功地`clone`了一个完整的仓库。
