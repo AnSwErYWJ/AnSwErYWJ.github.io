@@ -113,7 +113,7 @@ $ ./test
 Hello World!
 ```
 
-### 调用隐藏的'bye()'
+### 调用隐藏的`bye()`
 test2.c
 ```
 #include "bye.h"
