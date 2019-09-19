@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://answerywj.com/2019/04/13/hide-symbol-of-static-library/</loc>
+    
+    <lastmod>2019-09-19T07:30:13.938Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2019/09/09/git-clone-extra-large-project/</loc>
     
     <lastmod>2019-09-09T10:57:31.028Z</lastmod>
@@ -68,13 +75,6 @@
     <loc>http://answerywj.com/2016/12/06/getw-and-putw/</loc>
     
     <lastmod>2019-07-24T03:26:59.895Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2019/04/13/hide-symbol-of-static-library/</loc>
-    
-    <lastmod>2019-07-24T03:25:39.211Z</lastmod>
     
   </url>
   
