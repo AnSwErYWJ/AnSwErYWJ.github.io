@@ -99,7 +99,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2019-10-08T09:37:08.351Z">
+<meta property="og:updated_time" content="2019-10-08T10:43:16.879Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一文读懂-fPIC、-fpic、-fpie、-fPIE、-pie怎么用">
 <meta name="twitter:description" content="一文读懂-fPIC、-fpic、-fpie、-fPIE、-pie怎么用。">
@@ -416,7 +416,7 @@
 <li><code>-fPIE</code>和<code>-fpie</code>没任何区别，功能与<code>-fPIC/-fpic</code>大致相同，不同点在于<code>-fPIC/-fpic</code>用于生成动态库，而<code>-fPIE</code>和<code>-fpie</code>用于生成可执行文件，使用时需要在链接时加上<code>-pie</code>配合使用；</li>
 </ul>
 <blockquote>
-<p>全局偏移表<code>GOT</code>(Global Offset Table)用于提供常数地址供程序访存，动态装载器将在程序开始执行时解析<code>GOT</code>表项。</p>
+<p>全局偏移表<code>GOT(Global Offset Table)</code>用于提供常数地址供程序访存，动态装载器将在程序开始执行时解析<code>GOT</code>表项。</p>
 </blockquote>
 <h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><ul>
 <li><p>生成动态库：</p>
@@ -426,7 +426,7 @@
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CFLAGS += -fPIE</span><br><span class="line">LDFLAGS += -pie</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使用<code>file</code>命令可查看当前可执行文件是否位置无关</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ file <span class="keyword">use</span>-pie</span><br><span class="line"><span class="keyword">use</span>-pie: ELF <span class="number">64</span>-<span class="built_in">bit</span> LSB <span class="keyword">shared</span> <span class="keyword">object</span>, x86<span class="number">-64</span>, <span class="keyword">version</span> <span class="number">1</span> (SYSV), dynamically linked, interpreter /lib64/l, <span class="keyword">for</span> GNU/Linux <span class="number">2.6</span><span class="number">.32</span>, BuildID[<span class="keyword">sha1</span>]=<span class="number">199</span>f3856a804e6b0cd68ff4e9dfaa459614d22d5, <span class="keyword">not</span> stripped</span><br><span class="line"></span><br><span class="line"><span class="keyword">file</span> unuse-pie</span><br><span class="line">unuse-pie: ELF <span class="number">64</span>-<span class="built_in">bit</span> LSB executable, x86<span class="number">-64</span>, <span class="keyword">version</span> <span class="number">1</span> (SYSV), dynamically linked, interpreter /lib64/l, <span class="keyword">for</span> GNU/Linux <span class="number">2.6</span><span class="number">.32</span>, BuildID[<span class="keyword">sha1</span>]=<span class="number">3e85645</span>c4aa962ab9da5b631b5264804829fd7b8, <span class="keyword">not</span> stripped</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ file <span class="keyword">use</span>-pie</span><br><span class="line"><span class="keyword">use</span>-pie: ELF <span class="number">64</span>-<span class="built_in">bit</span> LSB <span class="keyword">shared</span> <span class="keyword">object</span>, x86<span class="number">-64</span>, <span class="keyword">version</span> <span class="number">1</span> (SYSV), dynamically linked, interpreter /lib64/l, <span class="keyword">for</span> GNU/Linux <span class="number">2.6</span><span class="number">.32</span>, BuildID[<span class="keyword">sha1</span>]=<span class="number">199</span>f3856a804e6b0cd68ff4e9dfaa459614d22d5, <span class="keyword">not</span> stripped</span><br><span class="line"></span><br><span class="line">$ <span class="keyword">file</span> unuse-pie</span><br><span class="line">unuse-pie: ELF <span class="number">64</span>-<span class="built_in">bit</span> LSB executable, x86<span class="number">-64</span>, <span class="keyword">version</span> <span class="number">1</span> (SYSV), dynamically linked, interpreter /lib64/l, <span class="keyword">for</span> GNU/Linux <span class="number">2.6</span><span class="number">.32</span>, BuildID[<span class="keyword">sha1</span>]=<span class="number">3e85645</span>c4aa962ab9da5b631b5264804829fd7b8, <span class="keyword">not</span> stripped</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>可以发现使用<code>-fPIE/-pie</code>选项的可执行文件属性为<code>shared object</code>，而未使用的文件属性为<code>executable</code>。</p>
