@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://answerywj.com/2019/02/12/git-help-v2/git-work-flow.jpg">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2019-07-02T03:03:01.456Z">
+<meta property="og:updated_time" content="2019-10-16T12:28:01.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git速查手册（第二版）">
 <meta name="twitter:description" content="本文是对之前Git速查手册的更新，增加了一些这段时间使用到的命令。">
@@ -471,7 +471,7 @@
 <p><code>revert</code>是用一次新的<code>commit</code>来回滚之前的<code>commit</code>，更安全;<code>reset</code>则是直接删除指定的<code>commit</code>，若直接<code>push</code>会导致冲突。</p>
 </blockquote>
 <h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>查看所有分支，有<code>*</code>标记的是当前分支：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="keyword">branch </span>-a</span><br></pre></td></tr></table></figure></p>
-<p>创建本地分支：<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout &lt;<span class="keyword">new</span><span class="type">branch</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>创建本地分支：<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch &lt;<span class="keyword">new</span><span class="type">branch</span>&gt;</span><br></pre></td></tr></table></figure></p>
 <p>创建并切换本地分支：<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b &lt;<span class="keyword">new</span><span class="type">branch</span>&gt;</span><br></pre></td></tr></table></figure></p>
 <p>从标签创建分支：<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch <span class="params">&lt;branch&gt;</span> <span class="params">&lt;tagname&gt;</span></span><br><span class="line">$ git checkout <span class="params">&lt;branch&gt;</span> <span class="meta"># 切换到新建分支</span></span><br></pre></td></tr></table></figure></p>
 <p>推送新建本地分支到远程：<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span> git push -u origin &lt;remote-branch-name&gt;</span><br><span class="line">  <span class="keyword">or</span></span><br><span class="line"><span class="symbol">$</span> git push --<span class="keyword">set</span>-upstream <span class="comment">origin &lt;remote-branch-name&gt;</span></span><br></pre></td></tr></table></figure></p>
@@ -488,6 +488,7 @@
 <p>获取远程分支到本地并新建本地分支：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -<span class="keyword">b </span>&lt;local-<span class="keyword">branch&gt; </span>&lt;remote-<span class="keyword">branch&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>同步当前分支的更新，使用<code>git pull</code>并不保险：<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载最新的代码到远程跟踪分支, 即origin/&lt;branch-name&gt;</span></span><br><span class="line">$ git fetch <span class="keyword">origin </span>&lt;<span class="keyword">branch-name&gt; </span></span><br><span class="line"><span class="comment"># 查看更新内容</span></span><br><span class="line">$ git <span class="keyword">difftool </span>&lt;<span class="keyword">branch-name&gt; </span><span class="keyword">origin/&lt;branch-name&gt;</span></span><br><span class="line"><span class="keyword"># </span>尝试合并远程跟踪分支的代码到本地分支 </span><br><span class="line">$ git merge <span class="keyword">origin/&lt;branch-name&gt;</span></span><br><span class="line"><span class="keyword"># </span>借助mergetool解决冲突              </span><br><span class="line">$ git mergetool</span><br></pre></td></tr></table></figure></p>
 <p>同步其它分支的更新，本例拉取<code>master</code>分支更新：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch origin <span class="literal">master</span></span><br><span class="line">$ git difftool <span class="tag">&lt;branch-name&gt;</span> origin/<span class="literal">master</span></span><br><span class="line">$ git merge origin/<span class="literal">master</span></span><br><span class="line">$ git mergetool</span><br></pre></td></tr></table></figure></p>
+<p>查看某个<code>&lt;commit id&gt;</code>属于哪个分支:<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -<span class="keyword">a</span> <span class="comment">--contains &lt;commit id&gt;</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="暂存"><a href="#暂存" class="headerlink" title="暂存"></a>暂存</h2><p>当你需要切换分支时,若当前工作区还有些修改没有完成,又不适合提交的,操作切换分支是会提示出错的.这时就需要将这些修改暂存起来:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git stash save <span class="string">"message"</span></span><br></pre></td></tr></table></figure></p>
 <p>查看:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git stash <span class="built_in">list</span></span><br></pre></td></tr></table></figure></p>
 <p>恢复:<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git stash <span class="keyword">pop</span> [--<span class="keyword">index</span>] [stash@&#123;num&#125;]　</span><br><span class="line">  <span class="keyword">or</span></span><br><span class="line">$ git stash apply [--<span class="keyword">index</span>] [stash@&#123;num&#125;]　<span class="comment"># 不删除已恢复的进度.</span></span><br></pre></td></tr></table></figure></p>
@@ -736,7 +737,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -758,7 +759,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
