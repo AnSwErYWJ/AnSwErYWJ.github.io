@@ -224,21 +224,22 @@ git clean -nfd
 git clean -fd
 ```
 
-撤销所有已经提交到暂存区的修改：
+回退版本区(`git commit`)和暂存区(`git add`)，不删除工作空间代码：
 ```
-$ git reset HEAD .
-```
-
-撤销提交到暂存区的某个文件或文件夹：
-```
-$ git reset HEAD -filename
+$ git reset --mixed HEAD^ # --mixed为默认参数
+$ git reset HEAD^
 ```
 
-回退版本，即回退暂存区的修改：
+回退版本区(`git commit`)，暂存区(`git add`)不回退，不删除工作空间代码：
+```
+$ git reset --soft HEAD^
+```
+
+回退版本区(`git commit`)和暂存区(`git add`)，并删除工作空间代码(不包括``Untracked files``)，执行后直接恢复到指定`<commit-id>`状态：
 ```
 $ git reset --hard <commit-id>
 ```
-> 上一个版本的``commit-id``可以用``HEAD^``表示，上上个版本为``HEAD^^``，上100个版本可以表示为``HEAD~100``以此类推。
+> `HEAD`表示当前版本，``HEAD^``表示上个版本，``HEAD^^``表示上上个版本，上100个版本可以表示为``HEAD~100``以此类推。
 
 回退版本后，若需要返回原来的版本，会发现找不到未来的``commit id``，则需要查看操作命令历史进行查找：
 ```
@@ -256,7 +257,6 @@ $ git revert <commit-id>
 ```
 > ``revert``是用一次新的``commit``来回滚之前的``commit``，更安全;``reset``则是直接删除指定的``commit``，若直接``push``会导致冲突。
 
-
 ## 分支
 查看所有分支，有``*``标记的是当前分支：
 ```
@@ -264,7 +264,7 @@ $ git branch -a
 ```
 创建本地分支：
 ```
-$ git checkout <newbranch>
+$ git branch <newbranch>
 ```
 
 创建并切换本地分支：
@@ -332,6 +332,11 @@ $ git fetch origin master
 $ git difftool <branch-name> origin/master
 $ git merge origin/master
 $ git mergetool
+```
+
+查看某个`<commit id>`属于哪个分支:
+```
+$ git branch -a --contains <commit id>
 ```
 
 ## 暂存
