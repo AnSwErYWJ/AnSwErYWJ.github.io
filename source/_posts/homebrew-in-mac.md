@@ -10,6 +10,11 @@ date: 2020-02-17 20:42:48
 categories: Mac
 ---
 
+本文将介绍`Homebrew`的安装与使用。
+
+----------
+<!--more-->
+
 ## Homebrew
 ### 简介
 `Homebrew`是`OS X`上类似于`apt-get`和`yum`的软件包管理器，软件源依托于`Github`之上，所以在国内的网络环境之下，常常会出现使用`Homebrew`安装软件时，如`brew install sshfs`，经常会长时间卡在`Updating Homebrew...`。
