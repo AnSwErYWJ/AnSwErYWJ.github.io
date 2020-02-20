@@ -89,21 +89,20 @@
 
 
 
-<meta name="description" content="summary">
+<meta name="description" content="本文介绍链接过程中sysroot的作用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="test">
 <meta property="og:url" content="http://answerywj.com/2020/02/20/test/index.html">
 <meta property="og:site_name" content="AnSwEr&#39;s Blog">
-<meta property="og:description" content="summary">
+<meta property="og:description" content="本文介绍链接过程中sysroot的作用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
-<meta property="og:image" content="http://answerywj.com/2020/02/20/test/images/wechat_public_qrcode.jpg">
 <meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2020-02-20T07:02:39.263Z">
+<meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
+<meta property="og:updated_time" content="2020-02-20T08:06:32.579Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="test">
-<meta name="twitter:description" content="summary">
-<meta name="twitter:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
+<meta name="twitter:description" content="本文介绍链接过程中sysroot的作用。">
+<meta name="twitter:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
 
 
 
@@ -325,7 +324,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-20T14:51:18+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-20T16:06:11+08:00">
                 2020-02-20
               </time>
             
@@ -384,18 +383,32 @@
       
 
       
-        <p>summary</p>
+        <p>本文介绍链接过程中<code>sysroot</code>的作用。</p>
 <hr>
 <a id="more"></a>
+<h2 id="sysroot为何物"><a href="#sysroot为何物" class="headerlink" title="sysroot为何物"></a>sysroot为何物</h2><p>做过交叉编译的同学们，一定对下面这个错误十分熟悉吧：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/cross-compiling/ld: cannot <span class="builtin-name">find</span> crt1.o: <span class="literal">No</span> such file <span class="keyword">or</span> directory</span><br><span class="line">/cross-compiling/ld: cannot <span class="builtin-name">find</span> crti.o: <span class="literal">No</span> such file <span class="keyword">or</span> directory</span><br></pre></td></tr></table></figure></p>
+<p>在我们的<code>pc</code>上，这两个文件一般在<code>/usr/lib</code>或者<code>/usr/lib32</code>中，通过<code>gcc -print-search-dirs</code>可以看到这两个路径默认就在库的搜索路径中，所以在<code>pc</code>上编译程序时不存在链接器找不到<code>crt1.o</code>和<code>crti.o</code>的问题。</p>
+<blockquote>
+<p><code>crt1.o</code>负责应用程序的启动，其中包含了程序的入口函数<code>_start</code>以及两个未定义的符号<code>__libc_start_main</code>和<code>main</code>，由<code>_start</code>负责调用<code>__libc_start_main</code>初始化<code>libc</code>，然后调用我们源代码中定义的<code>main</code>函数，<code>crti.o</code>负责辅助启动这些代码。</p>
+</blockquote>
+<p>下面我们使用交叉编译工具链来查看库的搜索路径<code>/cross-compiling/gcc -print-search-dirs</code>，发现<code>crt1.o</code>和<code>crti.o</code>的所在目录并不在库的搜索路径中，所以会出现上述的问题。</p>
+<p>下面就需要<code>sysroot</code>出场了。<br><code>sysroot</code>被称为逻辑根目录，只在链接过程中起作用，作为交叉编译工具链搜索库文件的根路径，如配置<code>--sysroot=dir</code>，则<code>dir</code>作为逻辑根目录，链接器将在<code>dir/usr/lib</code>中搜索库文件。</p>
+<blockquote>
+<p>只有链接器开启了–with-sysroot选项，–sysroot=director才生效</p>
+</blockquote>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://stackoverflow.com/questions/91576/crti-o-file-missing" target="_blank" rel="noopener">crti.o file missing</a></li>
+<li><a href="https://blog.csdn.net/farmwang/article/details/73195951" target="_blank" rel="noopener">crt1.o, crti.o, crtbegin.o, crtend.o, crtn.o</a></li>
+</ul>
 <hr>
+<p><a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> This work is licensed under a <a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</p>
 <p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
 <ul>
 <li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li>
 <li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li>
 <li>Email：<a href="https://mail.google.com" target="_blank" rel="noopener">yuanweijie1993@gmail.com</a></li>
-<li>Weibo：<a href="http://weibo.com/1783591593" target="_blank" rel="noopener">@AnSwEr不是答案</a><br><a href="/images/wechat_public_qrcode.jpg" rel="group"><img src="/2020/02/20/test/images/wechat_public_qrcode.jpg" alt="微信公众号"></a></li>
+<li>Weibo：<a href="http://weibo.com/1783591593" target="_blank" rel="noopener">@AnSwEr不是答案</a></li>
 </ul>
-<p><a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> This work is licensed under a <a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</p>
 
       
     </div>
@@ -403,6 +416,14 @@
     
     
 
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat_public_qdode.png" alt="AnSwEr(Weijie Yuan) wechat" style="width: 200px; max-width: 100%;">
+    <div>微信公众号同步更新，请扫码关注！</div>
+</div>
+
+      </div>
     
 
     
@@ -436,24 +457,6 @@
       </div>
     
 
-    
-      <div>
-        <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者：</strong>
-    AnSwEr(Weijie Yuan)
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="http://answerywj.com/2020/02/20/test/" title="test">http://answerywj.com/2020/02/20/test/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>
-    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-
-      </div>
     
 
     <footer class="post-footer">
@@ -561,8 +564,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -667,6 +679,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sysroot为何物"><span class="nav-number">1.</span> <span class="nav-text">sysroot为何物</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">2.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -859,7 +887,7 @@
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitmint({
-            id: '1582181478000', 
+            id: '1582185971000', 
             owner: 'AnSwErYWJ',
             repo: 'AnSwErYWJ.github.io',
             
