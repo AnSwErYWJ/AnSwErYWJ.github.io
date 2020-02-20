@@ -172,7 +172,7 @@ toc:
 # Creative Commons 4.0 International License.
 # http://creativecommons.org/
 # Available: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
-#creative_commons: by-nc-sa
+creative_commons: by-nc-sa
 #creative_commons:
 
 sidebar:
@@ -242,7 +242,7 @@ post_wordcount:
 wechat_subscriber:
   enabled: true
   qcode: /images/wechat_public_qdode.png
-  description: 微信公众号同步更新，请扫码关注！
+  description: 微信公众号同步更新，微信搜索"AnSwEr不是答案"或者扫描二维码，即可订阅。
 
 # Reward
 #reward_comment: 您的支持鼓励我继续创作！
@@ -252,9 +252,9 @@ alipay: /images/alipay.jpg
 
 # Declare license on posts
 post_copyright:
-  enable: false
-  license: CC BY-NC-SA 3.0
-  license_url: https://creativecommons.org/licenses/by-nc-sa/3.0/
+  enable: true
+  license: CC BY-NC-SA 4.0
+  license_url: http://creativecommons.org/licenses/by-nc-sa/4.0/
 
 
 # ---------------------------------------------------------------
