@@ -4,6 +4,127 @@
   
     
     <entry>
+      <title><![CDATA[test]]></title>
+      <url>http://answerywj.com/2020/02/20/test/</url>
+      <content type="html"><![CDATA[<p>summary</p>
+<hr>
+<a id="more"></a>
+<hr>
+<p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
+<ul>
+<li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li>
+<li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li>
+<li>Email：<a href="https://mail.google.com" target="_blank" rel="noopener">yuanweijie1993@gmail.com</a></li>
+<li>Weibo：<a href="http://weibo.com/1783591593" target="_blank" rel="noopener">@AnSwEr不是答案</a><br><a href="/images/wechat_public_qrcode.jpg" rel="group"><img src="/2020/02/20/test/images/wechat_public_qrcode.jpg" alt="微信公众号"></a></li>
+</ul>
+<p><a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> This work is licensed under a <a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Homebrew]]></title>
+      <url>http://answerywj.com/2020/02/17/homebrew-in-mac/</url>
+      <content type="html"><![CDATA[<p>本文将介绍<code>Homebrew</code>的安装与使用。</p>
+<hr>
+<a id="more"></a>
+<h2 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><code>Homebrew</code>是<code>OS X</code>上类似于<code>apt-get</code>和<code>yum</code>的软件包管理器，软件源依托于<code>Github</code>之上，所以在国内的网络环境之下，常常会出现使用<code>Homebrew</code>安装软件时，如<code>brew install sshfs</code>，经常会长时间卡在<code>Updating Homebrew...</code>。</p>
+<blockquote>
+<p><code>OS X 10.9</code>开始支持</p>
+</blockquote>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>首先安装依赖<code>Xcode命令行工具</code>：<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ xcode-<span class="keyword">select</span> <span class="comment">--install</span></span><br></pre></td></tr></table></figure></p>
+<p>然后安装<code>Homebrew</code>：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ruby -e <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></span></span><br></pre></td></tr></table></figure></p>
+<h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ruby -e <span class="string">"<span class="variable">$(curl -fsSL $https://raw.githubusercontent.com/Homebrew/install/master/uninstall)</span>"</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo rm -rf /usr/<span class="built_in">local</span>/</span></span><br></pre></td></tr></table></figure>
+<h2 id="解决软件源更新慢问题"><a href="#解决软件源更新慢问题" class="headerlink" title="解决软件源更新慢问题"></a>解决软件源更新慢问题</h2><h3 id="取消更新"><a href="#取消更新" class="headerlink" title="取消更新"></a>取消更新</h3><p>当安装过程中，卡在<code>Updating Homebrew...</code>时，我们可以按住<code>control + c</code>，来取消本次更新；之后命令行会显示<code>^C</code>，表示取消成功，后面会继续安装工作。</p>
+<blockquote>
+<p>这个方法是临时，仅在本次安装生效。</p>
+</blockquote>
+<h3 id="关闭自动更新"><a href="#关闭自动更新" class="headerlink" title="关闭自动更新"></a>关闭自动更新</h3><p><code>Homebrew</code>的软件源更新，是在每次安装时自动执行的，可以通过配置进行关闭。</p>
+<p><code>zsh</code>终端方式：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'export HOMEBREW_NO_AUTO_UPDATE=true'</span> &gt;&gt; ~/.zshrc</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span> ~/.zshrc</span></span><br></pre></td></tr></table></figure></p>
+<p><code>bash</code>终端方式：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'export HOMEBREW_NO_AUTO_UPDATE=true'</span> &gt;&gt; ~/.bash_profile</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span> ~/.bash_profile</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这个方法是永久的，每次安装都会生效，但弊端是无法获取最新的软件。</p>
+</blockquote>
+<h3 id="替换软件源"><a href="#替换软件源" class="headerlink" title="替换软件源"></a>替换软件源</h3><p>这里推荐中科大的镜像源，亲测可用。  </p>
+<h4 id="替换homebrew源"><a href="#替换homebrew源" class="headerlink" title="替换homebrew源"></a>替换homebrew源</h4><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="string">cd </span><span class="string">"$(brew --repo)"</span></span><br><span class="line">$ <span class="string">git </span><span class="string">remote </span><span class="built_in">set-url</span> <span class="string">origin </span><span class="string">https:</span>//<span class="string">mirrors.</span><span class="string">ustc.</span><span class="string">edu.</span><span class="string">cn/</span><span class="string">brew.</span><span class="string">git</span></span><br></pre></td></tr></table></figure>
+<p>还原官方源：<br><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="string">cd </span><span class="string">"$(brew --repo)"</span></span><br><span class="line">$ <span class="string">git </span><span class="string">remote </span><span class="built_in">set-url</span> <span class="string">origin </span><span class="string">https:</span>//<span class="string">github.</span><span class="string">com/</span><span class="string">Homebrew/</span><span class="string">brew.</span><span class="string">git</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="替换homebrew-core源-核心软件仓库"><a href="#替换homebrew-core源-核心软件仓库" class="headerlink" title="替换homebrew-core源(核心软件仓库)"></a>替换homebrew-core源(核心软件仓库)</h4><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="string">cd </span><span class="string">"$(brew --repo)/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ <span class="string">git </span><span class="string">remote </span><span class="built_in">set-url</span> <span class="string">origin </span><span class="string">https:</span>//<span class="string">mirrors.</span><span class="string">ustc.</span><span class="string">edu.</span><span class="string">cn/</span><span class="string">homebrew-core.</span><span class="string">git</span></span><br></pre></td></tr></table></figure>
+<p>还原官方源：<br><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="string">cd </span><span class="string">"$(brew --repo)/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">$ <span class="string">git </span><span class="string">remote </span><span class="built_in">set-url</span> <span class="string">origin </span><span class="string">https:</span>//<span class="string">github.</span><span class="string">com/</span><span class="string">Homebrew/</span><span class="string">homebrew-core.</span><span class="string">git</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="替换homebrew-cask源-macOS应用"><a href="#替换homebrew-cask源-macOS应用" class="headerlink" title="替换homebrew-cask源(macOS应用)"></a>替换homebrew-cask源(macOS应用)</h4><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="string">cd </span><span class="string">"$(brew --repo)"</span>/<span class="string">Library/</span><span class="string">Taps/</span><span class="string">homebrew/</span><span class="string">homebrew-cask </span></span><br><span class="line">$ <span class="string">git </span><span class="string">remote </span><span class="built_in">set-url</span> <span class="string">origin </span><span class="string">https:</span>//<span class="string">mirrors.</span><span class="string">ustc.</span><span class="string">edu.</span><span class="string">cn/</span><span class="string">homebrew-cask.</span><span class="string">git</span></span><br></pre></td></tr></table></figure>
+<p>若提示找不到<code>&quot;$(brew --repo)&quot;/Library/Taps/homebrew/homebrew-cask</code>，则：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span>/Library/Taps/homebrew/</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://mirrors.ustc.edu.cn/homebrew-cask.git</span></span><br></pre></td></tr></table></figure></p>
+<p>还原官方源：<br><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="string">cd </span><span class="string">"$(brew --repo)"</span>/<span class="string">Library/</span><span class="string">Taps/</span><span class="string">homebrew/</span><span class="string">homebrew-cask </span> </span><br><span class="line">$ <span class="string">git </span><span class="string">remote </span><span class="built_in">set-url</span> <span class="string">origin </span><span class="string">https:</span>//<span class="string">github.</span><span class="string">com/</span><span class="string">Homebrew/</span><span class="string">homebrew-cask</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><code>brew cask</code>安装软件，会自动创建软链接到<code>Application</code>目录，这样在<code>Launchpad</code>中也能查看到安装的软件，方便启动软件</p>
+</blockquote>
+<h4 id="替换homebrew-bottles源-预编译二进制软件包"><a href="#替换homebrew-bottles源-预编译二进制软件包" class="headerlink" title="替换homebrew bottles源(预编译二进制软件包)"></a>替换homebrew bottles源(预编译二进制软件包)</h4><p><code>zsh</code>终端方式：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.zshrc</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span> ~/.zshrc</span></span><br></pre></td></tr></table></figure></p>
+<p><code>bash</code>终端方式：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles'</span> &gt;&gt; ~/.bash_profile</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span> ~/.bash_profile</span></span><br></pre></td></tr></table></figure></p>
+<p>还原官方源：进入如上终端配置文件，并删除<code>HOMEBREW_BOTTLE_DOMAIN</code>改行配置，并<br><code>source</code>终端配置文件，使之生效。</p>
+<h2 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h2><ul>
+<li><code>Error: Another active Homebrew update process is already in progress.</code><br>解决方法：<code>rm -rf /usr/local/var/homebrew/locks</code></li>
+</ul>
+<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><h3 id="Homebrew常用命令"><a href="#Homebrew常用命令" class="headerlink" title="Homebrew常用命令"></a>Homebrew常用命令</h3><ul>
+<li><p>查看Homebrew版本：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">brew </span>-v</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Homebrew帮助信息：</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew <span class="string">[cask]</span> -h</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新Homebrew：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">brew </span>update</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新Homebrew cask：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">brew </span>cask upgrade</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装软件：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">brew </span>[cask] <span class="keyword">install </span>&lt;packageName&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卸载软件：</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew <span class="string">[cask]</span> uninstall &lt;packageName&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询可用软件：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew <span class="built_in">search</span> <span class="symbol">&lt;packageName&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看已安装软件：</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew <span class="string">[cask]</span> list</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看软件信息：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">brew </span>[cask] <span class="meta">info</span> &lt;packageName&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="确认shell版本方式"><a href="#确认shell版本方式" class="headerlink" title="确认shell版本方式"></a>确认shell版本方式</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="variable">$SHELL</span></span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>输出<code>/bin/zsh</code>为<code>zsh</code>终端，输出<code>/bin/bash</code>为<code>bash</code>终端。</p>
+</blockquote>
+<h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
+<ul>
+<li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li>
+<li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li>
+<li>Email：<a href="https://mail.google.com" target="_blank" rel="noopener">yuanweijie1993@gmail.com</a></li>
+<li>Weibo：<a href="http://weibo.com/1783591593" target="_blank" rel="noopener">@AnSwEr不是答案</a></li>
+<li>CSDN：<a href="http://blog.csdn.net/u011192270" target="_blank" rel="noopener">AnSwEr不是答案的专栏</a></li>
+</ul>
+<p><a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> This work is licensed under a <a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Mac </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> mac </tag>
+            
+            <tag> Homebrew </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Git仓库过大导致clone失败的解决方法]]></title>
       <url>http://answerywj.com/2019/09/09/git-clone-extra-large-project/</url>
       <content type="html"><![CDATA[<p>本文记录工作中遇到的<code>clone</code>大仓库失败的解决过程，以下问题与解决方案均基于<code>https</code>访问。</p>
