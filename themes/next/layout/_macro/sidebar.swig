@@ -108,7 +108,14 @@
                 {% endfor %}
             </div>
           {% endif %}
-
+          
+          {% if theme.wechat_subscriber.enabled %}
+            <div>
+              <img id="wechat_subscriber_qcode" src="{{ theme.wechat_subscriber.qcode }}" alt="{{ theme.author }} wechat" style="width: 100px; max-width: 100%;"/>
+              <div>{{ theme.wechat_subscriber.description }}</div>
+            </div>
+          {% endif %}
+          
           {% set cc = {'by': 1, 'by-nc': 1, 'by-nc-nd': 1, 'by-nc-sa': 1, 'by-nd': 1, 'by-sa': 1, 'zero': 1} %}
           {% if theme.creative_commons in cc %}
             <div class="cc-license motion-element" itemprop="license">
