@@ -96,7 +96,7 @@ menu:
   archives: /archives || archive
   categories: /categories || th
   tags: /tags || tags
-  commonweal: /404.html || heartbeat
+  commonweal: /commonweal || heartbeat
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   about: /about || user
