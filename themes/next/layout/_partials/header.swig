@@ -40,12 +40,16 @@
       {% for name, path in theme.menu %}
         {% set itemName = name.toLowerCase() %}
         <li class="menu-item menu-item-{{ itemName | replace(' ', '-') }}">
-          <a href="{{ url_for(path.split('||')[0]) | trim }}" rel="section">
-            {% if theme.menu_icons.enable %}
-              <i class="menu-item-icon fa fa-fw fa-{{ path.split('||')[1] | trim | default('question-circle') }}"></i> <br />
-            {% endif %}
-            {{ __('menu.' + name) | replace('menu.', '') }}
-          </a>
+          {% if itemName == "commonweal" %}
+            <a href="{{ url_for(path.split('||')[0]) | trim }}" rel="section" target="_blank">
+          {% else %}
+            <a href="{{ url_for(path.split('||')[0]) | trim }}" rel="section">
+          {% endif %}
+              {% if theme.menu_icons.enable %}
+                <i class="menu-item-icon fa fa-fw fa-{{ path.split('||')[1] | trim | default('question-circle') }}"></i> <br />
+              {% endif %}
+              {{ __('menu.' + name) | replace('menu.', '') }}
+            </a>
         </li>
       {% endfor %}
 
