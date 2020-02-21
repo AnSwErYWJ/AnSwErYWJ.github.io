@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://answerywj.com/about/index.html</loc>
+    
+    <lastmod>2020-02-21T06:21:42.190Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/commonweal/index.html</loc>
+    
+    <lastmod>2020-02-21T03:18:18.045Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2020/02/17/homebrew-in-mac/</loc>
     
     <lastmod>2020-02-20T05:50:36.242Z</lastmod>
@@ -257,13 +271,6 @@
     <loc>http://answerywj.com/tags/index.html</loc>
     
     <lastmod>2019-04-22T08:44:09.995Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/about/index.html</loc>
-    
-    <lastmod>2019-04-22T08:44:09.991Z</lastmod>
     
   </url>
   
