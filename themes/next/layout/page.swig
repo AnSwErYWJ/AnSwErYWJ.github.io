@@ -8,6 +8,10 @@
     #}{{ __('title.category') + page_title_suffix }}{#
   #}{% elif page.type === "tags" and not page.title %}{#
     #}{{ __('title.tag') + page_title_suffix }}{#
+  #}{% elif page.type === "about" and not page.title %}{#
+    #}{{ __('title.tag') + page_title_suffix }}{#
+  #}{% elif page.type === "commonweal" and not page.title %}{#
+    #}{{ __('title.tag') + page_title_suffix }}{#
   #}{% else %}{#
     #}{{ page.title + page_title_suffix }}{#
   #}{% endif %}{#
@@ -45,6 +49,30 @@
             <div class="category-all">
               {{ list_categories() }}
             </div>
+          </div>
+        {% elif page.type === 'about' %}
+          <div>
+            {% if theme.wechat_subscriber.enabled %}
+              <div>
+                {% include '_macro/wechat-subscriber.swig' %}
+              </div>
+            {% endif %}
+            {% if theme.social %}
+              <div style="display: block; margin: 10px auto; width: 100%; text-align: center">
+                {% for name, link in theme.social %}
+                  <span >
+                    <a href="{{ link.split('||')[0] | trim }}" target="_blank" title="{{ name }}">
+                      {% if theme.social_icons.enable %}
+                        <i class="fa fa-fw fa-{{ link.split('||')[1] | trim | default('globe') }}"></i>{#
+                    #}{% endif %}{#
+                      #}{% if not theme.social_icons.icons_only %}{#
+                        #}{{ name }}{#
+                      #}{% endif %}{#
+                  #}</a>
+                  </span>
+                {% endfor %}
+              </div>
+            {% endif %}
           </div>
         {% else %}
           {{ page.content }}
