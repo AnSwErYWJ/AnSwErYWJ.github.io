@@ -10,8 +10,6 @@
     #}{{ __('title.tag') + page_title_suffix }}{#
   #}{% elif page.type === "about" and not page.title %}{#
     #}{{ __('title.tag') + page_title_suffix }}{#
-  #}{% elif page.type === "commonweal" and not page.title %}{#
-    #}{{ __('title.tag') + page_title_suffix }}{#
   #}{% else %}{#
     #}{{ page.title + page_title_suffix }}{#
   #}{% endif %}{#
