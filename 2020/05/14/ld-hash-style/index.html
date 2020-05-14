@@ -96,7 +96,7 @@
 <meta property="og:description" content="本文记录了解决 --hash-style 兼容性问题的过程。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
-<meta property="og:updated_time" content="2020-05-14T12:11:19.545Z">
+<meta property="og:updated_time" content="2020-05-14T12:21:22.255Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="--hash-style兼容性问题">
 <meta name="twitter:description" content="本文记录了解决 --hash-style 兼容性问题的过程。">
@@ -446,11 +446,12 @@
 </blockquote>
 <p>如上，发现使用不同的配置，<code>Sections Name</code> 不同。</p>
 <blockquote>
-<p><code>.gnu.hash</code> 段​，提​供了​与 <code>hash</code> 段​相​同​的​功​能​；但​是与 <code>hash</code> 相比，增加了某些限制（附加规则），​导致了不兼容，带​来​了​ <code>50%</code> 的​动​态​链​接​性​能​提​升​，具体参见<a href="https://blogs.oracle.com/solaris/gnu-hash-elf-sections-v2" target="_blank" rel="noopener">https://blogs.oracle.com/solaris/gnu-hash-elf-sections-v2</a>。</p>
+<p><code>.gnu.hash</code> 段​，提​供了​与 <code>hash</code> 段​相​同​的​功​能​；但​是与 <code>hash</code> 相比，增加了某些限制（附加规则），​导致了不兼容，带​来​了​ <code>50%</code> 的​动​态​链​接​性​能​提​升​，具体参见 <a href="https://blogs.oracle.com/solaris/gnu-hash-elf-sections-v2" target="_blank" rel="noopener">https://blogs.oracle.com/solaris/gnu-hash-elf-sections-v2</a>。</p>
 </blockquote>
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>结合实验结果，我先翻译一下问题中的那一行错误日志：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">动态库加载失败，libxxx.so 中 DT_HASH 为空或者丢失，是不是用了 <span class="attribute">--hash-style</span>=gnu 编译?</span><br></pre></td></tr></table></figure></p>
 <p>结合上表，若 <code>--hash-style=gnu</code>，那么 <code>Section Name</code> 就是 <code>.gnu.hash</code> 了，当然找不到<code>.hash</code> 了。</p>
-<p>再查阅一下 <code>Makefile</code> 配置，发现并没有相关配置，怀疑是编译器的默认配置：<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -dumpspecs | grep <span class="string">"hash"</span></span><br><span class="line">... --hash-style=gnu ...</span><br><span class="line">``` </span><br><span class="line">&gt; `-dumpspecs` 参数可以打印编译器的内置规范。</span><br><span class="line"></span><br><span class="line">果不其然，默认的 `--hash-style` 配置为了 `gnu`。</span><br><span class="line"></span><br><span class="line">## 结论</span><br><span class="line">输出的动态库的 `--hash-style` 为 `gnu`，而目标系统并不能正确读取 `--hash-style` 为 `gnu` 的动态库，导致了如上的错误。</span><br><span class="line"></span><br><span class="line">## 解决方案</span><br><span class="line">配置 `--hash-style` 为 `both`：</span><br></pre></td></tr></table></figure></p>
+<p>再查阅一下 <code>Makefile</code> 配置，发现并没有相关配置，怀疑是编译器的默认配置：</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -dumpspecs | grep <span class="string">"hash"</span></span><br><span class="line">... --hash-style=gnu ...</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">&gt; `-dumpspecs` 参数可以打印编译器的内置规范。</span><br><span class="line"></span><br><span class="line">果不其然，默认的 `--hash-style` 配置为了 `gnu`。</span><br><span class="line"></span><br><span class="line">## 结论</span><br><span class="line">输出的动态库的 `--hash-style` 为 `gnu`，而目标系统并不能正确读取 `--hash-style` 为 `gnu` 的动态库，导致了如上的错误。</span><br><span class="line"></span><br><span class="line">## 解决方案</span><br><span class="line">配置 `--hash-style` 为 `both`：</span><br></pre></td></tr></table></figure>
 <p>LDFLAGS += -Wl,–hash-style=both<br><code>`</code></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://stackoverflow.com/questions/11741816/only-one-hash-style-in-embedded-linux-why" target="_blank" rel="noopener">Only one –hash-style in embedded Linux. Why?</a></li>
