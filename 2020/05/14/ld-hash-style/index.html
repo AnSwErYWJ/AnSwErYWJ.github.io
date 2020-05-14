@@ -96,7 +96,7 @@
 <meta property="og:description" content="本文记录了解决 --hash-style 兼容性问题的过程。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
-<meta property="og:updated_time" content="2020-05-14T12:21:22.255Z">
+<meta property="og:updated_time" content="2020-05-14T12:26:08.218Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="--hash-style兼容性问题">
 <meta name="twitter:description" content="本文记录了解决 --hash-style 兼容性问题的过程。">
@@ -451,8 +451,13 @@
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>结合实验结果，我先翻译一下问题中的那一行错误日志：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">动态库加载失败，libxxx.so 中 DT_HASH 为空或者丢失，是不是用了 <span class="attribute">--hash-style</span>=gnu 编译?</span><br></pre></td></tr></table></figure></p>
 <p>结合上表，若 <code>--hash-style=gnu</code>，那么 <code>Section Name</code> 就是 <code>.gnu.hash</code> 了，当然找不到<code>.hash</code> 了。</p>
 <p>再查阅一下 <code>Makefile</code> 配置，发现并没有相关配置，怀疑是编译器的默认配置：</p>
-<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -dumpspecs | grep <span class="string">"hash"</span></span><br><span class="line">... --hash-style=gnu ...</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">&gt; `-dumpspecs` 参数可以打印编译器的内置规范。</span><br><span class="line"></span><br><span class="line">果不其然，默认的 `--hash-style` 配置为了 `gnu`。</span><br><span class="line"></span><br><span class="line">## 结论</span><br><span class="line">输出的动态库的 `--hash-style` 为 `gnu`，而目标系统并不能正确读取 `--hash-style` 为 `gnu` 的动态库，导致了如上的错误。</span><br><span class="line"></span><br><span class="line">## 解决方案</span><br><span class="line">配置 `--hash-style` 为 `both`：</span><br></pre></td></tr></table></figure>
-<p>LDFLAGS += -Wl,–hash-style=both<br><code>`</code></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -dumpspecs | grep <span class="string">"hash"</span></span><br><span class="line"><span class="built_in">..</span>. <span class="attribute">--hash-style</span>=gnu <span class="built_in">..</span>.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>-dumpspecs</code> 参数可以打印编译器的内置规范。</p>
+</blockquote>
+<p>果不其然，默认的 <code>--hash-style</code> 配置为了 <code>gnu</code>。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>输出的动态库的 <code>--hash-style</code> 为 <code>gnu</code>，而目标系统并不能正确读取 <code>--hash-style</code> 为 <code>gnu</code> 的动态库，导致了如上的错误。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>配置 <code>--hash-style</code> 为 <code>both</code>：<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LDFLAGS += -Wl,--hash-style=both</span><br></pre></td></tr></table></figure></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://stackoverflow.com/questions/11741816/only-one-hash-style-in-embedded-linux-why" target="_blank" rel="noopener">Only one –hash-style in embedded Linux. Why?</a></li>
 <li><a href="https://sites.google.com/site/avinesh/binaryincompatibilitybetweenrhel4andrhel" target="_blank" rel="noopener">Binaries built on RHEL5 or FC6 do not work on RHEL4 or FC5!</a></li>
@@ -780,7 +785,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#名词解释"><span class="nav-number">2.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验"><span class="nav-number">3.</span> <span class="nav-text">实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">4.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#名词解释"><span class="nav-number">2.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验"><span class="nav-number">3.</span> <span class="nav-text">实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">4.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">5.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">6.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
