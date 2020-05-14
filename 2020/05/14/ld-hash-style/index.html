@@ -96,7 +96,7 @@
 <meta property="og:description" content="本文记录了解决 --hash-style 兼容性问题的过程。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
-<meta property="og:updated_time" content="2020-05-14T11:58:51.553Z">
+<meta property="og:updated_time" content="2020-05-14T12:00:45.034Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="--hash-style兼容性问题">
 <meta name="twitter:description" content="本文记录了解决 --hash-style 兼容性问题的过程。">
@@ -442,7 +442,7 @@
 </li>
 </ul>
 <blockquote>
-<p><code>-Wl</code> 用于编译器向链接器传递参数。</p>
+<p><code>-Wl</code> 用于编译器向链接器传递参数。  </p>
 </blockquote>
 <p>如上，发现使用不同的配置，<code>Sections Name</code> 不同：<br>|  style   | Section Name  |<br>|  —-  | —-  |<br>| sysv  | .hash |<br>| gnu  | .gnu.hash |<br>| both  | .gnu.hash、.hash |</p>
 <blockquote>
