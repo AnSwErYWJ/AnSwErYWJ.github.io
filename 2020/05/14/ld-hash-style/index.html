@@ -96,7 +96,7 @@
 <meta property="og:description" content="本文记录了解决 --hash-style 兼容性问题的过程。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
-<meta property="og:updated_time" content="2020-05-14T12:27:01.634Z">
+<meta property="og:updated_time" content="2020-05-14T12:28:15.134Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="--hash-style兼容性问题">
 <meta name="twitter:description" content="本文记录了解决 --hash-style 兼容性问题的过程。">
@@ -451,7 +451,7 @@
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>结合实验结果，我先翻译一下问题中的那一行错误日志：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">动态库加载失败，libxxx.so 中 DT_HASH 为空或者丢失，是不是用了 <span class="attribute">--hash-style</span>=gnu 编译?</span><br></pre></td></tr></table></figure></p>
 <p>结合上表，若 <code>--hash-style=gnu</code>，那么 <code>Section Name</code> 就是 <code>.gnu.hash</code> 了，当然找不到<code>.hash</code> 了。</p>
 <p>再查阅一下 <code>Makefile</code> 配置，发现并没有相关配置，怀疑是编译器的默认配置：</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">111</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -dumpspecs | grep <span class="string">"hash"</span></span><br><span class="line"><span class="built_in">..</span>. <span class="attribute">--hash-style</span>=gnu <span class="built_in">..</span>.</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><code>-dumpspecs</code> 参数可以打印编译器的内置规范。</p>
 </blockquote>
