@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="getw,">
+  <meta name="keywords" content="gcc,ld,hash-style,">
 
 
 
@@ -87,20 +87,19 @@
 
 
 
-<meta name="description" content="本文将介绍在文本流中,读写整数的两个接口– int getw(FILE *fp)和int putw(int w, FILE *fp),并且与你分享改进后的更实用的接口– unsigned int get_uint(FILE *fp)和unsigned int put_uint(unsigned int i,FILE *fp).">
-<meta name="keywords" content="getw">
+<meta name="description" content="本文记录了解决 --hash-style 兼容性问题的过程。">
+<meta name="keywords" content="gcc,ld,hash-style">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从文件流中读写整数--C语言">
-<meta property="og:url" content="http://answerywj.com/2016/12/06/getw-and-putw/index.html">
+<meta property="og:title" content="--hash-style兼容性问题">
+<meta property="og:url" content="http://answerywj.com/2020/05/14/ld-hash-style/index.html">
 <meta property="og:site_name" content="AnSwEr&#39;s Blog">
-<meta property="og:description" content="本文将介绍在文本流中,读写整数的两个接口– int getw(FILE *fp)和int putw(int w, FILE *fp),并且与你分享改进后的更实用的接口– unsigned int get_uint(FILE *fp)和unsigned int put_uint(unsigned int i,FILE *fp).">
+<meta property="og:description" content="本文记录了解决 --hash-style 兼容性问题的过程。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
-<meta property="og:image" content="https://i.creativecommons.org/l/by-sa/4.0/88x31.png">
-<meta property="og:updated_time" content="2019-07-24T03:26:59.895Z">
+<meta property="og:updated_time" content="2020-05-14T11:35:38.855Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从文件流中读写整数--C语言">
-<meta name="twitter:description" content="本文将介绍在文本流中,读写整数的两个接口– int getw(FILE *fp)和int putw(int w, FILE *fp),并且与你分享改进后的更实用的接口– unsigned int get_uint(FILE *fp)和unsigned int put_uint(unsigned int i,FILE *fp).">
+<meta name="twitter:title" content="--hash-style兼容性问题">
+<meta name="twitter:description" content="本文记录了解决 --hash-style 兼容性问题的过程。">
 <meta name="twitter:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
 
 
@@ -131,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://answerywj.com/2016/12/06/getw-and-putw/">
+  <link rel="canonical" href="http://answerywj.com/2020/05/14/ld-hash-style/">
 
 
 
 
 
-  <title>从文件流中读写整数--C语言 | AnSwEr's Blog</title>
+  <title>--hash-style兼容性问题 | AnSwEr's Blog</title>
   
 
 
@@ -306,7 +305,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://answerywj.com/2016/12/06/getw-and-putw/">
+    <link itemprop="mainEntityOfPage" href="http://answerywj.com/2020/05/14/ld-hash-style/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="AnSwEr(Weijie Yuan)">
@@ -323,7 +322,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">从文件流中读写整数--C语言</h2>
+          <h2 class="post-title" itemprop="name headline">--hash-style兼容性问题</h2>
         
 
         <div class="post-meta">
@@ -335,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-06T14:16:51+08:00">
-                2016-12-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-14T15:54:25+08:00">
+                2020-05-14
               </time>
             
 
@@ -358,8 +357,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
+                  <a href="/categories/编译原理/" itemprop="url" rel="index">
+                    <span itemprop="name">编译原理</span>
                   </a>
                 </span>
 
@@ -376,8 +375,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/12/06/getw-and-putw/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2016/12/06/getw-and-putw/" itemprop="commentsCount"></span>
+                <a href="/2020/05/14/ld-hash-style/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/05/14/ld-hash-style/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -385,7 +384,7 @@
 
           
           
-             <span id="/2016/12/06/getw-and-putw/" class="leancloud_visitors" data-flag-title="从文件流中读写整数--C语言">
+             <span id="/2020/05/14/ld-hash-style/" class="leancloud_visitors" data-flag-title="--hash-style兼容性问题">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -416,36 +415,57 @@
       
 
       
-        <p>本文将介绍在文本流中,读写整数的两个接口– <code>int getw(FILE *fp)</code>和<code>int putw(int w, FILE *fp)</code>,并且与你分享改进后的更实用的接口– <code>unsigned int get_uint(FILE *fp)</code>和<code>unsigned int put_uint(unsigned int i,FILE *fp)</code>.</p>
+        <p>本文记录了解决 <code>--hash-style</code> 兼容性问题的过程。</p>
 <hr>
 <a id="more"></a>
-<h2 id="从文件流中读写整数–C语言"><a href="#从文件流中读写整数–C语言" class="headerlink" title="从文件流中读写整数–C语言"></a>从文件流中读写整数–C语言</h2><p>我们都知道,数据在计算机内存中都是以二进制的形式存储的,大多数PC的存储方式为小端存储,关于大小端字节序的讨论请参考<a href="http://www.ruanyifeng.com/blog/2016/11/byte-order.html" target="_blank" rel="noopener">阮一峰的理解字节序</a>. 如果想直接读写整数,并不是很方便,这里就为你介绍两个接口,需要注意的是这两个接口非ANSI标准函数.</p>
-<h3 id="getw"><a href="#getw" class="headerlink" title="getw"></a>getw</h3><p>函数原型：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getw</span><span class="params">(FILE *fp)</span></span>;</span><br></pre></td></tr></table></figure></p>
-<p>函数功能：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">从<span class="built_in">fp</span>所指向文件读取下一个整数.</span><br></pre></td></tr></table></figure></p>
-<p>返回值：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">返回输入的整数,如果文件结束或者出错返回-<span class="number">1</span>.</span><br></pre></td></tr></table></figure></p>
-<h3 id="putw"><a href="#putw" class="headerlink" title="putw"></a>putw</h3><p>函数原型：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">putw</span><span class="params">(<span class="keyword">int</span> w, FILE *fp)</span></span>;</span><br></pre></td></tr></table></figure></p>
-<p>函数功能：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将整型w写进<span class="built_in">fp</span>指向的文件.</span><br></pre></td></tr></table></figure></p>
-<p>返回值：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">返回输出的整数,如果出错,则返回EOF.</span><br></pre></td></tr></table></figure></p>
-<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>代码:<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;stdlib.h&gt;</span></span><br><span class="line"></span><br><span class="line">int main(int argc,char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">	FILE *<span class="built_in">fp</span> = NULL<span class="comment">;</span></span><br><span class="line">    int num[<span class="number">2</span>] = &#123;-<span class="number">2147483648</span>,<span class="number">2147483647</span>&#125;<span class="comment">;</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">fp</span> = fopen(<span class="string">"./log"</span>, <span class="string">"wb"</span>)<span class="comment">;</span></span><br><span class="line">    if (<span class="built_in">fp</span> == NULL)</span><br><span class="line">    &#123;</span><br><span class="line">        fprintf(stderr,<span class="string">"open file failed"</span>)<span class="comment">;</span></span><br><span class="line">        exit(EXIT_FAILURE)<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    putw(num[<span class="number">0</span>],<span class="built_in">fp</span>)<span class="comment">;</span></span><br><span class="line">    putw(num[<span class="number">1</span>],<span class="built_in">fp</span>)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    fclose(<span class="built_in">fp</span>)<span class="comment">;</span></span><br><span class="line">    <span class="built_in">fp</span> = NULL<span class="comment">;</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">fp</span> = fopen(<span class="string">"./log"</span>, <span class="string">"rb"</span>)<span class="comment">;</span></span><br><span class="line">    if (<span class="built_in">fp</span> == NULL)</span><br><span class="line">    &#123;</span><br><span class="line">        fprintf(stderr,<span class="string">"open file failed"</span>)<span class="comment">;</span></span><br><span class="line">        exit(EXIT_FAILURE)<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    printf(<span class="string">"%d %d\n"</span>,getw(<span class="built_in">fp</span>),getw(<span class="built_in">fp</span>))<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    fclose(<span class="built_in">fp</span>)<span class="comment">;</span></span><br><span class="line">	<span class="built_in">fp</span> = NULL<span class="comment">;</span></span><br><span class="line">	</span><br><span class="line">    return <span class="number">0</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>结果为:<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="number">2147483647</span> -<span class="number">2147483648</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dlopen failed: <span class="literal">empty</span>/missing DT_HASH <span class="keyword">in</span> <span class="string">"libxxx.so"</span> (built <span class="keyword">with</span> <span class="comment">--hash-style=gnu?)</span></span><br></pre></td></tr></table></figure>
+<p>最近，稳定性监控平台，被这一行错误日志霸榜，刚看到时也一脸懵逼，下面我们来逐步分析。</p>
+<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p>首先需要查阅一下相关文档，了解一下其中的<code>”新朋友”</code>。</p>
+<ul>
+<li><p><code>DT_HASH</code></p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`ELF` 中的一个 `Sections`，保存了一个用于查找符号的散列表，用于支持符号表的访问，能够提高符号搜索速度。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>--hash-style=style</code>(以下解释来自 <code>man ld</code>)</p>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set the <span class="keyword">type</span> <span class="keyword">of</span> linker<span class="symbol">'s</span> hash table(s). style can be either <span class="string">"sysv"</span> <span class="keyword">for</span> classic ELF <span class="string">".hash"</span> section, <span class="string">"gnu"</span> <span class="keyword">for</span> <span class="keyword">new</span> style GNU <span class="string">".gnu.hash"</span> section <span class="keyword">or</span> <span class="string">"both"</span> <span class="keyword">for</span> both the classic ELF <span class="string">".hash"</span> <span class="keyword">and</span> <span class="keyword">new</span> style GNU <span class="string">".gnu.hash"</span> hash tables. The <span class="keyword">default</span> <span class="keyword">is</span> <span class="string">"sysv"</span>.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>通过查阅 <code>--hash-style=style</code> 参数，发现 <code>style</code> 支持三种配置：<code>sysv</code>、<code>gnu</code>和<code>both</code>，废话不多说，先试一把。</p>
+<ul>
+<li><p><code>gcc -Wl,--hash-style=sysv</code></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -S libxxx.so  | grep <span class="string">"hash"</span></span><br><span class="line">[ <span class="number">4</span>] .hash             HASH             <span class="number">0000000000003120</span>  <span class="number">00003120</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>gcc -Wl,--hash-style=gnu</code></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -S libxxx.so  | grep <span class="string">"hash"</span></span><br><span class="line">[ <span class="number">4</span>] .gnu.hash         GNU_HASH         <span class="number">0000000000003120</span>  <span class="number">00003120</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>gcc -Wl,--hash-style=both</code></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -S libxxx.so  | grep <span class="string">"hash"</span></span><br><span class="line">  [ <span class="number">4</span>] .gnu.hash         GNU_HASH         <span class="number">0000000000003120</span>  <span class="number">00003120</span></span><br><span class="line">  [ <span class="number">5</span>] .hash             HASH             <span class="number">00000000000035</span>f8  <span class="number">000035</span>f8</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <blockquote>
-<p>注意: 函数参数的压栈顺序是从左到右的,所以最后一个参数<code>getw(fp)</code>在栈顶,第一个出栈执行.</p>
+<p><code>-Wl</code> 用于编译器向链接器传递参数。</p>
 </blockquote>
-<h3 id="实现与改进-完整代码"><a href="#实现与改进-完整代码" class="headerlink" title="实现与改进(完整代码)"></a>实现与改进(<a href="https://github.com/AnSwErYWJ/DogFood/blob/master/C/file/io2stream.c" target="_blank" rel="noopener">完整代码</a>)</h3><p>由于上述两个接口支持的是int型,所以取值范围为<code>-2147483648～2147483647</code>.(此文认为int型都为4个字节).笔者需要使用这两个接口去读写文件的大小,负数无用处的,所以决定改装一下这两个函数,顺便探究一下这个函数的实现:<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">unsigned int get_uint(FILE *<span class="built_in">fp</span>)</span><br><span class="line">&#123;</span><br><span class="line">    unsigned char *s<span class="comment">;</span></span><br><span class="line">    unsigned int i<span class="comment">;</span></span><br><span class="line">    s = (unsigned char *)&amp;i<span class="comment">;</span></span><br><span class="line">    s[<span class="number">0</span>]=getc(<span class="built_in">fp</span>)<span class="comment">;</span></span><br><span class="line">    printf(<span class="string">"%x\n"</span>,s[<span class="number">0</span>])<span class="comment">;</span></span><br><span class="line">    s[<span class="number">1</span>]=getc(<span class="built_in">fp</span>)<span class="comment">;</span></span><br><span class="line">    printf(<span class="string">"%x\n"</span>,s[<span class="number">1</span>])<span class="comment">;</span></span><br><span class="line">    s[<span class="number">2</span>]=getc(<span class="built_in">fp</span>)<span class="comment">;</span></span><br><span class="line">    printf(<span class="string">"%x\n"</span>,s[<span class="number">2</span>])<span class="comment">;</span></span><br><span class="line">    s[<span class="number">3</span>]=getc(<span class="built_in">fp</span>)<span class="comment">;</span></span><br><span class="line">    printf(<span class="string">"%x\n"</span>,s[<span class="number">3</span>])<span class="comment">;</span></span><br><span class="line">    return i<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">put_uint</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> i,FILE *fp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *s;</span><br><span class="line">    s=(<span class="keyword">unsigned</span> <span class="keyword">char</span> *)&amp;i;</span><br><span class="line">    putc(s[<span class="number">0</span>],fp);</span><br><span class="line">    <span class="comment">//printf("%x\n",s[0]);</span></span><br><span class="line">    putc(s[<span class="number">1</span>],fp);</span><br><span class="line">    <span class="comment">//printf("%x\n",s[1]);</span></span><br><span class="line">    putc(s[<span class="number">2</span>],fp);</span><br><span class="line">    <span class="comment">//printf("%x\n",s[2]);</span></span><br><span class="line">    putc(s[<span class="number">3</span>],fp);</span><br><span class="line">    <span class="comment">//printf("%x\n",s[3]);</span></span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上，发现使用不同的配置，<code>Sections Name</code> 不同：<br>|  –hash-style   | Section Name  |<br>|  —-  | —-  |<br>| sysv  | .hash |<br>| gnu  | .gnu.hash |<br>| both  | .gnu.hash、.hash |</p>
 <blockquote>
-<p>改进后取值范围为<code>0~4294967295</code>.</p>
+<p><code>.gnu.hash</code> 段​，提​供了​与 <code>hash</code> 段​相​同​的​功​能​；但​是与 <code>hash</code> 相比，增加了某些限制（附加规则），​导致了不兼容，带​来​了​ <code>50%</code> 的​动​态​链​接​性​能​提​升​，具体参见<a href="https://blogs.oracle.com/solaris/gnu-hash-elf-sections-v2" target="_blank" rel="noopener">https://blogs.oracle.com/solaris/gnu-hash-elf-sections-v2</a>。</p>
 </blockquote>
-<p>同理,你也可以将这两个接口改为支持 <code>long long</code>和<code>unsigned long int</code>等不同长度的整数类型.</p>
-<h2 id="About-me"><a href="#About-me" class="headerlink" title="About me"></a>About me</h2><p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>结合实验结果，我先翻译一下问题中的那一行错误日志：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">动态库加载失败，libxxx.so 中 DT_HASH 为空或者丢失，是不是用了 <span class="attribute">--hash-style</span>=gnu 编译?</span><br></pre></td></tr></table></figure></p>
+<p>结合上表，若 <code>--hash-style=gnu</code>，那么 <code>Section Name</code> 就是 <code>.gnu.hash</code> 了，当然找不到<code>.hash</code> 了。</p>
+<p>再查阅一下 <code>Makefile</code> 配置，发现并没有相关配置，怀疑是编译器的默认配置：<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -dumpspecs | grep <span class="string">"hash"</span></span><br><span class="line">... --hash-style=gnu ...</span><br><span class="line">``` </span><br><span class="line">&gt; `-dumpspecs` 参数可以打印编译器的内置规范。</span><br><span class="line"></span><br><span class="line">果不其然，默认的 `--hash-style` 配置为了 `gnu`。</span><br><span class="line"></span><br><span class="line">## 结论</span><br><span class="line">输出的动态库的 `--hash-style` 为 `gnu`，而目标系统并不能正确读取 `--hash-style` 为 `gnu` 的动态库，导致了如上的错误。</span><br><span class="line"></span><br><span class="line">## 解决方案</span><br><span class="line">配置 `--hash-style` 为 `both`：</span><br></pre></td></tr></table></figure></p>
+<p>LDFLAGS += -Wl,–hash-style=both<br><code>`</code></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://stackoverflow.com/questions/11741816/only-one-hash-style-in-embedded-linux-why" target="_blank" rel="noopener">Only one –hash-style in embedded Linux. Why?</a></li>
+<li><a href="https://sites.google.com/site/avinesh/binaryincompatibilitybetweenrhel4andrhel" target="_blank" rel="noopener">Binaries built on RHEL5 or FC6 do not work on RHEL4 or FC5!</a></li>
+<li><a href="https://stackoverflow.com/questions/28638809/android-ndk-unsatisfiedlinkerror-dlopen-failed-empty-missing-dt-hash" target="_blank" rel="noopener">Android NDK UnsatisfiedLinkError: “dlopen failed: empty/missing DT_HASH”</a></li>
+<li><a href="https://stackoverflow.com/questions/42068271/trouble-understanding-gcc-linker-options" target="_blank" rel="noopener">Trouble understanding gcc linker options</a></li>
+</ul>
+<hr>
+<p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
 <ul>
 <li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li>
 <li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li>
 <li>Email：<a href="https://mail.google.com" target="_blank" rel="noopener">yuanweijie1993@gmail.com</a></li>
 <li>Weibo：<a href="http://weibo.com/1783591593" target="_blank" rel="noopener">@AnSwEr不是答案</a></li>
-<li>CSDN：<a href="http://blog.csdn.net/u011192270" target="_blank" rel="noopener">AnSwEr不是答案的专栏</a></li>
 </ul>
-<p><a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a> This work is licensed under a <a rel="noopener" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br>本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</p>
 
       
     </div>
@@ -503,7 +523,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://answerywj.com/2016/12/06/getw-and-putw/" title="从文件流中读写整数--C语言">http://answerywj.com/2016/12/06/getw-and-putw/</a>
+    <a href="http://answerywj.com/2020/05/14/ld-hash-style/" title="--hash-style兼容性问题">http://answerywj.com/2020/05/14/ld-hash-style/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -518,7 +538,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/getw/" rel="tag"># getw</a>
+            <a href="/tags/gcc/" rel="tag"># gcc</a>
+          
+            <a href="/tags/ld/" rel="tag"># ld</a>
+          
+            <a href="/tags/hash-style/" rel="tag"># hash-style</a>
           
         </div>
       
@@ -531,8 +555,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/10/jq/" rel="next" title="Linux下处理json数据">
-                <i class="fa fa-chevron-left"></i> Linux下处理json数据
+              <a href="/2020/02/17/homebrew-in-mac/" rel="next" title="Homebrew">
+                <i class="fa fa-chevron-left"></i> Homebrew
               </a>
             
           </div>
@@ -540,10 +564,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/07/big-little-endian/" rel="prev" title="C程序判断你主机的数据存储方式(大端和小端)">
-                C程序判断你主机的数据存储方式(大端和小端) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -759,7 +779,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#从文件流中读写整数–C语言"><span class="nav-number">1.</span> <span class="nav-text">从文件流中读写整数–C语言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getw"><span class="nav-number">1.1.</span> <span class="nav-text">getw</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#putw"><span class="nav-number">1.2.</span> <span class="nav-text">putw</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用"><span class="nav-number">1.3.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现与改进-完整代码"><span class="nav-number">1.4.</span> <span class="nav-text">实现与改进(完整代码)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#About-me"><span class="nav-number">2.</span> <span class="nav-text">About me</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#名词解释"><span class="nav-number">2.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验"><span class="nav-number">3.</span> <span class="nav-text">实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">4.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -953,7 +973,7 @@
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitmint({
-            id: '1481005011000', 
+            id: '1589442865000', 
             owner: 'AnSwErYWJ',
             repo: 'AnSwErYWJ.github.io',
             
