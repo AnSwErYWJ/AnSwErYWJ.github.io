@@ -7,7 +7,7 @@ tags:
   - tcp
   - listen
 date: 2017-02-23 17:14:17
-categories: UNIX网络编程
+categories: C/C++
 ---
 本文将介绍UNIX网络编程中`listen`函数及其包裹函数。
 

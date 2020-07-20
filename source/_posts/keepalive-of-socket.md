@@ -7,7 +7,7 @@ tags:
   - tcp
   - keepalive
 date: 2016-07-14 14:23:47
-categories: UNIX网络编程
+categories: C/C++
 ---
 
 **心跳机制**用于保持客户端和服务端的连接.

@@ -6,7 +6,7 @@ toc: true
 tags:
   - wav
 date: 2019-06-03 15:06:22
-categories: 语音知识
+categories: 语音
 ---
 
 本文将解析`wav`音频文件格式，并实现一套用于读写`wav`文件的`API`。

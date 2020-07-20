@@ -4,7 +4,7 @@ Antuor: AnSwEr(Weijie Yuan)
 comments: true
 toc: true
 date: 2017-06-27 16:30:40
-categories: Linux
+categories: 科普
 tags: IO
 ---
 

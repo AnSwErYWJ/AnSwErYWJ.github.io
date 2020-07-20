@@ -3,7 +3,7 @@ title: 笔记 | OpenResty系列课程
 Antuor: AnSwEr(Weijie Yuan)
 toc: true
 date: 2017-06-20 17:30:40
-categories: OpenResty
+categories: Lua
 tags: OpenResty
 ---
 

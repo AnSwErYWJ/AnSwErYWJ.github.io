@@ -7,7 +7,7 @@ tags:
   - mac
   - Homebrew
 date: 2020-02-17 20:42:48
-categories: Mac
+categories: 系统配置
 ---
 
 本文将介绍`Homebrew`的安装与使用。

@@ -5,7 +5,7 @@ comments: true
 toc: true
 tags: Speex
 date: 2017-12-29 15:49:34
-categories: 语音知识
+categories: 语音
 ---
 
 本文将对*Speex*相关的概念进行介绍

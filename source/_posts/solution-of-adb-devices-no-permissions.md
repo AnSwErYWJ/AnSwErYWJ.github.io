@@ -6,7 +6,7 @@ toc: true
 tags:
   - adb
 date: 2016-07-14 14:11:03
-categories: Linux
+categories: 系统配置
 ---
 
 Linux下adb工具[下载](http://pan.baidu.com/s/1qYhBG2w)，下载解压到*/usr/bin*目录。

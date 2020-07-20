@@ -3,7 +3,7 @@ title: Github徽章整理
 Antuor: AnSwEr(Weijie Yuan)
 toc: true
 date: 2016-07-08 14:52:40
-categories: 博客建站
+categories: Git
 tags: github徽章
 ---
 

@@ -6,7 +6,7 @@ toc: true
 tags:
   - cJSON
 date: 2018-05-03 16:58:02
-categories: 源码阅读笔记
+categories: C/C++
 ---
 
 学习使用cJSON过程的一些发现和总结，不涉及具体的函数

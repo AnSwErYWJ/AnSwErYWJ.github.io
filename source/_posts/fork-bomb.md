@@ -6,7 +6,7 @@ toc: true
 tags:
   - fork bomb
 date: 2016-07-14 13:52:31
-categories: Shell Script
+categories: Shell脚本
 ---
 
 **:(){ :|: & };:**是一个bash函数，以Fork Bomb闻名，是一个拒绝服务攻击 的Linux 系统。如果你好奇地去执行了这个命令，那么赶快重启系统吧~！

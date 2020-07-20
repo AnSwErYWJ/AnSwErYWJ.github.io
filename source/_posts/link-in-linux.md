@@ -6,7 +6,7 @@ toc: true
 tags:
   - link
 date: 2016-08-02 11:46:09
-categories: Linux
+categories: 编译链接
 ---
 
 Linux下链接的命令是*ln*,可以通过``man ln``查看.

@@ -8,7 +8,7 @@ tags:
   - ld
   - hash-style
 date: 2020-05-14 15:54:25
-categories: 编译原理
+categories: 编译链接
 ---
 
 本文记录了解决 `--hash-style` 兼容性问题的过程。
