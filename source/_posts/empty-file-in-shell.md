@@ -6,7 +6,7 @@ toc: true
 tags:
   - script
 date: 2016-09-05 11:35:14
-categories: Shell Script
+categories: Shell脚本
 ---
 
 本文将介绍几种在Linux下清空文件的方法。

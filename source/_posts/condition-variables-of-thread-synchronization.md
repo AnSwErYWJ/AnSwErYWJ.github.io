@@ -3,7 +3,7 @@ title: 线程同步机制条件变量的使用与思考
 Antuor: AnSwEr(Weijie Yuan)
 toc: true
 date: 2017-12-15 22:23:08
-categories: UNIX系统编程
+categories: C/C++
 tags: pthread
 ---
 条件变量是*Linux*线程同步的一种机制，与互斥量一起使用时，允许线程以无竞争的方式等待特定条件的发生

@@ -7,7 +7,7 @@ tags:
   - ld
   - sysroot
 date: 2019-04-26 17:59:57
-categories: 编译原理
+categories: 编译链接
 ---
 
 本文介绍链接过程中`sysroot`的作用。

@@ -3,7 +3,7 @@ title: Linux下处理json数据
 Antuor: AnSwEr(Weijie Yuan)
 toc: true
 date: 2016-10-10 10:50:40
-categories: Linux
+categories: 系统配置
 tags: json
 ---
 

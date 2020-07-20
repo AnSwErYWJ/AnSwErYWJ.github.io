@@ -3,7 +3,7 @@ title: Linux下C调用静态库和动态库
 Antuor: AnSwEr(Weijie Yuan)
 toc: true
 date: 2016-10-10 10:50:40
-categories: 编译原理
+categories: 编译链接
 tags: lib
 ---
 
