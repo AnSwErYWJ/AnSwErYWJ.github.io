@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title><![CDATA[撸源码之互斥锁]]></title>
+      <title><![CDATA[源码笔记之互斥锁]]></title>
       <url>http://answerywj.com/2020/07/17/pthread-mutex/</url>
       <content type="html"><![CDATA[<p>本文依托源码，分析 <code>Linux</code> 下互斥锁的实现，包含函数<code>pthread_mutex_init</code>、<code>pthread_mutex_destroy</code>、<code>pthread_mutex_lock</code>、<code>pthread_mutex_trylock</code> 和 <code>pthread_mutex_unlock</code>等。</p>
 <hr>
@@ -59,7 +59,7 @@
             
             <tag> POSIX Thread </tag>
             
-            <tag> 撸源码 </tag>
+            <tag> 源码笔记 </tag>
             
         </tags>
         
