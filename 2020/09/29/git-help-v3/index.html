@@ -97,7 +97,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://answerywj.com/2020/09/29/git-help-v3/git-work-flow.jpg">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
-<meta property="og:updated_time" content="2020-09-29T11:35:07.128Z">
+<meta property="og:updated_time" content="2020-09-30T02:30:59.694Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git速查手册（第三版）">
 <meta name="twitter:description" content="本文是对Git速查手册（第二版）的更新，补充了一些近期使用或者收集的一些命令。">
@@ -447,7 +447,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ssh-keygen -t rsa -C <span class="string">"your_email@youremail.com"</span> -f <span class="string">"git1_id_rsa"</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ssh-keygen -t rsa -C <span class="string">"your_email@youremail.com"</span> -f <span class="string">"git2_id_rsa</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建配置文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vi ~/.ssh/config</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> git1</span></span><br><span class="line">Host git1.com</span><br><span class="line">HostName git1.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/git1_id_rsa</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> git2</span></span><br><span class="line">Host git2.com</span><br><span class="line">HostName git2.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/git2_id_rsa</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>配置完成后，再次检查ssh连接情况：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">Hi! You’ve successfully authenticated, <span class="keyword">but</span> GitHub <span class="keyword">does</span> <span class="keyword">not</span> provide shell access.</span><br></pre></td></tr></table></figure></p>
+<p>配置完成后，再次检查ssh连接情况；若不生效，则重启后再尝试：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">Hi! You’ve successfully authenticated, <span class="keyword">but</span> GitHub <span class="keyword">does</span> <span class="keyword">not</span> provide shell access.</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>若出现上述信息，则表示设置成功。</p>
 </blockquote>
