@@ -4,7 +4,7 @@
   <url>
     <loc>http://answerywj.com/2020/09/29/git-help-v3/</loc>
     
-    <lastmod>2020-09-30T02:44:20.851Z</lastmod>
+    <lastmod>2020-09-30T02:46:51.051Z</lastmod>
     
   </url>
   
@@ -16,14 +16,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/04/26/what-is-sysroot/</loc>
+    <loc>http://answerywj.com/2019/06/03/wav/</loc>
     
     <lastmod>2020-07-21T01:40:07.281Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/06/03/wav/</loc>
+    <loc>http://answerywj.com/2019/04/26/what-is-sysroot/</loc>
     
     <lastmod>2020-07-21T01:40:07.281Z</lastmod>
     
@@ -33,6 +33,13 @@
     <loc>http://answerywj.com/2016/10/10/use-dynamic-and-static-library/</loc>
     
     <lastmod>2020-07-21T01:40:07.277Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.213Z</lastmod>
     
   </url>
   
@@ -51,7 +58,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
+    <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
     
     <lastmod>2020-07-21T01:40:07.213Z</lastmod>
     
@@ -66,13 +73,6 @@
   
   <url>
     <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.213Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
     
     <lastmod>2020-07-21T01:40:07.213Z</lastmod>
     
@@ -114,13 +114,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/06/27/io-model/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.161Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
     
     <lastmod>2020-07-21T01:40:07.161Z</lastmod>
@@ -128,23 +121,9 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
+    <loc>http://answerywj.com/2017/06/27/io-model/</loc>
     
-    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/08/04/gcc-compilation-of-arm-articles/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    <lastmod>2020-07-21T01:40:07.161Z</lastmod>
     
   </url>
   
@@ -163,7 +142,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
+    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
     
     <lastmod>2020-07-21T01:40:07.137Z</lastmod>
     
@@ -171,6 +157,20 @@
   
   <url>
     <loc>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2017/08/04/gcc-compilation-of-arm-articles/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
     
     <lastmod>2020-07-21T01:40:07.137Z</lastmod>
     
