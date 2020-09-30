@@ -97,7 +97,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://answerywj.com/2020/09/29/git-help-v3/git-work-flow.jpg">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
-<meta property="og:updated_time" content="2020-09-30T02:46:51.051Z">
+<meta property="og:updated_time" content="2020-09-30T02:49:42.276Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git速查手册（第三版）">
 <meta name="twitter:description" content="本文是对Git速查手册（第二版）的更新，补充了一些近期使用或者收集的一些命令。">
@@ -526,9 +526,9 @@
 <li>n：查看将会删除的文件，防止误删；</li>
 <li>f：<code>Untracked</code>的文件；</li>
 <li>d：<code>Untracked</code>的目录；</li>
-<li>x：包含<code>gitignore</code>的<code>Untracked</code>文件和目录一并删掉，慎用！；  <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git clean -nfd</span></span><br></pre></td></tr></table></figure>
-</li>
+<li>x：包含<code>gitignore</code>的<code>Untracked</code>文件和目录一并删掉，慎用！；  </li>
 </ul>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">git clean -nfd</span></span><br></pre></td></tr></table></figure>
 <p>回退版本区(<code>git commit</code>)和暂存区(<code>git add</code>)，不删除工作空间代码：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="keyword">reset</span> <span class="comment">--mixed HEAD^ # --mixed为默认参数</span></span><br><span class="line">$ git <span class="keyword">reset</span> <span class="keyword">HEAD</span>^</span><br></pre></td></tr></table></figure></p>
 <p>回退版本区(<code>git commit</code>)，暂存区(<code>git add</code>)不回退，不删除工作空间代码：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="keyword">reset</span> <span class="comment">--soft HEAD^</span></span><br></pre></td></tr></table></figure></p>
 <p>回退版本区(<code>git commit</code>)和暂存区(<code>git add</code>)，并删除工作空间代码(不包括<code>Untracked files</code>)，执行后直接恢复到指定<code>&lt;commit-id&gt;</code>状态：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="keyword">reset</span> <span class="comment">--hard &lt;commit-id&gt;</span></span><br></pre></td></tr></table></figure></p>
