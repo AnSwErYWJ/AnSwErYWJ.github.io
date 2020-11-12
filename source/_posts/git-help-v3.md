@@ -53,6 +53,35 @@ $ git config --global credential.helper store
 $ git config --global credential.helper 'cache --timeout=3600'
 ```
 
+根据目录配置用户信息，需要使用`v2.13.0`及以上版本：
+- 首先修改用户目录下的 `.gitconfig`，通过 `includeIf` 配置不同目录的配置文件：
+```diff
+- [user]
+- 	name = weijie.yuan
+- 	email = weijie.yuan@gitlab.com
+
++ [includeIf "gitdir:~/github/"]
++     path = .gitconfig-github
++ [includeIf "gitdir:~/gitlab/"]
++     path = .gitconfig-gitlab
+```
+
+- 根据配置的 `path`，创建 `.gitconfig-github` 文件和 `.gitconfig-gitlab` 文件：
+```
+[user]
+	name = weijie.yuan
+	email = weijie.yuan@github.com
+```
+```
+[user]
+	name = weijie.yuan
+	email = weijie.yuan@gitlab.com
+```
+`includeIf` 配置有如下规则：
+- 家目录下的 `.gitconfig` ，`includeIf` 后面的 `path` 最后需要 `/` 结尾；
+- 家目录下的 `.gitconfig` ，原有的 `user` 部分需要删除；
+- 家目录下的 `.gitconfig` ，`includeIf`中配置的各个目录，不能是包含关系；
+
 ### 克隆协议
 一般`Git`服务默认都支持`SSH`和`HTTPS`，`SSH`支持的原生`Git`协议速度最快，`HTTPS`除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令。
 
