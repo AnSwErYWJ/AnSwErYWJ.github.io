@@ -4,7 +4,7 @@
   <url>
     <loc>http://answerywj.com/2020/09/29/git-help-v3/</loc>
     
-    <lastmod>2020-11-12T03:38:23.934Z</lastmod>
+    <lastmod>2020-11-12T03:47:06.174Z</lastmod>
     
   </url>
   
@@ -16,14 +16,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/06/03/wav/</loc>
+    <loc>http://answerywj.com/2019/04/26/what-is-sysroot/</loc>
     
     <lastmod>2020-07-21T01:40:07.281Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/04/26/what-is-sysroot/</loc>
+    <loc>http://answerywj.com/2019/06/03/wav/</loc>
     
     <lastmod>2020-07-21T01:40:07.281Z</lastmod>
     
@@ -37,6 +37,13 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.213Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
     
     <lastmod>2020-07-21T01:40:07.213Z</lastmod>
@@ -44,7 +51,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
+    <loc>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</loc>
     
     <lastmod>2020-07-21T01:40:07.213Z</lastmod>
     
@@ -72,9 +79,9 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/solution-of-adb-devices-no-permissions/</loc>
+    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
     
-    <lastmod>2020-07-21T01:40:07.213Z</lastmod>
+    <lastmod>2020-07-21T01:40:07.197Z</lastmod>
     
   </url>
   
@@ -86,21 +93,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/08/02/link-in-linux/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.197Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2020/02/17/homebrew-in-mac/</loc>
+    <loc>http://answerywj.com/2019/04/13/hide-symbol-of-static-library/</loc>
     
     <lastmod>2020-07-21T01:40:07.161Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/04/13/hide-symbol-of-static-library/</loc>
+    <loc>http://answerywj.com/2020/02/17/homebrew-in-mac/</loc>
     
     <lastmod>2020-07-21T01:40:07.161Z</lastmod>
     
@@ -128,34 +128,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/fork-bomb/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</loc>
     
     <lastmod>2020-07-21T01:40:07.137Z</lastmod>
@@ -170,7 +142,35 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/fork-bomb/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
     
     <lastmod>2020-07-21T01:40:07.137Z</lastmod>
     

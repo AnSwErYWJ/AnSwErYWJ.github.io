@@ -97,7 +97,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://answerywj.com/2020/09/29/git-help-v3/git-work-flow.jpg">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
-<meta property="og:updated_time" content="2020-11-12T03:38:23.934Z">
+<meta property="og:updated_time" content="2020-11-12T03:47:06.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git速查手册（第三版）">
 <meta name="twitter:description" content="本文是对Git速查手册（第二版）的更新，补充了一些近期使用或者收集的一些命令。">
@@ -441,11 +441,10 @@
 <li><p>首先修改用户目录下的 <code>.gitconfig</code>，通过 <code>includeIf</code> 配置不同目录的配置文件：</p>
 <figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- [user]</span></span><br><span class="line"><span class="deletion">- 	name = weijie.yuan</span></span><br><span class="line"><span class="deletion">- 	email = weijie.yuan@gitlab.com</span></span><br><span class="line"></span><br><span class="line"><span class="addition">+ [includeIf "gitdir:~/github/"]</span></span><br><span class="line"><span class="addition">+     path = .gitconfig-github</span></span><br><span class="line"><span class="addition">+ [includeIf "gitdir:~/gitlab/"]</span></span><br><span class="line"><span class="addition">+     path = .gitconfig-gitlab</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>根据配置的 <code>path</code>，创建 <code>.gitconfig-github</code> 文件和 <code>.gitconfig-gitlab</code> 文件：</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">	<span class="attr">name</span> = weijie.yuan</span><br><span class="line">	<span class="attr">email</span> = weijie.yuan@github.com</span><br></pre></td></tr></table></figure>
+<li><p>根据配置的 <code>path</code>，分别创建 <code>.gitconfig-github</code> 文件和 <code>.gitconfig-gitlab</code> 文件：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ vi .gitconfig-github</span><br><span class="line">[user]</span><br><span class="line">	name = weijie.yuan</span><br><span class="line">	email = weijie.yuan@github.com</span><br><span class="line"></span><br><span class="line">$ vi .gitconfig-gitlab</span><br><span class="line">[user]</span><br><span class="line">	name = weijie.yuan</span><br><span class="line">	email = weijie.yuan@gitlab.com</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">	<span class="attr">name</span> = weijie.yuan</span><br><span class="line">	<span class="attr">email</span> = weijie.yuan@gitlab.com</span><br></pre></td></tr></table></figure>
 <p><code>includeIf</code> 配置有如下规则：</p>
 <ul>
 <li>家目录下的 <code>.gitconfig</code> ，<code>includeIf</code> 后面的 <code>path</code> 最后需要 <code>/</code> 结尾；</li>
