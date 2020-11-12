@@ -66,13 +66,14 @@ $ git config --global credential.helper 'cache --timeout=3600'
 +     path = .gitconfig-gitlab
 ```
 
-- 根据配置的 `path`，创建 `.gitconfig-github` 文件和 `.gitconfig-gitlab` 文件：
+- 根据配置的 `path`，分别创建 `.gitconfig-github` 文件和 `.gitconfig-gitlab` 文件：
 ```
+$ vi .gitconfig-github
 [user]
 	name = weijie.yuan
 	email = weijie.yuan@github.com
-```
-```
+
+$ vi .gitconfig-gitlab
 [user]
 	name = weijie.yuan
 	email = weijie.yuan@gitlab.com
