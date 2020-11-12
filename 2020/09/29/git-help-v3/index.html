@@ -97,7 +97,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://answerywj.com/2020/09/29/git-help-v3/git-work-flow.jpg">
 <meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
-<meta property="og:updated_time" content="2020-09-30T02:49:42.276Z">
+<meta property="og:updated_time" content="2020-11-12T03:38:23.934Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git速查手册（第三版）">
 <meta name="twitter:description" content="本文是对Git速查手册（第二版）的更新，补充了一些近期使用或者收集的一些命令。">
@@ -436,6 +436,22 @@
 <p>执行后，下次操作输入的用户名和密码会被保存，后续不必手动输入用户名和密码。</p>
 </blockquote>
 <p>配置超时时间：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global credential<span class="selector-class">.helper</span> <span class="string">'cache --timeout=3600'</span></span><br></pre></td></tr></table></figure></p>
+<p>根据目录配置用户信息，需要使用<code>v2.13.0</code>及以上版本：</p>
+<ul>
+<li><p>首先修改用户目录下的 <code>.gitconfig</code>，通过 <code>includeIf</code> 配置不同目录的配置文件：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- [user]</span></span><br><span class="line"><span class="deletion">- 	name = weijie.yuan</span></span><br><span class="line"><span class="deletion">- 	email = weijie.yuan@gitlab.com</span></span><br><span class="line"></span><br><span class="line"><span class="addition">+ [includeIf "gitdir:~/github/"]</span></span><br><span class="line"><span class="addition">+     path = .gitconfig-github</span></span><br><span class="line"><span class="addition">+ [includeIf "gitdir:~/gitlab/"]</span></span><br><span class="line"><span class="addition">+     path = .gitconfig-gitlab</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据配置的 <code>path</code>，创建 <code>.gitconfig-github</code> 文件和 <code>.gitconfig-gitlab</code> 文件：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">	<span class="attr">name</span> = weijie.yuan</span><br><span class="line">	<span class="attr">email</span> = weijie.yuan@github.com</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">	<span class="attr">name</span> = weijie.yuan</span><br><span class="line">	<span class="attr">email</span> = weijie.yuan@gitlab.com</span><br></pre></td></tr></table></figure>
+<p><code>includeIf</code> 配置有如下规则：</p>
+<ul>
+<li>家目录下的 <code>.gitconfig</code> ，<code>includeIf</code> 后面的 <code>path</code> 最后需要 <code>/</code> 结尾；</li>
+<li>家目录下的 <code>.gitconfig</code> ，原有的 <code>user</code> 部分需要删除；</li>
+<li>家目录下的 <code>.gitconfig</code> ，<code>includeIf</code>中配置的各个目录，不能是包含关系；</li>
+</ul>
 <h3 id="克隆协议"><a href="#克隆协议" class="headerlink" title="克隆协议"></a>克隆协议</h3><p>一般<code>Git</code>服务默认都支持<code>SSH</code>和<code>HTTPS</code>，<code>SSH</code>支持的原生<code>Git</code>协议速度最快，<code>HTTPS</code>除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令。</p>
 <h4 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h4><p>检查本机<code>SSH</code>公钥，若存在，则将<code>id_rsa.pub</code>添加到<code>Git</code>服务的<code>SSH keys</code>：<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">ls</span> ~<span class="string">/.ssh</span></span><br></pre></td></tr></table></figure></p>
 <p>若不存在，则生成：</p>
