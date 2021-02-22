@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/website_icon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/website_icon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/website_icon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/website_icon.ico?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/website_icon.ico">
+
+
+  <meta name="msapplication-config" content="/images/website_icon.ico">
+
+
+
+  <meta name="keywords" content="RPATH,RUNPATH,LD_DEBUG,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文从一个实际遇到的问题出发，分析 RPATH 与 RUNPATH 的区别，以及产生的原因。">
+<meta name="keywords" content="RPATH,RUNPATH,LD_DEBUG">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RPATH与RUNPATH的区别">
+<meta property="og:url" content="http://answerywj.com/2021/02/22/difference-between-RPATH-and-RUNPATH/index.html">
+<meta property="og:site_name" content="AnSwEr&#39;s Blog">
+<meta property="og:description" content="本文从一个实际遇到的问题出发，分析 RPATH 与 RUNPATH 的区别，以及产生的原因。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
+<meta property="og:updated_time" content="2021-02-22T10:31:18.825Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RPATH与RUNPATH的区别">
+<meta name="twitter:description" content="本文从一个实际遇到的问题出发，分析 RPATH 与 RUNPATH 的区别，以及产生的原因。">
+<meta name="twitter:image" content="http://forthebadge.com/images/badges/ages-20-30.svg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://answerywj.com/2021/02/22/difference-between-RPATH-and-RUNPATH/">
+
+
+
+
+
+  <title>RPATH与RUNPATH的区别 | AnSwEr's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e12c3989e0050ebd884435d0e1f1bed4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AnSwEr's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+            <a href="/" rel="section">
+          
+              
+                <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+              
+              首页
+            </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+            <a href="/archives" rel="section">
+          
+              
+                <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+              
+              归档
+            </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+            <a href="/categories" rel="section">
+          
+              
+                <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+              
+              分类
+            </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+            <a href="/tags" rel="section">
+          
+              
+                <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+              
+              标签
+            </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          
+            <a href="/commonweal.html" rel="section" target="_blank">
+          
+              
+                <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+              
+              公益
+            </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+            <a href="/about" rel="section">
+          
+              
+                <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+              
+              关于作者
+            </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://answerywj.com/2021/02/22/difference-between-RPATH-and-RUNPATH/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AnSwEr(Weijie Yuan)">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AnSwEr's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">RPATH与RUNPATH的区别</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-22T18:26:04+08:00">
+                2021-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编译链接/" itemprop="url" rel="index">
+                    <span itemprop="name">编译链接</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/02/22/difference-between-RPATH-and-RUNPATH/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2021/02/22/difference-between-RPATH-and-RUNPATH/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2021/02/22/difference-between-RPATH-and-RUNPATH/" class="leancloud_visitors" data-flag-title="RPATH与RUNPATH的区别">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文从一个实际遇到的问题出发，分析 <code>RPATH</code> 与 <code>RUNPATH</code> 的区别，以及产生的原因。</p>
+<hr>
+<a id="more"></a>
+<h1 id="RPATH与RUNPATH的区别"><a href="#RPATH与RUNPATH的区别" class="headerlink" title="RPATH与RUNPATH的区别"></a>RPATH与RUNPATH的区别</h1><p>年前升级了操作系统后，同样的代码在新系统编译后无法执行，提示找不到依赖库，本文用来记录一下是如何解决这个问题的。</p>
+<h2 id="源文件"><a href="#源文件" class="headerlink" title="源文件"></a>源文件</h2><p><code>main.c</code> ：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"a.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	a();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>libA.so</code>：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"b.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">a</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	b();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.h</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">a</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p><code>ubuntu 16.04(gcc version 5.4.0)</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -fPIC -shared a.c -I. -L. -lB -o libA.so</span><br></pre></td></tr></table></figure></p>
+<p><code>libB.so</code>：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// b.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">b</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Hello, World\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// b.h</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">b</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p><code>ubuntu 16.04(gcc version 5.4.0)</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -fPIC -shared -I. b.c -o libB.so</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>函数调用依赖关系：<code>main</code> -&gt; <code>a</code> -&gt; <code>b</code></strong>。</p>
+</blockquote>
+<h2 id="复现步骤"><a href="#复现步骤" class="headerlink" title="复现步骤"></a>复现步骤</h2><ol>
+<li><p>分别在 <code>ubuntu 16.04(gcc version 5.4.0)</code> 和 <code>ubuntu 20.04(gcc version 9.3.0)</code> 编译可执行程序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -I. -o main main.c -Wl,--rpath,. -L. -lA -lB</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>ubuntu 16.04(gcc version 5.4.0)</code> 运行<strong>成功</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./main</span><br><span class="line">Hello, World</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>ubuntu 20.04(gcc version 9.3.0)</code> 运行<strong>失败</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./main </span><br><span class="line">./main: error <span class="keyword">while</span> loading shared libraries: libB.so: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>错误提示为找不到可执行程序 <code>./main</code> 依赖的共享库 <code>libB.so</code> 。</p>
+</blockquote>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><h3 id="排除共享库本身问题"><a href="#排除共享库本身问题" class="headerlink" title="排除共享库本身问题"></a>排除共享库本身问题</h3><p>首先，由于 <code>libA.so</code> 和 <code>libB.so</code> 是在 <code>ubuntu 16.04(gcc version 5.4.0)</code> 上编译的，所以重新在<code>ubuntu 20.04(gcc version 9.3.0)</code> 上编译 <code>libA.so</code> 和 <code>libB.so</code>，并重复复现步骤，现象相同，说明不是 <code>libA.so</code> 和 <code>libB.so</code> 导致的问题；</p>
+<h3 id="分析库查找过程"><a href="#分析库查找过程" class="headerlink" title="分析库查找过程"></a>分析库查找过程</h3><p>使用 <strong><code>LD_DEBUG</code></strong>，打开链接器的调试功能，分析共享库的查找过程：<br><code>ubuntu 16.04(gcc version 5.4.0)</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ LD_DEBUG=libs ./main                                                        [16:37:15]</span><br><span class="line">     22331:	find library=libA.so [0]; searching</span><br><span class="line">     22331:	 search path=./tls/x86_64:./tls:./x86_64:.		(RPATH from file ./main)</span><br><span class="line">......</span><br><span class="line">     22331:	  trying file=./libA.so</span><br><span class="line">......</span><br><span class="line">     22331:	find library=libB.so [0]; searching</span><br><span class="line">     22331:	 search path=./tls/x86_64:./tls:./x86_64:.		(RPATH from file ./main)</span><br><span class="line">......</span><br><span class="line">     22331:	  trying file=./libB.so</span><br><span class="line"> ......</span><br></pre></td></tr></table></figure></p>
+<p><code>ubuntu 20.04(gcc version 9.3.0)</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ LD_DEBUG=libs ./main</span><br><span class="line">     33218:	find library=libA.so [0]; searching</span><br><span class="line">     33218:	 search path=./tls/haswell/x86_64:./tls/haswell:./tls/x86_64:./tls:./haswell/x86_64:./haswell:./x86_64:.		(RUNPATH from file ./main)</span><br><span class="line">......</span><br><span class="line">     33218:	  trying file=./libA.so</span><br><span class="line">......</span><br><span class="line">     33218:	find library=libB.so [0]; searching</span><br><span class="line">     33218:	 search cache=/etc/ld.so.cache</span><br><span class="line">     33218:	 search path=/lib/x86_64-linux-gnu/tls/haswell/x86_64:/lib/x86_64-linux-gnu/tls/haswell:/lib/x86_64-linux-gnu/tls/x86_64:/lib/x86_64-linux-gnu/tls:/lib/x86_64-linux-gnu/haswell/x86_64:/lib/x86_64-linux-gnu/haswell:/lib/x86_64-linux-gnu/x86_64:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu/tls/haswell/x86_64:/usr/lib/x86_64-linux-gnu/tls/haswell:/usr/lib/x86_64-linux-gnu/tls/x86_64:/usr/lib/x86_64-linux-gnu/tls:/usr/lib/x86_64-linux-gnu/haswell/x86_64:/usr/lib/x86_64-linux-gnu/haswell:/usr/lib/x86_64-linux-gnu/x86_64:/usr/lib/x86_64-linux-gnu:/lib/tls/haswell/x86_64:/lib/tls/haswell:/lib/tls/x86_64:/lib/tls:/lib/haswell/x86_64:/lib/haswell:/lib/x86_64:/lib:/usr/lib/tls/haswell/x86_64:/usr/lib/tls/haswell:/usr/lib/tls/x86_64:/usr/lib/tls:/usr/lib/haswell/x86_64:/usr/lib/haswell:/usr/lib/x86_64:/usr/lib		(system search path)</span><br><span class="line">......</span><br><span class="line">./main: error <span class="keyword">while</span> loading shared libraries: libB.so: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure></p>
+<p>结果在 <code>ubuntu 20.04(gcc version 9.3.0)</code> 中， 可以正确查找到 <code>libA.so</code> ，但是无法正确查找到 <code>libB.so</code> 。<br><code>libB.so</code> 的查找路径是 <code>system search path</code> ，而非我们在编译时设定的查找时路径 <code>./</code> ，导致可执行程序无法加载 <code>libB.so</code> 。</p>
+<blockquote>
+<p>动态链接器对共享库的查找顺序：</p>
+<ol>
+<li><code>LD_LIBRARY_PATH</code>、<code>-L</code> 和 <code>-rpath</code>；</li>
+<li><code>/etc/ld.so.cache</code>；</li>
+<li>默认共享库目录：<code>/usr/lib</code>、<code>/lib</code>；</li>
+</ol>
+</blockquote>
+<h3 id="RPATH与RUNPATH的区别-1"><a href="#RPATH与RUNPATH的区别-1" class="headerlink" title="RPATH与RUNPATH的区别"></a>RPATH与RUNPATH的区别</h3><p>由上分析可以得出是共享库运行时加载路径非法导致的问题，在排除设置 <code>LD_LIBRARY_PATH</code> 等环境变量的情况下，可以将焦点锁定在使用的链接选项 <code>-rpath</code> 上，查看源文件依赖：<br><code>ubuntu 16.04(gcc version 5.4.0)</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -d main</span><br><span class="line">Dynamic section at offset 0xe08 contains 26 entries:</span><br><span class="line">  Tag        Type                         Name/Value</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libA.so]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]</span><br><span class="line"> 0x000000000000000f (RPATH)              Library rpath: [.]</span><br><span class="line"> </span><br><span class="line"> $ readelf -d libA.so</span><br><span class="line">Dynamic section at offset 0xe08 contains 25 entries:</span><br><span class="line">  Tag        Type                         Name/Value</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libB.so]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]</span><br><span class="line"> </span><br><span class="line"> $ readelf -d libB.so</span><br><span class="line">Dynamic section at offset 0xe18 contains 24 entries:</span><br><span class="line">  Tag        Type                         Name/Value</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]</span><br></pre></td></tr></table></figure></p>
+<p><code>ubuntu 20.04(gcc version 9.3.0)</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ readelf -d main </span><br><span class="line">Dynamic section at offset 0x2da8 contains 29 entries:</span><br><span class="line">  Tag        Type                         Name/Value</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libA.so]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]</span><br><span class="line"> 0x000000000000001d (RUNPATH)            Library runpath: [.]</span><br><span class="line"> </span><br><span class="line"> $ readelf -d libA.so </span><br><span class="line">Dynamic section at offset 0xe08 contains 25 entries:</span><br><span class="line">  Tag        Type                         Name/Value</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libB.so]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]</span><br><span class="line"> </span><br><span class="line"> $ readelf -d libB.so </span><br><span class="line">Dynamic section at offset 0xe18 contains 24 entries:</span><br><span class="line">  Tag        Type                         Name/Value</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]</span><br></pre></td></tr></table></figure></p>
+<p>发现在 <code>ubuntu 20.04(gcc version 9.3.0)</code> 上 <code>RPATH</code> 变成了 <code>RUNPATH</code> ，说明链接器选项 <code>-rpath</code> 的行为发生了改变。</p>
+<blockquote>
+<p>源文件依赖关系：<code>main</code> -&gt; <code>libA.so</code> -&gt; <code>libB.so</code>；</p>
+</blockquote>
+<p><strong>综上，问题的原因是 <code>ubuntu 20.04(gcc version 9.3.0)</code>上，链接器选项 <code>-rpath</code> 的行为发生改变，默认配置为 <code>RUNPATH</code> 而不是 <code>RPATH</code>；由于 <code>RUNPATH</code> 不适用于间接依赖的库，所以导致在 <code>ubuntu 20.04(gcc version 9.3.0)</code> 上只能正确查找到 <code>libA.so</code> ，而无法正确查找到 <code>libB.so</code> 。</strong></p>
+<blockquote>
+<p><code>gcc version &gt;= 7.5.0</code>时，<code>-rpath</code>默认行为即发生改变。</p>
+</blockquote>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="LD-LIBRARY-PATH（不推荐）"><a href="#LD-LIBRARY-PATH（不推荐）" class="headerlink" title="LD_LIBRARY_PATH（不推荐）"></a>LD_LIBRARY_PATH（不推荐）</h3><p><code>LD_LIBRARY_PATH</code> 是一个环境变量，作用是<strong>临时</strong>改变链接器的加载路径，可以存储多个路径，用冒号分隔：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span>:./libs</span><br></pre></td></tr></table></figure></p>
+<p>不推荐的原因：</p>
+<ol>
+<li>若全局设置 <code>LD_LIBRARY_PATH</code>，会影响其它应用程序的共享库加载过程；</li>
+<li>若只在该应用程序启动时局部设置 <code>LD_LIBRARY_PATH</code>，则每次启动都需要设置，步骤过于繁琐；</li>
+</ol>
+<h3 id="–disable-new-dtags"><a href="#–disable-new-dtags" class="headerlink" title="–disable-new-dtags"></a>–disable-new-dtags</h3><p>可以使用 <code>-Wl,--disable-new-dtags</code> 选项来使链接器保持旧行为，即在 <code>ubuntu 20.04(gcc version 9.3.0)</code> 使用如下命令编译：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -I. -o main main.c -Wl,--<span class="built_in">disable</span>-new-dtags,--rpath,. -L. -lA -lB</span><br></pre></td></tr></table></figure></p>
+<p>重新运行并查看依赖：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ ./main </span><br><span class="line">Hello, World</span><br><span class="line"></span><br><span class="line">$ readelf -d main</span><br><span class="line">Dynamic section at offset 0x2da8 contains 29 entries:</span><br><span class="line">  Tag        Type                         Name/Value</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libA.so]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]</span><br><span class="line"> 0x000000000000000f (RPATH)              Library rpath: [.]</span><br></pre></td></tr></table></figure></p>
+<p>可执行程序 <code>main</code> 可以正确运行，<code>RUNPATH</code> 也变成了 <code>RPATH</code>，链接器行为与 <code>ubuntu 16.04(gcc version 5.4.0)</code> 保持一致了。</p>
+<blockquote>
+<p>同理，也有 <code>-Wl,--enable-new-dtags</code> 选项来使链接器保持新行为</p>
+</blockquote>
+<p>如下为官方解释：<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--enable-<span class="keyword">new</span>-dtags</span><br><span class="line">--disable-<span class="keyword">new</span>-dtags</span><br><span class="line">This linker can <span class="keyword">create</span> the <span class="keyword">new</span> <span class="keyword">dynamic</span> tags <span class="keyword">in</span> ELF. But the older ELF systems may <span class="keyword">not</span> understand them. <span class="keyword">If</span> you specify --enable-<span class="keyword">new</span>-dtags, the <span class="keyword">new</span> <span class="keyword">dynamic</span> tags will be created <span class="keyword">as</span> needed <span class="keyword">and</span> older <span class="keyword">dynamic</span> tags will be omitted. <span class="keyword">If</span> you specify --disable-<span class="keyword">new</span>-dtags, no <span class="keyword">new</span> <span class="keyword">dynamic</span> tags will be created. <span class="keyword">By</span> <span class="keyword">default</span>, the <span class="keyword">new</span> <span class="keyword">dynamic</span> tags are <span class="keyword">not</span> created. Note that those options are only available <span class="keyword">for</span> ELF systems.</span><br></pre></td></tr></table></figure></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://stackoverflow.com/questions/52018092/how-to-set-rpath-and-runpath-with-gcc-ld" target="_blank" rel="noopener">How to set RPATH and RUNPATH with GCC/LD?</a></li>
+<li><a href="https://stackoverflow.com/questions/7967848/use-rpath-but-not-runpath" target="_blank" rel="noopener">use RPATH but not RUNPATH?</a></li>
+</ul>
+<hr>
+<p><a href="http://forthebadge.com" target="_blank" rel="noopener"><img src="http://forthebadge.com/images/badges/ages-20-30.svg" alt="forthebadge"></a></p>
+<ul>
+<li>GitHub：<a href="https://github.com/AnSwErYWJ" target="_blank" rel="noopener">AnSwErYWJ</a></li>
+<li>Blog：<a href="http://www.answerywj.com" target="_blank" rel="noopener">http://www.answerywj.com</a></li>
+<li>Email：<a href="https://mail.google.com" target="_blank" rel="noopener">yuanweijie1993@gmail.com</a></li>
+<li>Weibo：<a href="http://weibo.com/1783591593" target="_blank" rel="noopener">@AnSwEr不是答案</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <div>微信公众号同步更新，微信搜索"AnSwEr不是答案"或者扫描二维码，即可订阅。</div>
+    <img id="wechat_subscriber_qcode" src="/images/wechat_public_qdode.png" alt="AnSwEr(Weijie Yuan) wechat" style="width: 200px; max-width: 100%;">
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="AnSwEr(Weijie Yuan) 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="AnSwEr(Weijie Yuan) 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    AnSwEr(Weijie Yuan)
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://answerywj.com/2021/02/22/difference-between-RPATH-and-RUNPATH/" title="RPATH与RUNPATH的区别">http://answerywj.com/2021/02/22/difference-between-RPATH-and-RUNPATH/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RPATH/" rel="tag"># RPATH</a>
+          
+            <a href="/tags/RUNPATH/" rel="tag"># RUNPATH</a>
+          
+            <a href="/tags/LD-DEBUG/" rel="tag"># LD_DEBUG</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/29/git-help-v3/" rel="next" title="Git速查手册（第三版）">
+                <i class="fa fa-chevron-left"></i> Git速查手册（第三版）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="AnSwEr(Weijie Yuan)">
+            
+              <p class="site-author-name" itemprop="name">AnSwEr(Weijie Yuan)</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AnSwErYWJ" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/1783591593" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yuanweijie1993@gmail.com.com" target="_blank" title="yuanweijie1993@gmail.com">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>yuanweijie1993@gmail.com</a>
+                  </span>
+                
+            </div>
+          
+          
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+          
+          
+            <div>
+              <img id="wechat_subscriber_qcode" src="/images/wechat_public_qdode.png" alt="AnSwEr(Weijie Yuan) wechat" style="width: 100px; max-width: 100%;">
+            </div>
+          
+          
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://acexyf.github.io/" title="谢小飞的博客" target="_blank">谢小飞的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RPATH与RUNPATH的区别"><span class="nav-number">1.</span> <span class="nav-text">RPATH与RUNPATH的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#源文件"><span class="nav-number">1.1.</span> <span class="nav-text">源文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复现步骤"><span class="nav-number">1.2.</span> <span class="nav-text">复现步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题原因"><span class="nav-number">1.3.</span> <span class="nav-text">问题原因</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#排除共享库本身问题"><span class="nav-number">1.3.1.</span> <span class="nav-text">排除共享库本身问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析库查找过程"><span class="nav-number">1.3.2.</span> <span class="nav-text">分析库查找过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPATH与RUNPATH的区别-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">RPATH与RUNPATH的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">1.4.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LD-LIBRARY-PATH（不推荐）"><span class="nav-number">1.4.1.</span> <span class="nav-text">LD_LIBRARY_PATH（不推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#–disable-new-dtags"><span class="nav-number">1.4.2.</span> <span class="nav-text">–disable-new-dtags</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.5.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AnSwEr(Weijie Yuan)</span>
+
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://AnSwErYWJ.github.io/css/main.css">
+        <script src="https://AnSwErYWJ.github.io/js/src/gitmint.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: '1613989564000', 
+            owner: 'AnSwErYWJ',
+            repo: 'AnSwErYWJ.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '018a22ddffff0c225fa374093d008439bf5b1f83',
+            
+                client_id: '1117f82f19a08a27b79c'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("vim4NhVqc5JNcPuljU4r9St0-gzGzoHsz", "k7iiuAIEVRSri40zLM4mhdKt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
