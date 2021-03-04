@@ -23,14 +23,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/04/26/what-is-sysroot/</loc>
+    <loc>http://answerywj.com/2019/06/03/wav/</loc>
     
     <lastmod>2020-07-21T01:40:07.281Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/06/03/wav/</loc>
+    <loc>http://answerywj.com/2019/04/26/what-is-sysroot/</loc>
     
     <lastmod>2020-07-21T01:40:07.281Z</lastmod>
     
@@ -44,14 +44,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
+    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
     
     <lastmod>2020-07-21T01:40:07.213Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
+    <loc>http://answerywj.com/2017/02/23/listen-in-unix/</loc>
     
     <lastmod>2020-07-21T01:40:07.213Z</lastmod>
     
@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
+    <loc>http://answerywj.com/2017/06/20/note-of-openresty-study/</loc>
     
     <lastmod>2020-07-21T01:40:07.213Z</lastmod>
     
@@ -135,6 +135,27 @@
   </url>
   
   <url>
+    <loc>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/fork-bomb/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
     
     <lastmod>2020-07-21T01:40:07.137Z</lastmod>
@@ -149,21 +170,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/fork-bomb/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
+    <loc>http://answerywj.com/2017/08/04/gcc-compilation-of-arm-articles/</loc>
     
     <lastmod>2020-07-21T01:40:07.137Z</lastmod>
     
@@ -177,21 +184,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/08/04/gcc-compilation-of-arm-articles/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2018/05/03/cjson/</loc>
+    <loc>http://answerywj.com/2016/07/08/badges-of-github/</loc>
     
     <lastmod>2020-07-21T01:40:07.125Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/08/badges-of-github/</loc>
+    <loc>http://answerywj.com/2018/05/03/cjson/</loc>
     
     <lastmod>2020-07-21T01:40:07.125Z</lastmod>
     
