@@ -24,3 +24,6 @@ npm install hexo-generator-search --save
 
 # git comment
 npm install gitment --save
+
+# wordcount
+npm install hexo-wordcount --save
