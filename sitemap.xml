@@ -23,14 +23,14 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/04/26/what-is-sysroot/</loc>
+    <loc>http://answerywj.com/2019/06/03/wav/</loc>
     
     <lastmod>2020-07-21T01:40:07.281Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2019/06/03/wav/</loc>
+    <loc>http://answerywj.com/2019/04/26/what-is-sysroot/</loc>
     
     <lastmod>2020-07-21T01:40:07.281Z</lastmod>
     
@@ -51,7 +51,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
+    <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
     
     <lastmod>2020-07-21T01:40:07.213Z</lastmod>
     
@@ -72,7 +72,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/safe-read-and-write/</loc>
+    <loc>http://answerywj.com/2016/07/14/script-and-scriptreplay/</loc>
     
     <lastmod>2020-07-21T01:40:07.213Z</lastmod>
     
@@ -100,20 +100,6 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/10/10/jq/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.161Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2017/06/27/io-model/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.161Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://answerywj.com/2020/02/17/homebrew-in-mac/</loc>
     
     <lastmod>2020-07-21T01:40:07.161Z</lastmod>
@@ -121,7 +107,7 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
+    <loc>http://answerywj.com/2016/10/10/jq/</loc>
     
     <lastmod>2020-07-21T01:40:07.161Z</lastmod>
     
@@ -135,28 +121,21 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</loc>
+    <loc>http://answerywj.com/2017/06/27/io-model/</loc>
     
-    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    <lastmod>2020-07-21T01:40:07.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/07/14/keepalive-of-socket/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.161Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://answerywj.com/2016/07/14/debug-for-shell-script/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
-    
-    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
     
     <lastmod>2020-07-21T01:40:07.137Z</lastmod>
     
@@ -170,7 +149,21 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
+    <loc>http://answerywj.com/2016/07/14/connect-in-unix/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/09/05/floating-point-operation-in-script/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2016/09/05/empty-file-in-shell/</loc>
     
     <lastmod>2020-07-21T01:40:07.137Z</lastmod>
     
@@ -184,14 +177,21 @@
   </url>
   
   <url>
-    <loc>http://answerywj.com/2016/07/08/badges-of-github/</loc>
+    <loc>http://answerywj.com/2017/12/15/condition-variables-of-thread-synchronization/</loc>
+    
+    <lastmod>2020-07-21T01:40:07.137Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://answerywj.com/2018/05/03/cjson/</loc>
     
     <lastmod>2020-07-21T01:40:07.125Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://answerywj.com/2018/05/03/cjson/</loc>
+    <loc>http://answerywj.com/2016/07/08/badges-of-github/</loc>
     
     <lastmod>2020-07-21T01:40:07.125Z</lastmod>
     
