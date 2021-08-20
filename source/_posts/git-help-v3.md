@@ -317,7 +317,7 @@ $ git branch --set-upstream <local-branch> origin/branch
 $ git checkout -b <local-branch> <remote-branch>
 ```
 
-同步当前分支的更新，使用``git pull``并不保险：
+同步当前分支的所有更新，使用``git pull``并不保险：
 ```
 # 下载最新的代码到远程跟踪分支, 即origin/<branch-name>
 $ git fetch origin <branch-name> 
@@ -329,12 +329,24 @@ $ git merge origin/<branch-name>
 $ git mergetool                               
 ```
 
-同步其它分支的更新，本例拉取``master``分支更新：
+同步其它分支的所有更新，本例拉取``master``分支更新：
 ```
 $ git fetch origin master
 $ git difftool <branch-name> origin/master
 $ git merge origin/master
 $ git mergetool
+```
+
+同步其它分支的部分更新，即同步某几次提交：
+```
+# 同步提交A
+$ git cherry-pick <commit id A> 
+# 同步提交A和B
+$ git cherry-pick <commit id A> <commit id B> 
+# 同步提交A到B的所有提交（不包括A），提交A必须早于提交B，否则命令将失败，但不会报错
+$ git cherry-pick <commit id A>..<commit id B> 
+# 同步提交A到B的所有提交（包括A），提交A必须早于提交B，否则命令将失败，但不会报错
+$ git cherry-pick <commit id A>^..<commit id B> 
 ```
 
 查看某个`<commit id>`属于哪个分支:
