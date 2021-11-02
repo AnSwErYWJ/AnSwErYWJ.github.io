@@ -411,13 +411,18 @@ $ git checkout -- <filename>
 git clean -nfd
 ```
 
+只回退暂存区(`git add`)，不删除工作空间代码：
+```
+$ git reset HEAD <filename> # 无filename则默认回退全部 
+```
+
 回退版本区(`git commit`)和暂存区(`git add`)，不删除工作空间代码：
 ```
 $ git reset --mixed HEAD^ # --mixed为默认参数
 $ git reset HEAD^
 ```
 
-回退版本区(`git commit`)，暂存区(`git add`)不回退，不删除工作空间代码：
+回退版本区(`git commit`)，但是不回退暂存区(`git add`)，不删除工作空间代码：
 ```
 $ git reset --soft HEAD^
 ```
