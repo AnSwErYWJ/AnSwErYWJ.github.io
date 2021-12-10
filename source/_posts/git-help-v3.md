@@ -100,10 +100,13 @@ $ ssh-keygen -t rsa -C "your_email@youremail.com"
 - 多个`Git`服务
 ```
 $ ssh-keygen -t rsa -C "your_email@youremail.com" -f "git1_id_rsa"
-$ ssh-keygen -t rsa -C "your_email@youremail.com" -f "git2_id_rsa
+$ ssh-keygen -t rsa -C "your_email@youremail.com" -f "git2_id_rsa"
+$ cp git1_id_rsa* ~/.ssh/
+$ cp git2_id_rsa* ~/.ssh/
 
 # 创建配置文件
 $ vi ~/.ssh/config
+
 # git1
 Host git1.com
 HostName git1.com
@@ -117,7 +120,7 @@ PreferredAuthentications publickey
 IdentityFile ~/.ssh/git2_id_rsa
 ```
 
-配置完成后，再次检查ssh连接情况；若不生效，则重启后再尝试：
+配置完成后，将对应的`id_rsa.pub`添加到`Git`服务的`SSH keys`，再次检查ssh连接情况；若不生效，则重启后再尝试：
 ```
 $ ssh -T git@github.com
 Hi! You’ve successfully authenticated, but GitHub does not provide shell access.
@@ -129,7 +132,6 @@ Hi! You’ve successfully authenticated, but GitHub does not provide shell acces
 $ git clone git@git.server:test.git
 ```
 
-
 #### HTTPS
 关闭`ssl`校验：
 ```
@@ -139,6 +141,22 @@ $ git config --global http.sslverify false
 克隆：
 ```
 $ git clone https://git.server/test.git
+```
+
+#### 协议切换
+查看当前协议：
+```
+$ git remote -v
+```
+
+从`https`切换至`ssh`：
+```
+git remote set-url origin git@domain:username/ProjectName.git
+```
+
+从`ssh`切换至`https`：
+```
+git remote set-url origin https://domain/username/ProjectName.git
 ```
 
 ### 工具配置
