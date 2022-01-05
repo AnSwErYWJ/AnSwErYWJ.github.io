@@ -26,7 +26,7 @@ tags: IO
 默认情况下，所有的套接字都是阻塞的
 ![阻塞IO](blocking-io.png)
 调用`recvfrom`接口，进程在*IO*操作的两个阶段都会阻塞，直到最终数据拷贝到用户空间或者过程中出现错误才会返回，进程在阻塞状态下是不占用*CPU*资源的
-> 最常见的错误是发生系统中断，此时需要重读，可参考[这里](https://github.com/AnSwErYWJ/DogFood/blob/master/C/RD.c)
+> 最常见的错误是发生系统中断，此时需要重读，可参考[这里](https://github.com/AnSwErYWJ/DogFood/blob/master/C/file/RD.c)
 
 ### 非阻塞IO
 可以通过`fcntl(sockfd,F_SETFL,O_NONBLOCK)`将套接字设置成非阻塞
@@ -74,10 +74,10 @@ tags: IO
 ## About me
 [![forthebadge](http://forthebadge.com/images/badges/ages-20-30.svg)](http://forthebadge.com)
 - GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[http://www.answerywj.com](http://www.answerywj.com)
+- Blog：[https://www.answerywj.com](https://www.answerywj.com)
 - Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[@AnSwEr不是答案](http://weibo.com/1783591593)
-- CSDN：[AnSwEr不是答案的专栏](http://blog.csdn.net/u011192270)
+- Weibo：[@AnSwEr不是答案](https://weibo.com/1783591593)
+- CSDN：[AnSwEr不是答案的专栏](https://blog.csdn.net/u011192270)
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.  
 本作品采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。
