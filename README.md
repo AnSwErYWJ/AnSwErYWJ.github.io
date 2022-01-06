@@ -1,4 +1,22 @@
-[![forthebadge](http://forthebadge.com/images/badges/ages-20-30.svg)](http://forthebadge.com)
+<p align="center">
+    <a href="#">
+        <img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author">
+    </a>
+    <a href="#">
+        <img src="https://img.shields.io/github/license/AnSwErYWJ/DogFood?color=red" alt="license">
+    </a>
+    <a href="#">
+        <img src="https://img.shields.io/github/last-commit/AnSwErYWJ/DogFood?color=orange" alt="last-commit">
+    </a>
+    <a href="#">
+        <img src="https://img.shields.io/github/repo-size/AnSwErYWJ/DogFood?color=gren" alt="repo-size">
+    </a>
+</p>
+
+## AnSwErYWJ's blog
+This repository is AnSwErYWJ's blog：https://answerywj.com/.
+
+## About me
 - GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
 - Blog：[https://www.answerywj.com](https://www.answerywj.com)
 - Email：[yuanweijie1993@gmail.com](https://mail.google.com)
