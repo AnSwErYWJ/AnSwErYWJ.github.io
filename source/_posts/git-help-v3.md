@@ -167,13 +167,22 @@ $ git config --global diff.tool meld
 $ git config --global merge.tool meld
 ```
 - `Windows`：
-
 ```
 > git config --global diff.tool meld
 > git config --global merge.tool meld
 > git config --global difftool.bc3.path 'C:\Program Files (x86)\Meld\Meld.exe'
 > git config --global mergetool.meld.path 'C:\Program Files (x86)\Meld\Meld.exe'
 > git config --global difftool.meld.path 'C:\Program Files (x86)\Meld\Meld.exe'
+```
+
+配置编辑器：
+- `Linux` or `MacOS`：
+```
+$ git config --global core.editor vim
+```
+- `Windows`：
+```
+> git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"
 ```
 
 配置显示颜色：
