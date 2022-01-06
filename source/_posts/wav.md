@@ -5,7 +5,8 @@ comments: true
 toc: true
 tags:
   - wav
-date: 2019-06-03 15:06:22
+  - header
+date: 2022-01-06 10:52:53
 categories: 语音
 ---
 
@@ -14,11 +15,10 @@ categories: 语音
 ----------
 <!--more-->
 
-## wav文件格式解析
-### 简介
+## 简介
 `wav`即`wave`（下文统称为`wav`）, 该文件格式是由微软开发的用于音频数字存储的标准，可应用于`Windows`、`Linux`和`MacOS`等多种操作系统，文件扩展名为`.wav`，是`waveform`的简写。
 
-### wav文件结构
+## wav文件结构
 在`Windows`下，大部分多媒体文件都遵循`RIFF`（`Resource Interchange File Format`，资源互换文件格式）格式来存储数据。
 
 `RIFF`文件的基本存储单位称为块（`chunk`），一个遵循`RIFF`格式的文件由若干个`chunk`组成，每个`chunk`又由块标识、块长度和块数据三部分构成，其基本结构见**表1**：
@@ -48,12 +48,12 @@ categories: 语音
 目前业界标准的`wav`文件仅由`RIFF chunk`、`Format chunk`和`Data chunk`组成：
 ![标准wav文件格式](canonical_wave_file_format.png)
 
-### wav文件头格式
+## wav文件头格式
 `wav`文件从数据类型上看，主要由文件头和数据体两部分组成：
 - 文件头：由`RIFF chunk`、`Format chunk`、`List chunk`和`Fact chunk`等组成，用于存储一些文件信息；
 - 数据体：由`Data chunk`组成，用于存储音频数据；
 
-#### 标准格式
+### 标准格式
 标准的`wav`文件头仅由`RIFF chunk`和`Format chunk`组成，长度为`44`个字节，格式见**表2**：
 
 | file offset(bytes) | Field name | Field size(bytes) | type | endian | description |
@@ -79,7 +79,7 @@ categories: 语音
 音频时长(s) = Subchunk2 Size / ByteRate
 ```
 
-##### 压缩编码格式
+#### 压缩编码格式
 `wav`文件几乎支持所有`ACM`规范的编码格式，其信息存储在`wav`文件头偏移`20`、`21`两个字节中，常见的压缩编码格式见**表3**：
 
 | 格式代码 | 格式名称 | Format chunk 长度 | 是否有Fact chunk |
@@ -99,10 +99,10 @@ categories: 语音
 | 65,536 (0xFFFF) | Experimental | unknown | unknown |
 <p align="center">**表3** 常见的压缩编码格式</p>
 
-#### 扩展格式
+### 扩展格式
 当然，也不是所有的`wav`文件头都是`44`个字节的，比如通过`FFmpge`编码而来的`wav`文件头通常大于`44`个字节，目前比较常见的`wav`文件头长度有44字节、46字节、58字节和98字节。
 
-##### Format chunk扩展
+#### Format chunk扩展
 当`wav`文件采用非`PCM`编码即压缩格式时，会扩展`Format chunk`，在其之后扩充了一个数据结构，见**表4**：
 
 | file offset(bytes) | Field name | Field size(bytes) | type | description |
@@ -131,7 +131,7 @@ categories: 语音
 
 值得注意的是，在实测中发现，将压缩编码格式文件转换成`PCM`编码格式后，原`Fact chunk`仍然存在。
 
-### wav文件动态解析库
+## wav文件动态解析库
 `wav`文件格式是一种极其简单的文件格式，如果对其结构足够熟悉，完全可以通过代码正确读写，从而免去引入一些复杂的中间库，降低复杂度，提高工作效率。
 
 这里提供了一个[**wav文件动态解析库**](https://github.com/AnSwErYWJ/wavfile)，欢迎使用。
