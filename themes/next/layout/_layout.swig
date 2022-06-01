@@ -12,6 +12,8 @@
   {% include '_third-party/analytics/index.swig' %}
 </head>
 
+<script>var WM_MONITOR_ID="ba166edf-bf90-46e2-92f8-519a6839de7e";var WM_MONITOR_HOST="web-monitor.boeet.com.cn";</script><script src="https://web-monitor.boeet.com.cn/public/bundle.js"></script>
+
 <body itemscope itemtype="http://schema.org/WebPage" lang="{{ page.lang || page.language || config.language }}">
 
   {% set container_class = "container " %}
