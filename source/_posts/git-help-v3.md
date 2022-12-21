@@ -502,12 +502,17 @@ $ git stash clear # 删除所有
 ```
 
 ## 清理仓库
+### 清理本地无效的远程追踪分支
+```
+$ git pull # 拉取更新
+$ git remote prune origin --dry-run # 列出所有可以从本地仓库中删除的远程追踪分支
+$ git remote prune origin # 清理本地无效的远程追踪分支
+```
+
 ### 清理无用的分支和标签
 ```
 $ git branch -d <branch-name>
 $ git tag -d <tag-name>
-$ git remote prune origin
-$ git pull
 ```
 
 ### 清理大文件

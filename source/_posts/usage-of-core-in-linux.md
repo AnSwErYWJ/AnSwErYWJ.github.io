@@ -6,7 +6,7 @@ date: 2018-03-07 16:16:15
 categories: C/C++
 tags: core dump
 ---
-有时候程序会异常退出而不带任何日志，此时就可以使用`code`文件进行分析，它会记录程序运行的内存，寄存器，堆栈指针等信息
+有时候程序会异常退出而不带任何日志，此时就可以使用`core`文件进行分析，它会记录程序运行的内存，寄存器，堆栈指针等信息
 
 ------
 <!--more-->
@@ -68,10 +68,10 @@ echo /MyCoreDumpDir/core.%e.%p > /proc/sys/kernel/core_pattern
 %h - insert hostname where the coredump happened into filename  # 添加主机名 
 %e - insert coredumping executable name into filename  # 添加命令名
 ```
-> `/proc/sys/kernel/core_uses_pid`这个文件的值若为１，则无论时候配置`%p`,最后生成的`core`文件都会添加`pid`
+> `/proc/sys/kernel/core_uses_pid`这个文件的值若为１，则无论是否配置`%p`,最后生成的`core`文件都会添加`pid`
 
 ### 调试方法
-可以使用`gdb`对`core`文件进行调试，编译是需要带上`-g`选项
+可以使用`gdb`对`core`文件进行调试，编译时需要带上`-g`选项
 ```
 $ gdb a.out
 ...
