@@ -15,7 +15,6 @@ date: 2020-07-03 11:00:04
 
 根据我求职与招聘的经验，结合网上相关资料，这里整理了一些写好技术简历的建议。
 
------
 <!--more-->
 
 > 这里提供了一份[简历模版](https://github.com/AnSwErYWJ/resume/blob/master/template.md)，可供参考。

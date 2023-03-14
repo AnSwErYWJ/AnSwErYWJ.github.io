@@ -5,16 +5,14 @@ comments: true
 category_bar: true
 toc: true
 tags:
-  - null
-  - null
+  - objdump
+  - elf
 abbrlink: 11283
 date: 2019-07-24 11:50:23
-categories:
+categories: 编译链接
 ---
 
 本文将展示，如何将一个二进制文件(如图片、音频等)作为目标文件中的一个段，该技巧主要应用在一些无文件系统的平台。
-
------
 
 <!--more-->
 

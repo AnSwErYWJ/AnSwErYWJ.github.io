@@ -15,7 +15,6 @@ date: 2022-12-20 17:17:11
 
 本文对作者`2018`年的博文[Linux下core文件使用](https://answerywj.com/2018/03/07/usage-of-core-in-linux/)做了一系列更新，特别是针对`Ubuntu 20.04`下`core`文件生成异常做了分析与解决。
 
------
 <!--more-->
 
 ## 什么是core文件

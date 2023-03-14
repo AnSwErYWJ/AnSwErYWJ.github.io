@@ -13,7 +13,6 @@ date: 2016-07-14 14:11:03
 
 Linux下adb工具[下载](http://pan.baidu.com/s/1qYhBG2w)，下载解压到*/usr/bin*目录。
 
-----------
 <!--more-->
 
 ## 问题
