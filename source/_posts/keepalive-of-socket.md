@@ -115,11 +115,3 @@ int heartbeat(int fd)
 
 ## 总结
 当然，还是有很多方法去实现心跳机制的，比如利用select实现的超时控制，或者利用守护进程或线程的单独检测。不过我个人认为设置SO_KEEPALIVE实现起来最简单，最方便。如果大家发现有什么问题，也欢迎大家交流。
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

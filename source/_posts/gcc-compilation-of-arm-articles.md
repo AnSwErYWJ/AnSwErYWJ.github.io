@@ -47,11 +47,3 @@ date: 2017-08-04 16:30:40
 其中`vfpv2`应用于`armv5te, armv6`架构中的浮点计算指令集，`vfpv3`和`vfpv4`应用于部分`armv7a`架构中的浮点计算指令集
 2. `neon`
 应用于`cortex-a`系列处理器，性能好
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

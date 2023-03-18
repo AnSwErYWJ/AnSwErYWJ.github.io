@@ -133,11 +133,3 @@ $ ./test
 test2.c:(.text+0xa): undefined reference to `bye'
 collect2: error: ld returned 1 exit status
 ```
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

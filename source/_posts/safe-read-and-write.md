@@ -83,11 +83,3 @@ ssize_t	safe_write(int fd, const void *vptr, size_t n)
 
 ## 总结
 上面介绍了两个安全读写函数，但是并不意味着这两个函数在任何地方都完全适用，所以不要强迫自己使用。需要注意阻塞、效率等问题，当你只是读写少量字节时，就没必要使用了。
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

@@ -31,11 +31,3 @@ date: 2017-03-23 14:18:40
 ## Reference
 - [云计算的三种服务模式](http://www.jianshu.com/p/6148c47792c3)
 - [三分钟了解什么是 BaaS](http://www.jianshu.com/p/4381f0a0692e)
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

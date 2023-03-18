@@ -464,11 +464,3 @@ $ git --help
 4. [Git-Reference](https://git-scm.com/docs)
 5. [Git push与pull的默认行为](https://segmentfault.com/a/1190000002783245)
 6. [git stash 详解](http://www.tuicool.com/articles/rUBNBvI)
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

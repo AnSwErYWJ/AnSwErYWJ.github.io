@@ -36,11 +36,3 @@ date: 2019-04-26 17:59:57
 ## Reference
 - [crti.o file missing](https://stackoverflow.com/questions/91576/crti-o-file-missing)
 - [crt1.o, crti.o, crtbegin.o, crtend.o, crtn.o](https://blog.csdn.net/farmwang/article/details/73195951)
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

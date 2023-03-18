@@ -34,11 +34,3 @@ date: 2016-07-14 13:52:31
 
 ## 总结
 Linux中还有很多这样存在这陷阱的命令，这也正是我喜欢Linux系统的原因，充满着探索性。
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

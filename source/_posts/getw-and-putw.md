@@ -131,11 +131,3 @@ unsigned int put_uint(unsigned int i,FILE *fp)
 >改进后取值范围为``0~4294967295``.
 
 同理,你也可以将这两个接口改为支持 ``long long``和``unsigned long int``等不同长度的整数类型.
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

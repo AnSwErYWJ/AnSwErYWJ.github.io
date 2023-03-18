@@ -86,11 +86,3 @@ $ cat test.txt
 ```
 
 > ``/dev/null``可以看作一个"黑洞"。所有写入它的内容都会丢失。从它那儿读取也什么都读不到。这里被清空的文件同样不再有空行，实现真正意义的清空。
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

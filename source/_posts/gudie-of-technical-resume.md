@@ -87,11 +87,3 @@ date: 2020-07-03 11:00:04
 ## Reference
 - [8 Hacks For Your Next Tech Resume](https://dev.to/gemography/common-mistakes-in-dev-cvs-2a17)
 - [如何写一份有效的技术简历？](http://www.ruanyifeng.com/blog/2020/01/technical-resume.html)
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

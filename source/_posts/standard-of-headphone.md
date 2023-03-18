@@ -34,11 +34,3 @@ date: 2016-09-20 11:37:40
 - 国标耳机适用手机范围：诺基亚、索尼爱立信（全系列）、中兴（全系列）、步步高（全系列）、酷派（全系列）、HTC 非官方产品（A3380、A3360、T9188、A9188、Z510D）、三星旧产品（i8910、M3510C、M7500、F278、F700、F408、F490、G810、G818、G818E、i550W、8510、i560、S8000C、i8000、M2710C、i7500U、i9000、i6500U、F809、i8000、F859）、摩托罗拉XT531、联想A520/A750/P700、OPPO（全系列）等国产系列手机。
 
 > 若发现国标/美标不适配自己的手机，某宝上面有转接线可以买，可以通过转换国标/美标。
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

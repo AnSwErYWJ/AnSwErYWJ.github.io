@@ -156,11 +156,3 @@ This is debug line!
 
 ## 使用专用调试器
 如果你需要调试一个非常复杂的脚本,并且需要一个及其专业的调试器,像GDB那样,那么我推荐这款开源的脚本调试器[bashdb](http://bashdb.sourceforge.net/),具体使用可以参考它的[文档](http://bashdb.sourceforge.net/bashdb.html).
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

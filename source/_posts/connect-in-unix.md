@@ -64,11 +64,3 @@ int my_connect(int sockfd,const struct sockaddr *servaddr,socklen_t addrlen)
 ```
 
 包裹函数为`connect`函数设置了超时重连的机制，如果连接成功，则成功返回。如果连接失败，则每次等待1、2、4、8。。。秒后继续尝试重新连接，直到`MAXSLEEP`为止。
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

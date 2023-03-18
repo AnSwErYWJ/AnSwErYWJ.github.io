@@ -238,11 +238,3 @@ weak_alias (__strtok_r, strtok_r)
 
 ## Reference
 - [C语言线程安全:不可重入函数汇总](https://vimsky.com/article/3185.html)
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

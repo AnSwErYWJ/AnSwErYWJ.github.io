@@ -235,11 +235,3 @@ This linker can create the new dynamic tags in ELF. But the older ELF systems ma
 
 - [How to set RPATH and RUNPATH with GCC/LD?](https://stackoverflow.com/questions/52018092/how-to-set-rpath-and-runpath-with-gcc-ld)
 - [use RPATH but not RUNPATH?](https://stackoverflow.com/questions/7967848/use-rpath-but-not-runpath)
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)

@@ -49,11 +49,3 @@ void Listen(int fd,int backlog)
 ```
 这样就可以通过设置环境变量``LISTENQ``来动态配置``backlog``的大小。
 > tips：``backlog``为0不代表就不会有客户连接到你的机器。如果不想让客户连接，请直接关闭该套接字。
-
------
-
-<a href="#"><img src="https://img.shields.io/badge/Author-AnSwErYWJ-blue" alt="Author"></a>
-- GitHub：[AnSwErYWJ](https://github.com/AnSwErYWJ)
-- Blog：[https://www.answerywj.com](https://www.answerywj.com) 
-- Email：[yuanweijie1993@gmail.com](https://mail.google.com)
-- Weibo：[AnSwEr不是答案](https://weibo.com/1783591593)
