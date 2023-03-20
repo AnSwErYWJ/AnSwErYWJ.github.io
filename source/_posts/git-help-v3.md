@@ -517,7 +517,7 @@ $ git tag -d <tag-name>
 ```
 
 ### 清理大文件
-- 查看`git`相关文件占用空间：
+- 查看仓库占用空间：
 ```
 $ git count-objects -v
 $ du -sh .git
@@ -529,22 +529,34 @@ $ git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -10
 ```
 > 输出的第一列是文件`ID`，第二列表示文件（`blob`）或目录（`tree`），第三列是文件大小，此处筛选了最大的10条。
 
-- 获取文件名与`ID`映射：
+- 根据文件`ID`映射文件名：
 ```
 $ git rev-list --objects --all | grep "$(git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -10 | awk '{print$1}')"
 ```
 
-- 从所有提交中删除文件：
+- 根据文件名，从所有提交中删除文件：
 ```
-$ git filter-branch --tree-filter 'rm -rf xxx' HEAD --all
-$ git pull
+$ git filter-branch --force --index-filter 'git rm -rf --cached --ignore-unmatch [FileName]' --prune-empty --tag-name-filter cat -- --all
 ```
 
-- 清理`.git`目录：
+- 删除缓存下来的`ref`和`git`操作记录：
+```
+$ git for-each-ref --format='delete %(refname)' refs/original | git update-ref --stdin
+$ git reflog expire --expire=now --all
+```
+
+- 清理`.git`目录并推送到远程：
 ```
 $ git gc --prune=now
+$ git push -f --all
 ```
 > 在执行`push`操作时，`git`会自动执行一次`gc`操作，不过只有`loose object`达到一定数量后才会真正调用，建议手动执行。
+
+- 重新查看仓库占用空间，发现较清理前变小很多：
+```
+$ git count-objects -v
+$ du -sh .git
+```
 
 ### 处理大型二进制文件
 由于`Git`在存储二进制文件时效率不高，所以需要借助[第三方组件](http://www.oschina.net/news/71365/git-annex-lfs-bigfiles-fat-media-bigstore-sym)。
