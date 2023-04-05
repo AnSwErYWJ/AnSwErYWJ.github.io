@@ -35,7 +35,7 @@ friends:
   # friendB: //www.google.com
 about:
   enable: true
-  image: '/intro/about-bg.jpg'
+  image: '/img/site/about-bg-small.jpg'
 # Search for website
 search:
   enable: false
@@ -73,11 +73,11 @@ main_title: AnSwErYWJ's Blog
 # subtitle
 subtitle: 广告位招租
 # site haeder image
-site_header_image: '/intro/index-bg.jpg'
+site_header_image: '/img/site/index-bg-small.jpg'
 # post haeder image
-post_header_image: '/intro/post-bg.jpg'
+post_header_image: '/img/site/post-bg-small.jpg'
 # 404 image
-_404_image: '/intro/404-bg.jpg'
+_404_image: '/img/site/404-bg-small.jpg'
 
 # ========== Theme ========== #
 # Truncate length of abstracts in index page (the default is 300, there will be no abstruct if you input 0)
@@ -171,7 +171,7 @@ CNZZ_analytics:
 
 # ========== Others ========== #
 # Favicon
-favicon: /img/tab_icon.png
+favicon: /img/site/tab_icon.png
 # Post copyright
 copyright:
   enable: true
