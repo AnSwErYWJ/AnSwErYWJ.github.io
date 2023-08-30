@@ -15,22 +15,17 @@ date: 2020-09-29 15:13:42
 
 <!--more-->
 
-## 设置Git
+## 下载与安装
+`Git`下载地址：[https://git-scm.com/downloads](https://git-scm.com/downloads)，安装请参考页面说明。
+> 建议使用版本`v1.8`及以上。
 
-### 版本
-> `Git`下载地址：[https://git-scm.com/downloads](https://git-scm.com/downloads)，推荐使用`v1.8`及以上版本。 
-
-查看`Git`版本：
-```
-$ git --version
-```
-
-### 用户信息
+## 配置
 `Git`配置分为三个级别：
 - `--system`：系统级，位于 `/etc/gitconfig`；
 - `--global`：用户级，位于 `~/.gitconfig`；
 - `--local`：仓库级，位于 `[repo]/.git/config`，为*默认级别且优先级最高*；
 
+### 用户信息
 删除`global`用户信息，防止不同`Git`服务之间冲突：
 ```
 $ git config --global --unset user.name
@@ -42,47 +37,6 @@ $ git config --global --unset user.email
 $ git config --local user.name "username"
 $ git config --local user.email "email"
 ```
-
-保存用户凭证，若同时使用不同的`Git`服务，不推荐使用：
-```
-$ git config --global credential.helper store
-```
-> 执行后，下次操作输入的用户名和密码会被保存，后续不必手动输入用户名和密码。
-
-配置超时时间：
-```
-$ git config --global credential.helper 'cache --timeout=3600'
-```
-
-根据目录配置用户信息，需要使用`v2.13.0`及以上版本：
-- 首先修改用户目录下的 `.gitconfig`，通过 `includeIf` 配置不同目录的配置文件：
-```diff
-- [user]
-- 	name = weijie.yuan
-- 	email = weijie.yuan@gitlab.com
-
-+ [includeIf "gitdir:~/github/"]
-+     path = .gitconfig-github
-+ [includeIf "gitdir:~/gitlab/"]
-+     path = .gitconfig-gitlab
-```
-
-- 根据配置的 `path`，分别创建 `.gitconfig-github` 文件和 `.gitconfig-gitlab` 文件：
-```
-$ vi .gitconfig-github
-[user]
-	name = weijie.yuan
-	email = weijie.yuan@github.com
-
-$ vi .gitconfig-gitlab
-[user]
-	name = weijie.yuan
-	email = weijie.yuan@gitlab.com
-```
-`includeIf` 配置有如下规则：
-- 家目录下的 `.gitconfig` ，`includeIf` 后面的 `path` 最后需要 `/` 结尾；
-- 家目录下的 `.gitconfig` ，原有的 `user` 部分需要删除；
-- 家目录下的 `.gitconfig` ，`includeIf`中配置的各个目录，不能是包含关系；
 
 ### 克隆协议
 一般`Git`服务默认都支持`SSH`和`HTTPS`，`SSH`支持的原生`Git`协议速度最快，`HTTPS`除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令。
@@ -160,14 +114,73 @@ git remote set-url origin git@domain:username/ProjectName.git
 git remote set-url origin https://domain/username/ProjectName.git
 ```
 
-### 工具配置
-配置`diff`和`merge`工具，可以通过`git difftool --tool-help`查看支持的工具集合，推荐使用`meld`。
-- `Linux` or `MacOS`：
+### 自定义配置
+#### 超时时间
+```
+$ git config --global credential.helper 'cache --timeout=3600'
+```
+
+#### 保存用户凭证
+
+```
+$ git config --global credential.helper store
+```
+执行后，下次操作输入的用户名和密码会被保存，后续不必手动输入用户名和密码。若同时使用不同的`Git`服务，则不推荐使用。
+
+#### 多Git服务
+若同时使用不同的`Git`服务，可以根据目录配置用户信息（需要使用`v2.13.0`及以上版本）：
+- 首先修改用户目录下的 `.gitconfig`，通过 `includeIf` 配置不同目录的配置文件：
+```diff
+- [user]
+- 	name = weijie.yuan
+- 	email = weijie.yuan@gitlab.com
+
++ [includeIf "gitdir:~/github/"]
++     path = .gitconfig-github
++ [includeIf "gitdir:~/gitlab/"]
++     path = .gitconfig-gitlab
+```
+
+- 根据配置的 `path`，分别创建 `.gitconfig-github` 文件和 `.gitconfig-gitlab` 文件：
+```
+$ vi .gitconfig-github
+[user]
+	name = weijie.yuan
+	email = weijie.yuan@github.com
+
+$ vi .gitconfig-gitlab
+[user]
+	name = weijie.yuan
+	email = weijie.yuan@gitlab.com
+```
+`includeIf` 配置有如下规则：
+- 家目录下的 `.gitconfig` ，`includeIf` 后面的 `path` 最后需要 `/` 结尾；
+- 家目录下的 `.gitconfig` ，原有的 `user` 部分需要删除；
+- 家目录下的 `.gitconfig` ，`includeIf`中配置的各个目录，不能是包含关系；
+
+#### 文本编辑器
+`Linux` or `MacOS`：
+```
+$ git config --global core.editor vim
+```
+`Windows`：
+```
+> git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"
+```
+
+#### 文本比较合并工具
+查看支持的工具集合（推荐使用`meld`）：
+```
+$ git difftool --tool-help
+```
+
+`Linux` or `MacOS`：
 ```
 $ git config --global diff.tool meld
 $ git config --global merge.tool meld
 ```
-- `Windows`：
+
+`Windows`：
 ```
 > git config --global diff.tool meld
 > git config --global merge.tool meld
@@ -176,26 +189,16 @@ $ git config --global merge.tool meld
 > git config --global difftool.meld.path 'C:\Program Files (x86)\Meld\Meld.exe'
 ```
 
-配置编辑器：
-- `Linux` or `MacOS`：
-```
-$ git config --global core.editor vim
-```
-- `Windows`：
-```
-> git config --global core.editor "'C:/Program Files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"
-```
-
-配置显示颜色：
+#### 显示颜色
 ```
 $ git config --global color.ui.true
 ```
 
-配置`Git`操作别名，示例：
+#### 操作别名
+示例，将`checkout`设置为别名`co`：
 ```
 $ git config --global alias checkout co 
 ```
-> 上面的命令将`checkout`设置为别名`co`。
 
 ### 查看所有配置
 ```
@@ -204,28 +207,16 @@ $ git config --global --list
 $ git config --system --list
 ```
 
-## 工作流
+## 基础操作
+### 工作流
 ![工作流](git-work-flow.jpg)
 
-工作区就是你的本地仓库文件夹，不过其中的`.git`目录不属于工作区，而是版本库，里面存了很多东西，其中最重要的就是称为`stage`（或者叫`index`）的暂存区，还有`Git`为我们自动创建的第一个分支`master`，以及指向`master`的一个指针叫`HEAD`。  
+工作区就是你的本地仓库目录，不过其中的`.git`目录不属于工作区，而是版本库，里面存了很多东西，其中最重要的就是称为`stage`（或者叫`index`）的暂存区，还有`Git`为我们自动创建的第一个分支`master`，以及指向`master`的一个指针叫`HEAD`。  
 
-现在来解释一下前面的添加和提交操作：  
-1. `git add`：把文件修改添加到暂存区；
-2. `git commit`：把暂存区的所有内容提交到当前分支，即版本区；
-
-## 基本操作
-获取远程仓库：
+查看状态：
 ```
-$ git clone git@github.com:USERNAME/repo.git
+$ git status
 ```
-
-将本地的仓库添加到远程：
-```
-$ cd repo
-$ git init
-$ git remote add origin git@github.com:USERNAME/repo.git
-```
-> `origin`就是一个名字，是`git`为你默认创建的指向这个远程代码库的标签。
 
 添加修改到暂存区：
 ```
@@ -234,179 +225,64 @@ $ git add .  # 添加当前目录所有修改过的文件
 $ git add *  # 递归地添加执行命令时所在的目录中的所有文件
 ```
 
-提交修改到版本区：
+提交修改到版本库：
 ```
 $ git commit -m "commit message"
 $ git commit -am "commit message" # am：将添加和提交合并为一步，但只对本来就存在的文件有效
 ```
 > ``commit message``的填写可以参考[写好 Git Commit 信息的 7 个建议](http://blog.jobbole.com/92713/)。
 
+现在来解释一下前面的添加和提交操作：  
+1. `git add`：把文件修改添加到暂存区；
+2. `git commit`：把暂存区的所有内容提交到当前分支，即版本库；
 
-推送修改到远程服务器：
+### 版本历史记录
+查看当前仓库所有文件的版本历史记录：
 ```
-$ git push -u origin <feature-branch-name>
-```
-> ``-u``选项可以将本地分支与远程分支关联,下次``git pull``操作时可以不带参数.具体参见[这里](http://stackoverflow.com/questions/5697750/what-exactly-does-the-u-do-git-push-u-origin-master-vs-git-push-origin-ma)。
-
-查看远程仓库：
-```
-$ git remote -v
-origin git@github.com:USERNAME/repo.git (push)
-origin git@github.com:USERNAME/repo.git (fetch)
+$ git log
 ```
 
-添加上游仓库：
+查看每个文件的版本历史记录：
 ```
-$ git remote add upstream git@github.com:USERNAME/repo.git
-```
-
-`fork`后同步上游仓库的更新：
-``` 
-$ git remote -v
-origin  git@github.com:USERNAME/repo.git (push)
-origin  git@github.com:USERNAME/repo.git (fetch)
-upstream  git@github.com:USERNAME/repo.git  (push)
-upstream  git@github.com:USERNAME/repo.git (fetch)
-
-$ git fetch upstream 
-$ git difftool <branch-name> upstream/master
-$ git merge upstream/master
-$ git mergetool
+$ git log <filename>
 ```
 
-代码引用在`Git`上有``submodule``和``subtree``两种方式，推荐使用[subtree](http://aoxuis.me/post/2013-08-06-git-subtree)方式：
-``` 
-# 第一次初始化
-$ git remote add -f <remote-subtree-repository-name> <remote-subtree-repository-url>
-$ git subtree add --prefix=<local-subtree-directory> <remote-subtree-repository> <remote-subtree-branch-name> --squash
-
-# 同步subtree的更新
-$ git subtree pull --prefix=<local-subtree-directory> <remote-subtree-repository> <remote-subtree-branch-name> --squash
-
-# 推送到远程subtree库
-$ git subtree push --prefix=<local-subtree-directory> <remote-subtree-repository> <remote-subtree-branch-name>
+查看包含指定关键字的版本历史记录：
+```
+$ git log --grep="keywords"
 ```
 
-## 分支
-查看所有分支，有``*``标记的是当前分支：
+查看指定时间段的版本历史记录，如下示例时间段为`2020.9.23`全天：
 ```
-$ git branch -a
-```
-
-创建本地分支：
-```
-$ git branch <newbranch>
+$ git log --after="2020-9-23 00:00:00" --before="2020-9-23 23:59:59"
 ```
 
-创建并切换本地分支：
+### 暂存
+当你需要切换分支时，若当前工作区还有些修改没有完成、又不适合提交的，操作切换分支是会提示出错的，这时就需要将这些修改暂存起来：
 ```
-$ git checkout -b <newbranch>
-```
-
-从标签创建分支：
-```
-$ git branch <branch> <tagname>
-$ git checkout <branch> # 切换到新建分支
+$ git stash save "message"
 ```
 
-推送新建本地分支到远程：
+查看:
 ```
-$ git push -u origin <remote-branch-name>
+$ git stash list
+```
+
+恢复:
+```
+$ git stash pop [--index] [stash@{num}]　
   or
-$ git push --set-upstream origin <remote-branch-name>
+$ git stash apply [--index] [stash@{num}]　# 不删除已恢复的进度.
+```
+> ``--index``表示不仅恢复工作区,还会恢复暂存区；``num``是你要恢复的操作的序列号,默认恢复最新进度。
+
+删除进度:
+```
+$ git stash drop [stash@{num}] # 删除指定进度
+$ git stash clear # 删除所有
 ```
 
-删除本地分支：
-```
-$ git branch -d <branch>
-```
-> 若当前分支因为有修改未提交或其它情况不能删除，请使用``-D``选项强制删除。
-
-删除远程分支(三种方法)：
-```
-$ git push origin --delete <remote-branch-name>
-$ git push origin -d <remote-branch-name>
-$ git push origin :<remote-branch-name>
-```
-
-清除无用的分支：
-```
-$ git remote prune origin
-```
-> 说明：remote上的一个分支被其他人删除后，需要更新本地的分支列表。
-
-获取远程分支到本地已有分支：
-```
-$ git branch --set-upstream <local-branch> origin/branch
-```
-
-获取远程分支到本地并新建本地分支：
-```
-$ git checkout -b <local-branch> <remote-branch>
-```
-
-同步当前分支的所有更新，使用``git pull``并不保险：
-```
-# 下载最新的代码到远程跟踪分支, 即origin/<branch-name>
-$ git fetch origin <branch-name> 
-# 查看更新内容
-$ git difftool <branch-name> origin/<branch-name>
-# 尝试合并远程跟踪分支的代码到本地分支 
-$ git merge origin/<branch-name>
-# 借助mergetool解决冲突              
-$ git mergetool                               
-```
-
-同步其它分支的所有更新，本例拉取``master``分支更新：
-```
-$ git fetch origin master
-$ git difftool <branch-name> origin/master
-$ git merge origin/master
-$ git mergetool
-```
-
-同步其它分支的部分更新，即同步某几次提交：
-```
-# 同步提交A
-$ git cherry-pick <commit id A> 
-# 同步提交A和B
-$ git cherry-pick <commit id A> <commit id B> 
-# 同步提交A到B的所有提交（不包括A），提交A必须早于提交B，否则命令将失败，但不会报错
-$ git cherry-pick <commit id A>..<commit id B> 
-# 同步提交A到B的所有提交（包括A），提交A必须早于提交B，否则命令将失败，但不会报错
-$ git cherry-pick <commit id A>^..<commit id B> 
-```
-
-查看某个`<commit id>`属于哪个分支:
-```
-$ git branch -a --contains <commit id>
-```
-
-## 标签
-查看标签：
-```
-$ git tag
-```
-
-创建标签：
-``` 
-$ git tag -a <tagname> -m "tag message" # 创建标签在当前最新提交的commit上
-$ git tag -a <tagname> -m "tag message" <commit id> # 创建标签在指定的commit上
-```
-
-推送标签到远程服务器：
-```
-$ git push origin <tagname> # 推送一个本地标签
-$ git push origin --tags # 推送全部未推送过的本地标签
-```
-
-删除标签：
-```
-$ git tag -d <tagname> # 删除一个本地标签
-$ git push origin :refs/tags/<tagname> # 删除一个远程标签
-```
-
-## 撤销与回退
+### 撤销与回退
 查看当前仓库状态：
 ```
 $ git status
@@ -477,46 +353,155 @@ $ git revert <commit-id>
 ```
 > ``revert``是用一次新的``commit``来回滚之前的``commit``，更安全;``reset``则是直接删除指定的``commit``，若直接``push``会导致冲突。
 
-## 暂存
-当你需要切换分支时，若当前工作区还有些修改没有完成、又不适合提交的，操作切换分支是会提示出错的，这时就需要将这些修改暂存起来：
+### 使用帮助
+查看帮助：
 ```
-$ git stash save "message"
-```
-
-查看:
-```
-$ git stash list
+$ git --help
 ```
 
-恢复:
+## 仓库管理
+### 推送本地修改到远程仓库
 ```
-$ git stash pop [--index] [stash@{num}]　
-  or
-$ git stash apply [--index] [stash@{num}]　# 不删除已恢复的进度.
+$ git push -u origin <feature-branch-name>
 ```
-> ``--index``表示不仅恢复工作区,还会恢复暂存区；``num``是你要恢复的操作的序列号,默认恢复最新进度。
+> ``-u``选项可以将本地分支与远程分支关联,下次``git pull``操作时可以不带参数.具体参见[这里](http://stackoverflow.com/questions/5697750/what-exactly-does-the-u-do-git-push-u-origin-master-vs-git-push-origin-ma)。
 
-删除进度:
+### 添加本地仓库到远程
 ```
-$ git stash drop [stash@{num}] # 删除指定进度
-$ git stash clear # 删除所有
+$ cd repo
+$ git init
+$ git remote add origin git@github.com:USERNAME/repo.git
+```
+> `origin`就是一个名字，是`git`为你默认创建的指向这个远程代码库的标签。
+
+### 获取远程仓库
+```
+$ git clone git@github.com:USERNAME/repo.git
 ```
 
-## 清理仓库
-### 清理本地无效的远程追踪分支
+### 查看远程仓库
+```
+$ git remote -v
+origin git@github.com:USERNAME/repo.git (push)
+origin git@github.com:USERNAME/repo.git (fetch)
+```
+
+### 关联远程仓库
+```
+$ git remote add upstream git@github.com:USERNAME/repo.git
+```
+
+### 同步远程仓库的更新
+``` 
+$ git remote -v
+origin  git@github.com:USERNAME/repo.git (push)
+origin  git@github.com:USERNAME/repo.git (fetch)
+upstream  git@github.com:USERNAME/repo.git  (push)
+upstream  git@github.com:USERNAME/repo.git (fetch)
+
+$ git fetch upstream 
+$ git difftool <branch-name> upstream/master
+$ git merge upstream/master
+$ git mergetool
+```
+
+### 仓库引用（自仓库）
+`Git`包含``submodule``和``subtree``两种引用方式，官方推荐使用[subtree](http://aoxuis.me/post/2013-08-06-git-subtree)替代`submodule`：
+
+#### submodule
+##### 添加子模块
+```
+$ git submodule add git@github.com:USERNAME/repo.git <submodule-path>
+```
+执行成功后，暂存区会有两个修改：`.gitmodules`和命令中`<submodule-path>`指定的路径。
+
+提交更新：
+```
+$ git commit
+$ git push
+```
+
+##### 使用子模块
+克隆使用了子模块的项目后，默认其子模块目录为空，需要在项目根目录执行如下命令单独下载：
+```
+$ git submodule update --init --recursive
+
+or
+
+$ git submodule init
+$ git submodule update
+```
+
+##### 更新子模块
+子模块仓库更新后，使用子模块的项目必须手动更新才能同步最新的提交：
+```
+$ cd <submodule-path>
+$ git pull
+```
+
+完成后返回项目根目录，可以看到子模块有待提交的更新，执行提交即可：
+```
+$ git add .
+$ git commit
+$ git push
+```
+
+##### 删除子模块
+删除子模块目录及源码：
+```
+$  rm -rf <submodule-path>
+```
+
+删除项目根目录下`.gitmodules`文件中待删除的子模块相关条目：
+```
+$ vi .gitmodules 
+```
+
+删除版本库下的子模块目录，每个子模块对应一个目录，只删除对应的子模块目录即可：
+```
+rm -rf .git/module/<submodule-path>
+```
+
+删除子模块缓存：
+```
+git rm --cached <submodule-path>
+```
+
+提交更新：
+```
+$ git add .
+$ git commit
+$ git push
+```
+
+#### subtree
+``` 
+# 第一次初始化
+$ git remote add -f <remote-subtree-repository-name> <remote-subtree-repository-url>
+$ git subtree add --prefix=<local-subtree-directory> <remote-subtree-repository> <remote-subtree-branch-name> --squash
+
+# 同步subtree的更新
+$ git subtree pull --prefix=<local-subtree-directory> <remote-subtree-repository> <remote-subtree-branch-name> --squash
+
+# 推送到远程subtree库
+$ git subtree push --prefix=<local-subtree-directory> <remote-subtree-repository> <remote-subtree-branch-name>
+```
+
+### 清理仓库
+#### 清理本地无效的远程追踪分支
 ```
 $ git pull # 拉取更新
 $ git remote prune origin --dry-run # 列出所有可以从本地仓库中删除的远程追踪分支
 $ git remote prune origin # 清理本地无效的远程追踪分支
 ```
 
-### 清理无用的分支和标签
+#### 清理无用的分支和标签
 ```
 $ git branch -d <branch-name>
 $ git tag -d <tag-name>
 ```
 
-### 清理大文件
+#### 清理大文件
 - 查看仓库占用空间：
 ```
 $ git count-objects -v
@@ -558,13 +543,159 @@ $ git count-objects -v
 $ du -sh .git
 ```
 
-### 处理大型二进制文件
+#### 清理大型二进制文件
 由于`Git`在存储二进制文件时效率不高，所以需要借助[第三方组件](http://www.oschina.net/news/71365/git-annex-lfs-bigfiles-fat-media-bigstore-sym)。
 
-## 忽略特殊文件
-当你的仓库中有一些文件，类似密码或者数据库文件不需要提交但又必须放在仓库目录下，每次``git status``都会提示``Untracked``，看着让人很不爽，提供两种方法解决这个问题
+## 分支管理
+### 查看分支
+查看所有分支：
+```
+$ git branch -a
+```
+> 有``*``标记的是当前分支。
 
-### 本地
+查看某个`<commit id>`属于哪个分支:
+```
+$ git branch -a --contains <commit id>
+```
+
+### 创建分支
+在本地创建分支：
+```
+$ git branch <newbranch> # 创建
+```
+
+在本地创建分支并切换：
+```
+$ git checkout -b <newbranch> # 创建并切换
+```
+
+从标签创建分支：
+```
+$ git branch <newbranch> <tagname>
+$ git checkout <newbranch> # 切换到新建分支
+```
+
+获取远程分支到本地并创建本地分支：
+```
+$ git checkout -b <local-branch> <remote-branch>
+```
+
+推送新建本地分支到远程：
+```
+$ git push -u origin <remote-branch-name>
+  or
+$ git push --set-upstream origin <remote-branch-name>
+```
+
+### 创建空白分支
+创建一个分支，该分支会包含父分支的所有文件，但不会指向任何历史提交：
+```
+$ git checkout --orphan <newbranch>
+```
+
+删除所有文件：
+```
+$ git rm -rf .
+```
+
+提交分支：
+```
+$ echo '# new branch' >> README.md
+$ git add README.md
+$ git commit
+$ git push origin <remote-branch-name>
+```
+
+### 删除分支
+删除本地分支：
+```
+$ git branch -d <branch>
+```
+> 若当前分支因为有修改未提交或其它情况不能删除，请使用``-D``选项强制删除。
+
+清理无用的本地分支：
+```
+$ git remote prune origin
+```
+> 通常在`remote`上的分支被删除后，更新本地分支列表时使用。
+
+删除远程分支(三种方法)：
+```
+$ git push origin --delete <remote-branch-name>
+$ git push origin -d <remote-branch-name>
+$ git push origin :<remote-branch-name>
+```
+
+### 更新分支
+获取远程分支到本地已有分支：
+```
+$ git branch --set-upstream <local-branch> origin/branch
+```
+
+同步当前分支的所有更新，使用``git pull``并不保险：
+```
+# 下载最新的代码到远程跟踪分支, 即origin/<branch-name>
+$ git fetch origin <branch-name> 
+# 查看更新内容
+$ git difftool <branch-name> origin/<branch-name>
+# 尝试合并远程跟踪分支的代码到本地分支 
+$ git merge origin/<branch-name>
+# 借助mergetool解决冲突              
+$ git mergetool                               
+```
+
+同步其它分支的所有更新，本例拉取``master``分支更新：
+```
+$ git fetch origin master
+$ git difftool <branch-name> origin/master
+$ git merge origin/master
+$ git mergetool
+```
+
+同步其它分支的部分更新，即同步某几次提交：
+```
+# 同步提交A
+$ git cherry-pick <commit id A> 
+# 同步提交A和B
+$ git cherry-pick <commit id A> <commit id B> 
+# 同步提交A到B的所有提交（不包括A），提交A必须早于提交B，否则命令将失败，但不会报错
+$ git cherry-pick <commit id A>..<commit id B> 
+# 同步提交A到B的所有提交（包括A），提交A必须早于提交B，否则命令将失败，但不会报错
+$ git cherry-pick <commit id A>^..<commit id B> 
+```
+
+## 标签管理
+### 查看标签
+```
+$ git tag
+```
+
+### 创建标签
+``` 
+$ git tag -a <tagname> -m "tag message" # 创建标签在当前最新提交的commit上
+$ git tag -a <tagname> -m "tag message" <commit id> # 创建标签在指定的commit上
+```
+> 若创建标签基于的`commit`被删除，标签不会被影响，依旧存在。
+
+### 推送标签
+推送标签到远程服务器：
+```
+$ git push origin <tagname> # 推送一个本地标签
+$ git push origin --tags # 推送全部未推送过的本地标签
+```
+
+### 删除标签
+```
+$ git tag -d <tagname> # 删除一个本地标签
+$ git push origin :refs/tags/<tagname> # 删除一个远程标签
+```
+
+## 进阶技巧
+### 忽略特殊文件
+当你的仓库中有一些文件，类似密码或者数据库文件不需要提交但又必须放在仓库目录下，每次``git status``都会提示``Untracked``，看着让人很不爽，提供两种方法解决这个问题。
+
+#### 本地忽略
 在代码仓库目录创建一个``.gitignore``文件，编写规则如下：
 ```
 tmp/  # 忽略tmp文件夹下所有内容
@@ -573,7 +704,7 @@ tmp/  # 忽略tmp文件夹下所有内容
 ```
 > [``.gitignore``模版](https://github.com/github/gitignore)
 
-### 全局
+#### 全局忽略
 在用户目录创建一个``.gitignore_global``文件，编写规则同``.gitignore``，并修改``~/.gitconfig``：
 ```
 [core]
@@ -585,18 +716,28 @@ tmp/  # 忽略tmp文件夹下所有内容
 $ git rm -r --cached .
 ```
 
-## 奇技淫巧
 ### 重写历史（慎用！）
+#### 修改历史提交（变基）
 ```
 $ git rebase -i [git-hash| head~n]
 $ git push -f # 不强制 push 会多一条 merge 提交信息
 ```
-> 其中`git-hash`是你要开始进行`rebase`的`commit`的`hash`，而`head~n`则是从`HEAD`向前推`n`个`commit`
+其中`git-hash`是你要开始进行`rebase`的`commit`的`hash`，而`head~n`则是从`HEAD`向前推`n`个`commit`
 
-
-### 全局更换电子邮件
+#### 修改最近一次提交信息
 ```
-git filter-branch --commit-filter '
+$ git commit --amend
+```
+
+#### 修改提交记录中的用户信息 
+修改最近一次提交的用户信息：
+```
+$ git commit --amend --author="GIT_AUTHOR_NAME <GIT_AUTHOR_EMAIL>"
+```
+
+全局修改用户信息：
+```
+$ git filter-branch --commit-filter '
         if [ "$GIT_AUTHOR_EMAIL" = "xxx@localhost" ];
         then
                 GIT_AUTHOR_NAME="xxx";
@@ -607,16 +748,13 @@ git filter-branch --commit-filter '
         fi' HEAD --all
 ```
 
-## 帮助
-查看帮助：
-```
-$ git --help
-```
-
 ## Reference
-1. [廖雪峰老师的git教程](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
-2. [常用Git命令清单](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html)
-3. [Git-Book](https://git-scm.com/book/en/v2)
-4. [Git-Reference](https://git-scm.com/docs)
-5. [Git push与pull的默认行为](https://segmentfault.com/a/1190000002783245)
-6. [git stash 详解](http://www.tuicool.com/articles/rUBNBvI)
+- [廖雪峰老师的git教程](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
+- [常用Git命令清单](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html)
+- [Git-Book](https://git-scm.com/book/en/v2)
+- [Git-Reference](https://git-scm.com/docs)
+- [Git push与pull的默认行为](https://segmentfault.com/a/1190000002783245)
+- [Git飞行规则(Flight Rules)](https://github.com/k88hudson/git-flight-rules/blob/master/README_zh-CN.md)
+- [理解Git Submodules](http://www.ayqy.net/blog/%E7%90%86%E8%A7%A3git-submodules/)
+- [git中submodule子模块的添加、使用和删除](https://rouroux.github.io/git-submodule/)
+- [寻找并删除 Git 记录中的大文件](https://harttle.land/2016/03/22/purge-large-files-in-gitrepo.html)
