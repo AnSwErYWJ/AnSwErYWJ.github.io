@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="AnSwErYWJ">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="AnSwErYWJ">
+    
+        <meta name="keywords" content="answerywj,C/C++,Linux">
+    
+    <meta name="description" content="分享C/C++,嵌入式开发,人工智能等技术知识">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/img/site/tab_icon.png">
+    
+    <title>将二进制文件作为目标文件中的一个段 · AnSwErYWJ&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?e12c3989e0050ebd884435d0e1f1bed4";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="AnSwErYWJ's Blog" type="application/atom+xml">
+</head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>AnSwErYWJ's Blog</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">AnSwErYWJ&#39;s Blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">将二进制文件作为目标文件中的一个段</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:40vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/img/site/post-bg-small.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                将二进制文件作为目标文件中的一个段
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="编译链接"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                编译链接
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="objdump">objdump</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="elf">elf</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">833</span>阅读时长: <span class="post-count reading-time">19 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2019/07/24</span>
+                    <!-- busuanzi -->
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p>本文将展示，如何将一个二进制文件(如图片、音频等)作为目标文件中的一个段，该技巧主要应用在一些无文件系统的平台。</p>
+<span id="more"></span>
+
+<p>本次的实验场景为<code>i386:x86-64 GNU/Linux</code>，测试音频为<code>nhxc.wav</code>，测试程序为<code>bin2obj.c</code>。</p>
+<h2 id="查看该平台的ELF文件相关信息"><a href="#查看该平台的ELF文件相关信息" class="headerlink" title="查看该平台的ELF文件相关信息"></a>查看该平台的ELF文件相关信息</h2><p>生成目标文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -c bin2obj.c -o bin2obj.o</span><br></pre></td></tr></table></figure>
+
+<p>查看该平台<code>ELF</code>文件相关信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ objdump -x bin2obj.o</span><br><span class="line"></span><br><span class="line">bin2obj.o:     file format elf64-x86-64</span><br><span class="line">bin2obj.o</span><br><span class="line">architecture: i386:x86-64, flags 0x00000011:</span><br><span class="line">HAS_RELOC, HAS_SYMS</span><br><span class="line">start address 0x0000000000000000</span><br></pre></td></tr></table></figure>
+<p>由上可知，文件格式为<code>elf64-x86-64</code>，<code>CPU</code>架构为<code>architecture</code>。</p>
+<h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><p>首先通过<code>objcopy --help</code>选项查看相关参数的意义:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ objcopy --help</span><br><span class="line">-I --input-target &lt;bfdname&gt;      Assume input file is in format &lt;bfdname&gt;</span><br><span class="line">-O --output-target &lt;bfdname&gt;     Create an output file in format &lt;bfdname&gt;</span><br><span class="line">-B --binary-architecture &lt;arch&gt;  Set output arch, when input is arch-less</span><br><span class="line">......</span><br><span class="line">objcopy: supported targets: elf64-x86-64 elf32-i386 elf32-iamcu elf32-x86-64 a.out-i386-linux pei-i386 pei-x86-64 elf64-l1om elf64-k1om elf64-little elf64-big elf32-little elf32-big pe-x86-64 pe-bigobj-x86-64 pe-i386 plugin srec symbolsrec verilog tekhex binary ihex</span><br></pre></td></tr></table></figure>
+<p>由上可知，<code>-I</code>选项指定输入文件的格式，<code>-O</code>指定输出文件的格式，在<code>supported targets</code>中选择对应的格式；-B是指定目标文件的架构<code>i386:x86-64</code>，即上文<code>objdump -x</code>命令查询的<code>architecture</code>。</p>
+<p>转换：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ objcopy -I binary -O elf64-x86-64 -B i386:x86-64 nhxc.wav audio.o</span><br></pre></td></tr></table></figure>
+
+<p>查看转换后生成的目标文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ objdump -x audio.o</span><br><span class="line"></span><br><span class="line">audio.o:     file format elf64-x86-64</span><br><span class="line">audio.o</span><br><span class="line">architecture: i386:x86-64, flags 0x00000010:</span><br><span class="line">HAS_SYMS</span><br><span class="line">start address 0x0000000000000000</span><br><span class="line"></span><br><span class="line">Sections:</span><br><span class="line">Idx Name          Size      VMA               LMA               File off  Algn</span><br><span class="line">  0 .data         0000fab0  0000000000000000  0000000000000000  00000040  2**0</span><br><span class="line">                  CONTENTS, ALLOC, LOAD, DATA</span><br><span class="line">SYMBOL TABLE:</span><br><span class="line">0000000000000000 l    d  .data	0000000000000000 .data</span><br><span class="line">0000000000000000 g       .data	0000000000000000 _binary_nhxc_wav_start</span><br><span class="line">000000000000fab0 g       .data	0000000000000000 _binary_nhxc_wav_end</span><br><span class="line">000000000000fab0 g       *ABS*	0000000000000000 _binary_nhxc_wav_size</span><br></pre></td></tr></table></figure>
+<p>可以看到<code>file format</code>、<code>architecture</code>信息与<code>bin2obj.o</code>的相同，<code>_binary_nhxc_wav_start</code>指向音频内容的起始地址，<code>_binary_nhxc_wav_end</code>指向音频内容的结尾地址，<code>_binary_nhxc_wav_size</code>指向文件大小的存储地址。</p>
+<blockquote>
+<p><code>_binary_*_start/end/size</code>，<code>*</code>是二进制文件的文件名及后缀名。</p>
+</blockquote>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p><a target="_blank" rel="noopener" href="https://github.com/AnSwErYWJ/DogFood/blob/master/C/bin2obj/bin2obj.c">bin2obj.c</a>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;elf.h&gt;</span><br><span class="line"></span><br><span class="line">extern _binary_nhxc_wav_start;</span><br><span class="line">extern _binary_nhxc_wav_end;</span><br><span class="line">extern _binary_nhxc_wav_size;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">	printf(&quot;binary to object:\n&quot;);</span><br><span class="line">    </span><br><span class="line">	printf(&quot;elf head: %ld\n&quot;, sizeof(Elf64_Ehdr));</span><br><span class="line">    printf(&quot;_binary_nhxc_wav_size: %p\n_binary_nhxc_wav_end: %p\n_binary_nhxc_wav_size: %p\n&quot;, &amp;_binary_nhxc_wav_start, &amp;_binary_nhxc_wav_end,  &amp;_binary_nhxc_wav_size);</span><br><span class="line"></span><br><span class="line">    unsigned char * audio_buf = (unsigned char *)&amp;_binary_nhxc_wav_start;</span><br><span class="line">    unsigned long size = (unsigned long)&amp;_binary_nhxc_wav_size;</span><br><span class="line"></span><br><span class="line">	FILE *fp = fopen(&quot;./out.wav&quot;, &quot;wb&quot;);</span><br><span class="line">	if (!fp) &#123;</span><br><span class="line">		fprintf(stderr, &quot;fopen failed!\n&quot;);</span><br><span class="line">		return -1;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fwrite(audio_buf, size, 1, fp);</span><br><span class="line"></span><br><span class="line">	fclose(fp);</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过<code>_binary_nhxc_wav_start</code>和<code>_binary_nhxc_wav_size</code>两个符号，读取音频文件。</p>
+<p>编译并运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -c bin2obj.c -o bin2obj.o</span><br><span class="line">$ g++ bin2obj.o audio.o -o bin2obj</span><br><span class="line">$ ./bin2obj</span><br><span class="line">binary to object:</span><br><span class="line">elf head: 64</span><br><span class="line">_binary_nhxc_wav_size: 0x601040</span><br><span class="line">_binary_nhxc_wav_end: 0x610af0</span><br><span class="line">_binary_nhxc_wav_size: 0xfab0</span><br></pre></td></tr></table></figure>
+<p>比对写入的文件<code>out.wav</code>与原始文件<code>nhxc.wav</code>，完全一致：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">155e62d81e84fa7493fefe82223bcc2a  nhxc.wav</span><br><span class="line">155e62d81e84fa7493fefe82223bcc2a  out.wav</span><br></pre></td></tr></table></figure>
+
+<p>查看audio.o：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ hexdump -C audio.o | head -n 5</span><br><span class="line">00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|</span><br><span class="line">00000010  01 00 3e 00 01 00 00 00  00 00 00 00 00 00 00 00  |..&gt;.............|</span><br><span class="line">00000020  00 00 00 00 00 00 00 00  d0 fb 00 00 00 00 00 00  |................|</span><br><span class="line">00000030  00 00 00 00 40 00 00 00  00 00 40 00 05 00 02 00  |....@.....@.....|</span><br><span class="line">00000040  52 49 46 46 a8 fa 00 00  57 41 56 45 66 6d 74 20  |RIFF....WAVEfmt |</span><br></pre></td></tr></table></figure>
+<p>如程序输出，<code>ELF</code>文件头部信息结构体为64字节，而转换生成的目标文件中，音频内容始于<code>0x40</code>字节偏移（<code>wav</code>头始于<code>RIFF</code>，可以参考<a href="http://answerywj.com/2019/06/03/wav/">wav文件解析</a>），而<code>0x40</code>正是十进制的<code>64</code>。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li>《程序员的自我修养——链接、装载与库》P68</li>
+</ul>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="/about/">AnSwErYWJ</a>
+            <p>原文链接：<a href="https://answerywj.com/2019/07/24/binary-to-object-file/">https://answerywj.com/2019/07/24/binary-to-object-file/</a>
+            <p>发表日期：2019/07/24 11:07</p>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>进行许可.</br><a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a></p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/09/09/git-clone-extra-large-project/" title="Git仓库过大导致clone失败的解决方法">
+                    <div class="nextTitle">Git仓库过大导致clone失败的解决方法</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/05/21/man-strtok/" title="深究strtok系列函数">
+                    <div class="prevTitle">深究strtok系列函数</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:yuanweijie1993@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/AnSwErYWJ" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/img/social/wechat_public_qcode.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <div>
+            <span>Copyright </span><i class="fas fa-copyright"></i><span> 2016 -</span><span id="years">载入年份...</span><span>, AnSwErYWJ. All Rights Reserved.</span>
+        </div>
+        <div>
+            <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+        </div>
+        <script>
+            (function () {
+                const now = new Date();
+                const years = now.getFullYear();
+                document.getElementById("years").innerHTML = years;
+            })();
+        </script>
+    </div>
+
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:40vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%AF%A5%E5%B9%B3%E5%8F%B0%E7%9A%84ELF%E6%96%87%E4%BB%B6%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF"><span class="toc-number">1.</span> <span class="toc-text">查看该平台的ELF文件相关信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2"><span class="toc-number">2.</span> <span class="toc-text">转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">3.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 44
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/20</span>
+            <a class="archive-post-title" href="/2022/12/20/generate-and-usage-of-core-in-linux/">Linux下core文件的生成和使用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/06</span>
+            <a class="archive-post-title" href="/2022/01/06/wav/">wav文件格式解析</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/28</span>
+            <a class="archive-post-title" href="/2021/07/28/tips-of-inline/">inline使用注意事项</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/23</span>
+            <a class="archive-post-title" href="/2021/06/23/getrusage/">getrusage-进程资源统计函数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/22</span>
+            <a class="archive-post-title" href="/2021/02/22/difference-between-RPATH-and-RUNPATH/">RPATH与RUNPATH的区别</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2020 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span>
+            <a class="archive-post-title" href="/2020/09/29/git-help-v3/">Git速查手册（第三版）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span>
+            <a class="archive-post-title" href="/2020/07/03/gudie-of-technical-resume/">写好技术简历的一些建议</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span>
+            <a class="archive-post-title" href="/2020/05/14/ld-hash-style/">--hash-style兼容性问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2020/02/17/homebrew-in-mac/">Homebrew</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2019 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span>
+            <a class="archive-post-title" href="/2019/09/09/git-clone-extra-large-project/">Git仓库过大导致clone失败的解决方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span>
+            <a class="archive-post-title" href="/2019/07/24/binary-to-object-file/">将二进制文件作为目标文件中的一个段</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/21</span>
+            <a class="archive-post-title" href="/2019/05/21/man-strtok/">深究strtok系列函数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/26</span>
+            <a class="archive-post-title" href="/2019/04/26/what-is-sysroot/">sysroot为何物?</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2019/04/13/hide-symbol-of-static-library/">屏蔽静态库接口</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/12</span>
+            <a class="archive-post-title" href="/2019/02/12/git-help-v2/">Git速查手册（第二版）</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/25</span>
+            <a class="archive-post-title" href="/2018/09/25/coverage-of-code/">C代码覆盖率测试工具Gcov</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span>
+            <a class="archive-post-title" href="/2018/05/03/cjson/">cJSON的秘密</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/2018/03/07/usage-of-core-in-linux/">Linux下core文件使用</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2017 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/2017/12/29/speex/">Speex介绍</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span>
+            <a class="archive-post-title" href="/2017/12/15/condition-variables-of-thread-synchronization/">线程同步机制条件变量的使用与思考</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/04</span>
+            <a class="archive-post-title" href="/2017/08/04/gcc-compilation-of-arm-articles/">GCC编译ARM篇</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/27</span>
+            <a class="archive-post-title" href="/2017/06/27/io-model/">UNIX下IO模型分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span>
+            <a class="archive-post-title" href="/2017/06/20/note-of-openresty-study/">笔记 | OpenResty系列课程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span>
+            <a class="archive-post-title" href="/2017/06/16/table-encode-as-array-or-object/">记一次踩坑|空table应该编码为数组还是对象</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2017/03/23/introduction-to-four-service-of-cloud-computing/">科普|云计算的四种服务模式介绍</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/2017/02/23/listen-in-unix/">UNIX网络编程-listen函数及其包裹函数介绍</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2016 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/07</span>
+            <a class="archive-post-title" href="/2016/12/07/big-little-endian/">C程序判断你主机的数据存储方式(大端和小端)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span>
+            <a class="archive-post-title" href="/2016/12/06/getw-and-putw/">从文件流中读写整数--C语言</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span>
+            <a class="archive-post-title" href="/2016/10/10/jq/">Linux下处理json数据</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span>
+            <a class="archive-post-title" href="/2016/10/10/use-dynamic-and-static-library/">Linux下C调用静态库和动态库</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/20</span>
+            <a class="archive-post-title" href="/2016/09/20/standard-of-headphone/">科普|3.5mm耳机国标和美标</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/05</span>
+            <a class="archive-post-title" href="/2016/09/05/floating-point-operation-in-script/">Shell脚本浮点运算</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/05</span>
+            <a class="archive-post-title" href="/2016/09/05/empty-file-in-shell/">Shell脚本清空文件的几种方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/10</span>
+            <a class="archive-post-title" href="/2016/08/10/backup-of-blog-with-hexo-and-github/">Hexo+Github博客备份方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/02</span>
+            <a class="archive-post-title" href="/2016/08/02/link-in-linux/">Linux的硬链接和软链接</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/connect-in-unix/">UNIX网络编程-connect函数及其包裹函数介绍</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/debug-for-shell-script/">Linux Shell 脚本调试总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/debug-macro/">Linux C编程的DEBUG宏</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/generate-random-numbers/">C语言生成随机数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/keepalive-of-socket/">Linux socket编程的心跳机制总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/safe-read-and-write/">UNIX编程安全读写函数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/script-and-scriptreplay/">Linux下脚本录制工具——script和scriptreplay</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/solution-of-adb-devices-no-permissions/">Linux下adb devices no permissions解决方案</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/fork-bomb/">Linux fork炸弹解析</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="git">
+                <span class="iconfont-archer">&#xe606;</span>
+                git
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hexo">
+                <span class="iconfont-archer">&#xe606;</span>
+                hexo
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="blog">
+                <span class="iconfont-archer">&#xe606;</span>
+                blog
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="大小端字节序">
+                <span class="iconfont-archer">&#xe606;</span>
+                大小端字节序
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cJSON">
+                <span class="iconfont-archer">&#xe606;</span>
+                cJSON
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="objdump">
+                <span class="iconfont-archer">&#xe606;</span>
+                objdump
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="elf">
+                <span class="iconfont-archer">&#xe606;</span>
+                elf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="pthread">
+                <span class="iconfont-archer">&#xe606;</span>
+                pthread
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="tcp">
+                <span class="iconfont-archer">&#xe606;</span>
+                tcp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="connect">
+                <span class="iconfont-archer">&#xe606;</span>
+                connect
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="代码覆盖率">
+                <span class="iconfont-archer">&#xe606;</span>
+                代码覆盖率
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="debug">
+                <span class="iconfont-archer">&#xe606;</span>
+                debug
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="RPATH">
+                <span class="iconfont-archer">&#xe606;</span>
+                RPATH
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="RUNPATH">
+                <span class="iconfont-archer">&#xe606;</span>
+                RUNPATH
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="LD_DEBUG">
+                <span class="iconfont-archer">&#xe606;</span>
+                LD_DEBUG
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="script">
+                <span class="iconfont-archer">&#xe606;</span>
+                script
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="fork bomb">
+                <span class="iconfont-archer">&#xe606;</span>
+                fork bomb
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="gcc">
+                <span class="iconfont-archer">&#xe606;</span>
+                gcc
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="core">
+                <span class="iconfont-archer">&#xe606;</span>
+                core
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="core dumped">
+                <span class="iconfont-archer">&#xe606;</span>
+                core dumped
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="gdb">
+                <span class="iconfont-archer">&#xe606;</span>
+                gdb
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="随机数">
+                <span class="iconfont-archer">&#xe606;</span>
+                随机数
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="getrusage">
+                <span class="iconfont-archer">&#xe606;</span>
+                getrusage
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="getw">
+                <span class="iconfont-archer">&#xe606;</span>
+                getw
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="git仓库过大">
+                <span class="iconfont-archer">&#xe606;</span>
+                git仓库过大
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="resume">
+                <span class="iconfont-archer">&#xe606;</span>
+                resume
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="技术简历">
+                <span class="iconfont-archer">&#xe606;</span>
+                技术简历
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="求职招聘">
+                <span class="iconfont-archer">&#xe606;</span>
+                求职招聘
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hidden">
+                <span class="iconfont-archer">&#xe606;</span>
+                hidden
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="objcopy">
+                <span class="iconfont-archer">&#xe606;</span>
+                objcopy
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mac">
+                <span class="iconfont-archer">&#xe606;</span>
+                mac
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Homebrew">
+                <span class="iconfont-archer">&#xe606;</span>
+                Homebrew
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Cloud Computing">
+                <span class="iconfont-archer">&#xe606;</span>
+                Cloud Computing
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="IO">
+                <span class="iconfont-archer">&#xe606;</span>
+                IO
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="json">
+                <span class="iconfont-archer">&#xe606;</span>
+                json
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="keepalive">
+                <span class="iconfont-archer">&#xe606;</span>
+                keepalive
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="ld">
+                <span class="iconfont-archer">&#xe606;</span>
+                ld
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hash-style">
+                <span class="iconfont-archer">&#xe606;</span>
+                hash-style
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="link">
+                <span class="iconfont-archer">&#xe606;</span>
+                link
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="listen">
+                <span class="iconfont-archer">&#xe606;</span>
+                listen
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="strtok">
+                <span class="iconfont-archer">&#xe606;</span>
+                strtok
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="strtok_r">
+                <span class="iconfont-archer">&#xe606;</span>
+                strtok_r
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="OpenResty">
+                <span class="iconfont-archer">&#xe606;</span>
+                OpenResty
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="read">
+                <span class="iconfont-archer">&#xe606;</span>
+                read
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="write">
+                <span class="iconfont-archer">&#xe606;</span>
+                write
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="scriptreplay">
+                <span class="iconfont-archer">&#xe606;</span>
+                scriptreplay
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="adb">
+                <span class="iconfont-archer">&#xe606;</span>
+                adb
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Speex">
+                <span class="iconfont-archer">&#xe606;</span>
+                Speex
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="headset">
+                <span class="iconfont-archer">&#xe606;</span>
+                headset
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="lua-cjson">
+                <span class="iconfont-archer">&#xe606;</span>
+                lua-cjson
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="inline">
+                <span class="iconfont-archer">&#xe606;</span>
+                inline
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="O0">
+                <span class="iconfont-archer">&#xe606;</span>
+                O0
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="core dump">
+                <span class="iconfont-archer">&#xe606;</span>
+                core dump
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="lib">
+                <span class="iconfont-archer">&#xe606;</span>
+                lib
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="wav">
+                <span class="iconfont-archer">&#xe606;</span>
+                wav
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="header">
+                <span class="iconfont-archer">&#xe606;</span>
+                header
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="sysroot">
+                <span class="iconfont-archer">&#xe606;</span>
+                sysroot
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="博客建站">
+            <span class="iconfont-archer">&#xe60a;</span>
+            博客建站
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="C/C++">
+            <span class="iconfont-archer">&#xe60a;</span>
+            C/C++
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="编译链接">
+            <span class="iconfont-archer">&#xe60a;</span>
+            编译链接
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Shell脚本">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Shell脚本
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Git">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Git
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="科普">
+            <span class="iconfont-archer">&#xe60a;</span>
+            科普
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="系统配置">
+            <span class="iconfont-archer">&#xe60a;</span>
+            系统配置
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Lua">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Lua
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="语音">
+            <span class="iconfont-archer">&#xe60a;</span>
+            语音
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "https://answerywj.com",
+        root: siteMetaRoot,
+        author: "AnSwErYWJ"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

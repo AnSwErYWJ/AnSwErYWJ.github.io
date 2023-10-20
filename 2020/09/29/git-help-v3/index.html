@@ -1,0 +1,2383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="AnSwErYWJ">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="AnSwErYWJ">
+    
+        <meta name="keywords" content="answerywj,C/C++,Linux">
+    
+    <meta name="description" content="分享C/C++,嵌入式开发,人工智能等技术知识">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/img/site/tab_icon.png">
+    
+    <title>Git速查手册（第三版） · AnSwErYWJ&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?e12c3989e0050ebd884435d0e1f1bed4";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="AnSwErYWJ's Blog" type="application/atom+xml">
+</head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>AnSwErYWJ's Blog</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">AnSwErYWJ&#39;s Blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Git速查手册（第三版）</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:40vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/img/site/post-bg-small.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                Git速查手册（第三版）
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="Git"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                Git
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="git">git</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">4.3k</span>阅读时长: <span class="post-count reading-time">94 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2020/09/29</span>
+                    <!-- busuanzi -->
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p>本文是对<a href="https://answerywj.com/2019/02/12/git-help-v2/">Git速查手册（第二版）</a>的更新，补充了一些近期使用或者收集的一些命令。</p>
+<span id="more"></span>
+
+<h2 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h2><p><code>Git</code>下载地址：<a target="_blank" rel="noopener" href="https://git-scm.com/downloads">https://git-scm.com/downloads</a>，安装请参考页面说明。</p>
+<blockquote>
+<p>建议使用版本<code>v1.8</code>及以上。</p>
+</blockquote>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p><code>Git</code>配置分为三个级别：</p>
+<ul>
+<li><code>--system</code>：系统级，位于 <code>/etc/gitconfig</code>；</li>
+<li><code>--global</code>：用户级，位于 <code>~/.gitconfig</code>；</li>
+<li><code>--local</code>：仓库级，位于 <code>[repo]/.git/config</code>，为<em>默认级别且优先级最高</em>；</li>
+</ul>
+<h3 id="用户信息"><a href="#用户信息" class="headerlink" title="用户信息"></a>用户信息</h3><p>删除<code>global</code>用户信息，防止不同<code>Git</code>服务之间冲突：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global --unset user.name</span><br><span class="line">$ git config --global --unset user.email</span><br></pre></td></tr></table></figure>
+
+<p>配置用户名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local user.name &quot;username&quot;</span><br><span class="line">$ git config --local user.email &quot;email&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="克隆协议"><a href="#克隆协议" class="headerlink" title="克隆协议"></a>克隆协议</h3><p>一般<code>Git</code>服务默认都支持<code>SSH</code>和<code>HTTPS</code>，<code>SSH</code>支持的原生<code>Git</code>协议速度最快，<code>HTTPS</code>除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令。</p>
+<h4 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h4><p>检查本机<code>SSH</code>公钥，若存在，则将<code>id_rsa.pub</code>添加到<code>Git</code>服务的<code>SSH keys</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls ~/.ssh</span><br></pre></td></tr></table></figure>
+
+<p>若不存在，则生成：</p>
+<ul>
+<li>单个<code>Git</code>服务<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;</span><br></pre></td></tr></table></figure></li>
+<li>多个<code>Git</code>服务<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot; -f &quot;git1_id_rsa&quot;</span><br><span class="line">$ ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot; -f &quot;git2_id_rsa&quot;</span><br><span class="line">$ cp git1_id_rsa* ~/.ssh/</span><br><span class="line">$ cp git2_id_rsa* ~/.ssh/</span><br><span class="line"></span><br><span class="line"># 创建配置文件</span><br><span class="line">$ vi ~/.ssh/config</span><br><span class="line"></span><br><span class="line"># git1</span><br><span class="line">Host git1.com</span><br><span class="line">HostName git1.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/git1_id_rsa</span><br><span class="line"></span><br><span class="line"># git2</span><br><span class="line">Host git2.com</span><br><span class="line">HostName git2.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/git2_id_rsa</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>配置完成后，将对应的<code>id_rsa.pub</code>添加到<code>Git</code>服务的<code>SSH keys</code>，再次检查ssh连接情况；若不生效，则重启后再尝试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br><span class="line">Hi! You’ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>若出现上述信息，则表示设置成功。</p>
+</blockquote>
+<p>克隆：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@git.server:test.git</span><br></pre></td></tr></table></figure>
+
+<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>关闭<code>ssl</code>校验：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global http.sslverify false</span><br></pre></td></tr></table></figure>
+
+<p>克隆：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://git.server/test.git</span><br></pre></td></tr></table></figure>
+
+<h4 id="协议切换"><a href="#协议切换" class="headerlink" title="协议切换"></a>协议切换</h4><p>查看当前协议：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br></pre></td></tr></table></figure>
+
+<p>从<code>https</code>切换至<code>ssh</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin git@domain:username/ProjectName.git</span><br></pre></td></tr></table></figure>
+
+<p>从<code>ssh</code>切换至<code>https</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin https://domain/username/ProjectName.git</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义配置"><a href="#自定义配置" class="headerlink" title="自定义配置"></a>自定义配置</h3><h4 id="超时时间"><a href="#超时时间" class="headerlink" title="超时时间"></a>超时时间</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global credential.helper &#x27;cache --timeout=3600&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="保存用户凭证"><a href="#保存用户凭证" class="headerlink" title="保存用户凭证"></a>保存用户凭证</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global credential.helper store</span><br></pre></td></tr></table></figure>
+<p>执行后，下次操作输入的用户名和密码会被保存，后续不必手动输入用户名和密码。若同时使用不同的<code>Git</code>服务，则不推荐使用。</p>
+<h4 id="多Git服务"><a href="#多Git服务" class="headerlink" title="多Git服务"></a>多Git服务</h4><p>若同时使用不同的<code>Git</code>服务，可以根据目录配置用户信息（需要使用<code>v2.13.0</code>及以上版本）：</p>
+<ul>
+<li><p>首先修改用户目录下的 <code>.gitconfig</code>，通过 <code>includeIf</code> 配置不同目录的配置文件：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- [user]</span></span><br><span class="line"><span class="deletion">- 	name = weijie.yuan</span></span><br><span class="line"><span class="deletion">- 	email = weijie.yuan@gitlab.com</span></span><br><span class="line"></span><br><span class="line"><span class="addition">+ [includeIf &quot;gitdir:~/github/&quot;]</span></span><br><span class="line"><span class="addition">+     path = .gitconfig-github</span></span><br><span class="line"><span class="addition">+ [includeIf &quot;gitdir:~/gitlab/&quot;]</span></span><br><span class="line"><span class="addition">+     path = .gitconfig-gitlab</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据配置的 <code>path</code>，分别创建 <code>.gitconfig-github</code> 文件和 <code>.gitconfig-gitlab</code> 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ vi .gitconfig-github</span><br><span class="line">[user]</span><br><span class="line">	name = weijie.yuan</span><br><span class="line">	email = weijie.yuan@github.com</span><br><span class="line"></span><br><span class="line">$ vi .gitconfig-gitlab</span><br><span class="line">[user]</span><br><span class="line">	name = weijie.yuan</span><br><span class="line">	email = weijie.yuan@gitlab.com</span><br></pre></td></tr></table></figure>
+<p><code>includeIf</code> 配置有如下规则：</p>
+</li>
+<li><p>家目录下的 <code>.gitconfig</code> ，<code>includeIf</code> 后面的 <code>path</code> 最后需要 <code>/</code> 结尾；</p>
+</li>
+<li><p>家目录下的 <code>.gitconfig</code> ，原有的 <code>user</code> 部分需要删除；</p>
+</li>
+<li><p>家目录下的 <code>.gitconfig</code> ，<code>includeIf</code>中配置的各个目录，不能是包含关系；</p>
+</li>
+</ul>
+<h4 id="文本编辑器"><a href="#文本编辑器" class="headerlink" title="文本编辑器"></a>文本编辑器</h4><p><code>Linux</code> or <code>MacOS</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global core.editor vim</span><br></pre></td></tr></table></figure>
+<p><code>Windows</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; git config --global core.editor &quot;&#x27;C:/Program Files/Notepad++/notepad++.exe&#x27; -multiInst -notabbar -nosession -noPlugin&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="文本比较合并工具"><a href="#文本比较合并工具" class="headerlink" title="文本比较合并工具"></a>文本比较合并工具</h4><p>查看支持的工具集合（推荐使用<code>meld</code>）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git difftool --tool-help</span><br></pre></td></tr></table></figure>
+
+<p><code>Linux</code> or <code>MacOS</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global diff.tool meld</span><br><span class="line">$ git config --global merge.tool meld</span><br></pre></td></tr></table></figure>
+
+<p><code>Windows</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; git config --global diff.tool meld</span><br><span class="line">&gt; git config --global merge.tool meld</span><br><span class="line">&gt; git config --global difftool.bc3.path &#x27;C:\Program Files (x86)\Meld\Meld.exe&#x27;</span><br><span class="line">&gt; git config --global mergetool.meld.path &#x27;C:\Program Files (x86)\Meld\Meld.exe&#x27;</span><br><span class="line">&gt; git config --global difftool.meld.path &#x27;C:\Program Files (x86)\Meld\Meld.exe&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="显示颜色"><a href="#显示颜色" class="headerlink" title="显示颜色"></a>显示颜色</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global color.ui.true</span><br></pre></td></tr></table></figure>
+
+<h4 id="操作别名"><a href="#操作别名" class="headerlink" title="操作别名"></a>操作别名</h4><p>示例，将<code>checkout</code>设置为别名<code>co</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global alias checkout co </span><br></pre></td></tr></table></figure>
+
+<h3 id="查看所有配置"><a href="#查看所有配置" class="headerlink" title="查看所有配置"></a>查看所有配置</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local --list</span><br><span class="line">$ git config --global --list</span><br><span class="line">$ git config --system --list</span><br></pre></td></tr></table></figure>
+
+<h2 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h2><h3 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h3><p><img src="/2020/09/29/git-help-v3/git-work-flow.jpg" alt="工作流"></p>
+<p>工作区就是你的本地仓库目录，不过其中的<code>.git</code>目录不属于工作区，而是版本库，里面存了很多东西，其中最重要的就是称为<code>stage</code>（或者叫<code>index</code>）的暂存区，还有<code>Git</code>为我们自动创建的第一个分支<code>master</code>，以及指向<code>master</code>的一个指针叫<code>HEAD</code>。  </p>
+<p>查看状态：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+<p>添加修改到暂存区：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add &lt;filename&gt; </span><br><span class="line">$ git add .  # 添加当前目录所有修改过的文件  </span><br><span class="line">$ git add *  # 递归地添加执行命令时所在的目录中的所有文件</span><br></pre></td></tr></table></figure>
+
+<p>提交修改到版本库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;commit message&quot;</span><br><span class="line">$ git commit -am &quot;commit message&quot; # am：将添加和提交合并为一步，但只对本来就存在的文件有效</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>commit message</code>的填写可以参考<a target="_blank" rel="noopener" href="http://blog.jobbole.com/92713/">写好 Git Commit 信息的 7 个建议</a>。</p>
+</blockquote>
+<p>现在来解释一下前面的添加和提交操作：  </p>
+<ol>
+<li><code>git add</code>：把文件修改添加到暂存区；</li>
+<li><code>git commit</code>：把暂存区的所有内容提交到当前分支，即版本库；</li>
+</ol>
+<h3 id="版本历史记录"><a href="#版本历史记录" class="headerlink" title="版本历史记录"></a>版本历史记录</h3><p>查看当前仓库所有文件的版本历史记录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
+
+<p>查看每个文件的版本历史记录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+
+<p>查看包含指定关键字的版本历史记录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --grep=&quot;keywords&quot;</span><br></pre></td></tr></table></figure>
+
+<p>查看指定时间段的版本历史记录，如下示例时间段为<code>2020.9.23</code>全天：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log --after=&quot;2020-9-23 00:00:00&quot; --before=&quot;2020-9-23 23:59:59&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="暂存"><a href="#暂存" class="headerlink" title="暂存"></a>暂存</h3><p>当你需要切换分支时，若当前工作区还有些修改没有完成、又不适合提交的，操作切换分支是会提示出错的，这时就需要将这些修改暂存起来：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git stash save &quot;message&quot;</span><br></pre></td></tr></table></figure>
+
+<p>查看:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git stash list</span><br></pre></td></tr></table></figure>
+
+<p>恢复:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git stash pop [--index] [stash@&#123;num&#125;]　</span><br><span class="line">  or</span><br><span class="line">$ git stash apply [--index] [stash@&#123;num&#125;]　# 不删除已恢复的进度.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>--index</code>表示不仅恢复工作区,还会恢复暂存区；<code>num</code>是你要恢复的操作的序列号,默认恢复最新进度。</p>
+</blockquote>
+<p>删除进度:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git stash drop [stash@&#123;num&#125;] # 删除指定进度</span><br><span class="line">$ git stash clear # 删除所有</span><br></pre></td></tr></table></figure>
+
+<h3 id="撤销与回退"><a href="#撤销与回退" class="headerlink" title="撤销与回退"></a>撤销与回退</h3><p>查看当前仓库状态：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+<p>查看文件更改：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git difftool &lt;filename&gt;</span><br><span class="line">$ git mergetool &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+
+<p>查看提交历史：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line">$ git log --pretty=oneline #只保留commit id 和 commit message</span><br></pre></td></tr></table></figure>
+
+<p>撤销工作区<code>Tracked files</code>的修改：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+
+<p>撤销工作区<code>Untracked files</code>的修改：</p>
+<ul>
+<li>n：查看将会删除的文件，防止误删；</li>
+<li>f：<code>Untracked</code>的文件；</li>
+<li>d：<code>Untracked</code>的目录；</li>
+<li>x：包含<code>gitignore</code>的<code>Untracked</code>文件和目录一并删掉，慎用！；</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clean -nfd</span><br></pre></td></tr></table></figure>
+
+<p>只回退暂存区(<code>git add</code>)，不删除工作空间代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD &lt;filename&gt; # 无filename则默认回退全部 </span><br></pre></td></tr></table></figure>
+
+<p>回退版本区(<code>git commit</code>)和暂存区(<code>git add</code>)，不删除工作空间代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --mixed HEAD^ # --mixed为默认参数</span><br><span class="line">$ git reset HEAD^</span><br></pre></td></tr></table></figure>
+
+<p>回退版本区(<code>git commit</code>)，但是不回退暂存区(<code>git add</code>)，不删除工作空间代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --soft HEAD^</span><br></pre></td></tr></table></figure>
+
+<p>回退版本区(<code>git commit</code>)和暂存区(<code>git add</code>)，并删除工作空间代码(不包括<code>Untracked files</code>)，执行后直接恢复到指定<code>&lt;commit-id&gt;</code>状态：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard &lt;commit-id&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>HEAD</code>表示当前版本，<code>HEAD^</code>表示上个版本，<code>HEAD^^</code>表示上上个版本，上100个版本可以表示为<code>HEAD~100</code>以此类推。</p>
+</blockquote>
+<p>回退版本后，若需要返回原来的版本，会发现找不到未来的<code>commit id</code>，则需要查看操作命令历史进行查找：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog</span><br></pre></td></tr></table></figure>
+
+<p>从版本库删除文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rm &lt;filename&gt;</span><br></pre></td></tr></table></figure>
+
+<p>若你的代码已经<code>push</code>到线上，则推荐使用下面这个命令回滚：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git revert &lt;commit-id&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>revert</code>是用一次新的<code>commit</code>来回滚之前的<code>commit</code>，更安全;<code>reset</code>则是直接删除指定的<code>commit</code>，若直接<code>push</code>会导致冲突。</p>
+</blockquote>
+<h3 id="使用帮助"><a href="#使用帮助" class="headerlink" title="使用帮助"></a>使用帮助</h3><p>查看帮助：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git --help</span><br></pre></td></tr></table></figure>
+
+<h2 id="仓库管理"><a href="#仓库管理" class="headerlink" title="仓库管理"></a>仓库管理</h2><h3 id="推送本地修改到远程仓库"><a href="#推送本地修改到远程仓库" class="headerlink" title="推送本地修改到远程仓库"></a>推送本地修改到远程仓库</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push -u origin &lt;feature-branch-name&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>-u</code>选项可以将本地分支与远程分支关联,下次<code>git pull</code>操作时可以不带参数.具体参见<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/5697750/what-exactly-does-the-u-do-git-push-u-origin-master-vs-git-push-origin-ma">这里</a>。</p>
+</blockquote>
+<h3 id="添加本地仓库到远程"><a href="#添加本地仓库到远程" class="headerlink" title="添加本地仓库到远程"></a>添加本地仓库到远程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd repo</span><br><span class="line">$ git init</span><br><span class="line">$ git remote add origin git@github.com:USERNAME/repo.git</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>origin</code>就是一个名字，是<code>git</code>为你默认创建的指向这个远程代码库的标签。</p>
+</blockquote>
+<h3 id="获取远程仓库"><a href="#获取远程仓库" class="headerlink" title="获取远程仓库"></a>获取远程仓库</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@github.com:USERNAME/repo.git</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看远程仓库"><a href="#查看远程仓库" class="headerlink" title="查看远程仓库"></a>查看远程仓库</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origin git@github.com:USERNAME/repo.git (push)</span><br><span class="line">origin git@github.com:USERNAME/repo.git (fetch)</span><br></pre></td></tr></table></figure>
+
+<h3 id="关联远程仓库"><a href="#关联远程仓库" class="headerlink" title="关联远程仓库"></a>关联远程仓库</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add upstream git@github.com:USERNAME/repo.git</span><br></pre></td></tr></table></figure>
+
+<h3 id="同步远程仓库的更新"><a href="#同步远程仓库的更新" class="headerlink" title="同步远程仓库的更新"></a>同步远程仓库的更新</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origin  git@github.com:USERNAME/repo.git (push)</span><br><span class="line">origin  git@github.com:USERNAME/repo.git (fetch)</span><br><span class="line">upstream  git@github.com:USERNAME/repo.git  (push)</span><br><span class="line">upstream  git@github.com:USERNAME/repo.git (fetch)</span><br><span class="line"></span><br><span class="line">$ git fetch upstream </span><br><span class="line">$ git difftool &lt;branch-name&gt; upstream/master</span><br><span class="line">$ git merge upstream/master</span><br><span class="line">$ git mergetool</span><br></pre></td></tr></table></figure>
+
+<h3 id="仓库引用（子仓库）"><a href="#仓库引用（子仓库）" class="headerlink" title="仓库引用（子仓库）"></a>仓库引用（子仓库）</h3><p><code>Git</code>包含<code>submodule</code>和<code>subtree</code>两种引用方式，官方推荐使用<a target="_blank" rel="noopener" href="http://aoxuis.me/post/2013-08-06-git-subtree">subtree</a>替代<code>submodule</code>：</p>
+<h4 id="submodule"><a href="#submodule" class="headerlink" title="submodule"></a>submodule</h4><h5 id="添加子模块"><a href="#添加子模块" class="headerlink" title="添加子模块"></a>添加子模块</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git submodule add git@github.com:USERNAME/repo.git &lt;submodule-path&gt;</span><br></pre></td></tr></table></figure>
+<p>执行成功后，暂存区会有两个修改：<code>.gitmodules</code>和命令中<code>&lt;submodule-path&gt;</code>指定的路径。</p>
+<p>提交更新：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git commit</span><br><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+
+<h5 id="使用子模块"><a href="#使用子模块" class="headerlink" title="使用子模块"></a>使用子模块</h5><p>克隆使用了子模块的项目后，默认其子模块目录为空，需要在项目根目录执行如下命令单独下载：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git submodule update --init --recursive</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">$ git submodule init</span><br><span class="line">$ git submodule update</span><br></pre></td></tr></table></figure>
+
+<h5 id="更新子模块"><a href="#更新子模块" class="headerlink" title="更新子模块"></a>更新子模块</h5><p>子模块仓库更新后，使用子模块的项目必须手动更新才能同步最新的提交：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd &lt;submodule-path&gt;</span><br><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+
+<p>完成后返回项目根目录，可以看到子模块有待提交的更新，执行提交即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">$ git commit</span><br><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+
+<h5 id="删除子模块"><a href="#删除子模块" class="headerlink" title="删除子模块"></a>删除子模块</h5><p>删除子模块目录及源码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$  rm -rf &lt;submodule-path&gt;</span><br></pre></td></tr></table></figure>
+
+<p>删除项目根目录下<code>.gitmodules</code>文件中待删除的子模块相关条目：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi .gitmodules </span><br></pre></td></tr></table></figure>
+
+<p>删除版本库下的子模块目录，每个子模块对应一个目录，只删除对应的子模块目录即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf .git/module/&lt;submodule-path&gt;</span><br></pre></td></tr></table></figure>
+
+<p>删除子模块缓存：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached &lt;submodule-path&gt;</span><br></pre></td></tr></table></figure>
+
+<p>提交更新：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">$ git commit</span><br><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+
+<h4 id="subtree"><a href="#subtree" class="headerlink" title="subtree"></a>subtree</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 第一次初始化</span><br><span class="line">$ git remote add -f &lt;remote-subtree-repository-name&gt; &lt;remote-subtree-repository-url&gt;</span><br><span class="line">$ git subtree add --prefix=&lt;local-subtree-directory&gt; &lt;remote-subtree-repository&gt; &lt;remote-subtree-branch-name&gt; --squash</span><br><span class="line"></span><br><span class="line"># 同步subtree的更新</span><br><span class="line">$ git subtree pull --prefix=&lt;local-subtree-directory&gt; &lt;remote-subtree-repository&gt; &lt;remote-subtree-branch-name&gt; --squash</span><br><span class="line"></span><br><span class="line"># 推送到远程subtree库</span><br><span class="line">$ git subtree push --prefix=&lt;local-subtree-directory&gt; &lt;remote-subtree-repository&gt; &lt;remote-subtree-branch-name&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="清理仓库"><a href="#清理仓库" class="headerlink" title="清理仓库"></a>清理仓库</h3><h4 id="清理本地无效的远程追踪分支"><a href="#清理本地无效的远程追踪分支" class="headerlink" title="清理本地无效的远程追踪分支"></a>清理本地无效的远程追踪分支</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git pull # 拉取更新</span><br><span class="line">$ git remote prune origin --dry-run # 列出所有可以从本地仓库中删除的远程追踪分支</span><br><span class="line">$ git remote prune origin # 清理本地无效的远程追踪分支</span><br></pre></td></tr></table></figure>
+
+<h4 id="清理无用的分支和标签"><a href="#清理无用的分支和标签" class="headerlink" title="清理无用的分支和标签"></a>清理无用的分支和标签</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -d &lt;branch-name&gt;</span><br><span class="line">$ git tag -d &lt;tag-name&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="清理大文件"><a href="#清理大文件" class="headerlink" title="清理大文件"></a>清理大文件</h4><ul>
+<li><p>查看仓库占用空间：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git count-objects -v</span><br><span class="line">$ du -sh .git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>寻找大文件<code>ID</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -10</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>输出的第一列是文件<code>ID</code>，第二列表示文件（<code>blob</code>）或目录（<code>tree</code>），第三列是文件大小，此处筛选了最大的10条。</p>
+</blockquote>
+</li>
+<li><p>根据文件<code>ID</code>映射文件名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rev-list --objects --all | grep &quot;$(git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -10 | awk &#x27;&#123;print$1&#125;&#x27;)&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据文件名，从所有提交中删除文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git filter-branch --force --index-filter &#x27;git rm -rf --cached --ignore-unmatch [FileName]&#x27; --prune-empty --tag-name-filter cat -- --all</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除缓存下来的<code>ref</code>和<code>git</code>操作记录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git for-each-ref --format=&#x27;delete %(refname)&#x27; refs/original | git update-ref --stdin</span><br><span class="line">$ git reflog expire --expire=now --all</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>清理<code>.git</code>目录并推送到远程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git gc --prune=now</span><br><span class="line">$ git push -f --all</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在执行<code>push</code>操作时，<code>git</code>会自动执行一次<code>gc</code>操作，不过只有<code>loose object</code>达到一定数量后才会真正调用，建议手动执行。</p>
+</blockquote>
+</li>
+<li><p>重新查看仓库占用空间，发现较清理前变小很多：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git count-objects -v</span><br><span class="line">$ du -sh .git</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="清理大型二进制文件"><a href="#清理大型二进制文件" class="headerlink" title="清理大型二进制文件"></a>清理大型二进制文件</h4><p>由于<code>Git</code>在存储二进制文件时效率不高，所以需要借助<a target="_blank" rel="noopener" href="http://www.oschina.net/news/71365/git-annex-lfs-bigfiles-fat-media-bigstore-sym">第三方组件</a>。</p>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><h3 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h3><p>查看所有分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -a</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>有<code>*</code>标记的是当前分支。</p>
+</blockquote>
+<p>查看某个<code>&lt;commit id&gt;</code>属于哪个分支:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -a --contains &lt;commit id&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><p>在本地创建分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch &lt;newbranch&gt; # 创建</span><br></pre></td></tr></table></figure>
+
+<p>在本地创建分支并切换：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b &lt;newbranch&gt; # 创建并切换</span><br></pre></td></tr></table></figure>
+
+<p>从标签创建分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch &lt;newbranch&gt; &lt;tagname&gt;</span><br><span class="line">$ git checkout &lt;newbranch&gt; # 切换到新建分支</span><br></pre></td></tr></table></figure>
+
+<p>获取远程分支到本地并创建本地分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b &lt;local-branch&gt; &lt;remote-branch&gt;</span><br></pre></td></tr></table></figure>
+
+<p>推送新建本地分支到远程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git push -u origin &lt;remote-branch-name&gt;</span><br><span class="line">  or</span><br><span class="line">$ git push --set-upstream origin &lt;remote-branch-name&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建空白分支"><a href="#创建空白分支" class="headerlink" title="创建空白分支"></a>创建空白分支</h3><p>创建一个分支，该分支会包含父分支的所有文件，但不会指向任何历史提交：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout --orphan &lt;newbranch&gt;</span><br></pre></td></tr></table></figure>
+
+<p>删除所有文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rm -rf .</span><br></pre></td></tr></table></figure>
+
+<p>提交分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ echo &#x27;# new branch&#x27; &gt;&gt; README.md</span><br><span class="line">$ git add README.md</span><br><span class="line">$ git commit</span><br><span class="line">$ git push origin &lt;remote-branch-name&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>删除本地分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -d &lt;branch&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>若当前分支因为有修改未提交或其它情况不能删除，请使用<code>-D</code>选项强制删除。</p>
+</blockquote>
+<p>清理无用的本地分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote prune origin</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通常在<code>remote</code>上的分支被删除后，更新本地分支列表时使用。</p>
+</blockquote>
+<p>删除远程分支(三种方法)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin --delete &lt;remote-branch-name&gt;</span><br><span class="line">$ git push origin -d &lt;remote-branch-name&gt;</span><br><span class="line">$ git push origin :&lt;remote-branch-name&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="更新分支"><a href="#更新分支" class="headerlink" title="更新分支"></a>更新分支</h3><p>获取远程分支到本地已有分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch --set-upstream &lt;local-branch&gt; origin/branch</span><br></pre></td></tr></table></figure>
+
+<p>同步当前分支的所有更新，使用<code>git pull</code>并不保险：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 下载最新的代码到远程跟踪分支, 即origin/&lt;branch-name&gt;</span><br><span class="line">$ git fetch origin &lt;branch-name&gt; </span><br><span class="line"># 查看更新内容</span><br><span class="line">$ git difftool &lt;branch-name&gt; origin/&lt;branch-name&gt;</span><br><span class="line"># 尝试合并远程跟踪分支的代码到本地分支 </span><br><span class="line">$ git merge origin/&lt;branch-name&gt;</span><br><span class="line"># 借助mergetool解决冲突              </span><br><span class="line">$ git mergetool                               </span><br></pre></td></tr></table></figure>
+
+<p>同步其它分支的所有更新，本例拉取<code>master</code>分支更新：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch origin master</span><br><span class="line">$ git difftool &lt;branch-name&gt; origin/master</span><br><span class="line">$ git merge origin/master</span><br><span class="line">$ git mergetool</span><br></pre></td></tr></table></figure>
+
+<p>同步其它分支的部分更新，即同步某几次提交：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 同步提交A</span><br><span class="line">$ git cherry-pick &lt;commit id A&gt; </span><br><span class="line"># 同步提交A和B</span><br><span class="line">$ git cherry-pick &lt;commit id A&gt; &lt;commit id B&gt; </span><br><span class="line"># 同步提交A到B的所有提交（不包括A），提交A必须早于提交B，否则命令将失败，但不会报错</span><br><span class="line">$ git cherry-pick &lt;commit id A&gt;..&lt;commit id B&gt; </span><br><span class="line"># 同步提交A到B的所有提交（包括A），提交A必须早于提交B，否则命令将失败，但不会报错</span><br><span class="line">$ git cherry-pick &lt;commit id A&gt;^..&lt;commit id B&gt; </span><br></pre></td></tr></table></figure>
+
+<h2 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h2><h3 id="查看标签"><a href="#查看标签" class="headerlink" title="查看标签"></a>查看标签</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git tag</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git tag -a &lt;tagname&gt; -m &quot;tag message&quot; # 创建标签在当前最新提交的commit上</span><br><span class="line">$ git tag -a &lt;tagname&gt; -m &quot;tag message&quot; &lt;commit id&gt; # 创建标签在指定的commit上</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>若创建标签基于的<code>commit</code>被删除，标签不会被影响，依旧存在。</p>
+</blockquote>
+<h3 id="推送标签"><a href="#推送标签" class="headerlink" title="推送标签"></a>推送标签</h3><p>推送标签到远程服务器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin &lt;tagname&gt; # 推送一个本地标签</span><br><span class="line">$ git push origin --tags # 推送全部未推送过的本地标签</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除标签"><a href="#删除标签" class="headerlink" title="删除标签"></a>删除标签</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git tag -d &lt;tagname&gt; # 删除一个本地标签</span><br><span class="line">$ git push origin :refs/tags/&lt;tagname&gt; # 删除一个远程标签</span><br></pre></td></tr></table></figure>
+
+<h2 id="进阶技巧"><a href="#进阶技巧" class="headerlink" title="进阶技巧"></a>进阶技巧</h2><h3 id="忽略特殊文件"><a href="#忽略特殊文件" class="headerlink" title="忽略特殊文件"></a>忽略特殊文件</h3><p>当你的仓库中有一些文件，类似密码或者数据库文件不需要提交但又必须放在仓库目录下，每次<code>git status</code>都会提示<code>Untracked</code>，看着让人很不爽，提供两种方法解决这个问题。</p>
+<h4 id="本地忽略"><a href="#本地忽略" class="headerlink" title="本地忽略"></a>本地忽略</h4><p>在代码仓库目录创建一个<code>.gitignore</code>文件，编写规则如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tmp/  # 忽略tmp文件夹下所有内容</span><br><span class="line">*.ini # 忽略所有ini文件</span><br><span class="line">!data/ #忽略除了data文件夹的所有内容</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/github/gitignore"><code>.gitignore</code>模版</a></p>
+</blockquote>
+<h4 id="全局忽略"><a href="#全局忽略" class="headerlink" title="全局忽略"></a>全局忽略</h4><p>在用户目录创建一个<code>.gitignore_global</code>文件，编写规则同<code>.gitignore</code>，并修改<code>~/.gitconfig</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[core]</span><br><span class="line">	excludesfile = ~/.gitignore_global</span><br></pre></td></tr></table></figure>
+
+<p>如果添加的忽略对象已经<code>Tracked</code>，纳入了版本管理中，则需要在代码仓库中先把本地缓存删除,改变成<code>Untracked</code>状态:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rm -r --cached .</span><br></pre></td></tr></table></figure>
+
+<h3 id="重写历史（慎用！）"><a href="#重写历史（慎用！）" class="headerlink" title="重写历史（慎用！）"></a>重写历史（慎用！）</h3><h4 id="修改历史提交（变基）"><a href="#修改历史提交（变基）" class="headerlink" title="修改历史提交（变基）"></a>修改历史提交（变基）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase -i [git-hash| head~n]</span><br><span class="line">$ git push -f # 不强制 push 会多一条 merge 提交信息</span><br></pre></td></tr></table></figure>
+<p>其中<code>git-hash</code>是你要开始进行<code>rebase</code>的<code>commit</code>的<code>hash</code>，而<code>head~n</code>则是从<code>HEAD</code>向前推<code>n</code>个<code>commit</code></p>
+<h4 id="修改最近一次提交信息"><a href="#修改最近一次提交信息" class="headerlink" title="修改最近一次提交信息"></a>修改最近一次提交信息</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改提交记录中的用户信息"><a href="#修改提交记录中的用户信息" class="headerlink" title="修改提交记录中的用户信息"></a>修改提交记录中的用户信息</h4><p>修改最近一次提交的用户信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend --author=&quot;GIT_AUTHOR_NAME &lt;GIT_AUTHOR_EMAIL&gt;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>全局修改用户信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git filter-branch --commit-filter &#x27;</span><br><span class="line">        if [ &quot;$GIT_AUTHOR_EMAIL&quot; = &quot;xxx@localhost&quot; ];</span><br><span class="line">        then</span><br><span class="line">                GIT_AUTHOR_NAME=&quot;xxx&quot;;</span><br><span class="line">                GIT_AUTHOR_EMAIL=&quot;xxx@example.com&quot;;</span><br><span class="line">                git commit-tree &quot;$@&quot;;</span><br><span class="line">        else</span><br><span class="line">                git commit-tree &quot;$@&quot;;</span><br><span class="line">        fi&#x27; HEAD --all</span><br></pre></td></tr></table></figure>
+
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">廖雪峰老师的git教程</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html">常用Git命令清单</a></li>
+<li><a target="_blank" rel="noopener" href="https://git-scm.com/book/en/v2">Git-Book</a></li>
+<li><a target="_blank" rel="noopener" href="https://git-scm.com/docs">Git-Reference</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000002783245">Git push与pull的默认行为</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/k88hudson/git-flight-rules/blob/master/README_zh-CN.md">Git飞行规则(Flight Rules)</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.ayqy.net/blog/%E7%90%86%E8%A7%A3git-submodules/">理解Git Submodules</a></li>
+<li><a target="_blank" rel="noopener" href="https://rouroux.github.io/git-submodule/">git中submodule子模块的添加、使用和删除</a></li>
+<li><a target="_blank" rel="noopener" href="https://harttle.land/2016/03/22/purge-large-files-in-gitrepo.html">寻找并删除 Git 记录中的大文件</a></li>
+</ul>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="/about/">AnSwErYWJ</a>
+            <p>原文链接：<a href="https://answerywj.com/2020/09/29/git-help-v3/">https://answerywj.com/2020/09/29/git-help-v3/</a>
+            <p>发表日期：2020/09/29 15:09</p>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>进行许可.</br><a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a></p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2021/02/22/difference-between-RPATH-and-RUNPATH/" title="RPATH与RUNPATH的区别">
+                    <div class="nextTitle">RPATH与RUNPATH的区别</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2020/07/03/gudie-of-technical-resume/" title="写好技术简历的一些建议">
+                    <div class="prevTitle">写好技术简历的一些建议</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:yuanweijie1993@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/AnSwErYWJ" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/img/social/wechat_public_qcode.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <div>
+            <span>Copyright </span><i class="fas fa-copyright"></i><span> 2016 -</span><span id="years">载入年份...</span><span>, AnSwErYWJ. All Rights Reserved.</span>
+        </div>
+        <div>
+            <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+        </div>
+        <script>
+            (function () {
+                const now = new Date();
+                const years = now.getFullYear();
+                document.getElementById("years").innerHTML = years;
+            })();
+        </script>
+    </div>
+
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:40vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">下载与安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.</span> <span class="toc-text">用户信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%8B%E9%9A%86%E5%8D%8F%E8%AE%AE"><span class="toc-number">2.2.</span> <span class="toc-text">克隆协议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SSH"><span class="toc-number">2.2.1.</span> <span class="toc-text">SSH</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTPS"><span class="toc-number">2.2.2.</span> <span class="toc-text">HTTPS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E5%88%87%E6%8D%A2"><span class="toc-number">2.2.3.</span> <span class="toc-text">协议切换</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.</span> <span class="toc-text">自定义配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="toc-number">2.3.1.</span> <span class="toc-text">超时时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%9D%E5%AD%98%E7%94%A8%E6%88%B7%E5%87%AD%E8%AF%81"><span class="toc-number">2.3.2.</span> <span class="toc-text">保存用户凭证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9AGit%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.3.3.</span> <span class="toc-text">多Git服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8"><span class="toc-number">2.3.4.</span> <span class="toc-text">文本编辑器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E6%AF%94%E8%BE%83%E5%90%88%E5%B9%B6%E5%B7%A5%E5%85%B7"><span class="toc-number">2.3.5.</span> <span class="toc-text">文本比较合并工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E9%A2%9C%E8%89%B2"><span class="toc-number">2.3.6.</span> <span class="toc-text">显示颜色</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E5%88%AB%E5%90%8D"><span class="toc-number">2.3.7.</span> <span class="toc-text">操作别名</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E9%85%8D%E7%BD%AE"><span class="toc-number">2.4.</span> <span class="toc-text">查看所有配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">基础操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-number">3.1.</span> <span class="toc-text">工作流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95"><span class="toc-number">3.2.</span> <span class="toc-text">版本历史记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%82%E5%AD%98"><span class="toc-number">3.3.</span> <span class="toc-text">暂存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%92%A4%E9%94%80%E4%B8%8E%E5%9B%9E%E9%80%80"><span class="toc-number">3.4.</span> <span class="toc-text">撤销与回退</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%B8%AE%E5%8A%A9"><span class="toc-number">3.5.</span> <span class="toc-text">使用帮助</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%93%E5%BA%93%E7%AE%A1%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">仓库管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E9%80%81%E6%9C%AC%E5%9C%B0%E4%BF%AE%E6%94%B9%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-number">4.1.</span> <span class="toc-text">推送本地修改到远程仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%88%B0%E8%BF%9C%E7%A8%8B"><span class="toc-number">4.2.</span> <span class="toc-text">添加本地仓库到远程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-number">4.3.</span> <span class="toc-text">获取远程仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-number">4.4.</span> <span class="toc-text">查看远程仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E8%81%94%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-number">4.5.</span> <span class="toc-text">关联远程仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E6%9B%B4%E6%96%B0"><span class="toc-number">4.6.</span> <span class="toc-text">同步远程仓库的更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%93%E5%BA%93%E5%BC%95%E7%94%A8%EF%BC%88%E5%AD%90%E4%BB%93%E5%BA%93%EF%BC%89"><span class="toc-number">4.7.</span> <span class="toc-text">仓库引用（子仓库）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#submodule"><span class="toc-number">4.7.1.</span> <span class="toc-text">submodule</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%AD%90%E6%A8%A1%E5%9D%97"><span class="toc-number">4.7.1.1.</span> <span class="toc-text">添加子模块</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%AD%90%E6%A8%A1%E5%9D%97"><span class="toc-number">4.7.1.2.</span> <span class="toc-text">使用子模块</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%AD%90%E6%A8%A1%E5%9D%97"><span class="toc-number">4.7.1.3.</span> <span class="toc-text">更新子模块</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%AD%90%E6%A8%A1%E5%9D%97"><span class="toc-number">4.7.1.4.</span> <span class="toc-text">删除子模块</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#subtree"><span class="toc-number">4.7.2.</span> <span class="toc-text">subtree</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%85%E7%90%86%E4%BB%93%E5%BA%93"><span class="toc-number">4.8.</span> <span class="toc-text">清理仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%85%E7%90%86%E6%9C%AC%E5%9C%B0%E6%97%A0%E6%95%88%E7%9A%84%E8%BF%9C%E7%A8%8B%E8%BF%BD%E8%B8%AA%E5%88%86%E6%94%AF"><span class="toc-number">4.8.1.</span> <span class="toc-text">清理本地无效的远程追踪分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%85%E7%90%86%E6%97%A0%E7%94%A8%E7%9A%84%E5%88%86%E6%94%AF%E5%92%8C%E6%A0%87%E7%AD%BE"><span class="toc-number">4.8.2.</span> <span class="toc-text">清理无用的分支和标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%85%E7%90%86%E5%A4%A7%E6%96%87%E4%BB%B6"><span class="toc-number">4.8.3.</span> <span class="toc-text">清理大文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%85%E7%90%86%E5%A4%A7%E5%9E%8B%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6"><span class="toc-number">4.8.4.</span> <span class="toc-text">清理大型二进制文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">分支管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%88%86%E6%94%AF"><span class="toc-number">5.1.</span> <span class="toc-text">查看分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF"><span class="toc-number">5.2.</span> <span class="toc-text">创建分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%A9%BA%E7%99%BD%E5%88%86%E6%94%AF"><span class="toc-number">5.3.</span> <span class="toc-text">创建空白分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%88%86%E6%94%AF"><span class="toc-number">5.4.</span> <span class="toc-text">删除分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%88%86%E6%94%AF"><span class="toc-number">5.5.</span> <span class="toc-text">更新分支</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E7%AE%A1%E7%90%86"><span class="toc-number">6.</span> <span class="toc-text">标签管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%A0%87%E7%AD%BE"><span class="toc-number">6.1.</span> <span class="toc-text">查看标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%A0%87%E7%AD%BE"><span class="toc-number">6.2.</span> <span class="toc-text">创建标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E9%80%81%E6%A0%87%E7%AD%BE"><span class="toc-number">6.3.</span> <span class="toc-text">推送标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%A0%87%E7%AD%BE"><span class="toc-number">6.4.</span> <span class="toc-text">删除标签</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E6%8A%80%E5%B7%A7"><span class="toc-number">7.</span> <span class="toc-text">进阶技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%BD%E7%95%A5%E7%89%B9%E6%AE%8A%E6%96%87%E4%BB%B6"><span class="toc-number">7.1.</span> <span class="toc-text">忽略特殊文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E5%BF%BD%E7%95%A5"><span class="toc-number">7.1.1.</span> <span class="toc-text">本地忽略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%BF%BD%E7%95%A5"><span class="toc-number">7.1.2.</span> <span class="toc-text">全局忽略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%86%99%E5%8E%86%E5%8F%B2%EF%BC%88%E6%85%8E%E7%94%A8%EF%BC%81%EF%BC%89"><span class="toc-number">7.2.</span> <span class="toc-text">重写历史（慎用！）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%8E%86%E5%8F%B2%E6%8F%90%E4%BA%A4%EF%BC%88%E5%8F%98%E5%9F%BA%EF%BC%89"><span class="toc-number">7.2.1.</span> <span class="toc-text">修改历史提交（变基）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%9C%80%E8%BF%91%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF"><span class="toc-number">7.2.2.</span> <span class="toc-text">修改最近一次提交信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95%E4%B8%AD%E7%9A%84%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="toc-number">7.2.3.</span> <span class="toc-text">修改提交记录中的用户信息</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">8.</span> <span class="toc-text">Reference</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 44
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/20</span>
+            <a class="archive-post-title" href="/2022/12/20/generate-and-usage-of-core-in-linux/">Linux下core文件的生成和使用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/06</span>
+            <a class="archive-post-title" href="/2022/01/06/wav/">wav文件格式解析</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/28</span>
+            <a class="archive-post-title" href="/2021/07/28/tips-of-inline/">inline使用注意事项</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/23</span>
+            <a class="archive-post-title" href="/2021/06/23/getrusage/">getrusage-进程资源统计函数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/22</span>
+            <a class="archive-post-title" href="/2021/02/22/difference-between-RPATH-and-RUNPATH/">RPATH与RUNPATH的区别</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2020 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span>
+            <a class="archive-post-title" href="/2020/09/29/git-help-v3/">Git速查手册（第三版）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span>
+            <a class="archive-post-title" href="/2020/07/03/gudie-of-technical-resume/">写好技术简历的一些建议</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span>
+            <a class="archive-post-title" href="/2020/05/14/ld-hash-style/">--hash-style兼容性问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2020/02/17/homebrew-in-mac/">Homebrew</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2019 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span>
+            <a class="archive-post-title" href="/2019/09/09/git-clone-extra-large-project/">Git仓库过大导致clone失败的解决方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span>
+            <a class="archive-post-title" href="/2019/07/24/binary-to-object-file/">将二进制文件作为目标文件中的一个段</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/21</span>
+            <a class="archive-post-title" href="/2019/05/21/man-strtok/">深究strtok系列函数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/26</span>
+            <a class="archive-post-title" href="/2019/04/26/what-is-sysroot/">sysroot为何物?</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2019/04/13/hide-symbol-of-static-library/">屏蔽静态库接口</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/12</span>
+            <a class="archive-post-title" href="/2019/02/12/git-help-v2/">Git速查手册（第二版）</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/25</span>
+            <a class="archive-post-title" href="/2018/09/25/coverage-of-code/">C代码覆盖率测试工具Gcov</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span>
+            <a class="archive-post-title" href="/2018/05/03/cjson/">cJSON的秘密</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/2018/03/07/usage-of-core-in-linux/">Linux下core文件使用</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2017 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/2017/12/29/speex/">Speex介绍</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span>
+            <a class="archive-post-title" href="/2017/12/15/condition-variables-of-thread-synchronization/">线程同步机制条件变量的使用与思考</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/04</span>
+            <a class="archive-post-title" href="/2017/08/04/gcc-compilation-of-arm-articles/">GCC编译ARM篇</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/27</span>
+            <a class="archive-post-title" href="/2017/06/27/io-model/">UNIX下IO模型分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span>
+            <a class="archive-post-title" href="/2017/06/20/note-of-openresty-study/">笔记 | OpenResty系列课程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span>
+            <a class="archive-post-title" href="/2017/06/16/table-encode-as-array-or-object/">记一次踩坑|空table应该编码为数组还是对象</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2017/03/23/introduction-to-four-service-of-cloud-computing/">科普|云计算的四种服务模式介绍</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/2017/02/23/listen-in-unix/">UNIX网络编程-listen函数及其包裹函数介绍</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2016 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/07</span>
+            <a class="archive-post-title" href="/2016/12/07/big-little-endian/">C程序判断你主机的数据存储方式(大端和小端)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span>
+            <a class="archive-post-title" href="/2016/12/06/getw-and-putw/">从文件流中读写整数--C语言</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span>
+            <a class="archive-post-title" href="/2016/10/10/jq/">Linux下处理json数据</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span>
+            <a class="archive-post-title" href="/2016/10/10/use-dynamic-and-static-library/">Linux下C调用静态库和动态库</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/20</span>
+            <a class="archive-post-title" href="/2016/09/20/standard-of-headphone/">科普|3.5mm耳机国标和美标</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/05</span>
+            <a class="archive-post-title" href="/2016/09/05/floating-point-operation-in-script/">Shell脚本浮点运算</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/05</span>
+            <a class="archive-post-title" href="/2016/09/05/empty-file-in-shell/">Shell脚本清空文件的几种方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/10</span>
+            <a class="archive-post-title" href="/2016/08/10/backup-of-blog-with-hexo-and-github/">Hexo+Github博客备份方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/02</span>
+            <a class="archive-post-title" href="/2016/08/02/link-in-linux/">Linux的硬链接和软链接</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/connect-in-unix/">UNIX网络编程-connect函数及其包裹函数介绍</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/debug-for-shell-script/">Linux Shell 脚本调试总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/debug-macro/">Linux C编程的DEBUG宏</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/generate-random-numbers/">C语言生成随机数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/keepalive-of-socket/">Linux socket编程的心跳机制总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/safe-read-and-write/">UNIX编程安全读写函数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/script-and-scriptreplay/">Linux下脚本录制工具——script和scriptreplay</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/solution-of-adb-devices-no-permissions/">Linux下adb devices no permissions解决方案</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/fork-bomb/">Linux fork炸弹解析</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="git">
+                <span class="iconfont-archer">&#xe606;</span>
+                git
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hexo">
+                <span class="iconfont-archer">&#xe606;</span>
+                hexo
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="blog">
+                <span class="iconfont-archer">&#xe606;</span>
+                blog
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="大小端字节序">
+                <span class="iconfont-archer">&#xe606;</span>
+                大小端字节序
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cJSON">
+                <span class="iconfont-archer">&#xe606;</span>
+                cJSON
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="objdump">
+                <span class="iconfont-archer">&#xe606;</span>
+                objdump
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="elf">
+                <span class="iconfont-archer">&#xe606;</span>
+                elf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="pthread">
+                <span class="iconfont-archer">&#xe606;</span>
+                pthread
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="tcp">
+                <span class="iconfont-archer">&#xe606;</span>
+                tcp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="connect">
+                <span class="iconfont-archer">&#xe606;</span>
+                connect
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="代码覆盖率">
+                <span class="iconfont-archer">&#xe606;</span>
+                代码覆盖率
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="debug">
+                <span class="iconfont-archer">&#xe606;</span>
+                debug
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="RPATH">
+                <span class="iconfont-archer">&#xe606;</span>
+                RPATH
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="RUNPATH">
+                <span class="iconfont-archer">&#xe606;</span>
+                RUNPATH
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="LD_DEBUG">
+                <span class="iconfont-archer">&#xe606;</span>
+                LD_DEBUG
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="script">
+                <span class="iconfont-archer">&#xe606;</span>
+                script
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="fork bomb">
+                <span class="iconfont-archer">&#xe606;</span>
+                fork bomb
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="gcc">
+                <span class="iconfont-archer">&#xe606;</span>
+                gcc
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="core">
+                <span class="iconfont-archer">&#xe606;</span>
+                core
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="core dumped">
+                <span class="iconfont-archer">&#xe606;</span>
+                core dumped
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="gdb">
+                <span class="iconfont-archer">&#xe606;</span>
+                gdb
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="随机数">
+                <span class="iconfont-archer">&#xe606;</span>
+                随机数
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="getrusage">
+                <span class="iconfont-archer">&#xe606;</span>
+                getrusage
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="getw">
+                <span class="iconfont-archer">&#xe606;</span>
+                getw
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="git仓库过大">
+                <span class="iconfont-archer">&#xe606;</span>
+                git仓库过大
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="resume">
+                <span class="iconfont-archer">&#xe606;</span>
+                resume
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="技术简历">
+                <span class="iconfont-archer">&#xe606;</span>
+                技术简历
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="求职招聘">
+                <span class="iconfont-archer">&#xe606;</span>
+                求职招聘
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hidden">
+                <span class="iconfont-archer">&#xe606;</span>
+                hidden
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="objcopy">
+                <span class="iconfont-archer">&#xe606;</span>
+                objcopy
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mac">
+                <span class="iconfont-archer">&#xe606;</span>
+                mac
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Homebrew">
+                <span class="iconfont-archer">&#xe606;</span>
+                Homebrew
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Cloud Computing">
+                <span class="iconfont-archer">&#xe606;</span>
+                Cloud Computing
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="IO">
+                <span class="iconfont-archer">&#xe606;</span>
+                IO
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="json">
+                <span class="iconfont-archer">&#xe606;</span>
+                json
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="keepalive">
+                <span class="iconfont-archer">&#xe606;</span>
+                keepalive
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="ld">
+                <span class="iconfont-archer">&#xe606;</span>
+                ld
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hash-style">
+                <span class="iconfont-archer">&#xe606;</span>
+                hash-style
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="link">
+                <span class="iconfont-archer">&#xe606;</span>
+                link
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="listen">
+                <span class="iconfont-archer">&#xe606;</span>
+                listen
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="strtok">
+                <span class="iconfont-archer">&#xe606;</span>
+                strtok
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="strtok_r">
+                <span class="iconfont-archer">&#xe606;</span>
+                strtok_r
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="OpenResty">
+                <span class="iconfont-archer">&#xe606;</span>
+                OpenResty
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="read">
+                <span class="iconfont-archer">&#xe606;</span>
+                read
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="write">
+                <span class="iconfont-archer">&#xe606;</span>
+                write
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="scriptreplay">
+                <span class="iconfont-archer">&#xe606;</span>
+                scriptreplay
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="adb">
+                <span class="iconfont-archer">&#xe606;</span>
+                adb
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Speex">
+                <span class="iconfont-archer">&#xe606;</span>
+                Speex
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="headset">
+                <span class="iconfont-archer">&#xe606;</span>
+                headset
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="lua-cjson">
+                <span class="iconfont-archer">&#xe606;</span>
+                lua-cjson
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="inline">
+                <span class="iconfont-archer">&#xe606;</span>
+                inline
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="O0">
+                <span class="iconfont-archer">&#xe606;</span>
+                O0
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="core dump">
+                <span class="iconfont-archer">&#xe606;</span>
+                core dump
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="lib">
+                <span class="iconfont-archer">&#xe606;</span>
+                lib
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="wav">
+                <span class="iconfont-archer">&#xe606;</span>
+                wav
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="header">
+                <span class="iconfont-archer">&#xe606;</span>
+                header
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="sysroot">
+                <span class="iconfont-archer">&#xe606;</span>
+                sysroot
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="博客建站">
+            <span class="iconfont-archer">&#xe60a;</span>
+            博客建站
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="C/C++">
+            <span class="iconfont-archer">&#xe60a;</span>
+            C/C++
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="编译链接">
+            <span class="iconfont-archer">&#xe60a;</span>
+            编译链接
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Shell脚本">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Shell脚本
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Git">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Git
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="科普">
+            <span class="iconfont-archer">&#xe60a;</span>
+            科普
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="系统配置">
+            <span class="iconfont-archer">&#xe60a;</span>
+            系统配置
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Lua">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Lua
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="语音">
+            <span class="iconfont-archer">&#xe60a;</span>
+            语音
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "https://answerywj.com",
+        root: siteMetaRoot,
+        author: "AnSwErYWJ"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

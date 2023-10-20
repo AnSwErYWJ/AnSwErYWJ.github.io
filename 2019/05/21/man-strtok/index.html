@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="AnSwErYWJ">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="AnSwErYWJ">
+    
+        <meta name="keywords" content="answerywj,C/C++,Linux">
+    
+    <meta name="description" content="分享C/C++,嵌入式开发,人工智能等技术知识">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/img/site/tab_icon.png">
+    
+    <title>深究strtok系列函数 · AnSwErYWJ&#39;s Blog</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?e12c3989e0050ebd884435d0e1f1bed4";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="AnSwErYWJ's Blog" type="application/atom+xml">
+</head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>AnSwErYWJ's Blog</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">AnSwErYWJ&#39;s Blog</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">深究strtok系列函数</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:40vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+    
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/img/site/post-bg-small.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                深究strtok系列函数
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        
+        
+            
+        
+        
+        <span class="post-category" data-categories="C/C++"">
+            <i class="fas fa-folder post-category-icon"></i>
+            <span class="post-category-text">
+                C/C++
+            </span>
+        </span>
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="strtok">strtok</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="strtok_r">strtok_r</a>
+    
+</div>
+
+                
+                <!-- 文章字数统计 -->
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.6k</span>阅读时长: <span class="post-count reading-time">35 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2019/05/21</span>
+                    <!-- busuanzi -->
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p>本文通过分析源码，深究<code>GLIBC</code>中<code>strtok</code>和<code>strtok_r</code>函数的实现原理和使用过程中的注意事项。</p>
+<span id="more"></span>
+
+<h2 id="函数说明"><a href="#函数说明" class="headerlink" title="函数说明"></a>函数说明</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">char *strtok(char *str, const char *delim);</span><br><span class="line">char *strtok_r(char *str, const char *delim, char **saveptr);</span><br></pre></td></tr></table></figure>
+
+<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><ul>
+<li><code>strtok</code>以包含在<code>delim</code>中的字符为分割符，将<code>str</code>分割成一个个子串；若<code>str</code>为空值<code>NULL</code>，则函数内部保存的静态指针（指向上一次分割位置后一个字节）在下一次调用中将作为起始位置。</li>
+<li><code>strtok_r</code>功能同<code>strtok</code>，不过其将<code>strtok</code>函数内部保存的指针显示化，通过<code>saveptr</code>输入，以<code>saveptr</code>作为分割的起始位置。</li>
+</ul>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li><code>str</code>: 待分割的源字符串</li>
+<li><code>delim</code>: 分割符字符集合</li>
+<li><code>saveptr</code>: 一个指向<code>char *</code>的指针变量，保存分割时的上下文</li>
+</ul>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><ul>
+<li>若未提取到子串，返回值为指向源字符串首地址的指针，可以完整打印源字符串</li>
+<li>若提取到子串，返回值为提取出的子串的指针，这个指针指向的是子串在源字符串中的起始位置，因为子串末尾的下一个字符在提取前为分割符，提取后被修改成了<code>&#39;/0’</code>，所以可以成功打印子串的内容</li>
+<li>若在成功提取到子串后，没有可以被分割的子串，返回NULL</li>
+</ul>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">int main(void) &#123;</span><br><span class="line">  char str[12] = &quot;hello,world\0&quot;;</span><br><span class="line">  char *token = strtok(str, &quot;,&quot;);</span><br><span class="line"></span><br><span class="line">  while (token != NULL) &#123;</span><br><span class="line">    printf(&quot;%s\n&quot;, token);</span><br><span class="line">    token = strtok(NULL, &quot;,&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">   </span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用注意事项"><a href="#使用注意事项" class="headerlink" title="使用注意事项"></a>使用注意事项</h2><h3 id="不会生成新的字符串，只是在源字符串上做了修改，源字符串会发生变化"><a href="#不会生成新的字符串，只是在源字符串上做了修改，源字符串会发生变化" class="headerlink" title="不会生成新的字符串，只是在源字符串上做了修改，源字符串会发生变化"></a>不会生成新的字符串，只是在源字符串上做了修改，源字符串会发生变化</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">char str[12] = &quot;hello,world\0&quot;;</span><br><span class="line">printf(&quot;str before strtok: %s\n&quot;, str);</span><br><span class="line">char *token = strtok(str, &quot;,&quot;);</span><br><span class="line">printf(&quot;str after strtok: %s\n&quot;, str);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ str before strtok: hello,world</span><br><span class="line">$ str after strtok: hello</span><br></pre></td></tr></table></figure>
+<p>如上实验，<code>str</code>的值，在对其做<code>strtok</code>操作之后，发生了变化，分割符之后的内容不见了。事实上，<code>strtok</code>函数是根据输入的分割符（即<code>,</code>），找到其首次出现的位置（即<code>world</code>之前的<code>,</code>），将其修改为<code>&#39;/0’</code>。</p>
+<h3 id="第一个参数不可为字符串常量"><a href="#第一个参数不可为字符串常量" class="headerlink" title="第一个参数不可为字符串常量"></a>第一个参数不可为字符串常量</h3><p>因为<code>strtok</code>函数会修改源字符串，所以第一个参数不可为字符串常量，不然程序会抛出异常。</p>
+<h3 id="若在第一次提取子串后，继续对源字符串进行提取，应在其后的调用中将第一个参数置为空值NULL"><a href="#若在第一次提取子串后，继续对源字符串进行提取，应在其后的调用中将第一个参数置为空值NULL" class="headerlink" title="若在第一次提取子串后，继续对源字符串进行提取，应在其后的调用中将第一个参数置为空值NULL"></a>若在第一次提取子串后，继续对源字符串进行提取，应在其后的调用中将第一个参数置为空值<code>NULL</code></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">char str[12] = &quot;hello,world\0&quot;;</span><br><span class="line">char *token = strtok(str, &quot;,&quot;);   </span><br><span class="line">while (token != NULL) &#123;</span><br><span class="line">    printf(&quot;%s\n&quot;, token);</span><br><span class="line">    token = strtok(NULL, &quot;,&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hello</span><br><span class="line">$ world</span><br></pre></td></tr></table></figure>
+<p>在第一次提取子串时，<code>strtok</code>用一个指针指向了分割符的下一位，即’w’所在的位置，后续的提取给<code>strtok</code>的第一个参数传递了空值<code>NULL</code>，<code>strtok</code>会从上一次调用隐式保存的位置，继续分割字符串。</p>
+<h3 id="第二个参数是分割符的集合，支持多个分割符"><a href="#第二个参数是分割符的集合，支持多个分割符" class="headerlink" title="第二个参数是分割符的集合，支持多个分割符"></a>第二个参数是分割符的集合，支持多个分割符</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char str[12] = &quot;hello,world\0&quot;;</span><br><span class="line">char *token = strtok(str, &quot;,l&quot;);</span><br><span class="line">printf(&quot;%s\n&quot;, token);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ he</span><br></pre></td></tr></table></figure>
+<p>由上可见，<code>strtok</code>函数在分割字符串时，不是完整匹配第二个参数传入的分割符，而是使用包含在分割符集合中的字符进行匹配。</p>
+<h3 id="若首字符为分割符，则会被忽略"><a href="#若首字符为分割符，则会被忽略" class="headerlink" title="若首字符为分割符，则会被忽略"></a>若首字符为分割符，则会被忽略</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char str[13] = &quot;,hello,world\0&quot;;</span><br><span class="line">char *token = strtok(str, &quot;,&quot;);</span><br><span class="line">printf(&quot;%s\n&quot;, token);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hello</span><br></pre></td></tr></table></figure>
+<p>如上所示，若首字符为分割符，<code>strtok</code>采用了比常规处理更快的方式，直接跳过了首字符。</p>
+<h3 id="strtok为不可重入函数，使用strtok-r更灵活和安全"><a href="#strtok为不可重入函数，使用strtok-r更灵活和安全" class="headerlink" title="strtok为不可重入函数，使用strtok_r更灵活和安全"></a><code>strtok</code>为不可重入函数，使用<code>strtok_r</code>更灵活和安全</h3><p><code>strtok</code>函数在内部使用了静态变量，即用静态指针保存了下一次调用的起始位置，对调用者不可见；<code>strtok_r</code>则将<code>strtok</code>内部隐式保存的指针，以参数的形式由调用者进行传递、保存甚至是修改，使函数更具灵活性和安全性；此外，在<code>windows</code>也有分割字符串安全函数<code>strtok_s</code>。</p>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p>strtok.c:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">/* Copyright (C) 1991-2018 Free Software Foundation, Inc.</span><br><span class="line">   This file is part of the GNU C Library.</span><br><span class="line"></span><br><span class="line">   The GNU C Library is free software; you can redistribute it and/or</span><br><span class="line">   modify it under the terms of the GNU Lesser General Public</span><br><span class="line">   License as published by the Free Software Foundation; either</span><br><span class="line">   version 2.1 of the License, or (at your option) any later version.</span><br><span class="line"></span><br><span class="line">   The GNU C Library is distributed in the hope that it will be useful,</span><br><span class="line">   but WITHOUT ANY WARRANTY; without even the implied warranty of</span><br><span class="line">   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span><br><span class="line">   Lesser General Public License for more details.</span><br><span class="line"></span><br><span class="line">   You should have received a copy of the GNU Lesser General Public</span><br><span class="line">   License along with the GNU C Library; if not, see</span><br><span class="line">   &lt;http://www.gnu.org/licenses/&gt;.  */</span><br><span class="line"></span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/* Parse S into tokens separated by characters in DELIM.</span><br><span class="line">   If S is NULL, the last string strtok() was called with is</span><br><span class="line">   used.  For example:</span><br><span class="line">	char s[] = &quot;-abc-=-def&quot;;</span><br><span class="line">	x = strtok(s, &quot;-&quot;);		// x = &quot;abc&quot;</span><br><span class="line">	x = strtok(NULL, &quot;-=&quot;);		// x = &quot;def&quot;</span><br><span class="line">	x = strtok(NULL, &quot;=&quot;);		// x = NULL</span><br><span class="line">		// s = &quot;abc\0=-def\0&quot;</span><br><span class="line">*/</span><br><span class="line">char *</span><br><span class="line">strtok (char *s, const char *delim)</span><br><span class="line">&#123;</span><br><span class="line">  static char *olds;</span><br><span class="line">  return __strtok_r (s, delim, &amp;olds);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>strtok_r.c:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">/* Reentrant string tokenizer.  Generic version.</span><br><span class="line">   Copyright (C) 1991-2018 Free Software Foundation, Inc.</span><br><span class="line">   This file is part of the GNU C Library.</span><br><span class="line"></span><br><span class="line">   The GNU C Library is free software; you can redistribute it and/or</span><br><span class="line">   modify it under the terms of the GNU Lesser General Public</span><br><span class="line">   License as published by the Free Software Foundation; either</span><br><span class="line">   version 2.1 of the License, or (at your option) any later version.</span><br><span class="line"></span><br><span class="line">   The GNU C Library is distributed in the hope that it will be useful,</span><br><span class="line">   but WITHOUT ANY WARRANTY; without even the implied warranty of</span><br><span class="line">   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span><br><span class="line">   Lesser General Public License for more details.</span><br><span class="line"></span><br><span class="line">   You should have received a copy of the GNU Lesser General Public</span><br><span class="line">   License along with the GNU C Library; if not, see</span><br><span class="line">   &lt;http://www.gnu.org/licenses/&gt;.  */</span><br><span class="line"></span><br><span class="line">#ifdef HAVE_CONFIG_H</span><br><span class="line"># include &lt;config.h&gt;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">#ifndef _LIBC</span><br><span class="line">/* Get specification.  */</span><br><span class="line"># include &quot;strtok_r.h&quot;</span><br><span class="line"># define __strtok_r strtok_r</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">/* Parse S into tokens separated by characters in DELIM.</span><br><span class="line">   If S is NULL, the saved pointer in SAVE_PTR is used as</span><br><span class="line">   the next starting point.  For example:</span><br><span class="line">	char s[] = &quot;-abc-=-def&quot;;</span><br><span class="line">	char *sp;</span><br><span class="line">	x = strtok_r(s, &quot;-&quot;, &amp;sp);	// x = &quot;abc&quot;, sp = &quot;=-def&quot;</span><br><span class="line">	x = strtok_r(NULL, &quot;-=&quot;, &amp;sp);	// x = &quot;def&quot;, sp = NULL</span><br><span class="line">	x = strtok_r(NULL, &quot;=&quot;, &amp;sp);	// x = NULL</span><br><span class="line">		// s = &quot;abc\0-def\0&quot;</span><br><span class="line">*/</span><br><span class="line">char *</span><br><span class="line">__strtok_r (char *s, const char *delim, char **save_ptr)</span><br><span class="line">&#123;</span><br><span class="line">  char *end;</span><br><span class="line"></span><br><span class="line">  if (s == NULL)</span><br><span class="line">    s = *save_ptr;</span><br><span class="line"></span><br><span class="line">  if (*s == &#x27;\0&#x27;)</span><br><span class="line">    &#123;</span><br><span class="line">      *save_ptr = s;</span><br><span class="line">      return NULL;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  /* Scan leading delimiters.  */</span><br><span class="line">  s += strspn (s, delim);</span><br><span class="line">  if (*s == &#x27;\0&#x27;)</span><br><span class="line">    &#123;</span><br><span class="line">      *save_ptr = s;</span><br><span class="line">      return NULL;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  /* Find the end of the token.  */</span><br><span class="line">  end = s + strcspn (s, delim);</span><br><span class="line">  if (*end == &#x27;\0&#x27;)</span><br><span class="line">    &#123;</span><br><span class="line">      *save_ptr = end;</span><br><span class="line">      return s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  /* Terminate the token and make *SAVE_PTR point past it.  */</span><br><span class="line">  *end = &#x27;\0&#x27;;</span><br><span class="line">  *save_ptr = end + 1;</span><br><span class="line">  return s;</span><br><span class="line">&#125;</span><br><span class="line">#ifdef weak_alias</span><br><span class="line">libc_hidden_def (__strtok_r)</span><br><span class="line">weak_alias (__strtok_r, strtok_r)</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://vimsky.com/article/3185.html">C语言线程安全:不可重入函数汇总</a></li>
+</ul>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="/about/">AnSwErYWJ</a>
+            <p>原文链接：<a href="https://answerywj.com/2019/05/21/man-strtok/">https://answerywj.com/2019/05/21/man-strtok/</a>
+            <p>发表日期：2019/05/21 15:05</p>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>进行许可.</br><a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a></p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/07/24/binary-to-object-file/" title="将二进制文件作为目标文件中的一个段">
+                    <div class="nextTitle">将二进制文件作为目标文件中的一个段</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/04/26/what-is-sysroot/" title="sysroot为何物?">
+                    <div class="prevTitle">sysroot为何物?</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:yuanweijie1993@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/AnSwErYWJ" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/img/social/wechat_public_qcode.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <div>
+            <span>Copyright </span><i class="fas fa-copyright"></i><span> 2016 -</span><span id="years">载入年份...</span><span>, AnSwErYWJ. All Rights Reserved.</span>
+        </div>
+        <div>
+            <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+        </div>
+        <script>
+            (function () {
+                const now = new Date();
+                const years = now.getFullYear();
+                document.getElementById("years").innerHTML = years;
+            })();
+        </script>
+    </div>
+
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:40vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">函数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-number">1.3.</span> <span class="toc-text">返回值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">3.</span> <span class="toc-text">使用注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E4%BC%9A%E7%94%9F%E6%88%90%E6%96%B0%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E5%8F%AA%E6%98%AF%E5%9C%A8%E6%BA%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8A%E5%81%9A%E4%BA%86%E4%BF%AE%E6%94%B9%EF%BC%8C%E6%BA%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BC%9A%E5%8F%91%E7%94%9F%E5%8F%98%E5%8C%96"><span class="toc-number">3.1.</span> <span class="toc-text">不会生成新的字符串，只是在源字符串上做了修改，源字符串会发生变化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0%E4%B8%8D%E5%8F%AF%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E9%87%8F"><span class="toc-number">3.2.</span> <span class="toc-text">第一个参数不可为字符串常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8B%A5%E5%9C%A8%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8F%90%E5%8F%96%E5%AD%90%E4%B8%B2%E5%90%8E%EF%BC%8C%E7%BB%A7%E7%BB%AD%E5%AF%B9%E6%BA%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9B%E8%A1%8C%E6%8F%90%E5%8F%96%EF%BC%8C%E5%BA%94%E5%9C%A8%E5%85%B6%E5%90%8E%E7%9A%84%E8%B0%83%E7%94%A8%E4%B8%AD%E5%B0%86%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0%E7%BD%AE%E4%B8%BA%E7%A9%BA%E5%80%BCNULL"><span class="toc-number">3.3.</span> <span class="toc-text">若在第一次提取子串后，继续对源字符串进行提取，应在其后的调用中将第一个参数置为空值NULL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%8F%82%E6%95%B0%E6%98%AF%E5%88%86%E5%89%B2%E7%AC%A6%E7%9A%84%E9%9B%86%E5%90%88%EF%BC%8C%E6%94%AF%E6%8C%81%E5%A4%9A%E4%B8%AA%E5%88%86%E5%89%B2%E7%AC%A6"><span class="toc-number">3.4.</span> <span class="toc-text">第二个参数是分割符的集合，支持多个分割符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8B%A5%E9%A6%96%E5%AD%97%E7%AC%A6%E4%B8%BA%E5%88%86%E5%89%B2%E7%AC%A6%EF%BC%8C%E5%88%99%E4%BC%9A%E8%A2%AB%E5%BF%BD%E7%95%A5"><span class="toc-number">3.5.</span> <span class="toc-text">若首字符为分割符，则会被忽略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strtok%E4%B8%BA%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%85%A5%E5%87%BD%E6%95%B0%EF%BC%8C%E4%BD%BF%E7%94%A8strtok-r%E6%9B%B4%E7%81%B5%E6%B4%BB%E5%92%8C%E5%AE%89%E5%85%A8"><span class="toc-number">3.6.</span> <span class="toc-text">strtok为不可重入函数，使用strtok_r更灵活和安全</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 44
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/20</span>
+            <a class="archive-post-title" href="/2022/12/20/generate-and-usage-of-core-in-linux/">Linux下core文件的生成和使用</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/06</span>
+            <a class="archive-post-title" href="/2022/01/06/wav/">wav文件格式解析</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/28</span>
+            <a class="archive-post-title" href="/2021/07/28/tips-of-inline/">inline使用注意事项</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/23</span>
+            <a class="archive-post-title" href="/2021/06/23/getrusage/">getrusage-进程资源统计函数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/22</span>
+            <a class="archive-post-title" href="/2021/02/22/difference-between-RPATH-and-RUNPATH/">RPATH与RUNPATH的区别</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2020 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span>
+            <a class="archive-post-title" href="/2020/09/29/git-help-v3/">Git速查手册（第三版）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span>
+            <a class="archive-post-title" href="/2020/07/03/gudie-of-technical-resume/">写好技术简历的一些建议</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span>
+            <a class="archive-post-title" href="/2020/05/14/ld-hash-style/">--hash-style兼容性问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2020/02/17/homebrew-in-mac/">Homebrew</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2019 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/09</span>
+            <a class="archive-post-title" href="/2019/09/09/git-clone-extra-large-project/">Git仓库过大导致clone失败的解决方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span>
+            <a class="archive-post-title" href="/2019/07/24/binary-to-object-file/">将二进制文件作为目标文件中的一个段</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/21</span>
+            <a class="archive-post-title" href="/2019/05/21/man-strtok/">深究strtok系列函数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/26</span>
+            <a class="archive-post-title" href="/2019/04/26/what-is-sysroot/">sysroot为何物?</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span>
+            <a class="archive-post-title" href="/2019/04/13/hide-symbol-of-static-library/">屏蔽静态库接口</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/12</span>
+            <a class="archive-post-title" href="/2019/02/12/git-help-v2/">Git速查手册（第二版）</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/25</span>
+            <a class="archive-post-title" href="/2018/09/25/coverage-of-code/">C代码覆盖率测试工具Gcov</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span>
+            <a class="archive-post-title" href="/2018/05/03/cjson/">cJSON的秘密</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span>
+            <a class="archive-post-title" href="/2018/03/07/usage-of-core-in-linux/">Linux下core文件使用</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2017 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/29</span>
+            <a class="archive-post-title" href="/2017/12/29/speex/">Speex介绍</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span>
+            <a class="archive-post-title" href="/2017/12/15/condition-variables-of-thread-synchronization/">线程同步机制条件变量的使用与思考</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/04</span>
+            <a class="archive-post-title" href="/2017/08/04/gcc-compilation-of-arm-articles/">GCC编译ARM篇</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/27</span>
+            <a class="archive-post-title" href="/2017/06/27/io-model/">UNIX下IO模型分析</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span>
+            <a class="archive-post-title" href="/2017/06/20/note-of-openresty-study/">笔记 | OpenResty系列课程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span>
+            <a class="archive-post-title" href="/2017/06/16/table-encode-as-array-or-object/">记一次踩坑|空table应该编码为数组还是对象</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/23</span>
+            <a class="archive-post-title" href="/2017/03/23/introduction-to-four-service-of-cloud-computing/">科普|云计算的四种服务模式介绍</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/2017/02/23/listen-in-unix/">UNIX网络编程-listen函数及其包裹函数介绍</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2016 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/07</span>
+            <a class="archive-post-title" href="/2016/12/07/big-little-endian/">C程序判断你主机的数据存储方式(大端和小端)</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span>
+            <a class="archive-post-title" href="/2016/12/06/getw-and-putw/">从文件流中读写整数--C语言</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span>
+            <a class="archive-post-title" href="/2016/10/10/jq/">Linux下处理json数据</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span>
+            <a class="archive-post-title" href="/2016/10/10/use-dynamic-and-static-library/">Linux下C调用静态库和动态库</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/20</span>
+            <a class="archive-post-title" href="/2016/09/20/standard-of-headphone/">科普|3.5mm耳机国标和美标</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/05</span>
+            <a class="archive-post-title" href="/2016/09/05/floating-point-operation-in-script/">Shell脚本浮点运算</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/05</span>
+            <a class="archive-post-title" href="/2016/09/05/empty-file-in-shell/">Shell脚本清空文件的几种方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/10</span>
+            <a class="archive-post-title" href="/2016/08/10/backup-of-blog-with-hexo-and-github/">Hexo+Github博客备份方法</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/02</span>
+            <a class="archive-post-title" href="/2016/08/02/link-in-linux/">Linux的硬链接和软链接</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/connect-in-unix/">UNIX网络编程-connect函数及其包裹函数介绍</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/debug-for-shell-script/">Linux Shell 脚本调试总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/debug-macro/">Linux C编程的DEBUG宏</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/generate-random-numbers/">C语言生成随机数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/keepalive-of-socket/">Linux socket编程的心跳机制总结</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/safe-read-and-write/">UNIX编程安全读写函数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/script-and-scriptreplay/">Linux下脚本录制工具——script和scriptreplay</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/solution-of-adb-devices-no-permissions/">Linux下adb devices no permissions解决方案</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/14</span>
+            <a class="archive-post-title" href="/2016/07/14/fork-bomb/">Linux fork炸弹解析</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="git">
+                <span class="iconfont-archer">&#xe606;</span>
+                git
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hexo">
+                <span class="iconfont-archer">&#xe606;</span>
+                hexo
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="blog">
+                <span class="iconfont-archer">&#xe606;</span>
+                blog
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="大小端字节序">
+                <span class="iconfont-archer">&#xe606;</span>
+                大小端字节序
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="cJSON">
+                <span class="iconfont-archer">&#xe606;</span>
+                cJSON
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="objdump">
+                <span class="iconfont-archer">&#xe606;</span>
+                objdump
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="elf">
+                <span class="iconfont-archer">&#xe606;</span>
+                elf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="pthread">
+                <span class="iconfont-archer">&#xe606;</span>
+                pthread
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="tcp">
+                <span class="iconfont-archer">&#xe606;</span>
+                tcp
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="connect">
+                <span class="iconfont-archer">&#xe606;</span>
+                connect
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="代码覆盖率">
+                <span class="iconfont-archer">&#xe606;</span>
+                代码覆盖率
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="debug">
+                <span class="iconfont-archer">&#xe606;</span>
+                debug
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="RPATH">
+                <span class="iconfont-archer">&#xe606;</span>
+                RPATH
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="RUNPATH">
+                <span class="iconfont-archer">&#xe606;</span>
+                RUNPATH
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="LD_DEBUG">
+                <span class="iconfont-archer">&#xe606;</span>
+                LD_DEBUG
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="script">
+                <span class="iconfont-archer">&#xe606;</span>
+                script
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="fork bomb">
+                <span class="iconfont-archer">&#xe606;</span>
+                fork bomb
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="gcc">
+                <span class="iconfont-archer">&#xe606;</span>
+                gcc
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="core">
+                <span class="iconfont-archer">&#xe606;</span>
+                core
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="core dumped">
+                <span class="iconfont-archer">&#xe606;</span>
+                core dumped
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="gdb">
+                <span class="iconfont-archer">&#xe606;</span>
+                gdb
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="随机数">
+                <span class="iconfont-archer">&#xe606;</span>
+                随机数
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="getrusage">
+                <span class="iconfont-archer">&#xe606;</span>
+                getrusage
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="getw">
+                <span class="iconfont-archer">&#xe606;</span>
+                getw
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="git仓库过大">
+                <span class="iconfont-archer">&#xe606;</span>
+                git仓库过大
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="resume">
+                <span class="iconfont-archer">&#xe606;</span>
+                resume
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="技术简历">
+                <span class="iconfont-archer">&#xe606;</span>
+                技术简历
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="求职招聘">
+                <span class="iconfont-archer">&#xe606;</span>
+                求职招聘
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hidden">
+                <span class="iconfont-archer">&#xe606;</span>
+                hidden
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="objcopy">
+                <span class="iconfont-archer">&#xe606;</span>
+                objcopy
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="mac">
+                <span class="iconfont-archer">&#xe606;</span>
+                mac
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Homebrew">
+                <span class="iconfont-archer">&#xe606;</span>
+                Homebrew
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Cloud Computing">
+                <span class="iconfont-archer">&#xe606;</span>
+                Cloud Computing
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="IO">
+                <span class="iconfont-archer">&#xe606;</span>
+                IO
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="json">
+                <span class="iconfont-archer">&#xe606;</span>
+                json
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="keepalive">
+                <span class="iconfont-archer">&#xe606;</span>
+                keepalive
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="ld">
+                <span class="iconfont-archer">&#xe606;</span>
+                ld
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="hash-style">
+                <span class="iconfont-archer">&#xe606;</span>
+                hash-style
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="link">
+                <span class="iconfont-archer">&#xe606;</span>
+                link
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="listen">
+                <span class="iconfont-archer">&#xe606;</span>
+                listen
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="strtok">
+                <span class="iconfont-archer">&#xe606;</span>
+                strtok
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="strtok_r">
+                <span class="iconfont-archer">&#xe606;</span>
+                strtok_r
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="OpenResty">
+                <span class="iconfont-archer">&#xe606;</span>
+                OpenResty
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="read">
+                <span class="iconfont-archer">&#xe606;</span>
+                read
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="write">
+                <span class="iconfont-archer">&#xe606;</span>
+                write
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="scriptreplay">
+                <span class="iconfont-archer">&#xe606;</span>
+                scriptreplay
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="adb">
+                <span class="iconfont-archer">&#xe606;</span>
+                adb
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Speex">
+                <span class="iconfont-archer">&#xe606;</span>
+                Speex
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="headset">
+                <span class="iconfont-archer">&#xe606;</span>
+                headset
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="lua-cjson">
+                <span class="iconfont-archer">&#xe606;</span>
+                lua-cjson
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="inline">
+                <span class="iconfont-archer">&#xe606;</span>
+                inline
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="O0">
+                <span class="iconfont-archer">&#xe606;</span>
+                O0
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="core dump">
+                <span class="iconfont-archer">&#xe606;</span>
+                core dump
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="lib">
+                <span class="iconfont-archer">&#xe606;</span>
+                lib
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="wav">
+                <span class="iconfont-archer">&#xe606;</span>
+                wav
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="header">
+                <span class="iconfont-archer">&#xe606;</span>
+                header
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="sysroot">
+                <span class="iconfont-archer">&#xe606;</span>
+                sysroot
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="博客建站">
+            <span class="iconfont-archer">&#xe60a;</span>
+            博客建站
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="C/C++">
+            <span class="iconfont-archer">&#xe60a;</span>
+            C/C++
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="编译链接">
+            <span class="iconfont-archer">&#xe60a;</span>
+            编译链接
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Shell脚本">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Shell脚本
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Git">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Git
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="科普">
+            <span class="iconfont-archer">&#xe60a;</span>
+            科普
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="系统配置">
+            <span class="iconfont-archer">&#xe60a;</span>
+            系统配置
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Lua">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Lua
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="语音">
+            <span class="iconfont-archer">&#xe60a;</span>
+            语音
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "https://answerywj.com",
+        root: siteMetaRoot,
+        author: "AnSwErYWJ"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
