@@ -405,7 +405,7 @@ $ git merge upstream/master
 $ git mergetool
 ```
 
-### 仓库引用（自仓库）
+### 仓库引用（子仓库）
 `Git`包含``submodule``和``subtree``两种引用方式，官方推荐使用[subtree](http://aoxuis.me/post/2013-08-06-git-subtree)替代`submodule`：
 
 #### submodule
